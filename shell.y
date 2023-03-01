@@ -28,75 +28,64 @@
 }
 
 %token <cpp_string> WORD
-%token NOTOKEN GREAT NEWLINE
-
-%{
-//#define yylex yylex
-#include <cstdio>
-#include "shell.hh"
-
-void yyerror(const char * s);
-int yylex();
-
-%}
+%token NOTOKEN GREAT NEWLINE LESS GREATGREAT AMPERSAND GREATGREATAMPERSAND
 
 %%
 
-goal:
-  commands
-  ;
+goal: command_list;
+arg_list:
 
-commands:
-  command
-  | commands command
-  ;
+arg_list WORD
+| /*empty string*/
+;
 
-command: simple_command
-       ;
+cmd_and_args:
+WORD arg_list
+;
 
-simple_command:	
-  command_and_args iomodifier_opt NEWLINE {
-    printf("   Yacc: Execute command\n");
-    Shell::_currentCommand.execute();
-  }
-  | NEWLINE 
-  | error NEWLINE { yyerrok; }
-  ;
+pipe_list:
 
-command_and_args:
-  command_word argument_list {
-    Shell::_currentCommand.
-    insertSimpleCommand( Command::_currentSimpleCommand );
-  }
-  ;
+cmd_and_args
+| pipe_list PIPE cmd_and_args
+;
 
-argument_list:
-  argument_list argument
-  | /* can be empty */
-  ;
+io_modifier:
 
-argument:
-  WORD {
-    printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
-    Command::_currentSimpleCommand->insertArgument( $1 );\
-  }
-  ;
+GREATGREAT WORD
+| GREAT WORD
+| GREATGREATAMPERSAND WORD
+| GREATAMPERSAND WORD
+| LESS WORD
 
-command_word:
-  WORD {
-    printf("   Yacc: insert command \"%s\"\n", $1->c_str());
-    Command::_currentSimpleCommand = new SimpleCommand();
-    Command::_currentSimpleCommand->insertArgument( $1 );
-  }
-  ;
+;
 
-iomodifier_opt:
-  GREAT WORD {
-    printf("   Yacc: insert output \"%s\"\n", $2->c_str());
-    Shell::_currentCommand._outFile = $2;
-  }
-  | /* can be empty */ 
-  ;
+io_modifier_list:
+
+io_modifier_list io_modifier
+| /*empty*/
+;
+
+background_optional:
+
+AMPERSAND
+| /*empty*/
+;
+
+command_line:
+
+pipe_list io_modifier_list
+
+background_opt NEWLINE
+| NEWLINE /*accept empty cmd line*/
+| error NEWLINE{yyerrok;}
+; /*error recovery*/
+
+command_list :
+
+command_line |
+command_list command_line
+;/* command loop*/
+
 
 %%
 
