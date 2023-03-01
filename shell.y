@@ -30,6 +30,16 @@
 %token <cpp_string> WORD
 %token NOTOKEN GREAT NEWLINE LESS GREATGREAT AMPERSAND GREATGREATAMPERSAND PIPE
 
+%{
+//#define yylex yylex
+#include <cstdio>
+#include "shell.hh"
+
+void yyerror(const char * s);
+int yylex();
+
+%}
+
 %%
 
 goal: command_list;
