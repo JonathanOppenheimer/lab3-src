@@ -28,35 +28,39 @@
 }
 
 %token <cpp_string> WORD
-%token NOTOKEN GREAT NEWLINE LESS GREATGREAT AMPERSAND GREATGREATAMPERSAND
+%token NOTOKEN GREAT NEWLINE LESS GREATGREAT AMPERSAND GREATGREATAMPERSAND PIPE
 
 %%
 
 goal: command_list;
 arg_list:
-
-arg_list WORD
-| /*empty string*/
+  arg_list WORD {
+    printf("   Yacc: insert command \"%s\"\n", $2->c_str());
+    Command::_currentSimpleCommand->insertArgument( $2 );
+  }
+  | /*empty string*/
 ;
 
 cmd_and_args:
-WORD arg_list
+  WORD {
+    printf("   Yacc: insert command \"%s\"\n", $1->c_str());
+    Command::_currentSimpleCommand = new SimpleCommand();
+    Command::_currentSimpleCommand->insertArgument( $1 );
+  } 
+  arg_list
 ;
 
 pipe_list:
-
 cmd_and_args
-| pipe_list PIPE cmd_and_args
+  | pipe_list PIPE cmd_and_args
 ;
 
 io_modifier:
-
-GREATGREAT WORD
-| GREAT WORD
-| GREATGREATAMPERSAND WORD
-| GREATAMPERSAND WORD
-| LESS WORD
-
+  GREATGREAT WORD
+  | GREAT WORD
+  | GREATGREATAMPERSAND WORD
+  | GREATAMPERSAND WORD
+  | LESS WORD
 ;
 
 io_modifier_list:
