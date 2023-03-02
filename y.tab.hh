@@ -61,23 +61,29 @@ extern int yydebug;
   {
     WORD = 258,
     NOTOKEN = 259,
-    GREAT = 260,
-    NEWLINE = 261,
-    LESS = 262,
-    GREATGREAT = 263,
-    AMPERSAND = 264,
-    GREATGREATAMPERSAND = 265
+    NEWLINE = 260,
+    PIPE = 261,
+    GREAT = 262,
+    LESS = 263,
+    TWOGREAT = 264,
+    GREATAMPERSAND = 265,
+    GREATGREAT = 266,
+    GREATGREATAMPERSAND = 267,
+    AMPERSAND = 268
   };
 #endif
 /* Tokens.  */
 #define WORD 258
 #define NOTOKEN 259
-#define GREAT 260
-#define NEWLINE 261
-#define LESS 262
-#define GREATGREAT 263
-#define AMPERSAND 264
-#define GREATGREATAMPERSAND 265
+#define NEWLINE 260
+#define PIPE 261
+#define GREAT 262
+#define LESS 263
+#define TWOGREAT 264
+#define GREATAMPERSAND 265
+#define GREATGREAT 266
+#define GREATGREATAMPERSAND 267
+#define AMPERSAND 268
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -89,7 +95,7 @@ union YYSTYPE
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 
-#line 93 "y.tab.hh"
+#line 99 "y.tab.hh"
 
 };
 typedef union YYSTYPE YYSTYPE;

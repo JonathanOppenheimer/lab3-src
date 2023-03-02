@@ -85,7 +85,6 @@ background_optional:
 
 command_line:
   pipe_list io_modifier_list background_optional NEWLINE
-  | pipe_list io_modifier_list NEWLINE
   | NEWLINE /*accept empty cmd line*/
   | error NEWLINE{yyerrok;}
 ; /*error recovery*/
