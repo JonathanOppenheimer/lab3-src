@@ -796,73 +796,65 @@ YY_RULE_SETUP
   /* Discard spaces and tabs */
 }
 	YY_BREAK
-/* Pipe */
 case 3:
 YY_RULE_SETUP
-#line 36 "shell.l"
+#line 35 "shell.l"
 {
   return PIPE;
 }
 	YY_BREAK
-/* Output redirection (stdout: 1 ) */
 case 4:
 YY_RULE_SETUP
-#line 41 "shell.l"
+#line 39 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
-/* Input redirection */
 case 5:
 YY_RULE_SETUP
-#line 46 "shell.l"
+#line 43 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
-/* Output redirection (stderr : 2) */
 case 6:
 YY_RULE_SETUP
-#line 51 "shell.l"
+#line 47 "shell.l"
 {
   return TWOGREAT;
 }
 	YY_BREAK
-/* Output redirection (stdout and stderr : 1 and 2) */
 case 7:
 YY_RULE_SETUP
-#line 56 "shell.l"
+#line 51 "shell.l"
 {
   return GREATAMPERSAND;
 }
 	YY_BREAK
-/* Append output (stdout : 1) */
 case 8:
 YY_RULE_SETUP
-#line 61 "shell.l"
+#line 55 "shell.l"
 {
   return GREATGREAT;
 }
 	YY_BREAK
-/* Append output (stdout and stderr : 1 and 2) */
 case 9:
 YY_RULE_SETUP
-#line 66 "shell.l"
+#line 59 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
 	YY_BREAK
-/* Run process in background */
 case 10:
 YY_RULE_SETUP
-#line 71 "shell.l"
+#line 63 "shell.l"
 {
   return AMPERSAND; 
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 75 "shell.l"
+#line 67 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -871,10 +863,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 81 "shell.l"
+#line 73 "shell.l"
 ECHO;
 	YY_BREAK
-#line 878 "lex.yy.cc"
+#line 870 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1891,4 +1883,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 81 "shell.l"
+#line 73 "shell.l"
