@@ -49,7 +49,7 @@ void myunputc(int c) {
 
   /* Output redirection (stderr : 2) */
 "2>" {
-  return TWOGREAT
+  return TWOGREAT;
 }
 
   /* Output redirection (stdout and stderr : 1 and 2) */
