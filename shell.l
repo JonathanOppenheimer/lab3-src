@@ -61,7 +61,7 @@ void myunputc(int c) {
 }
 
 "&" {
-  return AMPERSAND; 
+  return AMPERSAND;
 }
 
 [^ \t\n][^ \t\n]*  {
