@@ -45,7 +45,7 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    printf("   Yacc: insert arguement \"%s\"\n", $2->c_str());
+    printf("Yacc: insert arguement \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );
   }
   | /* can be empty */
@@ -53,11 +53,11 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    printf("   Yacc: insert command \"%s\"\n", $1->c_str());
+    printf("Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
-  arg_list
+  arg_list 
 ;
 
 pipe_list:
@@ -67,45 +67,45 @@ pipe_list:
 
 io_modifier:
     GREAT WORD {
-      if(_currentCommand._outFile == NULL) {
+      if(Shell::_currentSimpleCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.")
+        printf("ERROR: output is already redirected.");
       }
     }
   | LESS WORD {
-      if(_currentCommand._inFile == NULL) {
+      if(Shell::_currentSimpleCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = $2;
       } else {
-        printf("ERROR: input is already redirected.")
+        printf("ERROR: input is already redirected.");
       }
     }
   | TWOGREAT WORD {
-      if(_currentCommand._errFile == NULL) {
+      if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: error is already redirected.")
+        printf("ERROR: error is already redirected.");
       }
     }
   | GREATGREAT WORD {
-      if(_currentCommand._outFile == NULL) {
+      if(Shell::_currentSimpleCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.")
+        printf("ERROR: output is already redirected.");
       }
     }
   | GREATGREATAMPERSAND WORD {
-      if(_currentCommand._outFile == NULL) {
+      if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.")
+        printf("ERROR: output is already redirected.");
       }
     }
   | GREATAMPERSAND WORD {
-      if(_currentCommand._outFile == NULL) {
+      if(Shell:_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.")
+        printf("ERROR: output is already redirected.");
       }
     }
 ;
@@ -117,7 +117,7 @@ io_modifier_list:
 
 background_optional:
     AMPERSAND {
-     Shell::_currentCommand._background  
+     Shell::_currentCommand._background = true;
     }
   | /*empty*/
 ;
