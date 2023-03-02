@@ -32,42 +32,34 @@ void myunputc(int c) {
   /* Discard spaces and tabs */
 }
 
-  /* Pipe */
 "|" {
   return PIPE;
 }
 
-  /* Output redirection (stdout: 1 ) */
 ">" {
   return GREAT;
 }
 
-  /* Input redirection */
 "<" {
   return LESS;
 }
 
-  /* Output redirection (stderr : 2) */
 "2>" {
   return TWOGREAT;
 }
 
-  /* Output redirection (stdout and stderr : 1 and 2) */
 ">&" {
   return GREATAMPERSAND;
 }
 
-  /* Append output (stdout : 1) */
 ">>" {
   return GREATGREAT;
 }
 
-  /* Append output (stdout and stderr : 1 and 2) */
 ">>&" {
   return GREATGREATAMPERSAND;
 }
 
-  /* Run process in background */
 "&" {
   return AMPERSAND; 
 }
