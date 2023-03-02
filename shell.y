@@ -28,7 +28,7 @@
 }
 
 %token <cpp_string> WORD
-%token NOTOKEN GREAT NEWLINE LESS GREATGREAT AMPERSAND GREATGREATAMPERSAND GREATAMPERSAND PIPE
+%token NOTOKEN NEWLINE PIPE GREAT LESS TWOGREAT GREATAMPERSAND GREATGREAT GREATGREATAMPERSAND AMPERSAND
 
 %{
 //#define yylex yylex
@@ -56,12 +56,12 @@ cmd_and_args:
     printf("   Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
-  } 
+  }
   arg_list
 ;
 
 pipe_list:
-cmd_and_args
+  cmd_and_args
   | pipe_list PIPE cmd_and_args
 ;
 
@@ -74,32 +74,26 @@ io_modifier:
 ;
 
 io_modifier_list:
-
-io_modifier_list io_modifier
-| /*empty*/
+  io_modifier_list io_modifier
+  | /*empty*/
 ;
 
 background_optional:
-
-AMPERSAND
-| /*empty*/
+  AMPERSAND
+  | /*empty*/
 ;
 
 command_line:
-
-pipe_list io_modifier_list
-
-background_opt NEWLINE
-| NEWLINE /*accept empty cmd line*/
-| error NEWLINE{yyerrok;}
+  pipe_list io_modifier_list
+  background_opt NEWLINE
+  | NEWLINE /*accept empty cmd line*/
+  | error NEWLINE{yyerrok;}
 ; /*error recovery*/
 
 command_list :
-
-command_line |
-command_list command_line
-;/* command loop*/
-
+  command_line |
+  command_list command_line
+; /* command loop*/
 
 %%
 
