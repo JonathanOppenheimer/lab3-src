@@ -32,7 +32,7 @@ void myunputc(int c) {
   /* Discard spaces and tabs */
 }
 
-  // Pipe 
+  /* Pipe */
 "|" {
   return PIPE;
 }
