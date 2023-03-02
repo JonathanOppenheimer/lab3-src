@@ -57,7 +57,9 @@ cmd_and_args:
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
-  arg_list 
+  arg_list {
+    Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
+  }
 ;
 
 pipe_list:
