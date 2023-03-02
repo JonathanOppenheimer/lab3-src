@@ -123,10 +123,14 @@ background_optional:
 ;
 
 command_line:
-  pipe_list io_modifier_list NEWLINE {
-    printf("   Yacc: Execute command\n");
-    Shell::_currentCommand.execute();
-  }
+    pipe_list io_modifier_list NEWLINE {
+      printf("Yacc: Execute command\n");
+      Shell::_currentCommand.execute();
+    }
+  | pipe_list io_modifier_list background_optional NEWLINE {
+      printf("Yacc: Execute command\n");
+      Shell::_currentCommand.execute();
+    }
   | NEWLINE /*accept empty cmd line*/
   | error NEWLINE{yyerrok;}
 ; /*error recovery*/
