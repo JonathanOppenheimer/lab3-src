@@ -825,7 +825,7 @@ case 6:
 YY_RULE_SETUP
 #line 51 "shell.l"
 {
-  return TWOGREAT
+  return TWOGREAT;
 }
 	YY_BREAK
 /* Output redirection (stdout and stderr : 1 and 2) */
