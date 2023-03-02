@@ -37,7 +37,7 @@ void myunputc(int c) {
   return PIPE;
 }
 
-  // Output redirection (stdout: 1 )
+  /* Output redirection (stdout: 1 ) */
 ">" {
   return GREAT;
 }
@@ -47,27 +47,27 @@ void myunputc(int c) {
   return LESS;
 }
 
-  // Output redirection (stderr : 2)
+  /* Output redirection (stderr : 2) */
 "2>" {
   return TWOGREAT
 }
 
-  // Output redirection (stdout and stderr : 1 and 2)
+  /* Output redirection (stdout and stderr : 1 and 2) */
 ">&" {
   return GREATAMPERSAND;
 }
 
-// Append output (stdout : 1)
+  /* Append output (stdout : 1) */
 ">>" {
   return GREATGREAT;
 }
 
-  // Append output (stdout and stderr : 1 and 2) 
+  /* Append output (stdout and stderr : 1 and 2) */
 ">>&" {
   return GREATGREATAMPERSAND;
 }
 
-  // Run process in background 
+  /* Run process in background */
 "&" {
   return AMPERSAND; 
 }
