@@ -42,7 +42,7 @@ void myunputc(int c) {
   return GREAT;
 }
 
-  // Input redirection
+  /* Input redirection */
 "<" {
   return LESS;
 }
