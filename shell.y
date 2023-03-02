@@ -45,10 +45,10 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    printf("   Yacc: insert command \"%s\"\n", $2->c_str());
+    printf("   Yacc: insert arguement \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );
   }
-  | /*empty string*/
+  | /* can be empty */
 ;
 
 cmd_and_args:
@@ -66,11 +66,48 @@ pipe_list:
 ;
 
 io_modifier:
-  GREATGREAT WORD
-  | GREAT WORD
-  | GREATGREATAMPERSAND WORD
-  | GREATAMPERSAND WORD
-  | LESS WORD
+    GREAT WORD {
+      if(_currentCommand._outFile == NULL) {
+        Shell::_currentCommand._outFile = $2;
+      } else {
+        printf("ERROR: output is already redirected.")
+      }
+    }
+  | LESS WORD {
+      if(_currentCommand._inFile == NULL) {
+        Shell::_currentCommand._inFile = $2;
+      } else {
+        printf("ERROR: input is already redirected.")
+      }
+    }
+  | TWOGREAT WORD {
+      if(_currentCommand._errFile == NULL) {
+        Shell::_currentCommand._errFile = $2;
+      } else {
+        printf("ERROR: error is already redirected.")
+      }
+    }
+  | GREATGREAT WORD {
+      if(_currentCommand._outFile == NULL) {
+        Shell::_currentCommand._outFile = $2;
+      } else {
+        printf("ERROR: output is already redirected.")
+      }
+    }
+  | GREATGREATAMPERSAND WORD {
+      if(_currentCommand._outFile == NULL) {
+        Shell::_currentCommand._outFile = $2;
+      } else {
+        printf("ERROR: output is already redirected.")
+      }
+    }
+  | GREATAMPERSAND WORD {
+      if(_currentCommand._outFile == NULL) {
+        Shell::_currentCommand._outFile = $2;
+      } else {
+        printf("ERROR: output is already redirected.")
+      }
+    }
 ;
 
 io_modifier_list:
@@ -79,12 +116,17 @@ io_modifier_list:
 ;
 
 background_optional:
-  AMPERSAND
+    AMPERSAND {
+     Shell::_currentCommand._background  
+    }
   | /*empty*/
 ;
 
 command_line:
-  pipe_list io_modifier_list background_optional NEWLINE
+  pipe_list io_modifier_list background_optional NEWLINE {
+    printf("   Yacc: Execute command\n");
+    Shell::_currentCommand.execute();
+  }
   | NEWLINE /*accept empty cmd line*/
   | error NEWLINE{yyerrok;}
 ; /*error recovery*/
