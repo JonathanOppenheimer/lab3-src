@@ -1379,7 +1379,7 @@ yyreduce:
   case 9:
 #line 69 "shell.y"
                {
-      if(Shell::_currentSimpleCommand._outFile == NULL) {
+      if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
         printf("ERROR: output is already redirected.");
@@ -1391,7 +1391,7 @@ yyreduce:
   case 10:
 #line 76 "shell.y"
               {
-      if(Shell::_currentSimpleCommand._inFile == NULL) {
+      if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
         printf("ERROR: input is already redirected.");
@@ -1415,7 +1415,7 @@ yyreduce:
   case 12:
 #line 90 "shell.y"
                     {
-      if(Shell::_currentSimpleCommand._outFile == NULL) {
+      if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
         printf("ERROR: output is already redirected.");

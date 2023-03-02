@@ -102,7 +102,7 @@ io_modifier:
       }
     }
   | GREATAMPERSAND WORD {
-      if(Shell:_currentCommand._outFile == NULL) {
+      if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
         printf("ERROR: output is already redirected.");
@@ -123,7 +123,7 @@ background_optional:
 ;
 
 command_line:
-  pipe_list io_modifier_list background_optional NEWLINE {
+  pipe_list io_modifier_list NEWLINE {
     printf("   Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
