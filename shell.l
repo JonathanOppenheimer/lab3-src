@@ -37,7 +37,7 @@ void myunputc(int c) {
   return PIPE;
 }
 
-  /* Output redirection (stdout: 1 ) */
+  // Output redirection (stdout: 1 )
 ">" {
   return GREAT;
 }
