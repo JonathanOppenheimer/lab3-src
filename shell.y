@@ -67,14 +67,14 @@ pipe_list:
 
 io_modifier:
     GREAT WORD {
-      if(Shell::_currentSimpleCommand._outFile == NULL) {
+      if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
         printf("ERROR: output is already redirected.");
       }
     }
   | LESS WORD {
-      if(Shell::_currentSimpleCommand._inFile == NULL) {
+      if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = $2;
       } else {
         printf("ERROR: input is already redirected.");
@@ -88,7 +88,7 @@ io_modifier:
       }
     }
   | GREATGREAT WORD {
-      if(Shell::_currentSimpleCommand._outFile == NULL) {
+      if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
         printf("ERROR: output is already redirected.");

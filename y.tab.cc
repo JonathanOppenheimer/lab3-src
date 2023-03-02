@@ -1360,7 +1360,7 @@ yyreduce:
   case 3:
 #line 47 "shell.y"
                 {
-    printf("   Yacc: insert arguement \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
+    printf("Yacc: insert arguement \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
 #line 1367 "y.tab.cc"
@@ -1369,7 +1369,7 @@ yyreduce:
   case 5:
 #line 55 "shell.y"
        {
-    printf("   Yacc: insert command \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
+    printf("Yacc: insert command \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
@@ -1379,10 +1379,10 @@ yyreduce:
   case 9:
 #line 69 "shell.y"
                {
-      if(_currentCommand._outFile == NULL) {
+      if(Shell::_currentSimpleCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: output is already redirected.")
+        printf("ERROR: output is already redirected.");
       }
     }
 #line 1389 "y.tab.cc"
@@ -1391,10 +1391,10 @@ yyreduce:
   case 10:
 #line 76 "shell.y"
               {
-      if(_currentCommand._inFile == NULL) {
+      if(Shell::_currentSimpleCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: input is already redirected.")
+        printf("ERROR: input is already redirected.");
       }
     }
 #line 1401 "y.tab.cc"
@@ -1403,10 +1403,10 @@ yyreduce:
   case 11:
 #line 83 "shell.y"
                   {
-      if(_currentCommand._errFile == NULL) {
+      if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: error is already redirected.")
+        printf("ERROR: error is already redirected.");
       }
     }
 #line 1413 "y.tab.cc"
@@ -1415,10 +1415,10 @@ yyreduce:
   case 12:
 #line 90 "shell.y"
                     {
-      if(_currentCommand._outFile == NULL) {
+      if(Shell::_currentSimpleCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: output is already redirected.")
+        printf("ERROR: output is already redirected.");
       }
     }
 #line 1425 "y.tab.cc"
@@ -1427,10 +1427,10 @@ yyreduce:
   case 13:
 #line 97 "shell.y"
                              {
-      if(_currentCommand._outFile == NULL) {
+      if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: output is already redirected.")
+        printf("ERROR: output is already redirected.");
       }
     }
 #line 1437 "y.tab.cc"
@@ -1439,10 +1439,10 @@ yyreduce:
   case 14:
 #line 104 "shell.y"
                         {
-      if(_currentCommand._outFile == NULL) {
+      if(Shell:_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: output is already redirected.")
+        printf("ERROR: output is already redirected.");
       }
     }
 #line 1449 "y.tab.cc"
@@ -1451,7 +1451,7 @@ yyreduce:
   case 17:
 #line 119 "shell.y"
               {
-     Shell::_currentCommand._background  
+     Shell::_currentCommand._background = true;
     }
 #line 1457 "y.tab.cc"
     break;
