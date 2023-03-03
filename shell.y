@@ -92,17 +92,17 @@ io_modifier:
         printf("ERROR: error is already redirected.");
       }
     }
-  | GREATAMPERSAND { /* >& */
+  | GREATAMPERSAND WORD { /* >& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
-        Shell::_currentCommand._outFile = $1;
+        Shell::_currentCommand._outFile = $2;
       } else {
         printf("ERROR: output is already redirected.");
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
-        Shell::_currentCommand._errFile = $1;
+        Shell::_currentCommand._errFile = $2;
       } else {
         printf("ERROR: error is already redirected.");
       }
