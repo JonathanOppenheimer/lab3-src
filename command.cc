@@ -32,7 +32,7 @@ Command::Command() {
   _errFile = NULL;
   _append = false;
   _background = false;
-  _errorFlag = NULL;
+  _errorFlag;
 }
 
 void Command::insertSimpleCommand(SimpleCommand *simpleCommand) {
@@ -100,8 +100,8 @@ void Command::execute() {
   }
 
   // Check for an error on the command line before execution
-  if (_errorFlag != NULL) {
-    fprintf(stderr, "myshell: %s\n", _errorFlag);
+  if (_errorFlag.empty()) {
+    fprintf(stderr, "myshell: %s\n", _errorFlag.c_str());
   } else {
     // Print contents of Command data structure
     print();

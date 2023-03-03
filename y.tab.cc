@@ -1389,7 +1389,7 @@ yyreduce:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous output redirect");
+        Shell::_currentCommand._errorFlag = "Ambigous output redirect";
       }
     }
 #line 1396 "y.tab.cc"
