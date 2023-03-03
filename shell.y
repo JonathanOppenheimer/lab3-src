@@ -153,9 +153,7 @@ command_line:
   | pipe_list io_modifier_list background_optional NEWLINE {
       Shell::_currentCommand.execute();
     }
-  | NEWLINE {
-      Shell::prompt();
-    } /* accept empty cmd line */
+  | NEWLINE /* accept empty cmd line */
   | error NEWLINE{
       yyerrok; /* Clear the errors */ 
     } /* error recovery */

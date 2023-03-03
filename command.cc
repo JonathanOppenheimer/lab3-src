@@ -65,7 +65,11 @@ void Command::clear() {
   }
   _errFile = NULL;
 
+  _append = false;
+
   _background = false;
+
+  _errorFlag.clear();
 }
 
 void Command::print() {
