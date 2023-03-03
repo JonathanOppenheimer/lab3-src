@@ -548,7 +548,7 @@ static const yytype_uint8 yyrline[] =
 {
        0,    45,    45,    47,    51,    55,    55,    66,    67,    71,
       78,    85,    92,    99,   106,   116,   117,   121,   124,   128,
-     132,   136,   137,   141,   142
+     131,   134,   135,   139,   140
 };
 #endif
 
@@ -1459,7 +1459,7 @@ yyreduce:
   case 17:
 #line 121 "shell.y"
               {
-     Shell::_currentCommand._background = true;
+      Shell::_currentCommand._background = true;
     }
 #line 1465 "y.tab.cc"
     break;
@@ -1467,29 +1467,27 @@ yyreduce:
   case 19:
 #line 128 "shell.y"
                                        {
-      printf("Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-#line 1474 "y.tab.cc"
+#line 1473 "y.tab.cc"
     break;
 
   case 20:
-#line 132 "shell.y"
+#line 131 "shell.y"
                                                            {
-      printf("Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-#line 1483 "y.tab.cc"
+#line 1481 "y.tab.cc"
     break;
 
   case 22:
-#line 137 "shell.y"
+#line 135 "shell.y"
                  {yyerrok;}
-#line 1489 "y.tab.cc"
+#line 1487 "y.tab.cc"
     break;
 
 
-#line 1493 "y.tab.cc"
+#line 1491 "y.tab.cc"
 
       default: break;
     }
@@ -1721,7 +1719,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 145 "shell.y"
+#line 143 "shell.y"
 
 
 void
