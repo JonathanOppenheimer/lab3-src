@@ -75,6 +75,7 @@ io_modifier:
         Shell::_currentCommand._outFile = $2;
       } else {
         yyerror("Ambigous output redirect\n");
+        YYERROR;
       }
     }
   | LESS WORD { /* < */ 
@@ -83,7 +84,7 @@ io_modifier:
         Shell::_currentCommand._inFile = $2;
       } else {
         yyerror("Ambigous input redirect\n");
-        YYERROR; 
+        YYERROR;
       }
     }
   | TWOGREAT WORD { /* 2> */ 
@@ -91,7 +92,7 @@ io_modifier:
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        yyerror("Ambigous output redirect\n");
+        yyerror("Ambigous error redirect\n");
         YYERROR;
       }
     }
@@ -101,13 +102,15 @@ io_modifier:
         Shell::_currentCommand._outFile = $2;
       } else {
         yyerror("Ambigous output redirect\n");
+        YYERROR;
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        yyerror("Ambigous output redirect\n");
+        yyerror("Ambigous error redirection\n");
+        YYERROR;
       }
     }
   | GREATGREAT WORD { /* >> */
@@ -115,7 +118,8 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        yyerror("Ambigous output redirect\n");
+        yyerror("Ambigous output redirection\n");
+        YYERROR;
       }
     }
   | GREATGREATAMPERSAND WORD { /* >>& */
@@ -123,14 +127,16 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        yyerror("Ambigous output redirect\n");
+        yyerror("Ambigous output redirection\n");
+        YYERROR;
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        yyerror("Ambigous output redirect\n");
+        yyerror("Ambigous error redirection\n");
+        YYERROR;
       }
     }
 ;
@@ -156,14 +162,16 @@ command_line:
       printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-  | NEWLINE{Shell::prompt();} /* accept empty cmd line */
-  | error NEWLINE{
-      yyerrok;
+  | NEWLINE { 
       Shell::prompt();
-    }
-; /*error recovery*/
+    } /* accept empty cmd line */
+  | error NEWLINE{
+      yyerrok; /* Clear the errors */ 
+      Shell::prompt(); /* Reprompt the user */
+    } /* error recovery */
+;
 
-command_list :
+command_list:
     command_line
   | command_list command_line
 ; /* command loop */
@@ -173,8 +181,8 @@ command_list :
 void
 yyerror(const char * s)
 {
-  fprintf(stderr,"my shell: %s %d\n", s, yychar);
-  Shell::_currentCommand.clear();
+  fprintf(stderr, "my shell: %s\n", s);
+  Shell::_currentCommand.clear(); /* Clear the command that errored. */
 }
 
 #if 0
