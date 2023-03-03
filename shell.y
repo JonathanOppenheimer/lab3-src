@@ -29,6 +29,7 @@
 
 %token <cpp_string> WORD
 %token NOTOKEN NEWLINE PIPE GREAT LESS TWOGREAT GREATAMPERSAND GREATGREAT GREATGREATAMPERSAND AMPERSAND
+%define parse.error verbose
 
 %{
 //#define yylex yylex
@@ -91,7 +92,7 @@ io_modifier:
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: error is already redirected. %d", yychar);
+        printf("ERROR: error is already redirected. %d\n", yychar);
       }
     }
   | GREATAMPERSAND WORD { /* >& */
@@ -99,14 +100,14 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.");
+        printf("ERROR: output is already redirected.\n");
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: error is already redirected.");
+        printf("ERROR: error is already redirected.\n");
       }
     }
   | GREATGREAT WORD { /* >> */
@@ -114,7 +115,7 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.");
+        printf("ERROR: output is already redirected.\n");
       }
     }
   | GREATGREATAMPERSAND WORD { /* >>& */
@@ -122,7 +123,7 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.");
+        printf("ERROR: output is already redirected.\n");
       }
 
       /* Redirect stderr */
