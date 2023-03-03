@@ -72,7 +72,7 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        Shell::_currentCommand.errorFlag = "Ambigous output redirect");
+        Shell::_currentCommand._errorFlag = "Ambigous output redirect");
       }
     }
   | LESS WORD { /* < */
@@ -80,7 +80,7 @@ io_modifier:
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = $2;
       } else {
-        Shell::_currentCommand.errorFlag = "Ambigous input redirect";
+        Shell::_currentCommand._errorFlag = "Ambigous input redirect";
       }
     }
   | TWOGREAT WORD { /* 2> */
@@ -88,7 +88,7 @@ io_modifier:
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        Shell::_currentCommand.errorFlag = "Ambigous error redirect";
+        Shell::_currentCommand._errorFlag = "Ambigous error redirect";
       }
     }
   | GREATAMPERSAND WORD { /* >& */
@@ -96,14 +96,14 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        Shell::_currentCommand.errorFlag = "Ambigous output redirect";
+        Shell::_currentCommand._errorFlag = "Ambigous output redirect";
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        Shell::_currentCommand.errorFlag = "Ambigous error redirection";
+        Shell::_currentCommand._errorFlag = "Ambigous error redirection";
       }
     }
   | GREATGREAT WORD { /* >> */
@@ -112,7 +112,7 @@ io_modifier:
         Shell::_currentCommand._outFile = $2;
         Shell::_currentCommand._append = true;
       } else {
-        Shell::_currentCommand.errorFlag = "Ambigous output redirection";
+        Shell::_currentCommand._errorFlag = "Ambigous output redirection";
       }
     }
   | GREATGREATAMPERSAND WORD { /* >>& */
@@ -121,7 +121,7 @@ io_modifier:
         Shell::_currentCommand._outFile = $2;
         Shell::_currentCommand._append = true;
       } else {
-        Shell::_currentCommand.errorFlag = "Ambigous output redirection";
+        Shell::_currentCommand._errorFlag = "Ambigous output redirection";
       }
 
       /* Redirect stderr */
@@ -129,7 +129,7 @@ io_modifier:
         Shell::_currentCommand._errFile = $2;
         Shell::_currentCommand._append = true;
       } else {
-        Shell::_currentCommand.errorFlag = "Ambigous error redirection";
+        Shell::_currentCommand._errorFlag = "Ambigous error redirection";
       }
     }
 ;
