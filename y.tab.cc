@@ -1391,7 +1391,7 @@ yyreduce:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: output is already redirected.");
+        yyerror("Ambigous output redirect\n");
       }
     }
 #line 1398 "y.tab.cc"
@@ -1404,7 +1404,7 @@ yyreduce:
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
-        yyerror("myshell: Ambigous redirect\n");
+        yyerror("Ambigous input redirect\n");
       }
     }
 #line 1411 "y.tab.cc"
@@ -1417,7 +1417,7 @@ yyreduce:
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: error is already redirected. %d\n", yychar);
+        yyerror("Ambigous output redirect\n");
       }
     }
 #line 1424 "y.tab.cc"
@@ -1430,14 +1430,14 @@ yyreduce:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: output is already redirected.\n");
+        yyerror("Ambigous output redirect\n");
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: error is already redirected.\n");
+        yyerror("Ambigous output redirect\n");
       }
     }
 #line 1444 "y.tab.cc"
@@ -1450,7 +1450,7 @@ yyreduce:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: output is already redirected.\n");
+        yyerror("Ambigous output redirect\n");
       }
     }
 #line 1457 "y.tab.cc"
@@ -1463,14 +1463,14 @@ yyreduce:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: output is already redirected.\n");
+        yyerror("Ambigous output redirect\n");
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
       } else {
-        printf("ERROR: error is already redirected.");
+        yyerror("Ambigous output redirect\n");
       }
     }
 #line 1477 "y.tab.cc"
@@ -1756,7 +1756,7 @@ yyreturn:
 void
 yyerror(const char * s)
 {
-  fprintf(stderr,"%s", s);
+  fprintf(stderr,"my shell: %s %s\n", s, yychar);
 }
 
 #if 0
