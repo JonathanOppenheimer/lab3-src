@@ -1513,7 +1513,7 @@ yyreduce:
 
   case 22:
 #line 160 "shell.y"
-                 {yyerrok;}
+                 {yyerrok; Shell::prompt();}
 #line 1518 "y.tab.cc"
     break;
 

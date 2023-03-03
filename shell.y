@@ -92,7 +92,6 @@ io_modifier:
         Shell::_currentCommand._errFile = $2;
       } else {
         printf("ERROR: error is already redirected. %d", yychar);
-        YYERROR;
       }
     }
   | GREATAMPERSAND WORD { /* >& */
@@ -157,7 +156,10 @@ command_line:
       Shell::_currentCommand.execute();
     }
   | NEWLINE{Shell::prompt();} /* accept empty cmd line */
-  | error NEWLINE{yyerrok; Shell::prompt();}
+  | error NEWLINE{
+      yyerrok;
+      Shell::prompt();
+    }
 ; /*error recovery*/
 
 command_list :
