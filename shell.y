@@ -90,7 +90,7 @@ io_modifier:
         Shell::_currentCommand._errFile = $2;
       } else {
         printf("ERROR: error is already redirected.");
-        yyerror; 
+        YYERROR; 
       }
     }
   | GREATAMPERSAND WORD { /* >& */
