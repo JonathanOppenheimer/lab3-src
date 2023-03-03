@@ -372,8 +372,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 		YY_FATAL_ERROR( "token too large, exceeds YYLMAX" ); \
 	yy_flex_strncpy( yytext, (yytext_ptr), yyleng + 1 ); \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 13
-#define YY_END_OF_BUFFER 14
+#define YY_NUM_RULES 12
+#define YY_END_OF_BUFFER 13
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -383,8 +383,8 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[18] =
     {   0,
-        0,    0,   14,    1,    1,    2,    1,    1,    1,    1,
-        1,   12,    7,    8,    9,   10,    0
+        0,    0,   13,   11,    2,    1,   10,   11,    5,    4,
+        3,   11,    6,    7,    8,    9,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -451,9 +451,9 @@ static const flex_int16_t yy_chk[24] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[14] =
+static const flex_int32_t yy_rule_can_match_eol[13] =
     {   0,
-0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
+1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -715,7 +715,7 @@ YY_DECL
 
 
 #line 28 "shell.l"
-  /* Invalid character in input */ 
+  /* New line character */
 #line 720 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
@@ -784,107 +784,99 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
+/* rule 1 can match eol */
 YY_RULE_SETUP
 #line 29 "shell.l"
-{
-  return NOTOKEN;
-}
-	YY_BREAK
-/* New line character */
-case 2:
-/* rule 2 can match eol */
-YY_RULE_SETUP
-#line 34 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
-case 3:
+case 2:
 YY_RULE_SETUP
-#line 38 "shell.l"
+#line 33 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 /* Pipe */
-case 4:
+case 3:
 YY_RULE_SETUP
-#line 43 "shell.l"
+#line 38 "shell.l"
 {
   return PIPE;
 }
 	YY_BREAK
 /* Output redirection (stdout: 1 ) */
-case 5:
+case 4:
 YY_RULE_SETUP
-#line 48 "shell.l"
+#line 43 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 /* Input redirection */
-case 6:
+case 5:
 YY_RULE_SETUP
-#line 53 "shell.l"
+#line 48 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 /* Output redirection (stderr : 2) */
-case 7:
+case 6:
 YY_RULE_SETUP
-#line 58 "shell.l"
+#line 53 "shell.l"
 {
   return TWOGREAT;
 }
 	YY_BREAK
 /* Output redirection (stdout and stderr : 1 and 2) */
-case 8:
+case 7:
 YY_RULE_SETUP
-#line 63 "shell.l"
+#line 58 "shell.l"
 {
   return GREATAMPERSAND;
 }
 	YY_BREAK
 /* Append output (stdout : 1) */
-case 9:
+case 8:
 YY_RULE_SETUP
-#line 68 "shell.l"
+#line 63 "shell.l"
 {
   return GREATGREAT;
 }
 	YY_BREAK
 /* Append output (stdout and stderr : 1 and 2) */
-case 10:
+case 9:
 YY_RULE_SETUP
-#line 73 "shell.l"
+#line 68 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
 	YY_BREAK
 /* Run process in background */
-case 11:
+case 10:
 YY_RULE_SETUP
-#line 78 "shell.l"
+#line 73 "shell.l"
 {
   return AMPERSAND;
 }
 	YY_BREAK
-case 12:
+case 11:
 YY_RULE_SETUP
-#line 82 "shell.l"
+#line 77 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
 	YY_BREAK
-case 13:
+case 12:
 YY_RULE_SETUP
-#line 88 "shell.l"
+#line 83 "shell.l"
 ECHO;
 	YY_BREAK
-#line 888 "lex.yy.cc"
+#line 880 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1901,4 +1893,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 88 "shell.l"
+#line 83 "shell.l"

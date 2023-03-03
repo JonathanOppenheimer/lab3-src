@@ -24,6 +24,11 @@ void myunputc(int c) {
 
 %%
 
+  /* Invalid character in input */
+. {
+  return NOTOKEN; 
+}
+
   /* New line character */
 \n {
   return NEWLINE;
