@@ -1502,14 +1502,20 @@ yyreduce:
 #line 1503 "y.tab.cc"
     break;
 
-  case 22:
-#line 157 "shell.y"
-                 {yyerrok;}
+  case 21:
+#line 156 "shell.y"
+           {Shell::prompt();}
 #line 1509 "y.tab.cc"
     break;
 
+  case 22:
+#line 157 "shell.y"
+                 {yyerrok;}
+#line 1515 "y.tab.cc"
+    break;
 
-#line 1513 "y.tab.cc"
+
+#line 1519 "y.tab.cc"
 
       default: break;
     }
