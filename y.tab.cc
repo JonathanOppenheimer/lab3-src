@@ -1405,7 +1405,7 @@ yyreduce:
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
         printf("myshell: Ambiguous redirect");
-        yyerror();
+        yyerror("myshell: Ambigous redirect");
         YYERROR;
       }
     }
