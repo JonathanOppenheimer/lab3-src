@@ -1759,6 +1759,7 @@ void
 yyerror(const char * s)
 {
   fprintf(stderr,"my shell: %s %d\n", s, yychar);
+  Shell::clear();
 }
 
 #if 0
