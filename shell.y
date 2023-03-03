@@ -89,7 +89,7 @@ io_modifier:
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: error is already redirected. %s", yychar);
+        printf("ERROR: error is already redirected. %d", yychar);
         YYERROR;
       }
     }
