@@ -89,8 +89,8 @@ io_modifier:
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: error is already redirected.");
-        YYERROR; 
+        printf("ERROR: error is already redirected. %s", yychar);
+        YYERROR;
       }
     }
   | GREATAMPERSAND WORD { /* >& */

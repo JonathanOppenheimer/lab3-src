@@ -1418,7 +1418,7 @@ yyreduce:
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
       } else {
         printf("ERROR: error is already redirected.");
-        yyerror; 
+        YYERROR; 
       }
     }
 #line 1425 "y.tab.cc"
