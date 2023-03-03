@@ -72,7 +72,7 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous output redirect");
+        Shell::_currentCommand._errorFlag = "Ambigous output redirect";
       }
     }
   | LESS WORD { /* < */
