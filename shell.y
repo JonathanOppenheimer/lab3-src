@@ -157,7 +157,7 @@ command_line:
       Shell::_currentCommand.execute();
     }
   | NEWLINE{Shell::prompt();} /* accept empty cmd line */
-  | error NEWLINE{yyerrok;}
+  | error NEWLINE{yyerrok; Shell::prompt();}
 ; /*error recovery*/
 
 command_list :
