@@ -93,12 +93,15 @@ void Command::print() {
   }
 
   printf("\n\n");
-  printf("  Output       Input        Error        Background\n");
-  printf("  ------------ ------------ ------------ ------------\n");
-  printf("  %-12s %-12s %-12s %-12s\n",
+  printf("  Output       Input        Error        Background   Append \n");
+  printf(
+      "  ------------ ------------ ------------ ------------ ------------\n");
+  printf("  %-12s %-12s %-12s %-12s %-12s\n",
          _outFile ? _outFile->c_str() : "default",
          _inFile ? _inFile->c_str() : "default",
-         _errFile ? _errFile->c_str() : "default", _background ? "YES" : "NO");
+         _errFile ? _errFile->c_str() : "default", _background ? "YES" : "NO",
+         _append ? "true" : "false");
+
   printf("\n\n");
 }
 
