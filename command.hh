@@ -7,13 +7,14 @@
 
 struct Command {
   std::vector<SimpleCommand *> _simpleCommands;
-  std::string * _outFile;
-  std::string * _inFile;
-  std::string * _errFile;
+  std::string *_outFile;
+  std::string *_inFile;
+  std::string *_errFile;
+  std::string *_append;
   bool _background;
 
   Command();
-  void insertSimpleCommand( SimpleCommand * simpleCommand );
+  void insertSimpleCommand(SimpleCommand *simpleCommand);
 
   void clear();
   void print();

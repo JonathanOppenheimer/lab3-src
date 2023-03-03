@@ -1766,7 +1766,7 @@ yyreturn:
 void
 yyerror(const char * s)
 {
-  fprintf(stderr, "my shell: %s\n", s);
+  fprintf(stderr, "myshell: %s\n", s);
   Shell::_currentCommand.clear(); /* Clear the command that errored. */
 }
 
