@@ -139,7 +139,6 @@ io_modifier_list:
 
 background_optional:
     AMPERSAND {
-      printf("   Yacc: silence command \"%s\"\n", $2->c_str());
       Shell::_currentCommand._background = true;
     }
   | /* empty */
