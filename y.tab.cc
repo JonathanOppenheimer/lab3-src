@@ -547,8 +547,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    45,    45,    47,    51,    55,    55,    66,    67,    71,
-      78,    85,    92,    99,   106,   116,   117,   121,   124,   128,
-     131,   134,   135,   139,   140
+      79,    87,    95,   110,   118,   136,   137,   141,   144,   148,
+     152,   156,   157,   161,   162
 };
 #endif
 
@@ -603,7 +603,7 @@ static const yytype_int8 yydefact[] =
        0,     0,     5,    21,     0,     7,    16,    23,     0,    22,
        4,     1,     0,     0,    24,     6,     8,    19,     0,     0,
        0,     0,     0,     0,    17,    15,     0,     3,     9,    10,
-      11,    14,    12,    13,    20
+      11,    12,    13,    14,    20
 };
 
   /* YYPGOTO[NTERM-NUM].  */
@@ -1386,67 +1386,67 @@ yyreduce:
 
   case 9:
 #line 71 "shell.y"
-               {
+               { /* > */
+      /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
         printf("ERROR: output is already redirected.");
       }
     }
-#line 1397 "y.tab.cc"
+#line 1398 "y.tab.cc"
     break;
 
   case 10:
-#line 78 "shell.y"
-              {
+#line 79 "shell.y"
+              { /* < */ 
+      /* Redirect stdin */
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
         printf("ERROR: input is already redirected.");
       }
     }
-#line 1409 "y.tab.cc"
+#line 1411 "y.tab.cc"
     break;
 
   case 11:
-#line 85 "shell.y"
-                  {
+#line 87 "shell.y"
+                  { /* 2> */ 
+      /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
       } else {
         printf("ERROR: error is already redirected.");
       }
     }
-#line 1421 "y.tab.cc"
+#line 1424 "y.tab.cc"
     break;
 
   case 12:
-#line 92 "shell.y"
-                    {
+#line 95 "shell.y"
+                        { /* >& */
+      /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
         printf("ERROR: output is already redirected.");
       }
+
+      /* Redirect stderr */
+      if(Shell::_currentCommand._errFile == NULL) {
+        Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
+      } else {
+        printf("ERROR: error is already redirected.");
+      }
     }
-#line 1433 "y.tab.cc"
+#line 1444 "y.tab.cc"
     break;
 
   case 13:
-#line 99 "shell.y"
-                             {
-      if(Shell::_currentCommand._outFile == NULL) {
-        Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
-      } else {
-        printf("ERROR: output is already redirected.");
-      }
-    }
-#line 1445 "y.tab.cc"
-    break;
-
-  case 14:
-#line 106 "shell.y"
-                        {
+#line 110 "shell.y"
+                    { /* >> */
+      /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
@@ -1456,38 +1456,60 @@ yyreduce:
 #line 1457 "y.tab.cc"
     break;
 
+  case 14:
+#line 118 "shell.y"
+                             { /* >>& */
+      /* Redirect stdout */
+      if(Shell::_currentCommand._outFile == NULL) {
+        Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
+      } else {
+        printf("ERROR: output is already redirected.");
+      }
+
+      /* Redirect stderr */
+      if(Shell::_currentCommand._errFile == NULL) {
+        Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
+      } else {
+        printf("ERROR: error is already redirected.");
+      }
+    }
+#line 1477 "y.tab.cc"
+    break;
+
   case 17:
-#line 121 "shell.y"
+#line 141 "shell.y"
               {
       Shell::_currentCommand._background = true;
     }
-#line 1465 "y.tab.cc"
+#line 1485 "y.tab.cc"
     break;
 
   case 19:
-#line 128 "shell.y"
+#line 148 "shell.y"
                                        {
+      printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-#line 1473 "y.tab.cc"
+#line 1494 "y.tab.cc"
     break;
 
   case 20:
-#line 131 "shell.y"
+#line 152 "shell.y"
                                                            {
+      printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-#line 1481 "y.tab.cc"
+#line 1503 "y.tab.cc"
     break;
 
   case 22:
-#line 135 "shell.y"
+#line 157 "shell.y"
                  {yyerrok;}
-#line 1487 "y.tab.cc"
+#line 1509 "y.tab.cc"
     break;
 
 
-#line 1491 "y.tab.cc"
+#line 1513 "y.tab.cc"
 
       default: break;
     }
@@ -1719,7 +1741,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 143 "shell.y"
+#line 165 "shell.y"
 
 
 void

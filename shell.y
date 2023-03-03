@@ -82,6 +82,7 @@ io_modifier:
         Shell::_currentCommand._inFile = $2;
       } else {
         printf("ERROR: input is already redirected.");
+        yyerrok;
       }
     }
   | TWOGREAT WORD { /* 2> */ 
