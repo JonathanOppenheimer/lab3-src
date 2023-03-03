@@ -547,8 +547,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    46,    46,    48,    52,    56,    56,    67,    68,    72,
-      80,    88,    96,   111,   119,   137,   138,   142,   145,   149,
-     153,   157,   158,   165,   166
+      80,    89,    97,   112,   120,   138,   139,   143,   146,   150,
+     154,   158,   159,   166,   167
 };
 #endif
 
@@ -1404,14 +1404,15 @@ yyreduce:
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
-        printf("myshell: Ambigous redirect %d\n", yychar);
+        printf("myshell: Ambigous redirect\n", yychar);
+        YYERROR;
       }
     }
-#line 1411 "y.tab.cc"
+#line 1412 "y.tab.cc"
     break;
 
   case 11:
-#line 88 "shell.y"
+#line 89 "shell.y"
                   { /* 2> */ 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
@@ -1420,11 +1421,11 @@ yyreduce:
         printf("ERROR: error is already redirected. %d\n", yychar);
       }
     }
-#line 1424 "y.tab.cc"
+#line 1425 "y.tab.cc"
     break;
 
   case 12:
-#line 96 "shell.y"
+#line 97 "shell.y"
                         { /* >& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1440,11 +1441,11 @@ yyreduce:
         printf("ERROR: error is already redirected.\n");
       }
     }
-#line 1444 "y.tab.cc"
+#line 1445 "y.tab.cc"
     break;
 
   case 13:
-#line 111 "shell.y"
+#line 112 "shell.y"
                     { /* >> */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1453,11 +1454,11 @@ yyreduce:
         printf("ERROR: output is already redirected.\n");
       }
     }
-#line 1457 "y.tab.cc"
+#line 1458 "y.tab.cc"
     break;
 
   case 14:
-#line 119 "shell.y"
+#line 120 "shell.y"
                              { /* >>& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1473,52 +1474,52 @@ yyreduce:
         printf("ERROR: error is already redirected.");
       }
     }
-#line 1477 "y.tab.cc"
+#line 1478 "y.tab.cc"
     break;
 
   case 17:
-#line 142 "shell.y"
+#line 143 "shell.y"
               {
       Shell::_currentCommand._background = true;
     }
-#line 1485 "y.tab.cc"
+#line 1486 "y.tab.cc"
     break;
 
   case 19:
-#line 149 "shell.y"
+#line 150 "shell.y"
                                        {
       printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-#line 1494 "y.tab.cc"
+#line 1495 "y.tab.cc"
     break;
 
   case 20:
-#line 153 "shell.y"
+#line 154 "shell.y"
                                                            {
       printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-#line 1503 "y.tab.cc"
+#line 1504 "y.tab.cc"
     break;
 
   case 21:
-#line 157 "shell.y"
+#line 158 "shell.y"
            {Shell::prompt();}
-#line 1509 "y.tab.cc"
+#line 1510 "y.tab.cc"
     break;
 
   case 22:
-#line 158 "shell.y"
+#line 159 "shell.y"
                  {
       yyerrok;
       Shell::prompt();
     }
-#line 1518 "y.tab.cc"
+#line 1519 "y.tab.cc"
     break;
 
 
-#line 1522 "y.tab.cc"
+#line 1523 "y.tab.cc"
 
       default: break;
     }
@@ -1750,7 +1751,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 169 "shell.y"
+#line 170 "shell.y"
 
 
 void

@@ -82,7 +82,7 @@ io_modifier:
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = $2;
       } else {
-        printf("myshell: Ambigous redirect\n", yychar);
+        printf("myshell: Ambigous redirect\n");
         YYERROR;
       }
     }
