@@ -162,10 +162,13 @@ command_line:
       printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-  | NEWLINE /* accept empty cmd line */
+  | NEWLINE {
+    if(isatty()) {
+      Shell::prompt();
+    }
+  }/* accept empty cmd line */
   | error NEWLINE{
       yyerrok; /* Clear the errors */ 
-      Shell::prompt(); /* Reprompt the user */
     } /* error recovery */
 ;
 
@@ -180,7 +183,6 @@ void
 yyerror(const char * s)
 {
   fprintf(stderr, "myshell: %s\n", s);
-  Shell::_currentCommand.clear(); /* Clear the command that errored. */
 }
 
 #if 0

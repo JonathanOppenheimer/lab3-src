@@ -548,7 +548,7 @@ static const yytype_uint8 yyrline[] =
 {
        0,    46,    46,    48,    52,    56,    56,    67,    68,    72,
       81,    90,    99,   116,   125,   145,   146,   150,   153,   157,
-     161,   165,   168,   175,   176
+     161,   165,   166,   173,   174
 };
 #endif
 
@@ -1510,25 +1510,17 @@ yyreduce:
 #line 1511 "y.tab.cc"
     break;
 
-  case 21:
-#line 165 "shell.y"
-            { 
-      Shell::prompt();
-    }
-#line 1519 "y.tab.cc"
-    break;
-
   case 22:
-#line 168 "shell.y"
+#line 166 "shell.y"
                  {
       yyerrok; /* Clear the errors */ 
       Shell::prompt(); /* Reprompt the user */
     }
-#line 1528 "y.tab.cc"
+#line 1520 "y.tab.cc"
     break;
 
 
-#line 1532 "y.tab.cc"
+#line 1524 "y.tab.cc"
 
       default: break;
     }
@@ -1760,7 +1752,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 179 "shell.y"
+#line 177 "shell.y"
 
 
 void
