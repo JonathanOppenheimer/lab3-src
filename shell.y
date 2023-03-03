@@ -153,7 +153,7 @@ command_line:
       printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
-  | NEWLINE /* accept empty cmd line */
+  | NEWLINE{Shell::prompt();} /* accept empty cmd line */
   | error NEWLINE{yyerrok;}
 ; /*error recovery*/
 
