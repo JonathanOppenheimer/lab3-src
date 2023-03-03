@@ -95,14 +95,14 @@ io_modifier:
   | GREATAMPERSAND { /* >& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
-        Shell::_currentCommand._outFile = $2;
+        Shell::_currentCommand._outFile = $1;
       } else {
         printf("ERROR: output is already redirected.");
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
-        Shell::_currentCommand._errFile = $2;
+        Shell::_currentCommand._errFile = $1;
       } else {
         printf("ERROR: error is already redirected.");
       }
