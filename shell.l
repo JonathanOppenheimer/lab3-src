@@ -24,11 +24,6 @@ void myunputc(int c) {
 
 %%
 
-  /* Invalid character in input */
-. {
-  return NOTOKEN; 
-}
-
   /* New line character */
 \n {
   return NEWLINE;
@@ -82,5 +77,10 @@ void myunputc(int c) {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;
+}
+
+  /* Invalid character in input */
+. {
+  return NOTOKEN;
 }
 
