@@ -548,7 +548,7 @@ static const yytype_uint8 yyrline[] =
 {
        0,    46,    46,    48,    52,    56,    56,    67,    68,    72,
       81,    90,    99,   116,   125,   145,   146,   150,   153,   157,
-     161,   165,   166,   173,   174
+     161,   165,   170,   176,   177
 };
 #endif
 
@@ -1510,17 +1510,26 @@ yyreduce:
 #line 1511 "y.tab.cc"
     break;
 
+  case 21:
+#line 165 "shell.y"
+            {
+    if(isatty()) {
+      Shell::prompt();
+    }
+  }
+#line 1521 "y.tab.cc"
+    break;
+
   case 22:
-#line 166 "shell.y"
+#line 170 "shell.y"
                  {
       yyerrok; /* Clear the errors */ 
-      Shell::prompt(); /* Reprompt the user */
     }
-#line 1520 "y.tab.cc"
+#line 1529 "y.tab.cc"
     break;
 
 
-#line 1524 "y.tab.cc"
+#line 1533 "y.tab.cc"
 
       default: break;
     }
@@ -1752,14 +1761,13 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 177 "shell.y"
+#line 180 "shell.y"
 
 
 void
 yyerror(const char * s)
 {
   fprintf(stderr, "myshell: %s\n", s);
-  Shell::_currentCommand.clear(); /* Clear the command that errored. */
 }
 
 #if 0

@@ -46,7 +46,6 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    printf("Yacc: insert arguement \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );
   }
   | /* can be empty */
@@ -54,7 +53,6 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    printf("Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
@@ -74,26 +72,23 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        yyerror("Ambigous output redirect\n");
-        YYERROR;
+        Shell::_currentCommand.errorFlag = "Ambigous output redirect");
       }
     }
-  | LESS WORD { /* < */ 
+  | LESS WORD { /* < */
       /* Redirect stdin */
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = $2;
       } else {
-        yyerror("Ambigous input redirect\n");
-        YYERROR;
+        Shell::_currentCommand.errorFlag = "Ambigous input redirect";
       }
     }
-  | TWOGREAT WORD { /* 2> */ 
+  | TWOGREAT WORD { /* 2> */
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        yyerror("Ambigous error redirect\n");
-        YYERROR;
+        Shell::_currentCommand.errorFlag = "Ambigous error redirect";
       }
     }
   | GREATAMPERSAND WORD { /* >& */
@@ -101,42 +96,40 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        yyerror("Ambigous output redirect\n");
-        YYERROR;
+        Shell::_currentCommand.errorFlag = "Ambigous output redirect";
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        yyerror("Ambigous error redirection\n");
-        YYERROR;
+        Shell::_currentCommand.errorFlag = "Ambigous error redirection";
       }
     }
   | GREATGREAT WORD { /* >> */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
+        Shell::_currentCommand._append = true;
       } else {
-        yyerror("Ambigous output redirection\n");
-        YYERROR;
+        Shell::_currentCommand.errorFlag = "Ambigous output redirection";
       }
     }
   | GREATGREATAMPERSAND WORD { /* >>& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
+        Shell::_currentCommand._append = true;
       } else {
-        yyerror("Ambigous output redirection\n");
-        YYERROR;
+        Shell::_currentCommand.errorFlag = "Ambigous output redirection";
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
+        Shell::_currentCommand._append = true;
       } else {
-        yyerror("Ambigous error redirection\n");
-        YYERROR;
+        Shell::_currentCommand.errorFlag = "Ambigous error redirection";
       }
     }
 ;
@@ -155,18 +148,14 @@ background_optional:
 
 command_line:
     pipe_list io_modifier_list NEWLINE {
-      printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
   | pipe_list io_modifier_list background_optional NEWLINE {
-      printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
   | NEWLINE {
-    if(isatty()) {
       Shell::prompt();
-    }
-  }/* accept empty cmd line */
+    } /* accept empty cmd line */
   | error NEWLINE{
       yyerrok; /* Clear the errors */ 
     } /* error recovery */

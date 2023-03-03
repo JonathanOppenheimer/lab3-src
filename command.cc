@@ -14,6 +14,7 @@
  * MAY FACILITATE ACADEMIC DISHONESTY.
  */
 
+#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 
@@ -31,6 +32,7 @@ Command::Command() {
   _errFile = NULL;
   _append = false;
   _background = false;
+  _errorFlag = NULL;
 }
 
 void Command::insertSimpleCommand(SimpleCommand *simpleCommand) {
@@ -97,13 +99,18 @@ void Command::execute() {
     return;
   }
 
-  // Print contents of Command data structure
-  print();
+  // Check for an error on the command line before execution
+  if (_errorFlag != NULL) {
+    fprintf(stderr, "myshell: %s\n", _errorFlag);
+  } else {
+    // Print contents of Command data structure
+    print();
 
-  // Add execution here
-  // For every simple command fork a new process
-  // Setup i/o redirection
-  // and call exec
+    // Add execution here
+    // For every simple command fork a new process
+    // Setup i/o redirection
+    // and call exec
+  }
 
   // Clear to prepare for next command
   clear();
