@@ -1405,7 +1405,7 @@ yyreduce:
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
         printf("shell: Ambiguous redirect input");
-        error;
+        yyerror;
       }
     }
 #line 1412 "y.tab.cc"

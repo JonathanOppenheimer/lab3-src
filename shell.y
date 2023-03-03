@@ -81,8 +81,9 @@ io_modifier:
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = $2;
       } else {
-        printf("shell: Ambiguous redirect input");
-        yyerror;
+        printf("myshell: Ambiguous redirect");
+        yyerror();
+        YYERROR;
       }
     }
   | TWOGREAT WORD { /* 2> */ 
