@@ -49,20 +49,27 @@ void Command::clear() {
   // (basically just sets the size to 0)
   _simpleCommands.clear();
 
-  if (_outFile) {
+  // Check if the out and err are the same. We only need to delete once.
+  if (_outFile == _errFile) {
     delete _outFile;
+    _outFile = NULL;
+    _errFile = NULL;
+  } else { // Otherwise delete them individually
+    if (_outFile) {
+      delete _outFile;
+    }
+    _outFile = NULL;
+
+    if (_errFile) {
+      delete _errFile;
+    }
+    _errFile = NULL;
   }
-  _outFile = NULL;
 
   if (_inFile) {
     delete _inFile;
   }
   _inFile = NULL;
-
-  if (_errFile) {
-    delete _errFile;
-  }
-  _errFile = NULL;
 
   _append = false;
 
