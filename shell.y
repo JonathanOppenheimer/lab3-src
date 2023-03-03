@@ -83,7 +83,6 @@ io_modifier:
         Shell::_currentCommand._inFile = $2;
       } else {
         fprintf(stderr, "myshell: Ambigous redirect, %d\n", yylen);
-        YYERROR;
       }
     }
   | TWOGREAT WORD { /* 2> */ 
