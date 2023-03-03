@@ -91,6 +91,7 @@ io_modifier:
         Shell::_currentCommand._errFile = $2;
       } else {
         yyerror("Ambigous output redirect\n");
+        YYERROR;
       }
     }
   | GREATAMPERSAND WORD { /* >& */

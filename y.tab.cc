@@ -1756,7 +1756,7 @@ yyreturn:
 void
 yyerror(const char * s)
 {
-  fprintf(stderr,"my shell: %s %s\n", s, yychar);
+  fprintf(stderr,"my shell: %s %d\n", s, yychar);
 }
 
 #if 0
