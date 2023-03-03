@@ -1404,7 +1404,7 @@ yyreduce:
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
-        fprintf(stderr, "myshell: Ambigous redirect, %d\n", yylen);
+        yyerror("myshell: Ambigous redirect\n");
       }
     }
 #line 1411 "y.tab.cc"

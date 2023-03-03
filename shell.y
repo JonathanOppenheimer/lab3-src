@@ -74,7 +74,7 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.");
+        yyerror("Ambigous output redirect\n");
       }
     }
   | LESS WORD { /* < */ 
@@ -82,7 +82,7 @@ io_modifier:
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = $2;
       } else {
-        yyerror("myshell: Ambigous redirect\n");
+        yyerror("Ambigous input redirect\n");
       }
     }
   | TWOGREAT WORD { /* 2> */ 
@@ -90,7 +90,7 @@ io_modifier:
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: error is already redirected. %d\n", yychar);
+        yyerror("Ambigous output redirect\n");
       }
     }
   | GREATAMPERSAND WORD { /* >& */
@@ -98,14 +98,14 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.\n");
+        yyerror("Ambigous output redirect\n");
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: error is already redirected.\n");
+        yyerror("Ambigous output redirect\n");
       }
     }
   | GREATGREAT WORD { /* >> */
@@ -113,7 +113,7 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.\n");
+        yyerror("Ambigous output redirect\n");
       }
     }
   | GREATGREATAMPERSAND WORD { /* >>& */
@@ -121,14 +121,14 @@ io_modifier:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
-        printf("ERROR: output is already redirected.\n");
+        yyerror("Ambigous output redirect\n");
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: error is already redirected.");
+        yyerror("Ambigous output redirect\n");
       }
     }
 ;
@@ -171,7 +171,7 @@ command_list :
 void
 yyerror(const char * s)
 {
-  fprintf(stderr,"%s", s);
+  fprintf(stderr,"my shell: %s %s\n", s, yychar);
 }
 
 #if 0
