@@ -68,67 +68,90 @@ pipe_list:
 ;
 
 io_modifier:
-    GREAT WORD {
+    GREAT WORD { /* > */
+      /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
         printf("ERROR: output is already redirected.");
       }
     }
-  | LESS WORD {
+  | LESS WORD { /* < */ 
+      /* Redirect stdin */
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = $2;
       } else {
         printf("ERROR: input is already redirected.");
       }
     }
-  | TWOGREAT WORD {
+  | TWOGREAT WORD { /* 2> */ 
+      /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = $2;
       } else {
         printf("ERROR: error is already redirected.");
       }
     }
-  | GREATGREAT WORD {
+  | GREATAMPERSAND { /* >& */
+      /* Redirect stdout */
+      if(Shell::_currentCommand._outFile == NULL) {
+        Shell::_currentCommand._outFile = $2;
+      } else {
+        printf("ERROR: output is already redirected.");
+      }
+
+      /* Redirect stderr */
+      if(Shell::_currentCommand._errFile == NULL) {
+        Shell::_currentCommand._errFile = $2;
+      } else {
+        printf("ERROR: error is already redirected.");
+      }
+    }
+  | GREATGREAT WORD { /* >> */
+      /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
         printf("ERROR: output is already redirected.");
       }
     }
-  | GREATGREATAMPERSAND WORD {
+  | GREATGREATAMPERSAND WORD { /* >>& */
+      /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = $2;
       } else {
         printf("ERROR: output is already redirected.");
       }
-    }
-  | GREATAMPERSAND WORD {
-      if(Shell::_currentCommand._outFile == NULL) {
-        Shell::_currentCommand._outFile = $2;
+
+      /* Redirect stderr */
+      if(Shell::_currentCommand._errFile == NULL) {
+        Shell::_currentCommand._errFile = $2;
       } else {
-        printf("ERROR: output is already redirected.");
+        printf("ERROR: error is already redirected.");
       }
     }
 ;
 
 io_modifier_list:
   io_modifier_list io_modifier
-  | /*empty*/
+  | /* empty */
 ;
 
 background_optional:
     AMPERSAND {
+      printf("   Yacc: silence command \"%s\"\n", $2->c_str());
       Shell::_currentCommand._background = true;
     }
-  | /*empty*/
+  | /* empty */
 ;
 
 command_line:
     pipe_list io_modifier_list NEWLINE {
+      printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
   | pipe_list io_modifier_list background_optional NEWLINE {
+      printf("   Yacc: Execute command\n");
       Shell::_currentCommand.execute();
     }
   | NEWLINE /* accept empty cmd line */
