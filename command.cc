@@ -17,8 +17,13 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
-
 #include <iostream>
+
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #include "command.hh"
 #include "shell.hh"
@@ -119,9 +124,68 @@ void Command::execute() {
     // Print contents of Command data structure
     print();
 
-    // Add execution here
-    // For every simple command fork a new process
-    // Setup i/o redirection
+    // Execute all the given simple commands
+    int tmpin = dup(0);
+    int tmpout = dup(1);
+
+    // Change initial input to the user provided input file
+    int fdin;
+    if (_inFile) {
+      fdin = open(_inFile->c_str(), O_RDONLY);
+    } else { // Use default input
+      fdin = dup(tmpin);
+    }
+
+    int ret;
+    int fdout;
+    for (int i = 0; i < _simpleCommands.size(); i++) {
+      // Redirect input
+      dup2(fdin, 0);
+      close(fdin);
+
+      // Setup the output based on the user on the last simple command
+      if (i == _simpleCommands.size() - 1) {
+        // Change final output to the user provided output file
+        if (_outFile) {
+          // Check if we need to append or simply edit
+          if (_append) {
+            fdout = open(_outFile->c_str(), O_APPEND | O_CREAT, 0644);
+          } else {
+            fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT, 0644);
+          }
+        } else { // Use default output
+          fdout = dup(tmpout);
+        }
+      } else { // Not last command - pipe output to next command
+        // Create the pipe
+        int fdpipe[2];
+        pipe(fdpipe);
+        fdout = fdpipe[1];
+        fdin = fdpipe[0];
+      } // if/else
+      // Redirect output
+      dup2(fdout, 1);
+      close(fdout);
+
+      // Create child process
+      ret = fork();
+      if (ret == 0) {
+        execvp(scmd[i].args[0], scmd[i].args);
+        perror("execvp");
+        exit(1);
+      }
+    } // for
+      // restore in/out defaults
+    dup2(tmpin, 0);
+    dup2(tmpout, 1);
+    close(tmpin);
+    close(tmpout);
+
+    if (!_background) {
+      // Wait for last command
+      waitpid(ret, NULL, 0);
+    }
+
     // and call exec
   }
 

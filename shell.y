@@ -11,7 +11,7 @@
  *
  */
 
-%code requires 
+%code requires
 {
 #include <string>
 
