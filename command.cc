@@ -212,15 +212,11 @@ void Command::execute() {
 
         // Call execvp with modified arguements
         execvp(argv[0], argv.data());
-        if (isatty(0)) {
-          perror("execvp");
-        }
+        perror("execvp");
         _exit(1);
       } else if (ret < 0) {
         // There was an error in fork
-        if (isatty(0)) {
-          perror("fork");
-        }
+        perror("fork");
         exit(2);
       }
     }
