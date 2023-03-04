@@ -123,7 +123,7 @@ void Command::execute() {
     fprintf(stderr, "myshell: %s\n", _errorFlag.c_str());
   } else {
     // Print contents of Command data structure
-    print();
+    // print(); (Needed for grading)
 
     // Execute all the given simple commands
     int tmpin = dup(0);  // Temporary in file descriptor
@@ -192,8 +192,9 @@ void Command::execute() {
         perror("execvp");
         exit(1);
       }
-    } // for
-      // restore in/out defaults
+    }
+
+    // Restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
     close(tmpin);
