@@ -139,7 +139,7 @@ void Command::execute() {
     int ret;   // fork(): 0 if child, > 0 if parent, < 0 if error
     int fdout; // The out file descriptor
 
-    for (int i = 0; i < _simpleCommands.size(); i++) {
+    for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
       // Redirect input
       dup2(fdin, 0);
       close(fdin);
