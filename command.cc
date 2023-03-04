@@ -128,6 +128,7 @@ void Command::execute() {
     // Execute all the given simple commands
     int tmpin = dup(0);  // Temporary in file descriptor
     int tmpout = dup(1); // Tempory out file descriptor
+    int tmperr = dup(2); // Temporary error file descriptor
 
     // Change initial input to the user provided input file
     int fdin;
@@ -136,24 +137,39 @@ void Command::execute() {
     } else { // Use default input
       fdin = dup(tmpin);
     }
+    // Redirect input
+    dup2(fdin, 0);
+    close(fdin);
+
+    // Change error output to the user provided error file
+    int fderr;
+    if (_errFile) {
+      // See whether error should be appended or written
+      if (_append) {
+        fderr = open(_errFile->c_str(), O_CREAT | O_APPEND | O_TRUNC, 0644);
+      } else {
+        fderr = open(_errFile->c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0644);
+      }
+    } else { // Use default error
+      fderr = dup(tmperr);
+    }
+    // Redirect erro
+    dup2(fderr, 2);
+    close(fderr);
 
     int ret;   // fork(): 0 if child, > 0 if parent, < 0 if error
     int fdout; // The out file descriptor
 
     for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
-      // Redirect input
-      dup2(fdin, 0);
-      close(fdin);
-
       // Setup the output based on the user on the last simple command
       if (i == _simpleCommands.size() - 1) {
         // Change final output to the user provided output file
         if (_outFile) {
           // Check if we need to append or simply edit the file
           if (_append) {
-            fdout = open(_outFile->c_str(), O_APPEND | O_CREAT, 0644);
+            fdout = open(_outFile->c_str(), O_CREAT | O_APPEND | O_TRUNC, 0644);
           } else {
-            fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT, 0644);
+            fdout = open(_outFile->c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0644);
           }
         } else { // Otherwise, use default output
           fdout = dup(tmpout);
@@ -190,15 +206,21 @@ void Command::execute() {
         // Call execvp with modified arguements
         execvp(argv[0], argv.data());
         perror("execvp");
-        exit(1);
+        _exit(1);
+      } else if (ret < 0) {
+        // There was an error in fork
+        perror("fork");
+        return;
       }
     }
 
-    // Restore in/out defaults
+    // Restore in/out/err defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
+    dup2(tmperr, 2);
     close(tmpin);
     close(tmpout);
+    close(tmperr);
 
     if (!_background) {
       // Wait for last command
