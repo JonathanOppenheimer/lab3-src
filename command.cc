@@ -174,7 +174,8 @@ void Command::execute() {
       if (ret == 0) {
         SimpleCommand *current_command = _simpleCommands.at(i);
 
-        execvp(current_command->_arguments[0], current_command->_arguments);
+        execvp(current_command->_arguments.front()->c_str(),
+               current_command->_arguments);
         perror("execvp");
         exit(1);
       }
