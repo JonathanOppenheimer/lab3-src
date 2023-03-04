@@ -120,7 +120,9 @@ void Command::execute() {
 
   // Check for an error on the command line before execution
   if (!_errorFlag.empty()) {
-    fprintf(stderr, "myshell: %s\n", _errorFlag.c_str());
+    if (isatty(0)) {
+      fprintf(stderr, "myshell: %s\n", _errorFlag.c_str());
+    }
   } else {
     // Print contents of Command data structure
     // print(); (Needed for grading)
@@ -208,11 +210,15 @@ void Command::execute() {
 
         // Call execvp with modified arguements
         execvp(argv[0], argv.data());
-        perror("execvp");
+        if (isatty(0)) {
+          perror("execvp");
+        }
         _exit(1);
       } else if (ret < 0) {
         // There was an error in fork
-        perror("fork");
+        if (isatty(0)) {
+          perror("fork");
+        }
         exit(2);
       }
     }
@@ -237,8 +243,9 @@ void Command::execute() {
   clear();
 
   // Print new prompt
-  if (isatty(0))
+  if (isatty(0)) {
     Shell::prompt();
+  }
 }
 
 SimpleCommand *Command::_currentSimpleCommand;
