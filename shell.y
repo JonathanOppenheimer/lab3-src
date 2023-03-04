@@ -143,7 +143,6 @@ background_optional:
     AMPERSAND {
       Shell::_currentCommand._background = true;
     }
-  | /* empty */
 ;
 
 command_line:
