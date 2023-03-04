@@ -496,7 +496,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  11
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  24
+#define YYNRULES  23
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  35
 
@@ -547,8 +547,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    46,    46,    48,    51,    55,    55,    65,    66,    70,
-      78,    86,    94,   109,   118,   138,   139,   143,   146,   150,
-     153,   156,   159,   165,   166
+      78,    86,    94,   109,   118,   138,   139,   143,   149,   152,
+     155,   158,   164,   165
 };
 #endif
 
@@ -600,10 +600,10 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     5,    21,     0,     7,    16,    23,     0,    22,
-       4,     1,     0,     0,    24,     6,     8,    19,     0,     0,
+       0,     0,     5,    20,     0,     7,    16,    22,     0,    21,
+       4,     1,     0,     0,    23,     6,     8,    18,     0,     0,
        0,     0,     0,     0,    17,    15,     0,     3,     9,    10,
-      11,    12,    13,    14,    20
+      11,    12,    13,    14,    19
 };
 
   /* YYPGOTO[NTERM-NUM].  */
@@ -653,16 +653,16 @@ static const yytype_int8 yystos[] =
 static const yytype_int8 yyr1[] =
 {
        0,    14,    15,    16,    16,    18,    17,    19,    19,    20,
-      20,    20,    20,    20,    20,    21,    21,    22,    22,    23,
-      23,    23,    23,    24,    24
+      20,    20,    20,    20,    20,    21,    21,    22,    23,    23,
+      23,    23,    24,    24
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     0,     0,     3,     1,     3,     2,
-       2,     2,     2,     2,     2,     2,     0,     1,     0,     3,
-       4,     1,     2,     1,     2
+       2,     2,     2,     2,     2,     2,     0,     1,     3,     4,
+       1,     2,     1,     2
 };
 
 
@@ -1485,32 +1485,32 @@ yyreduce:
 #line 1486 "y.tab.cc"
     break;
 
-  case 19:
-#line 150 "shell.y"
+  case 18:
+#line 149 "shell.y"
                                        {
       Shell::_currentCommand.execute();
     }
 #line 1494 "y.tab.cc"
     break;
 
-  case 20:
-#line 153 "shell.y"
+  case 19:
+#line 152 "shell.y"
                                                            {
       Shell::_currentCommand.execute();
     }
 #line 1502 "y.tab.cc"
     break;
 
-  case 21:
-#line 156 "shell.y"
+  case 20:
+#line 155 "shell.y"
             { 
       Shell::_currentCommand.execute();
     }
 #line 1510 "y.tab.cc"
     break;
 
-  case 22:
-#line 159 "shell.y"
+  case 21:
+#line 158 "shell.y"
                  {
       yyerrok; /* Clear the errors */
     }
@@ -1750,7 +1750,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 169 "shell.y"
+#line 168 "shell.y"
 
 
 void

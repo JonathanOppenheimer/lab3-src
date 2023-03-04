@@ -125,8 +125,8 @@ void Command::execute() {
     print();
 
     // Execute all the given simple commands
-    int tmpin = dup(0);
-    int tmpout = dup(1);
+    int tmpin = dup(0);  // Temporary in file descriptor
+    int tmpout = dup(1); // Tempory out file descriptor
 
     // Change initial input to the user provided input file
     int fdin;
@@ -136,8 +136,9 @@ void Command::execute() {
       fdin = dup(tmpin);
     }
 
-    int ret;
-    int fdout;
+    int ret;   // fork(): 0 if child, > 0 if parent, < 0 if error
+    int fdout; // The out file descriptor
+
     for (int i = 0; i < _simpleCommands.size(); i++) {
       // Redirect input
       dup2(fdin, 0);
@@ -147,13 +148,13 @@ void Command::execute() {
       if (i == _simpleCommands.size() - 1) {
         // Change final output to the user provided output file
         if (_outFile) {
-          // Check if we need to append or simply edit
+          // Check if we need to append or simply edit the file
           if (_append) {
             fdout = open(_outFile->c_str(), O_APPEND | O_CREAT, 0644);
           } else {
             fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT, 0644);
           }
-        } else { // Use default output
+        } else { // Otherwise, use default output
           fdout = dup(tmpout);
         }
       } else { // Not last command - pipe output to next command
@@ -162,7 +163,8 @@ void Command::execute() {
         pipe(fdpipe);
         fdout = fdpipe[1];
         fdin = fdpipe[0];
-      } // if/else
+      }
+
       // Redirect output
       dup2(fdout, 1);
       close(fdout);
@@ -170,7 +172,9 @@ void Command::execute() {
       // Create child process
       ret = fork();
       if (ret == 0) {
-        execvp(scmd[i].args[0], scmd[i].args);
+        SimpleCommand *current_command = _simpleCommands.at(i);
+
+        execvp(current_command->_arguments.at(0), current_command->_arguments);
         perror("execvp");
         exit(1);
       }
@@ -185,8 +189,6 @@ void Command::execute() {
       // Wait for last command
       waitpid(ret, NULL, 0);
     }
-
-    // and call exec
   }
 
   // Clear to prepare for next command
