@@ -14,6 +14,7 @@
  * MAY FACILITATE ACADEMIC DISHONESTY.
  */
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
@@ -177,15 +178,17 @@ void Command::execute() {
         std::vector<std::string *> vector_args = current_command->_arguments;
 
         // Conver the arguement vector into an arg list
-        std::vector<const char *> args;
-        args.reserve(vector_args.size() + 1);
-        for (std::string *sp : vector_args) {
-          args.push_back(sp->c_str());
-        }
-        args.push_back(nullptr); // needed to terminate the args list
+        std::vector<char *> argv(vector_args.size() + 1);
+
+        // Copy pointers to each string's buffer into the new vector
+        std::transform(vector_args.begin(), vector_args.end(), argv.begin(),
+                       [](std::string *arg) { return arg->data(); });
+
+        // Ensure the last member of the argv is NULL for execv
+        argv.back() = nullptr;
 
         // Call execvp with modified arguements
-        execvp(args[0], args.data());
+        execvp(argv[0], argv.data());
         perror("execvp");
         exit(1);
       }
