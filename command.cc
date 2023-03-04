@@ -172,10 +172,20 @@ void Command::execute() {
       // Create child process
       ret = fork();
       if (ret == 0) {
+        // Conver the current command vector to a state suitable for execvp
         SimpleCommand *current_command = _simpleCommands.at(i);
+        std::vector<std::string *> vector_args = current_command->_arguments;
 
-        execvp(current_command->_arguments.front()->c_str(),
-               current_command->_arguments.data());
+        // Conver the arguement vector into an arg list
+        std::vector<const char *> args;
+        args.reserve(vector_args.size() + 1);
+        for (std::string *sp : vector_args) {
+          args.push_back(sp->c_str());
+        }
+        args.push_back(nullptr); // needed to terminate the args list
+
+        // Call execvp with modified arguements
+        execvp(args[0], args.data());
         perror("execvp");
         exit(1);
       }
