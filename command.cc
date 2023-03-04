@@ -137,9 +137,7 @@ void Command::execute() {
     } else { // Use default input
       fdin = dup(tmpin);
     }
-    // Redirect input
-    dup2(fdin, 0);
-    close(fdin);
+    // Input will be redirected within the for loop
 
     // Change error output to the user provided error file
     int fderr;
@@ -153,7 +151,7 @@ void Command::execute() {
     } else { // Use default error
       fderr = dup(tmperr);
     }
-    // Redirect erro
+    // Redirect error
     dup2(fderr, 2);
     close(fderr);
 
@@ -161,6 +159,10 @@ void Command::execute() {
     int fdout; // The out file descriptor
 
     for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
+      // Redirect input
+      dup2(fdin, 0);
+      close(fdin);
+
       // Setup the output based on the user on the last simple command
       if (i == _simpleCommands.size() - 1) {
         // Change final output to the user provided output file
@@ -210,14 +212,16 @@ void Command::execute() {
       } else if (ret < 0) {
         // There was an error in fork
         perror("fork");
-        return;
+        exit(2);
       }
     }
 
-    // Restore in/out/err defaults
+    // Restore input, output, and error defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
     dup2(tmperr, 2);
+
+    // Close file descriptors that are not needed
     close(tmpin);
     close(tmpout);
     close(tmperr);
