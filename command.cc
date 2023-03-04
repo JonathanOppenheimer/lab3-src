@@ -169,8 +169,8 @@ void Command::execute() {
         if (_outFile) {
           // Check if we need to append or simply edit the file
           if (_append) {
-            fdout = open(_outFile->c_str(),
-                         O_CREAT | O_WRONLY | O_APPEND | O_TRUNC, 0644);
+            fdout =
+                open(_outFile->c_str(), O_CREAT | O_WRONLY | O_APPEND, 0644);
           } else {
             fdout = open(_outFile->c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0644);
           }
@@ -237,7 +237,8 @@ void Command::execute() {
   clear();
 
   // Print new prompt
-  Shell::prompt();
+  if (isatty(0))
+    Shell::prompt();
 }
 
 SimpleCommand *Command::_currentSimpleCommand;
