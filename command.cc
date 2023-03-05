@@ -144,7 +144,7 @@ void Command::execute() {
     if (_errFile) {
       // See whether error should be appended or written
       if (_append) {
-        fderr = open(_errFile->c_str(), O_CREAT | O_APPEND | O_TRUNC, 0644);
+        fderr = open(_errFile->c_str(), O_CREAT | O_WRONLY | O_APPEND, 0644);
       } else {
         fderr = open(_errFile->c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0644);
       }

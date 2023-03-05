@@ -1389,7 +1389,7 @@ yyreduce:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous output redirect.";
+        Shell::_currentCommand._errorFlag = "Ambiguous output redirect.";
       }
     }
 #line 1396 "y.tab.cc"
@@ -1402,7 +1402,7 @@ yyreduce:
       if(Shell::_currentCommand._inFile == NULL) {
         Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous input redirect.";
+        Shell::_currentCommand._errorFlag = "Ambiguous input redirect.";
       }
     }
 #line 1409 "y.tab.cc"
@@ -1415,7 +1415,7 @@ yyreduce:
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous error redirect.";
+        Shell::_currentCommand._errorFlag = "Ambiguous error redirect.";
       }
     }
 #line 1422 "y.tab.cc"
@@ -1428,14 +1428,14 @@ yyreduce:
       if(Shell::_currentCommand._outFile == NULL) {
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous output redirect.";
+        Shell::_currentCommand._errorFlag = "Ambiguous output redirect.";
       }
 
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous error redirection.";
+        Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
 #line 1442 "y.tab.cc"
@@ -1449,7 +1449,7 @@ yyreduce:
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
         Shell::_currentCommand._append = true;
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous output redirection";
+        Shell::_currentCommand._errorFlag = "Ambiguous output redirection";
       }
     }
 #line 1456 "y.tab.cc"
@@ -1463,7 +1463,7 @@ yyreduce:
         Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
         Shell::_currentCommand._append = true;
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous output redirection.";
+        Shell::_currentCommand._errorFlag = "Ambiguous output redirection.";
       }
 
       /* Redirect stderr */
@@ -1471,7 +1471,7 @@ yyreduce:
         Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
         Shell::_currentCommand._append = true;
       } else {
-        Shell::_currentCommand._errorFlag = "Ambigous error redirection.";
+        Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
 #line 1478 "y.tab.cc"
