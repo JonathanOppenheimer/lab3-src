@@ -114,17 +114,13 @@ void Command::print() {
 void Command::execute() {
   // Don't do anything if there are no simple commands
   if (_simpleCommands.size() == 0) {
-    if (isatty(0)) {
-      Shell::prompt();
-    }
+    Shell::prompt();
     return;
   }
 
   // Check for an error on the command line before execution
   if (!_errorFlag.empty()) {
-    if (isatty(0)) {
-      fprintf(stderr, "myshell: %s\n", _errorFlag.c_str());
-    }
+    fprintf(stderr, "myshell: %s\n", _errorFlag.c_str());
   } else {
     // Print contents of Command data structure
     // print(); (Needed for grading)
@@ -241,9 +237,7 @@ void Command::execute() {
   clear();
 
   // Print new prompt
-  if (isatty(0)) {
-    Shell::prompt();
-  }
+  Shell::prompt();
 }
 
 SimpleCommand *Command::_currentSimpleCommand;
