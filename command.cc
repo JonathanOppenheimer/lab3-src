@@ -120,7 +120,7 @@ void Command::execute() {
 
   // Check for an error on the command line before execution
   if (!_errorFlag.empty()) {
-    fprintf(stderr, "myshell: %s\n", _errorFlag.c_str());
+    fprintf(stderr, "%s\n", _errorFlag.c_str());
   } else {
     // Print contents of Command data structure
     // print(); (Needed for grading)
