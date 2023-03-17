@@ -54,7 +54,7 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    if(compare("exit", $1)) {
+    if(std::string::compare("exit", $1)) {
       printf("Good bye!!\n");
       exit(0);
     } else {
