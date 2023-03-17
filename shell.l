@@ -77,8 +77,7 @@ void myunputc(int c) {
  /* Strip quotes from yytext and return it as a word */
 \"[^\"]*\" {
   std::string* raw = new std::string(yytext); 
-  std::string trimmed = raw->substr(0, raw->size() - 2);
-  std::cout << trimmed;
+  std::string trimmed = raw->substr(1, raw->size() - 2);
   yylval.cpp_string = new std::string(trimmed);
   return WORD;
 }
