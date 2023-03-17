@@ -877,13 +877,12 @@ YY_RULE_SETUP
   std::string *trimmed = new std::string(yytext);
   trimmed = trimmed->substr(1, trimmed->size());
   std::cout << *trimmed;
-  yylval.cpp_string = trimmed;
   return WORD;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 88 "shell.l"
+#line 87 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -893,17 +892,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 13:
 YY_RULE_SETUP
-#line 95 "shell.l"
+#line 94 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 99 "shell.l"
+#line 98 "shell.l"
 ECHO;
 	YY_BREAK
-#line 907 "lex.yy.cc"
+#line 906 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1920,4 +1919,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 99 "shell.l"
+#line 98 "shell.l"
