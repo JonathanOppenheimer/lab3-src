@@ -118,6 +118,11 @@ void Command::execute() {
     return;
   }
 
+  // Used to check how the child processes return (e.g. if the child terminated
+  // normally, that is, by calling exit(3) or _exit(2), or by returning from
+  // main()
+  int *status;
+
   // Check for an error on the command line before execution
   if (!_errorFlag.empty()) {
     fprintf(stderr, "%s\n", _errorFlag.c_str());
@@ -229,15 +234,15 @@ void Command::execute() {
 
     if (!_background) {
       // Wait for last command
-      waitpid(ret, NULL, 0);
+      waitpid(ret, status, 0);
     }
   }
 
   // Clear to prepare for next command
   clear();
 
-  // Print new prompt
-  if (ret != -1) {
+  // Print new prompt if the child process exited normally
+  if WIFEXITED (*status) {
     Shell::prompt();
   }
 }
