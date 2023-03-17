@@ -13,7 +13,6 @@
 
 %code requires 
 {
-#include <cstring>
 #include <string>
 
 #if __cplusplus > 199711L
@@ -54,7 +53,7 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    if(strcmp(( $1 ), "exit") == 0) {
+    if(std::string( $1 ) == "exit") {
       printf("Good bye!!\n");
       exit(0);
     } else {
