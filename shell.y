@@ -53,8 +53,13 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    Command::_currentSimpleCommand = new SimpleCommand();
-    Command::_currentSimpleCommand->insertArgument( $1 );
+    if(strcmp("exit", $1)) {
+      printf("Good bye!!\n")
+      exit(0);
+    } else {
+      Command::_currentSimpleCommand = new SimpleCommand();
+      Command::_currentSimpleCommand->insertArgument( $1 );
+    }
   }
   arg_list {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
