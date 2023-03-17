@@ -1369,7 +1369,7 @@ yyreduce:
   case 5:
 #line 56 "shell.y"
        {
-    if(compare("exit", (yyvsp[0].cpp_string))) {
+    if(std::string::compare("exit", (yyvsp[0].cpp_string))) {
       printf("Good bye!!\n");
       exit(0);
     } else {
