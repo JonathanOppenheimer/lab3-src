@@ -30,7 +30,7 @@ void myunputc(int c) {
 
 %%
 
-\"\w+ {
+\" {
   printf("starting!!\n");
   string_buf_ptr = string_buf;
   BEGIN(str);
