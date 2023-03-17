@@ -10,6 +10,7 @@
 %{
 
 #include <cstring>
+#include <iostream>
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
@@ -77,7 +78,6 @@ void myunputc(int c) {
 \"[^\"]*\" {
   yylval.cpp_string = new std::string(yytext);
   std::cout << yylval.cpp_string;
-  // strncpy(yylval.cpp_string, &yytext[1], strlen(yytext)-2);
   return WORD;
 }
 
