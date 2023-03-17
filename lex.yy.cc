@@ -422,43 +422,43 @@ static const YY_CHAR yy_ec[256] =
 
 static const YY_CHAR yy_meta[10] =
     {   0,
-        1,    2,    2,    1,    1,    1,    1,    1,    1
+        1,    2,    3,    1,    1,    1,    1,    1,    1
     } ;
 
 static const flex_int16_t yy_base[26] =
     {   0,
-        0,    0,   26,    0,   27,   27,    8,    0,   17,    0,
-        8,    0,    0,   15,   20,    0,    0,    0,   10,   27,
-        0,   27,   13,   19,   21
+        0,    0,   25,    0,   26,   26,    8,    0,   16,    0,
+        8,    0,    0,   15,   14,    0,    0,    0,   10,   10,
+        0,   26,   10,   19,   21
     } ;
 
 static const flex_int16_t yy_def[26] =
     {   0,
        22,    1,   22,   23,   22,   22,   24,   23,   23,   23,
-       23,   23,   23,   24,   25,   23,   23,   23,   23,   22,
+       23,   23,   23,   24,   25,   14,   23,   23,   23,   25,
        23,    0,   22,   22,   22
     } ;
 
-static const flex_int16_t yy_nxt[37] =
+static const flex_int16_t yy_nxt[36] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,   15,
-       15,   16,   18,   13,   21,   19,   15,   15,   16,   14,
-       14,   15,   15,   20,   17,   22,    3,   22,   22,   22,
-       22,   22,   22,   22,   22,   22
+       13,   16,   18,   20,   21,   19,   15,   20,   16,   14,
+       14,   15,   15,   17,   22,    3,   22,   22,   22,   22,
+       22,   22,   22,   22,   22
     } ;
 
-static const flex_int16_t yy_chk[37] =
+static const flex_int16_t yy_chk[36] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    7,
-        7,    7,   11,   23,   19,   11,   14,   14,   14,   24,
-       24,   25,   25,   15,    9,    3,   22,   22,   22,   22,
-       22,   22,   22,   22,   22,   22
+       23,    7,   11,   20,   19,   11,   14,   15,   14,   24,
+       24,   25,   25,    9,    3,   22,   22,   22,   22,   22,
+       22,   22,   22,   22,   22
     } ;
 
 /* Table of booleans, true if rule could match eol. */
 static const flex_int32_t yy_rule_can_match_eol[15] =
     {   0,
-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,     };
+1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -755,7 +755,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 27 );
+		while ( yy_base[yy_current_state] != 26 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -870,7 +870,6 @@ YY_RULE_SETUP
 	YY_BREAK
 /* Strip quotes from yytext and return it as a word */
 case 11:
-/* rule 11 can match eol */
 YY_RULE_SETUP
 #line 79 "shell.l"
 {
@@ -903,7 +902,7 @@ YY_RULE_SETUP
 #line 99 "shell.l"
 ECHO;
 	YY_BREAK
-#line 907 "lex.yy.cc"
+#line 906 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
