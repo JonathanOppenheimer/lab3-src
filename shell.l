@@ -28,7 +28,7 @@ void myunputc(int c) {
 %%
 
 
-char string_buf[MAX_STR_CONST];
+char string_buf[1000];
 char *string_buf_ptr;
 
 
