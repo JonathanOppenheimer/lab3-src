@@ -73,6 +73,14 @@ void myunputc(int c) {
   return AMPERSAND;
 }
 
+ /* Strip quotes from yytext and return it as a word */
+\"[^\"]*\" {
+  printf("%s\n", yytext);
+  yylval.string_val=strdup(yytext);
+  return WORD;
+}
+
+
 [^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
