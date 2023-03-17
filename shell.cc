@@ -28,7 +28,7 @@ int main() {
   int error = sigaction(SIGINT, &signalAction, NULL);
   if (error) {
     perror("sigaction");
-    exit(2);
+    exit(-1);
   }
 
   Shell::prompt();

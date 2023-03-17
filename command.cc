@@ -237,7 +237,9 @@ void Command::execute() {
   clear();
 
   // Print new prompt
-  Shell::prompt();
+  if (ret != -1) {
+    Shell::prompt();
+  }
 }
 
 SimpleCommand *Command::_currentSimpleCommand;
