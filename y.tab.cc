@@ -1369,7 +1369,7 @@ yyreduce:
   case 5:
 #line 56 "shell.y"
        {
-    if(strcmp(( (yyvsp[0].cpp_string) ), "exit"->c_str()) == 0) {
+    if(strcmp(( (yyvsp[0].cpp_string) ), "exit".c_str()) == 0) {
       printf("Good bye!!\n");
       exit(0);
     } else {

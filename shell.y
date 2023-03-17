@@ -54,7 +54,7 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    if(strcmp(( $1 ), "exit".c_str()) == 0) {
+    if(strcmp(( $1 ), "exit") == 0) {
       printf("Good bye!!\n");
       exit(0);
     } else {
