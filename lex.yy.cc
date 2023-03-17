@@ -740,8 +740,7 @@ YY_DECL
 #line 31 "shell.l"
 
 
-
-#line 745 "lex.yy.cc"
+#line 744 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -810,15 +809,15 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 34 "shell.l"
+#line 33 "shell.l"
 {
-  string_buf_ptr = string_buf; 
+  string_buf_ptr = string_buf;
   BEGIN(str);
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 39 "shell.l"
+#line 38 "shell.l"
 { /* saw closing quote - all done */
   BEGIN(INITIAL);
   *string_buf_ptr = '\0';
@@ -831,7 +830,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 48 "shell.l"
+#line 47 "shell.l"
 {
   /* error - unterminated string constant */
   /* generate error message */
@@ -839,40 +838,40 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 53 "shell.l"
+#line 52 "shell.l"
 *string_buf_ptr++ = '\n';
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 54 "shell.l"
+#line 53 "shell.l"
 *string_buf_ptr++ = '\t';
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 55 "shell.l"
+#line 54 "shell.l"
 *string_buf_ptr++ = '\r';
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 56 "shell.l"
+#line 55 "shell.l"
 *string_buf_ptr++ = '\b';
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 57 "shell.l"
+#line 56 "shell.l"
 *string_buf_ptr++ = '\f';
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 59 "shell.l"
+#line 58 "shell.l"
 {
   *string_buf_ptr++ = yytext[1];
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 63 "shell.l"
+#line 62 "shell.l"
 {
   char *yptr = yytext;
   while ( *yptr ) {
@@ -884,14 +883,14 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 71 "shell.l"
+#line 70 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 75 "shell.l"
+#line 74 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -899,7 +898,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 13:
 YY_RULE_SETUP
-#line 80 "shell.l"
+#line 79 "shell.l"
 {
   return PIPE;
 }
@@ -907,7 +906,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 14:
 YY_RULE_SETUP
-#line 85 "shell.l"
+#line 84 "shell.l"
 {
   return GREAT;
 }
@@ -915,7 +914,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 15:
 YY_RULE_SETUP
-#line 90 "shell.l"
+#line 89 "shell.l"
 {
   return LESS;
 }
@@ -923,7 +922,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 16:
 YY_RULE_SETUP
-#line 95 "shell.l"
+#line 94 "shell.l"
 {
   return TWOGREAT;
 }
@@ -931,7 +930,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 17:
 YY_RULE_SETUP
-#line 100 "shell.l"
+#line 99 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -939,7 +938,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 18:
 YY_RULE_SETUP
-#line 105 "shell.l"
+#line 104 "shell.l"
 {
   return GREATGREAT;
 }
@@ -947,7 +946,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 19:
 YY_RULE_SETUP
-#line 110 "shell.l"
+#line 109 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -955,7 +954,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 20:
 YY_RULE_SETUP
-#line 115 "shell.l"
+#line 114 "shell.l"
 {
   return AMPERSAND;
 }
@@ -963,7 +962,7 @@ YY_RULE_SETUP
 /* Strip quotes from yytext and return it as a word */
 case 21:
 YY_RULE_SETUP
-#line 120 "shell.l"
+#line 119 "shell.l"
 {
   std::string* raw = new std::string(yytext);
   std::string trimmed = raw->substr(1, raw->size() - 2);
@@ -973,7 +972,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 128 "shell.l"
+#line 127 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -983,17 +982,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 23:
 YY_RULE_SETUP
-#line 135 "shell.l"
+#line 134 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 139 "shell.l"
+#line 138 "shell.l"
 ECHO;
 	YY_BREAK
-#line 997 "lex.yy.cc"
+#line 996 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(str):
 	yyterminate();
@@ -2011,4 +2010,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 139 "shell.l"
+#line 138 "shell.l"
