@@ -31,7 +31,6 @@ void myunputc(int c) {
 %%
 
 \" {
-  printf("starting!!\n");
   string_buf_ptr = string_buf;
   BEGIN(str);
 }
