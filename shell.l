@@ -76,8 +76,8 @@ void myunputc(int c) {
 
  /* Strip quotes from yytext and return it as a word */
 \"[^\"]*\" {
-  yytext[strlen(yytext)-1]='\0'; // exclude last "
-  yylval.str = &yytext[1]; // exclude first "
+  yytext[strlen(yytext)-1]='\0'; // exclude last " character
+  yytext+=1; // exclude first " character
   yylval.string_val = strdup(yytext);
   return WORD;
 }
