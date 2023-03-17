@@ -810,7 +810,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 31 "shell.l"
-string_buf[MAX_STR_CONST];
+string_buf[1000];
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
