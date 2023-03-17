@@ -78,7 +78,7 @@ void myunputc(int c) {
 \"[^\"]*\" {
   std::string* trimmed = new std::string(yytext); 
   yylval.cpp_string = trimmed;
-  std::cout << yylval.cpp_string; 
+  std::cout << *yylval.cpp_string;
   return WORD;
 }
 
