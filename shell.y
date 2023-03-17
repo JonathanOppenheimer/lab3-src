@@ -13,6 +13,7 @@
 
 %code requires 
 {
+#include <cstring>
 #include <string>
 
 #if __cplusplus > 199711L
@@ -54,7 +55,7 @@ arg_list:
 cmd_and_args:
   WORD {
     if(strcmp("exit", $1)) {
-      printf("Good bye!!\n")
+      printf("Good bye!!\n");
       exit(0);
     } else {
       Command::_currentSimpleCommand = new SimpleCommand();
