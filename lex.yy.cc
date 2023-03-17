@@ -877,7 +877,7 @@ YY_RULE_SETUP
   std::string* raw = new std::string(yytext); 
   std::string trimmed = raw->substr(0, raw->size() - 2);
   std::cout << trimmed;
-  yylval.cpp_string = trimmed;
+  yylval.cpp_string = new std::string(trimmed);
   return WORD;
 }
 	YY_BREAK
