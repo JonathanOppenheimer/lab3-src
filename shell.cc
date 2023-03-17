@@ -15,7 +15,8 @@ void Shell::prompt() {
 }
 
 extern "C" void sigIntHandler(int sig) {
-  fprintf(stderr, "\nsig:%d      Ouch!\n", sig);
+  Shell::_currentCommand.clear();
+  Shell::prompt();
 }
 
 int main() {
