@@ -490,6 +490,7 @@ char *yytext_ptr;
 #line 11 "shell.l"
 
 #include <cstring>
+#include <iostream>
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
@@ -498,8 +499,8 @@ void myunputc(int c) {
   unput(c);
 }
 
-#line 502 "lex.yy.cc"
 #line 503 "lex.yy.cc"
+#line 504 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -716,12 +717,12 @@ YY_DECL
 		}
 
 	{
-#line 25 "shell.l"
+#line 26 "shell.l"
 
 
-#line 28 "shell.l"
+#line 29 "shell.l"
   /* New line character */
-#line 725 "lex.yy.cc"
+#line 726 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -791,14 +792,14 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 29 "shell.l"
+#line 30 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 33 "shell.l"
+#line 34 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -806,7 +807,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 3:
 YY_RULE_SETUP
-#line 38 "shell.l"
+#line 39 "shell.l"
 {
   return PIPE;
 }
@@ -814,7 +815,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 4:
 YY_RULE_SETUP
-#line 43 "shell.l"
+#line 44 "shell.l"
 {
   return GREAT;
 }
@@ -822,7 +823,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 5:
 YY_RULE_SETUP
-#line 48 "shell.l"
+#line 49 "shell.l"
 {
   return LESS;
 }
@@ -830,7 +831,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 6:
 YY_RULE_SETUP
-#line 53 "shell.l"
+#line 54 "shell.l"
 {
   return TWOGREAT;
 }
@@ -838,7 +839,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 7:
 YY_RULE_SETUP
-#line 58 "shell.l"
+#line 59 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -846,7 +847,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 8:
 YY_RULE_SETUP
-#line 63 "shell.l"
+#line 64 "shell.l"
 {
   return GREATGREAT;
 }
@@ -854,7 +855,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 9:
 YY_RULE_SETUP
-#line 68 "shell.l"
+#line 69 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -862,7 +863,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 10:
 YY_RULE_SETUP
-#line 73 "shell.l"
+#line 74 "shell.l"
 {
   return AMPERSAND;
 }
@@ -871,11 +872,10 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 78 "shell.l"
+#line 79 "shell.l"
 {
   yylval.cpp_string = new std::string(yytext);
   std::cout << yylval.cpp_string;
-  // strncpy(yylval.cpp_string, &yytext[1], strlen(yytext)-2);
   return WORD;
 }
 	YY_BREAK
