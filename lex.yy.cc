@@ -873,7 +873,7 @@ case 11:
 YY_RULE_SETUP
 #line 78 "shell.l"
 {
-  yylval.string = (char*)calloc(strlen(yytext)-1, sizeof(char));
+  yylval.cpp_string = new std::string(yytext);
   strncpy(yylval.string, &yytext[1], strlen(yytext)-2);
   return WORD;
 }
