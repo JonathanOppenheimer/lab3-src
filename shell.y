@@ -53,7 +53,7 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    if($1.c_str() == "exit") {
+    if($1->c_str() == "exit") {
       printf("Good bye!!\n");
       exit(0);
     } else {
