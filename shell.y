@@ -13,6 +13,7 @@
 
 %code requires 
 {
+#include <cstring>
 #include <string>
 
 #if __cplusplus > 199711L
