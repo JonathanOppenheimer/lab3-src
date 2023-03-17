@@ -30,9 +30,8 @@ void myunputc(int c) {
 
 %%
 
-
 \" {
-  string_buf_ptr = string_buf; 
+  string_buf_ptr = string_buf;
   BEGIN(str);
 }
 
