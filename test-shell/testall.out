@@ -22,8 +22,8 @@ test_cd3 Failed 0/.5
 test_cd4 Failed 0/.5
 test_parsing1 Failed 0/.5
 test_parsing2 Failed 0/.5
-test_quotes1 Failed 0/1
-test_quotes2 Failed 0/1
+test_quotes1 Passed 1/1
+test_quotes2 Passed 1/1
 test_escape Failed 0/2
 test_subshell Failed 0/10
 test_env_expand1 Failed 0/1
@@ -42,4 +42,4 @@ test_wildcards6 Failed 0/1
 test_wildcards7 Passed 1/1
 test_tilde Failed 0/2
 test_robustness Failed 0/10
-Total:                   21.0 of 70.0
+Total:                   23.0 of 70.0
