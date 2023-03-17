@@ -30,7 +30,7 @@ void myunputc(int c) {
 
 %%
 
-\" {
+\". {
   printf("starting!!\n");
   string_buf_ptr = string_buf;
   BEGIN(str);
@@ -42,7 +42,7 @@ void myunputc(int c) {
   /* return string constant token type and
    * value to parser
    */
-   return WORD;
+  return WORD;
 }
 
 <str>\n {
