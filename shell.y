@@ -53,7 +53,7 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    if(std::string( $1 ) == "exit") {
+    if($1 == "exit") {
       printf("Good bye!!\n");
       exit(0);
     } else {
