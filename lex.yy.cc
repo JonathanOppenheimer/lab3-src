@@ -876,7 +876,7 @@ YY_RULE_SETUP
 {
   std::string* trimmed = new std::string(yytext); 
   yylval.cpp_string = trimmed;
-  std::cout << yylval.cpp_string; 
+  std::cout << *yylval.cpp_string;
   return WORD;
 }
 	YY_BREAK
