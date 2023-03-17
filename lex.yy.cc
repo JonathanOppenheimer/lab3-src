@@ -873,9 +873,9 @@ case 11:
 YY_RULE_SETUP
 #line 78 "shell.l"
 {
-  yylval.string = calloc(strlen(yytext)-1, sizeof(char));
-  strncpy(yylval.string, &yytext[1], strlen(yytext-2));
-  yylval.string[yytext-1] = '\0';
+  yylval.string_val = calloc(strlen(yytext)-1, sizeof(char));
+  strncpy(yylval.string_val, &yytext[1], strlen(yytext-2));
+  yylval.string_val[yytext-1] = '\0';
   return WORD;
 }
 	YY_BREAK

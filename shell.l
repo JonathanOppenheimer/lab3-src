@@ -75,9 +75,8 @@ void myunputc(int c) {
 
  /* Strip quotes from yytext and return it as a word */
 \"[^\"]*\" {
-  yylval.string_val = calloc(strlen(yytext)-1, sizeof(char));
-  strncpy(yylval.string_val, &yytext[1], strlen(yytext-2));
-  yylval.string_val[yytext-1] = '\0';
+  yylval.string = (char*)calloc(strlen(yytext)-1, sizeof(char));
+  strncpy(yylval.string, &yytext[1], strlen(yytext)-2);
   return WORD;
 }
 
