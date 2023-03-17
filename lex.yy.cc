@@ -874,9 +874,9 @@ case 11:
 YY_RULE_SETUP
 #line 79 "shell.l"
 {
-  std::string* trimmed = new std::string(yytext); 
-  trimmed = &(trimmed->substr(0, trimmed->size() - 2));
-  std::cout << *trimmed;
+  std::string trimmed = new std::string(yytext); 
+  trimmed = trimmed->substr(0, trimmed->size() - 2);
+  std::cout << trimmed;
   return WORD;
 }
 	YY_BREAK
