@@ -875,7 +875,7 @@ YY_RULE_SETUP
 #line 79 "shell.l"
 {
   std::string* trimmed = new std::string(yytext); 
-  yylval.cpp_string = trimmed->substring(0, trimmed->size() - 2);
+  yylval.cpp_string = trimmed->substr(0, trimmed->size() - 2);
   std::cout << *yylval.cpp_string;
   return WORD;
 }
