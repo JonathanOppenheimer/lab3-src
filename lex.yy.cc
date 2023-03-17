@@ -874,8 +874,8 @@ case 11:
 YY_RULE_SETUP
 #line 79 "shell.l"
 {
-  yytext[strlen(yytext)-1]='\0'; // exclude last "
-  yylval.str = &yytext[1]; // exclude first "
+  yytext[strlen(yytext)-1]='\0'; // exclude last " character
+  yytext+=1; // exclude first " character
   yylval.string_val = strdup(yytext);
   return WORD;
 }
