@@ -16,6 +16,7 @@ void Shell::prompt() {
 
 extern "C" void sigIntHandler(int sig) {
   Shell::_currentCommand.clear();
+  printf("\n");
   Shell::prompt();
 }
 
