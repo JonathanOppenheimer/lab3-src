@@ -61,12 +61,13 @@ void myunputc(int c) {
     *string_buf_ptr++ = yytext[1];
   }
 
-  [^\\\"]+ { 
+  [^\\\"]+ {
     char *yptr = yytext;
     while ( *yptr ) {
       *string_buf_ptr++ = *yptr++;
     }
   }
+
 }
 
   /* New line character */
