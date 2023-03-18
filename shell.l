@@ -38,6 +38,8 @@ void myunputc(int c) {
       /* return string constant token type and
        * value to parser
        */
+      yylval.cpp_string = new std::string(string_buf);
+      return WORD;
   }
 
   \n {
