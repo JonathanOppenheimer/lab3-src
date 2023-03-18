@@ -820,7 +820,7 @@ YY_RULE_SETUP
 { /* saw closing quote - all done */
   BEGIN(INITIAL);
   buffer += yytext;
-  buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
+  // buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
   buffer.erase(buffer.rfind('"')); /* Delete the trailing " */
   yylval.cpp_string = new std::string(buffer);
   return WORD;
