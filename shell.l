@@ -15,7 +15,7 @@
 
 static  void yyunput (int c,char *buf_ptr  );
 
-char string_buf[1000];
+std::string buffer;
 char *string_buf_ptr;
 
 void myunputc(int c) {
@@ -38,11 +38,10 @@ void myunputc(int c) {
 <quotes> {
   \" { /* saw closing quote and any additional text - all done */
     BEGIN(INITIAL);
-    *string_buf_ptr = '\0';
     /* return string constant token type and
      * value to parser
      */
-    yylval.cpp_string = new std::string(string_buf);
+    yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
 
@@ -50,20 +49,14 @@ void myunputc(int c) {
     /* keep eating input */
   }
 
-  \\n  *string_buf_ptr++ = '\n';
-  \\t  *string_buf_ptr++ = '\t';
-  \\r  *string_buf_ptr++ = '\r';
-  \\b  *string_buf_ptr++ = '\b';
-  \\f  *string_buf_ptr++ = '\f';
+  \\n  buffer += '\n';
+  \\t  buffer += '\t';
+  \\r  buffer += '\r';
+  \\b  buffer += '\b';
+  \\f  buffer += '\f';
 
-  \\(.|\n) {
-    *string_buf_ptr++ = yytext[1];
-  }
-
-  [^\\\n\"]+ {
-    char *yptr = yytext;
-    while ( *yptr ) {
-      *string_buf_ptr++ = *yptr++;
+  [^\\\"]+ {
+      buffer += yytext;
     }
   }
 
