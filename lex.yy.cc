@@ -819,7 +819,7 @@ YY_RULE_SETUP
   BEGIN(INITIAL);
   buffer += yytext;
   // buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
-  buffer.erase(buffer.rfind('"')); /* Delete the trailing " */
+  buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
   yylval.cpp_string = new std::string(buffer);
   return WORD;
 }

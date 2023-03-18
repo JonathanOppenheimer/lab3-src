@@ -14,7 +14,7 @@
 
 #include "y.tab.hh"
 
-static  void yyunput (int c,char *buf_ptr  );
+static  void yyunput (int c,char *buf_ptr);
 
 std::string buffer;
 

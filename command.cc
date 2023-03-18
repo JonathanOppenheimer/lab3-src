@@ -212,6 +212,7 @@ void Command::execute() {
         argv.back() = nullptr;
 
         // Call execvp with modified arguements
+        std::cout << argv.data();
         execvp(argv[0], argv.data());
         perror("execvp");
         _exit(1);
