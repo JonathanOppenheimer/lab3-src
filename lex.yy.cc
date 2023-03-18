@@ -830,8 +830,8 @@ case 3:
 YY_RULE_SETUP
 #line 46 "shell.l"
 {
-  /* error - unterminated string constant */
-  /* generate error message */
+  /* Keep prompting for input */
+  std::cout << "> ";
 }
 	YY_BREAK
 case 4:

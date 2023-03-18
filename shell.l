@@ -39,6 +39,15 @@ void myunputc(int c) {
   BEGIN(INITIAL);
   buffer += yytext;
   buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
+  
+  for (int i=0; i < buffer.length(); i++){
+    if ((buffer[i] == '"') && ((i > 0) && (buffer[i] != '\'))) {
+      buffer.erase(i, 1);
+      i -= 1;
+    }
+  }
+
+
   yylval.cpp_string = new std::string(buffer);
   return WORD;
 }
