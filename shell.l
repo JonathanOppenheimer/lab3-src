@@ -117,7 +117,7 @@ void myunputc(int c) {
   /* Match everything but stuff covered by the above -
    * does not current deal with 2>
    */
-[^ \\\"\n\t\|><&]* {
+[^ \"\n\t\|><&]* {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;
