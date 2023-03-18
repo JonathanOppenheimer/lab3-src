@@ -125,7 +125,7 @@ void myunputc(int c) {
    */
 [^ \\\"\n\t\|><&]* {
   /* Assume that file names have only alpha chars */
-  bufer += yytext;
+  buffer += yytext;
   yylval.cpp_string = new std::string(buffer);
   buffer.clear();
   return WORD;
