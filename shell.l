@@ -1,7 +1,6 @@
-
 /*
  *
- * CS-252 
+ * CS-252
  * shell.l: lexical analyzer for shell
  * You have to extend it.
  *
@@ -9,8 +8,10 @@
 
 %{
 
+#include <algorithm>
 #include <cstring>
 #include <iostream>
+
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
