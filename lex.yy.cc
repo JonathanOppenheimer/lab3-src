@@ -813,50 +813,52 @@ YY_RULE_SETUP
       /* return string constant token type and
        * value to parser
        */
+      yylval.cpp_string = new std::string(string_buf);
+      return WORD;
   }
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 43 "shell.l"
+#line 45 "shell.l"
 {
       /* eat extra input */
   }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 48 "shell.l"
+#line 50 "shell.l"
 buffer += '\n';
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 49 "shell.l"
+#line 51 "shell.l"
 *string_buf_ptr++ = '\t';
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 50 "shell.l"
+#line 52 "shell.l"
 *string_buf_ptr++ = '\r';
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 51 "shell.l"
+#line 53 "shell.l"
 *string_buf_ptr++ = '\b';
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 52 "shell.l"
+#line 54 "shell.l"
 *string_buf_ptr++ = '\f';
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 54 "shell.l"
+#line 56 "shell.l"
 *string_buf_ptr++ = yytext[1];
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 56 "shell.l"
+#line 58 "shell.l"
 {
     char *yptr = yytext;
     while ( *yptr ) {
@@ -869,14 +871,14 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 65 "shell.l"
+#line 67 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 69 "shell.l"
+#line 71 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -884,7 +886,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 12:
 YY_RULE_SETUP
-#line 74 "shell.l"
+#line 76 "shell.l"
 {
   return PIPE;
 }
@@ -892,7 +894,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 13:
 YY_RULE_SETUP
-#line 79 "shell.l"
+#line 81 "shell.l"
 {
   return GREAT;
 }
@@ -900,7 +902,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 14:
 YY_RULE_SETUP
-#line 84 "shell.l"
+#line 86 "shell.l"
 {
   return LESS;
 }
@@ -908,7 +910,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 15:
 YY_RULE_SETUP
-#line 89 "shell.l"
+#line 91 "shell.l"
 {
   return TWOGREAT;
 }
@@ -916,7 +918,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 16:
 YY_RULE_SETUP
-#line 94 "shell.l"
+#line 96 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -924,7 +926,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 17:
 YY_RULE_SETUP
-#line 99 "shell.l"
+#line 101 "shell.l"
 {
   return GREATGREAT;
 }
@@ -932,7 +934,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 18:
 YY_RULE_SETUP
-#line 104 "shell.l"
+#line 106 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -940,7 +942,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 19:
 YY_RULE_SETUP
-#line 109 "shell.l"
+#line 111 "shell.l"
 {
   return AMPERSAND;
 }
@@ -955,7 +957,7 @@ YY_RULE_SETUP
   */
 case 20:
 YY_RULE_SETUP
-#line 122 "shell.l"
+#line 124 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -965,17 +967,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 129 "shell.l"
+#line 131 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 133 "shell.l"
+#line 135 "shell.l"
 ECHO;
 	YY_BREAK
-#line 979 "lex.yy.cc"
+#line 981 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 	yyterminate();
@@ -1993,4 +1995,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 133 "shell.l"
+#line 135 "shell.l"
