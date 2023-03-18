@@ -36,7 +36,7 @@ void myunputc(int c) {
 }
 
 <quotes> {
-  \"[^ \t\n\"]* { /* saw closing quote and any additional text - all done */
+  \" { /* saw closing quote and any additional text - all done */
     BEGIN(INITIAL);
     *string_buf_ptr = '\0';
     /* return string constant token type and
