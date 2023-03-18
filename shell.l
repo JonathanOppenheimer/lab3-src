@@ -45,6 +45,7 @@ void myunputc(int c) {
 }
 
 <str>\n {
+  buffer += yytext;
   /* Keep prompting for input */
   std::cout << "> ";
 }
