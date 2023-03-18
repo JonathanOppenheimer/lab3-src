@@ -61,7 +61,7 @@ void myunputc(int c) {
     buffer += yytext[1];
   }
 
-  [^\\\n]+ {
+  [^\\\n\"]+ {
     buffer += yytext;
   }
 }
