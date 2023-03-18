@@ -423,13 +423,13 @@ static const YY_CHAR yy_ec[256] =
 
 static const YY_CHAR yy_meta[16] =
     {   0,
-        1,    2,    3,    3,    2,    1,    2,    2,    4,    1,
+        1,    2,    3,    4,    2,    1,    2,    2,    4,    1,
         1,    1,    1,    1,    2
     } ;
 
 static const flex_int16_t yy_base[36] =
     {   0,
-        0,    0,   13,   20,   25,    0,   49,   49,   49,   49,
+        0,    0,   13,   20,   25,    0,   49,   49,    0,   49,
        12,   49,   13,   49,    0,   49,   49,   20,    0,   49,
        49,   14,    0,   49,   49,   49,   49,   49,   49,   49,
        49,   34,   38,   42,   44
@@ -437,7 +437,7 @@ static const flex_int16_t yy_base[36] =
 
 static const flex_int16_t yy_def[36] =
     {   0,
-       31,    1,   32,   32,   31,   33,   31,   31,   31,   31,
+       31,    1,   32,   32,   31,   33,   31,   31,   33,   31,
        33,   31,   31,   31,   34,   31,   31,   35,   33,   31,
        31,   31,   34,   31,   31,   31,   31,   31,   31,   31,
         0,   31,   31,   31,   31
@@ -962,12 +962,14 @@ case 21:
 YY_RULE_SETUP
 #line 120 "shell.l"
 {
-  buffer.clear();
-
   /* Deals with escape characters */
   size_t len = strlen(yytext);
   buffer.reserve(len); /* Avoids buffer reallocations in the loop */
   for(size_t i = 0; i < len; ++i) {
+    if(yytext[i] == '"') {
+      BEGIN(QUOTES);
+    }
+
     if(yytext[i] == '\\') {
       buffer += yytext[i+1];
       i += 1;
@@ -977,23 +979,24 @@ YY_RULE_SETUP
   }
 
   yylval.cpp_string = new std::string(buffer);
+  buffer.clear();
   return WORD;
 }
 	YY_BREAK
 /* Invalid character in input */
 case 22:
 YY_RULE_SETUP
-#line 140 "shell.l"
+#line 143 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 144 "shell.l"
+#line 147 "shell.l"
 ECHO;
 	YY_BREAK
-#line 997 "lex.yy.cc"
+#line 1000 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 	yyterminate();
@@ -2011,4 +2014,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 144 "shell.l"
+#line 147 "shell.l"
