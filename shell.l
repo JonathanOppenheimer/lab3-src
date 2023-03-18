@@ -26,44 +26,46 @@ void myunputc(int c) {
 
 %option noyywrap
 
-%x str
+%x quotes
 
 %%
 
 \" {
   string_buf_ptr = string_buf;
-  BEGIN(str);
+  BEGIN(quotes);
 }
 
-<str>\" { /* saw closing quote - all done */
-  BEGIN(INITIAL);
-  *string_buf_ptr = '\0';
-  /* return string constant token type and
+<quotes> {
+  \" { /* saw closing quote - all done */
+    BEGIN(INITIAL);
+    *string_buf_ptr = '\0';
+    /* return string constant token type and
    * value to parser
-   */
-  yylval.cpp_string = new std::string(string_buf);
-  return WORD;
-}
+    */
+    yylval.cpp_string = new std::string(string_buf);
+    return WORD;
+  }
 
-<str>\n {
-  /* error - unterminated string constant */
-  /* generate error message */
-}
+  \n {
+    /* error - unterminated string constant */
+    /* generate error message */
+  }
 
-<str>\\n  *string_buf_ptr++ = '\n';
-<str>\\t  *string_buf_ptr++ = '\t';
-<str>\\r  *string_buf_ptr++ = '\r';
-<str>\\b  *string_buf_ptr++ = '\b';
-<str>\\f  *string_buf_ptr++ = '\f';
+  \\n  *string_buf_ptr++ = '\n';
+  \\t  *string_buf_ptr++ = '\t';
+  \\r  *string_buf_ptr++ = '\r';
+  \\b  *string_buf_ptr++ = '\b';
+  \\f  *string_buf_ptr++ = '\f';
 
-<str>\\(.|\n) {
-  *string_buf_ptr++ = yytext[1];
-}
+  \\(.|\n) {
+    *string_buf_ptr++ = yytext[1];
+  }
 
-<str>[^\\\n\"]+ {
-  char *yptr = yytext;
-  while ( *yptr ) {
-    *string_buf_ptr++ = *yptr++;
+  [^\\\n\"]+ {
+    char *yptr = yytext;
+    while ( *yptr ) {
+      *string_buf_ptr++ = *yptr++;
+    }
   }
 }
 
