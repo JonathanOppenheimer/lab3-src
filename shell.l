@@ -42,7 +42,7 @@ void myunputc(int c) {
     // buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     yylval.cpp_string = new std::string(buffer);
-    return WORD;
+    // return WORD;
   }
 
   \n {
