@@ -44,8 +44,8 @@ void myunputc(int c) {
 }
 
 <str>\n {
-  /* error - unterminated string constant */
-  /* generate error message */
+  /* Keep prompting for input */
+  std::cout << "> ";
 }
 
 <str>\\n  buffer += '\n';
