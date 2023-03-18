@@ -118,8 +118,20 @@ void myunputc(int c) {
    * does not current deal with 2>
    */
 [^ \"\n\t\|><&]* {
-  /* Assume that file names have only alpha chars */
-  yylval.cpp_string = new std::string(yytext);
+  buffer.clear();
+
+  /* Deals with escape characters */
+  buffer.reserve(yytext.size()); /* Avoids buffer reallocations in the loop */
+  for(size_t i = 0; i < yytext.size(); ++i) {
+    if(yytext[i] == '\\') {
+      buffer += yytext[i+1];
+      i += 1;
+    } else {
+      buffer += yytext[i];
+    }
+  }
+
+  yylval.cpp_string = new std::string(buffer);
   return WORD;
 }
 
