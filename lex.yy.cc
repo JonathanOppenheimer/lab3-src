@@ -967,7 +967,7 @@ YY_RULE_SETUP
   buffer.reserve(len); /* Avoids buffer reallocations in the loop */
   for(size_t i = 0; i < len; ++i) {
     if(yytext[i] == '"') {
-      BEGIN(QUOTES);
+      BEGIN(quotes);
     }
 
     if(yytext[i] == '\\') {
