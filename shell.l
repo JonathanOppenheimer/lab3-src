@@ -15,7 +15,6 @@
 
 static  void yyunput (int c,char *buf_ptr  );
 
-std::string buffer;
 char string_buf[1000];
 char *string_buf_ptr;
 
@@ -27,39 +26,44 @@ void myunputc(int c) {
 
 %option noyywrap
 
-%x quotes
+%x str
 
 %%
 
-<quotes>{
-  \" { /* saw closing quote - all done */
-      BEGIN(INITIAL);
-      *string_buf_ptr = '\0';
-      /* return string constant token type and
-       * value to parser
-       */
-      yylval.cpp_string = new std::string(string_buf);
-      return WORD;
-  }
+\" {
+  string_buf_ptr = string_buf;
+  BEGIN(str);
+}
 
-  \n {
-      /* eat extra input */
-  }
+<str>\" { /* saw closing quote - all done */
+  BEGIN(INITIAL);
+  *string_buf_ptr = '\0';
+  /* return string constant token type and
+   * value to parser
+   */
+  yylval.cpp_string = new std::string(string_buf);
+  return WORD;
+}
 
+<str>\n {
+  /* error - unterminated string constant */
+  /* generate error message */
+}
 
-  \\n  buffer += '\n';
-  \\t  *string_buf_ptr++ = '\t';
-  \\r  *string_buf_ptr++ = '\r';
-  \\b  *string_buf_ptr++ = '\b';
-  \\f  *string_buf_ptr++ = '\f';
+<str>\\n  *string_buf_ptr++ = '\n';
+<str>\\t  *string_buf_ptr++ = '\t';
+<str>\\r  *string_buf_ptr++ = '\r';
+<str>\\b  *string_buf_ptr++ = '\b';
+<str>\\f  *string_buf_ptr++ = '\f';
 
-  \\(.|\n)  *string_buf_ptr++ = yytext[1];
+<str>\\(.|\n) {
+  *string_buf_ptr++ = yytext[1];
+}
 
-  [^\\\n\"]+        {
-    char *yptr = yytext;
-    while ( *yptr ) {
-      *string_buf_ptr++ = *yptr++;
-    }
+<str>[^\\\n\"]+ {
+  char *yptr = yytext;
+  while ( *yptr ) {
+    *string_buf_ptr++ = *yptr++;
   }
 }
 
@@ -112,16 +116,16 @@ void myunputc(int c) {
   return AMPERSAND;
 }
 
-  /* Strip quotes from yytext and return it as a word */
-  /* \".*\" {
+ /* Strip quotes from yytext and return it as a word */
+\".*\" {
   std::string* raw = new std::string(yytext);
   std::string trimmed = raw->substr(1, raw->size() - 2);
   yylval.cpp_string = new std::string(trimmed);
   return WORD;
-  *}
-  */
+}
 
-[^ \t\n"][^ \t\n]*  {
+
+[^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;
