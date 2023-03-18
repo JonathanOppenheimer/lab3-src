@@ -38,7 +38,7 @@ void myunputc(int c) {
 <str>\"[^ \t\n\"]* { /* saw closing quote - all done */
   BEGIN(INITIAL);
   buffer += yytext;
-  buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), str.end());
+  buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
   yylval.cpp_string = new std::string(buffer);
   return WORD;
 }
