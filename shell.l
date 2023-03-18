@@ -40,7 +40,7 @@ void myunputc(int c) {
   buffer += yytext;
   buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
   for (int i=0; i < buffer.length(); i++){
-    if ((buffer[i] == '"') && ((i > 0) && (buffer[i] != '\\'))) {
+    if ((buffer[i] == '"') && ((i > 0) && (buffer[i - 1] != '\\'))) {
       buffer.erase(i, 1);
       i -= 1;
     }
