@@ -29,33 +29,34 @@ void myunputc(int c) {
 
 %%
 
-\" {
-  BEGIN(quotes);
-}
+<quotes>{
+  \" { /* saw closing quote - all done */
+      BEGIN(INITIAL);
+      *string_buf_ptr = '\0';
+      /* return string constant token type and
+       * value to parser
+       */
+  }
 
-<quotes>\" { /* saw closing quote and any additional text - all done */
-  BEGIN(INITIAL);
-  /* return string constant token type and
-   * value to parser
-   */
-  yylval.cpp_string = new std::string(buffer);
-  return WORD;
-}
+  \n {
+      /* eat extra input */
+  }
 
-<quotes>\n {
-  /* keep eating input */
-}
 
-<quotes> {
-  \\n  buffer += '\n';
-  \\t  buffer += '\t';
-  \\r  buffer += '\r';
-  \\b  buffer += '\b';
-  \\f  buffer += '\f';
-}
+  \\n  *string_buf_ptr++ = '\n';
+  \\t  *string_buf_ptr++ = '\t';
+  \\r  *string_buf_ptr++ = '\r';
+  \\b  *string_buf_ptr++ = '\b';
+  \\f  *string_buf_ptr++ = '\f';
 
-<quotes>[^\\\"]+ {
-  buffer += yytext;
+  \\(.|\n)  *string_buf_ptr++ = yytext[1];
+
+  [^\\\n\"]+        {
+    char *yptr = yytext;
+    while ( *yptr ) {
+      *string_buf_ptr++ = *yptr++;
+    }
+  }
 }
 
   /* New line character */
