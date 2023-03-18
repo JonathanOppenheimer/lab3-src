@@ -973,7 +973,7 @@ YY_RULE_SETUP
 #line 126 "shell.l"
 {
   /* Assume that file names have only alpha chars */
-  bufer += yytext;
+  buffer += yytext;
   yylval.cpp_string = new std::string(buffer);
   buffer.clear();
   return WORD;
