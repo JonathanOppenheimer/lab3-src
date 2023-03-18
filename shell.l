@@ -16,6 +16,8 @@
 static  void yyunput (int c,char *buf_ptr  );
 
 std::string buffer;
+char string_buf[1000];
+char *string_buf_ptr;
 
 void myunputc(int c) {
   unput(c);
