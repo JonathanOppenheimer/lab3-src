@@ -35,8 +35,12 @@ void myunputc(int c) {
   BEGIN(str);
 }
 
-<str>\" { /* saw closing quote - all done */
+<str>\"[^ \t\n\"]* { /* saw closing quote - all done */
   BEGIN(INITIAL);
+  char *yptr = yytext;
+  while ( *yptr ) {
+    *string_buf_ptr++ = *yptr++;
+  }
   *string_buf_ptr = '\0';
   /* return string constant token type and
    * value to parser
