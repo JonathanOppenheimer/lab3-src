@@ -17,6 +17,7 @@ static  void yyunput (int c,char *buf_ptr  );
 
 char string_buf[1000];
 char *string_buf_ptr;
+std::string buffer;
 
 void myunputc(int c) {
   unput(c);
@@ -31,21 +32,13 @@ void myunputc(int c) {
 %%
 
 \" {
-  string_buf_ptr = string_buf;
   BEGIN(str);
 }
 
 <str>\"[^ \t\n\"]* { /* saw closing quote - all done */
   BEGIN(INITIAL);
-  char *yptr = yytext;
-  while ( *yptr ) {
-    *string_buf_ptr++ = *yptr++;
-  }
-  *string_buf_ptr = '\0';
-  /* return string constant token type and
-   * value to parser
-   */
-  yylval.cpp_string = new std::string(string_buf);
+  buffer += yytext;
+  yylval.cpp_string = new std::string(buffer);
   return WORD;
 }
 
@@ -54,21 +47,18 @@ void myunputc(int c) {
   /* generate error message */
 }
 
-<str>\\n  *string_buf_ptr++ = '\n';
-<str>\\t  *string_buf_ptr++ = '\t';
-<str>\\r  *string_buf_ptr++ = '\r';
-<str>\\b  *string_buf_ptr++ = '\b';
-<str>\\f  *string_buf_ptr++ = '\f';
+<str>\\n  buffer += '\n';
+<str>\\t  buffer += '\t';
+<str>\\r  buffer += '\r';
+<str>\\b  buffer += '\b';
+<str>\\f  buffer += '\f';
 
 <str>\\(.|\n) {
-  *string_buf_ptr++ = yytext[1];
+  buffer += yytext[1];
 }
 
 <str>[^\\\n\"]+ {
-  char *yptr = yytext;
-  while ( *yptr ) {
-    *string_buf_ptr++ = *yptr++;
-  }
+  buffer += yytext;
 }
 
   /* New line character */
