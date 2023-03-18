@@ -45,7 +45,7 @@ void myunputc(int c) {
   }
 
 
-  \\n  *string_buf_ptr++ = '\n';
+  \\n  buffer + = '\n';
   \\t  *string_buf_ptr++ = '\t';
   \\r  *string_buf_ptr++ = '\r';
   \\b  *string_buf_ptr++ = '\b';
