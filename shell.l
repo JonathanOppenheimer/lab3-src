@@ -64,6 +64,10 @@ void myunputc(int c) {
   [^\\\n\"]+ {
     buffer += yytext;
   }
+
+  [ \t] {
+    /* Discard spaces and tabs */
+  }
 }
 
   /* New line character */
