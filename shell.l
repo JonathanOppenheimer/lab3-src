@@ -64,10 +64,6 @@ void myunputc(int c) {
   [^\\\n\"]+ {
     buffer += yytext;
   }
-
-  [ \t] {
-    /* Discard spaces and tabs */
-  }
 }
 
   /* New line character */
@@ -119,14 +115,9 @@ void myunputc(int c) {
   return AMPERSAND;
 }
 
- /* Strip quotes from yytext and return it as a word */
-  /* \".*\" {
-  std::string* raw = new std::string(yytext);
-  std::string trimmed = raw->substr(1, raw->size() - 2);
-  yylval.cpp_string = new std::string(trimmed);
-  return WORD;
-  } */
-
+  /* Match everything but stuff covered by the above -
+   * does not current deal with 2>
+   */
 [^ \"\n\t\|><&]* {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
