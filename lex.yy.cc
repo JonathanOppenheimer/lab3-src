@@ -826,7 +826,7 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 48 "shell.l"
-*string_buf_ptr++ = '\n';
+buffer + = '\n';
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
