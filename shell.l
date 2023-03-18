@@ -27,8 +27,14 @@ void myunputc(int c) {
 %option noyywrap
 
 %x quotes
+%x escape
 
 %%
+
+\\. {
+  buffer += yytext[1];
+}
+
 
 \" {
   BEGIN(quotes);
@@ -117,9 +123,11 @@ void myunputc(int c) {
   /* Match everything but stuff covered by the above -
    * does not current deal with 2>
    */
-[^ \"\n\t\|><&]* {
+[^ \\\"\n\t\|><&]* {
   /* Assume that file names have only alpha chars */
-  yylval.cpp_string = new std::string(yytext);
+  bufer += yytext;
+  yylval.cpp_string = new std::string(buffer);
+  buffer.clear();
   return WORD;
 }
 
