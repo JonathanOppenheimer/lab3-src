@@ -36,19 +36,18 @@ void myunputc(int c) {
 }
 
 <quotes> {
-  \" { /* saw closing quote - all done */
+  \"[^ \t\n\"]* { /* saw closing quote and any additional text - all done */
     BEGIN(INITIAL);
     *string_buf_ptr = '\0';
     /* return string constant token type and
-   * value to parser
-    */
+     * value to parser
+     */
     yylval.cpp_string = new std::string(string_buf);
     return WORD;
   }
 
   \n {
-    /* error - unterminated string constant */
-    /* generate error message */
+    /* keep eating input */
   }
 
   \\n  *string_buf_ptr++ = '\n';
