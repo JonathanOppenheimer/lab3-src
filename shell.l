@@ -26,42 +26,44 @@ void myunputc(int c) {
 
 %option noyywrap
 
-%x str
+%x quotes
 
 %%
 
 \" {
-  BEGIN(str);
+  BEGIN(quotes);
   buffer.clear();
 }
 
-<str>\"[^ \t\n\"]* { /* saw closing quote - all done */
-  BEGIN(INITIAL);
-  buffer += yytext;
-  // buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
-  buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
-  yylval.cpp_string = new std::string(buffer);
-  return WORD;
-}
+<quotes>{
+  \"[^ \t\n\"]* { /* saw closing quote - all done */
+    BEGIN(INITIAL);
+    buffer += yytext;
+    // buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
+    buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
+    yylval.cpp_string = new std::string(buffer);
+    return WORD;
+  }
 
-<str>\n {
-  buffer += yytext;
-  /* Keep prompting for input */
-  std::cout << "> ";
-}
+  \n {
+    buffer += yytext;
+    /* Keep prompting for input */
+    std::cout << "> ";
+  }
 
-<str>\\n  buffer += '\n';
-<str>\\t  buffer += '\t';
-<str>\\r  buffer += '\r';
-<str>\\b  buffer += '\b';
-<str>\\f  buffer += '\f';
+  \\n  buffer += '\n';
+  \\t  buffer += '\t';
+  \\r  buffer += '\r';
+  \\b  buffer += '\b';
+  \\f  buffer += '\f';
 
-<str>\\(.|\n) {
-  buffer += yytext[1];
-}
+  \\(.|\n) {
+    buffer += yytext[1];
+  }
 
-<str>[^\\\n\"]+ {
-  buffer += yytext;
+  [^\\\n\"]+ {
+    buffer += yytext;
+  }
 }
 
   /* New line character */
