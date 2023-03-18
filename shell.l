@@ -54,7 +54,7 @@ void myunputc(int c) {
   \\f  buffer += '\f';
 }
 
-<quotes> [^\\\"]+ {
+<quotes>[^\\\"]+ {
     buffer += yytext;
 }
 
