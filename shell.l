@@ -55,7 +55,7 @@ void myunputc(int c) {
 }
 
 <quotes>[^\\\"]+ {
-    buffer += yytext;
+  buffer += yytext;
 }
 
   /* New line character */
