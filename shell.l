@@ -15,8 +15,6 @@
 
 static  void yyunput (int c,char *buf_ptr  );
 
-char string_buf[1000];
-char *string_buf_ptr;
 std::string buffer;
 
 void myunputc(int c) {
@@ -33,6 +31,7 @@ void myunputc(int c) {
 
 \" {
   BEGIN(str);
+  buffer.clear();
 }
 
 <str>\"[^ \t\n\"]* { /* saw closing quote - all done */
