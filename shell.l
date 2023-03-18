@@ -16,7 +16,6 @@
 static  void yyunput (int c,char *buf_ptr  );
 
 std::string buffer;
-char *string_buf_ptr;
 
 void myunputc(int c) {
   unput(c);
@@ -31,7 +30,6 @@ void myunputc(int c) {
 %%
 
 \" {
-  string_buf_ptr = string_buf;
   BEGIN(quotes);
 }
 
