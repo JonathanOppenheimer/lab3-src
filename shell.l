@@ -36,7 +36,7 @@ void myunputc(int c) {
 }
 
 <quotes>{
-  \"[^ \t\n\"]* { /* saw closing quote - all done */
+  \" { /* saw closing quote - all done */
     BEGIN(INITIAL);
     buffer += yytext;
     // buffer.erase(std::remove(buffer.begin(), buffer.end(), '"'), buffer.end());
