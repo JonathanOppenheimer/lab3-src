@@ -121,8 +121,8 @@ void myunputc(int c) {
   buffer.clear();
 
   /* Deals with escape characters */
-  buffer.reserve(yytext.size()); /* Avoids buffer reallocations in the loop */
   size_t len = strlen(yytext);
+  buffer.reserve(len); /* Avoids buffer reallocations in the loop */
   for(size_t i = 0; i < len; ++i) {
     if(yytext[i] == '\\') {
       buffer += yytext[i+1];
