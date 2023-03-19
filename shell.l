@@ -109,7 +109,9 @@ void myunputc(int c) {
   return AMPERSAND;
 }
 
-  /* Match the majority of normal strings */
+  /* Match the majority of normal strings (non-special handled above)
+   * Currently does not handle 2> as 2 is a normal character
+   */
 [^ \"\n\t\|\>\<\&]* {
     /* Set up the strings for use */
     buffer.clear();
