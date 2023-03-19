@@ -990,6 +990,7 @@ YY_RULE_SETUP
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote, 1); /* Delete the trailing " */
+          std::cout << buffer; 
         }
       }
       
@@ -1008,17 +1009,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 22:
 YY_RULE_SETUP
-#line 158 "shell.l"
+#line 159 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 162 "shell.l"
+#line 163 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1022 "lex.yy.cc"
+#line 1023 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2083,4 +2084,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 162 "shell.l"
+#line 163 "shell.l"
