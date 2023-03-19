@@ -111,7 +111,6 @@ void myunputc(int c) {
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
-    std::string trimmed;
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
@@ -122,7 +121,6 @@ void myunputc(int c) {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
-          trimmed.clear();
           BEGIN(quotes);
           break;
         } else {
@@ -135,14 +133,11 @@ void myunputc(int c) {
 
       /* Trims escaped characters */
       if(buffer[i] == '\\') {
-        trimmed += buffer[i+1];
-        i += 1;
-      } else {
-        trimmed += buffer[i];
+        buffer.erase(i+1,1);
       }
     }
 
-    yylval.cpp_string = new std::string(trimmed);
+    yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
 
