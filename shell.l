@@ -131,6 +131,7 @@ void myunputc(int c) {
     std::string trimmed;
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
+        buffer.clear();
         BEGIN(quotes);
       }
       if(buffer[i] == '\\') {
