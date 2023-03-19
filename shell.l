@@ -121,30 +121,36 @@ void myunputc(int c) {
   /* Match everything but stuff covered by the above -
    * does not current deal with 2>
    */
-[^ \"\n\t] {
+[^ \"\n\t\|<>&] {
   buffer.clear();
-  /* Deals with escape characters */
   buffer += yytext;
-  printf(yytext);
-  std::string trimmed;
-  for(size_t i = 0; i < buffer.size(); ++i) {
-    if(buffer[i] == '"') {
-      printf("enter quotes");
-      yy_push_state(quotes);
-      break;
-    }
-    if(buffer[i] == '\\') {
-       trimmed += buffer[i+1];
-      i += 1;
-    } else {
-      trimmed += buffer[i];
-    }
-  }
-
-  yylval.cpp_string = new std::string(trimmed);
-  return WORD;
+  yy_push_state(command);
 }
 
+<command>{
+  [^ \n\t]* {
+    /* Deals with escape characters */
+    buffer += yytext;
+    std::string trimmed;
+    for(size_t i = 0; i < buffer.size(); ++i) {
+      if(buffer[i] == '"') {
+        printf("enter quotes");
+        yy_push_state(quotes);
+        break;
+      }
+      if(buffer[i] == '\\') {
+        trimmed += buffer[i+1];
+        i += 1;
+      } else {
+        trimmed += buffer[i];
+      }
+    }
+
+    yylval.cpp_string = new std::string(trimmed);
+    yy_pop_state();
+    return WORD;
+  }
+}
   /* Invalid character in input */
 . {
   return NOTOKEN;
