@@ -128,7 +128,7 @@ void myunputc(int c) {
   [^ \n\t\|><&]* {
     /* Deals with escape characters */
     buffer += yytext;
-    std:string trimmed;
+    std::string trimmed;
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
