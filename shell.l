@@ -115,16 +115,12 @@ void myunputc(int c) {
      * to close it.
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
-      if(buffer[i] == '>') {
-        yylval.cpp_string = new std::string(buffer);
-        return WORD;
-      }
-
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
-          return BEGIN(quotes);
+          BEGIN(quotes);
+          return;
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
