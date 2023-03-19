@@ -134,9 +134,11 @@ void myunputc(int c) {
         buffer.erase(i,1);
       }
     }
-
-    yylval.cpp_string = new std::string(buffer);
-    return WORD;
+    
+    if(YY_START == INITIAL) {
+      yylval.cpp_string = new std::string(buffer);
+      return WORD;
+    }
   }
 
   /* Invalid character in input */
