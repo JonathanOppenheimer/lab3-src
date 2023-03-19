@@ -44,7 +44,6 @@ void myunputc(int c) {
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     yylval.cpp_string = new std::string(buffer);
-    printf("Current buffer: %s\n", buffer.c_str());
     return WORD;
   }
 
@@ -134,7 +133,6 @@ void myunputc(int c) {
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
           trimmed.clear();
-          buffer.clear();
           yy_push_state(quotes);
           break;
         } else {
@@ -152,7 +150,6 @@ void myunputc(int c) {
     }
 
     yylval.cpp_string = new std::string(trimmed);
-    printf("Current buffer: %s\n", buffer.c_str());
     return WORD;
   }
 
