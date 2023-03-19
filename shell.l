@@ -148,7 +148,10 @@ void myunputc(int c) {
         trimmed += buffer[i];
       }
     }
-
+    
+    if(trimmed[0] == ' ') {
+      trimmed.erase(0,1);
+    }
     yylval.cpp_string = new std::string(trimmed);
     return WORD;
   }
