@@ -38,6 +38,10 @@ void myunputc(int c) {
 }
 
 <quotes>{
+  \"[^\\\n\"]+ {
+    BEGIN(quotes);
+  }
+
   \" { /* saw closing quote - all done */
     BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
@@ -49,13 +53,7 @@ void myunputc(int c) {
     /* Keep prompting for input */
     std::cout << "> ";
   }
-
-  \\n  buffer += '\n';
-  \\t  buffer += '\t';
-  \\r  buffer += '\r';
-  \\b  buffer += '\b';
-  \\f  buffer += '\f';
-
+  
   \\(.|\n)  buffer += yytext[1];
 
   [^\\\n\"]+ {
