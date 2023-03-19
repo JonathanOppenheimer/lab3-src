@@ -383,7 +383,7 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[32] =
     {   0,
-        0,    0,   10,   10,   24,   21,   12,   11,    1,   20,
+       21,   21,   10,   10,   24,   21,   12,   11,    1,   20,
        21,   15,   14,   13,   10,    3,    2,   23,   21,   16,
        17,   18,   10,    9,    7,    8,    4,    6,    5,   19,
         0
@@ -429,16 +429,16 @@ static const YY_CHAR yy_meta[16] =
 
 static const flex_int16_t yy_base[36] =
     {   0,
-        0,    0,   13,   20,   25,    0,    0,    0,   49,    0,
-       12,    0,   13,    0,    0,   49,   49,   20,    0,   49,
+        0,    0,   13,   20,   25,    0,   49,   49,    0,   49,
+       12,   49,   13,   49,    0,   49,   49,   20,    0,   49,
        49,   14,    0,   49,   49,   49,   49,   49,   49,   49,
        49,   34,   38,   42,   44
     } ;
 
 static const flex_int16_t yy_def[36] =
     {   0,
-       31,    1,   32,   32,   31,   33,   33,   33,   31,   33,
-       33,   33,   33,   33,   34,   31,   31,   35,   33,   31,
+       31,    1,   32,   32,   31,   33,   31,   31,   33,   31,
+       33,   31,   31,   31,   34,   31,   31,   35,   33,   31,
        31,   31,   34,   31,   31,   31,   31,   31,   31,   31,
         0,   31,   31,   31,   31
     } ;
@@ -469,7 +469,7 @@ static const flex_int16_t yy_chk[65] =
 static const flex_int32_t yy_rule_can_match_eol[24] =
     {   0,
 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 1, 0, 0,     };
+    0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -959,7 +959,6 @@ YY_RULE_SETUP
    * does not current deal with 2>
    */
 case 21:
-/* rule 21 can match eol */
 YY_RULE_SETUP
 #line 120 "shell.l"
 {
@@ -994,7 +993,7 @@ YY_RULE_SETUP
 #line 144 "shell.l"
 ECHO;
 	YY_BREAK
-#line 998 "lex.yy.cc"
+#line 997 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 	yyterminate();
