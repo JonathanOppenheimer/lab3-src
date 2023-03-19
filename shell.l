@@ -128,7 +128,7 @@ void myunputc(int c) {
 }
 
 <command>{
-  [^ \n\t]*|\A\Z {
+  [^ \n\t]*|$ {
     /* Deals with escape characters */
     buffer += yytext;
     std::string trimmed;
