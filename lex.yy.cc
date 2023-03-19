@@ -947,8 +947,8 @@ YY_RULE_SETUP
           BEGIN(quotes);
           break;
         } else {
-          /* buffer.erase(i, 1); /* Delete the trailing " */
-          /* buffer.erase(next_quote-1, 1); /* Delete the trailing " */
+          buffer.erase(i, 1); /* Delete the trailing " */
+          buffer.erase(next_quote-1, 1); /* Delete the trailing " */
           i = next_quote - 1;
         }
       }
@@ -961,6 +961,7 @@ YY_RULE_SETUP
     
     /* Only return a word if we did not switch to another start condition */
     if(YY_START == INITIAL) {
+      std::cout << "Current buffer: " + buffer;
       yylval.cpp_string = new std::string(buffer);
       return WORD;
     }
@@ -969,17 +970,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 16:
 YY_RULE_SETUP
-#line 145 "shell.l"
+#line 146 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 149 "shell.l"
+#line 150 "shell.l"
 ECHO;
 	YY_BREAK
-#line 983 "lex.yy.cc"
+#line 984 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2044,4 +2045,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 149 "shell.l"
+#line 150 "shell.l"
