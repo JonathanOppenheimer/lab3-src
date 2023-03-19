@@ -128,11 +128,15 @@ void myunputc(int c) {
     buffer += yytext;
     std::string trimmed;
     for(size_t i = 0; i < buffer.size(); ++i) {
+      
       if(buffer[i] == '"') {
+        printf(buffer.find('"', i+1));
+        
         printf("enter quotes");
         yy_push_state(quotes);
         break;
       }
+      
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
         i += 1;
