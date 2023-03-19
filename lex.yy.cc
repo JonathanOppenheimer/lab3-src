@@ -969,7 +969,7 @@ YY_RULE_SETUP
    */
 case 21:
 YY_RULE_SETUP
-#line 122 "shell.l"
+#line 121 "shell.l"
 {
   buffer.clear();
   buffer += yytext;
@@ -979,9 +979,8 @@ YY_RULE_SETUP
 
 case 22:
 YY_RULE_SETUP
-#line 129 "shell.l"
+#line 128 "shell.l"
 {
-  /* buffer.clear(); */
     /* Deals with escape characters */
     size_t len = strlen(yytext);
     buffer.reserve(len); /* Avoids buffer reallocations in the loop */
@@ -1003,17 +1002,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 23:
 YY_RULE_SETUP
-#line 149 "shell.l"
+#line 147 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 153 "shell.l"
+#line 151 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1017 "lex.yy.cc"
+#line 1016 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2032,4 +2031,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 153 "shell.l"
+#line 151 "shell.l"

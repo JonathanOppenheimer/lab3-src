@@ -127,18 +127,21 @@ void myunputc(int c) {
 <command>{
   [^ \n\t\|><&]* {
     /* Deals with escape characters */
-    size_t len = strlen(yytext);
-    buffer.reserve(len); /* Avoids buffer reallocations in the loop */
+    buffer += yytext;
+    std:string trimmed;
+
+    size_t len = strlen(buffer);
+    trimmed.reserve(len); /* Avoids buffer reallocations in the loop */
     for(size_t i = 0; i < len; ++i) {
-      if(yytext[i] == '\\') {
-        buffer += yytext[i+1];
+      if(buffer[i] == '\\') {
+        trimmed += buffer[i+1];
         i += 1;
       } else {
-        buffer += yytext[i];
+        trimmed += buffer[i];
       }
     }
 
-    yylval.cpp_string = new std::string(buffer);
+    yylval.cpp_string = new std::string(trimmed);
     BEGIN(INITIAL);
     return WORD;
   }
