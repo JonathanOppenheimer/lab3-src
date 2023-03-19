@@ -121,14 +121,8 @@ void myunputc(int c) {
   /* Match everything but stuff covered by the above -
    * does not current deal with 2>
    */
-[^ \"\n\t\|<>&] {
-  buffer.clear();
-  buffer += yytext;
-  yy_push_state(command);
-}
 
-<command>{
-  [^ \n\t]* {
+[^ \n\t]* {
     /* Deals with escape characters */
     buffer += yytext;
     std::string trimmed;
@@ -151,10 +145,6 @@ void myunputc(int c) {
     return WORD;
   }
 
-  . {
-    return NOTOKEN;
-  }
-}
   /* Invalid character in input */
 . {
   return NOTOKEN;
