@@ -1,6 +1,7 @@
-bgfile
 err
+ err1
 err1
+ err2
 err2
 file1.cc
 file-list-1
@@ -9,6 +10,7 @@ files
 hello world
 out
 out1
+ out2
 out2
 README
 shell-in
