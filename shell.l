@@ -27,7 +27,7 @@ void myunputc(int c) {
 %option noyywrap
 
 %x quotes
-%x command
+%s command
 
 %%
 
