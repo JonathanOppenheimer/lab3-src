@@ -43,7 +43,7 @@ void myunputc(int c) {
     yy_pop_state();
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
-    yylval.cpp_string = new std::string(buffer);
+    yylval.cpp_string = new std::string(buffer.trim());
     return WORD;
   }
 
@@ -148,11 +148,8 @@ void myunputc(int c) {
         trimmed += buffer[i];
       }
     }
-    
-    if(trimmed[0] == ' ') {
-      trimmed.erase(0,1);
-    }
-    yylval.cpp_string = new std::string(trimmed);
+
+    yylval.cpp_string = new std::string(trimmed.trim());
     return WORD;
   }
 
