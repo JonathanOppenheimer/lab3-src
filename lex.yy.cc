@@ -1002,6 +1002,7 @@ YY_RULE_SETUP
       if(buffer[i] == '"') {
         printf("enter quotes");
         yy_push_state(quotes);
+        break;
       }
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
@@ -1018,24 +1019,24 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 153 "shell.l"
+#line 154 "shell.l"
 WORD;
 	YY_BREAK
 
 /* Invalid character in input */
 case 24:
 YY_RULE_SETUP
-#line 156 "shell.l"
+#line 157 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 160 "shell.l"
+#line 161 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1039 "lex.yy.cc"
+#line 1040 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2100,4 +2101,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 160 "shell.l"
+#line 161 "shell.l"

@@ -150,8 +150,6 @@ void myunputc(int c) {
     yy_pop_state();
     return WORD;
   }
-
-  return WORD;
 }
   /* Invalid character in input */
 . {
