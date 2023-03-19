@@ -136,6 +136,7 @@ void myunputc(int c) {
       if(buffer[i] == '"') {
         printf("enter quotes");
         yy_push_state(quotes);
+        break;
       }
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
