@@ -117,15 +117,11 @@ void myunputc(int c) {
   /* Match everything but stuff covered by the above -
    * does not current deal with 2>
    */
-[^ \n\t\|><&]* {
+[^ \"\n\t\|><&]* {
   /* Deals with escape characters */
   size_t len = strlen(yytext);
   buffer.reserve(len); /* Avoids buffer reallocations in the loop */
   for(size_t i = 0; i < len; ++i) {
-    if(yytext[i] == '"') {
-      BEGIN(quotes);
-    }
-
     if(yytext[i] == '\\') {
       buffer += yytext[i+1];
       i += 1;
