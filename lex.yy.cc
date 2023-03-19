@@ -983,7 +983,7 @@ YY_RULE_SETUP
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
-          buffer.clear();
+          yytext = '\0';
           yy_push_state(quotes);
           break;
         } else {
