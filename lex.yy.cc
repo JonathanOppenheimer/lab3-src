@@ -600,6 +600,16 @@ static int input ( void );
 
 #endif
 
+        static int yy_start_stack_ptr = 0;
+        static int yy_start_stack_depth = 0;
+        static int *yy_start_stack = NULL;
+    
+    static void yy_push_state ( int _new_state );
+    
+    static void yy_pop_state ( void );
+    
+    static int yy_top_state ( void );
+    
 /* Amount of stuff to slurp up with each read. */
 #ifndef YY_READ_BUF_SIZE
 #ifdef __ia64__
@@ -735,10 +745,10 @@ YY_DECL
 		}
 
 	{
-#line 32 "shell.l"
+#line 34 "shell.l"
 
 
-#line 742 "lex.yy.cc"
+#line 752 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -807,7 +817,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 34 "shell.l"
+#line 36 "shell.l"
 {
   BEGIN(quotes);
   buffer.clear();
@@ -816,7 +826,7 @@ YY_RULE_SETUP
 
 case 2:
 YY_RULE_SETUP
-#line 40 "shell.l"
+#line 42 "shell.l"
 { /* saw closing quote - all done */
     BEGIN(INITIAL);
     buffer += yytext;
@@ -828,7 +838,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 48 "shell.l"
+#line 50 "shell.l"
 {
     buffer += yytext;
     /* Keep prompting for input */
@@ -837,40 +847,40 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 54 "shell.l"
+#line 56 "shell.l"
 buffer += '\n';
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 55 "shell.l"
+#line 57 "shell.l"
 buffer += '\t';
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 56 "shell.l"
+#line 58 "shell.l"
 buffer += '\r';
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 57 "shell.l"
+#line 59 "shell.l"
 buffer += '\b';
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 58 "shell.l"
+#line 60 "shell.l"
 buffer += '\f';
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 60 "shell.l"
+#line 62 "shell.l"
 {
     buffer += yytext[1];
   }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 64 "shell.l"
+#line 66 "shell.l"
 {
     buffer += yytext;
   }
@@ -880,14 +890,14 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 70 "shell.l"
+#line 72 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 74 "shell.l"
+#line 76 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -895,7 +905,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 13:
 YY_RULE_SETUP
-#line 79 "shell.l"
+#line 81 "shell.l"
 {
   return PIPE;
 }
@@ -903,7 +913,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 14:
 YY_RULE_SETUP
-#line 84 "shell.l"
+#line 86 "shell.l"
 {
   return GREAT;
 }
@@ -911,7 +921,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 15:
 YY_RULE_SETUP
-#line 89 "shell.l"
+#line 91 "shell.l"
 {
   return LESS;
 }
@@ -919,7 +929,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 16:
 YY_RULE_SETUP
-#line 94 "shell.l"
+#line 96 "shell.l"
 {
   return TWOGREAT;
 }
@@ -927,7 +937,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 17:
 YY_RULE_SETUP
-#line 99 "shell.l"
+#line 101 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -935,7 +945,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 18:
 YY_RULE_SETUP
-#line 104 "shell.l"
+#line 106 "shell.l"
 {
   return GREATGREAT;
 }
@@ -943,7 +953,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 19:
 YY_RULE_SETUP
-#line 109 "shell.l"
+#line 111 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -951,7 +961,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 20:
 YY_RULE_SETUP
-#line 114 "shell.l"
+#line 116 "shell.l"
 {
   return AMPERSAND;
 }
@@ -961,7 +971,7 @@ YY_RULE_SETUP
    */
 case 21:
 YY_RULE_SETUP
-#line 121 "shell.l"
+#line 123 "shell.l"
 {
   buffer.clear();
   buffer += yytext;
@@ -971,7 +981,7 @@ YY_RULE_SETUP
 
 case 22:
 YY_RULE_SETUP
-#line 128 "shell.l"
+#line 130 "shell.l"
 {
     /* Deals with escape characters */
     buffer += yytext;
@@ -998,17 +1008,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 23:
 YY_RULE_SETUP
-#line 151 "shell.l"
+#line 153 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 155 "shell.l"
+#line 157 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1012 "lex.yy.cc"
+#line 1022 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -1817,6 +1827,44 @@ YY_BUFFER_STATE yy_scan_bytes  (const char * yybytes, int  _yybytes_len )
 	return b;
 }
 
+    static void yy_push_state (int  _new_state )
+{
+    	if ( (yy_start_stack_ptr) >= (yy_start_stack_depth) )
+		{
+		yy_size_t new_size;
+
+		(yy_start_stack_depth) += YY_START_STACK_INCR;
+		new_size = (yy_size_t) (yy_start_stack_depth) * sizeof( int );
+
+		if ( ! (yy_start_stack) )
+			(yy_start_stack) = (int *) yyalloc( new_size  );
+
+		else
+			(yy_start_stack) = (int *) yyrealloc(
+					(void *) (yy_start_stack), new_size  );
+
+		if ( ! (yy_start_stack) )
+			YY_FATAL_ERROR( "out of memory expanding start-condition stack" );
+		}
+
+	(yy_start_stack)[(yy_start_stack_ptr)++] = YY_START;
+
+	BEGIN(_new_state);
+}
+
+    static void yy_pop_state  (void)
+{
+    	if ( --(yy_start_stack_ptr) < 0 )
+		YY_FATAL_ERROR( "start-condition stack underflow" );
+
+	BEGIN((yy_start_stack)[(yy_start_stack_ptr)]);
+}
+
+    static int yy_top_state  (void)
+{
+    	return (yy_start_stack)[(yy_start_stack_ptr) - 1];
+}
+
 #ifndef YY_EXIT_FAILURE
 #define YY_EXIT_FAILURE 2
 #endif
@@ -1940,6 +1988,10 @@ static int yy_init_globals (void)
     (yy_init) = 0;
     (yy_start) = 0;
 
+    (yy_start_stack_ptr) = 0;
+    (yy_start_stack_depth) = 0;
+    (yy_start_stack) =  NULL;
+
 /* Defined in main.c */
 #ifdef YY_STDINIT
     yyin = stdin;
@@ -1969,6 +2021,10 @@ int yylex_destroy  (void)
 	/* Destroy the stack itself. */
 	yyfree((yy_buffer_stack) );
 	(yy_buffer_stack) = NULL;
+
+    /* Destroy the start condition stack. */
+        yyfree( (yy_start_stack)  );
+        (yy_start_stack) = NULL;
 
     /* Reset the globals. This is important in a non-reentrant scanner so the next time
      * yylex() is called, initialization will occur. */
@@ -2027,4 +2083,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 155 "shell.l"
+#line 157 "shell.l"
