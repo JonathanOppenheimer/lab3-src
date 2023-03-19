@@ -120,7 +120,6 @@ void myunputc(int c) {
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
           BEGIN(quotes);
-          yyterminate();
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
@@ -134,8 +133,10 @@ void myunputc(int c) {
       }
     }
 
-    yylval.cpp_string = new std::string(buffer);
-    return WORD;
+    if(YY_BUFFER_STATE == INITIAL) { 
+      yylval.cpp_string = new std::string(buffer);
+      return WORD;
+    }
   }
 
   /* Invalid character in input */
