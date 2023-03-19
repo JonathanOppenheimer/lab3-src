@@ -50,6 +50,14 @@ void myunputc(int c) {
     std::cout << "> ";
   }
 
+  \\n  buffer += '\n';
+  \\t  buffer += '\t';
+  \\r  buffer += '\r';
+  \\b  buffer += '\b';
+  \\f  buffer += '\f';
+
+  \\(.|\n)  buffer += yytext[1];
+
   [^ \\"\n]* {
     buffer += yytext;
   }

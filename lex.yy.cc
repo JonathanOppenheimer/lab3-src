@@ -815,7 +815,7 @@ YY_RULE_SETUP
 #line 35 "shell.l"
 {
   buffer.clear();
-  yy_push_state(quotes);
+  BEGIN(quotes);
 }
 	YY_BREAK
 
