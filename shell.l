@@ -131,6 +131,7 @@ void myunputc(int c) {
       
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
+        printf("%d\n", next_quote);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           printf("enter quotes");
           yy_push_state(quotes);
