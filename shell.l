@@ -107,7 +107,7 @@ void myunputc(int c) {
 }
 
   /* Match the majority of normal strings */
-[^ \"\n\t]* {
+[^ \"\n\t\>]* {
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
@@ -117,12 +117,6 @@ void myunputc(int c) {
      * to close it.
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
-      if(buffer[i] == '>') {
-        yylval.cpp_string = new std::string(buffer);
-        std::cout << *yylval.cpp_string;
-        return WORD;
-      }
-
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
