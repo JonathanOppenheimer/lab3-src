@@ -8,6 +8,7 @@ file1.cc
 file-list-1
 file-list-2
 files
+hello
 out
  out2
 out2
@@ -61,3 +62,4 @@ test_wildcards5
 test_wildcards6
 test_wildcards7
 test_zombie
+world
