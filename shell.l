@@ -40,7 +40,7 @@ void myunputc(int c) {
 <quotes>{
   \" { /* saw closing quote - all done */
     BEGIN(INITIAL);
-    buffer += yytext;
+    // buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     yylval.cpp_string = new std::string(buffer);
     return WORD;
@@ -53,7 +53,7 @@ void myunputc(int c) {
   }
 
   [^ \\"\n]* {
-    // buffer += yytext;
+    buffer += yytext;
   }
 }
 

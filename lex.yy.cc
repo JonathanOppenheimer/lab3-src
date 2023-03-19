@@ -844,7 +844,7 @@ case 4:
 YY_RULE_SETUP
 #line 55 "shell.l"
 {
-    buffer += yytext;
+    // buffer += yytext;
   }
 	YY_BREAK
 
