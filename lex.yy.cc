@@ -824,14 +824,13 @@ YY_RULE_SETUP
 { /* saw closing quote - all done */
     BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
-    std::cout << yyval.cpp_string;
     return WORD;
   }
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 48 "shell.l"
+#line 47 "shell.l"
 {
     buffer += yytext;
     /* Keep prompting for input */
@@ -841,12 +840,12 @@ YY_RULE_SETUP
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 54 "shell.l"
+#line 53 "shell.l"
 buffer += yytext[1];
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 56 "shell.l"
+#line 55 "shell.l"
 {
     buffer += yytext;
   }
@@ -856,14 +855,14 @@ YY_RULE_SETUP
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 62 "shell.l"
+#line 61 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 66 "shell.l"
+#line 65 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -871,7 +870,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 8:
 YY_RULE_SETUP
-#line 71 "shell.l"
+#line 70 "shell.l"
 {
   return PIPE;
 }
@@ -879,7 +878,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 9:
 YY_RULE_SETUP
-#line 76 "shell.l"
+#line 75 "shell.l"
 {
   return GREAT;
 }
@@ -887,7 +886,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 10:
 YY_RULE_SETUP
-#line 81 "shell.l"
+#line 80 "shell.l"
 {
   return LESS;
 }
@@ -895,7 +894,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 11:
 YY_RULE_SETUP
-#line 86 "shell.l"
+#line 85 "shell.l"
 {
   return TWOGREAT;
 }
@@ -903,7 +902,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 12:
 YY_RULE_SETUP
-#line 91 "shell.l"
+#line 90 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -911,7 +910,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 13:
 YY_RULE_SETUP
-#line 96 "shell.l"
+#line 95 "shell.l"
 {
   return GREATGREAT;
 }
@@ -919,7 +918,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 14:
 YY_RULE_SETUP
-#line 101 "shell.l"
+#line 100 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -927,7 +926,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 15:
 YY_RULE_SETUP
-#line 106 "shell.l"
+#line 105 "shell.l"
 {
   return AMPERSAND;
 }
@@ -935,7 +934,7 @@ YY_RULE_SETUP
 /* Match the majority of normal strings */
 case 16:
 YY_RULE_SETUP
-#line 111 "shell.l"
+#line 110 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -948,6 +947,7 @@ YY_RULE_SETUP
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '>') {
         yylval.cpp_string = new std::string(buffer);
+        std::cout << yyval.cpp_string;
         return WORD;
       }
 
