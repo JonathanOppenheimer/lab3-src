@@ -30,10 +30,10 @@ void myunputc(int c) {
 
 %%
 
-\" {
+ /* \" {
   BEGIN(quotes);
   buffer.clear();
-}
+  } */
 
 <quotes>{
   \" { /* saw closing quote - all done */
