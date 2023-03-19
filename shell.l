@@ -38,10 +38,6 @@ void myunputc(int c) {
 }
 
 <quotes>{
-  \"[^\\\n\"]+ {
-    BEGIN(quotes);
-  }
-
   \" { /* saw closing quote - all done */
     BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
