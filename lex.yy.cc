@@ -824,7 +824,7 @@ YY_RULE_SETUP
 #line 41 "shell.l"
 { /* saw closing quote - all done */
     BEGIN(INITIAL);
-    buffer += yytext;
+    // buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     yylval.cpp_string = new std::string(buffer);
     return WORD;
@@ -844,7 +844,7 @@ case 4:
 YY_RULE_SETUP
 #line 55 "shell.l"
 {
-    // buffer += yytext;
+    buffer += yytext;
   }
 	YY_BREAK
 
