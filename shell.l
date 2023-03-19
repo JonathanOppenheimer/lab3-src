@@ -126,6 +126,7 @@ void myunputc(int c) {
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
+          trimmed += buffer.substr(i, next_quote-1);
           i = next_quote-1;
         }
       }
@@ -139,7 +140,7 @@ void myunputc(int c) {
       }
     }
 
-    printf(buffer.c_str());
+    printf(trimmed.c_str());
 
     yylval.cpp_string = new std::string(trimmed);
     return WORD;
