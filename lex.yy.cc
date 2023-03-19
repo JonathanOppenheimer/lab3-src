@@ -941,6 +941,7 @@ YY_RULE_SETUP
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
+        std::cout << "trigger quote trim";
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
@@ -961,7 +962,6 @@ YY_RULE_SETUP
     
     /* Only return a word if we did not switch to another start condition */
     if(YY_START == INITIAL) {
-      std::cout << "Current buffer: " + buffer;
       yylval.cpp_string = new std::string(buffer);
       return WORD;
     }
