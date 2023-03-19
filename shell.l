@@ -117,17 +117,18 @@ void myunputc(int c) {
   return AMPERSAND;
 }
 
-  /* Match everything but stuff covered by the above -
-   * does not current deal with 2>
-   */
-
+  /* Match the majority of normal strings */
 [^ \n\t]* {
-    /* Deals with escape characters */
+    /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
     std::string trimmed;
-    for(size_t i = 0; i < buffer.size(); ++i) {
 
+    /* Parse the string for escaped characters and '"'. Deal with quotes.
+     * In the case of an unclose '"', start the action to prompt the user 
+     * to close it.
+     */
+    for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
@@ -141,6 +142,7 @@ void myunputc(int c) {
         }
       }
 
+      /* Trims escaped characters */
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
         i += 1;
