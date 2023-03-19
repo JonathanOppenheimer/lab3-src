@@ -150,6 +150,6 @@ void myunputc(int c) {
 
   /* Invalid character in input */
 . {
-  return NOTOKEN;
+  /* return NOTOKEN; */
 }
 
