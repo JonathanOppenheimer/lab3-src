@@ -45,7 +45,6 @@ void myunputc(int c) {
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     boost::trim(buffer);
     yylval.cpp_string = new std::string(buffer);
-    printf(buffer.c_str());
     return WORD;
   }
 
