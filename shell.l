@@ -8,7 +8,6 @@
 
 %{
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
 #include <cstring>
 #include <iostream>
 
@@ -43,7 +42,6 @@ void myunputc(int c) {
     yy_pop_state();
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
-    boost::trim(buffer);
     yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
@@ -145,8 +143,7 @@ void myunputc(int c) {
         trimmed += buffer[i];
       }
     }
-    
-    boost::trim(trimmed);
+
     yylval.cpp_string = new std::string(trimmed);
     return WORD;
   }
