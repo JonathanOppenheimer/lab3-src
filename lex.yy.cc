@@ -832,8 +832,8 @@ YY_RULE_SETUP
     yy_pop_state();
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
-    // yylval.cpp_string = new std::string(buffer);
-    // return WORD;
+    yylval.cpp_string = new std::string(buffer);
+    return WORD;
   }
 	YY_BREAK
 case 3:
