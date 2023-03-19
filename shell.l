@@ -146,6 +146,7 @@ void myunputc(int c) {
 
     yylval.cpp_string = new std::string(trimmed);
     yy_pop_state();
+    yy_pop_state();
     return WORD;
   }
 }
