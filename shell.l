@@ -127,7 +127,7 @@ void myunputc(int c) {
     buffer += yytext;
     std::string trimmed;
     for(size_t i = 0; i < buffer.size(); ++i) {
-      
+
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
@@ -138,7 +138,7 @@ void myunputc(int c) {
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
         }
       }
-      
+
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
         i += 1;
