@@ -7,8 +7,8 @@
  */
 
 %{
-
 #include <algorithm>
+#include <boost/algorithm/string.hpp>
 #include <cstring>
 #include <iostream>
 
