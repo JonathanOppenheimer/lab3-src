@@ -422,22 +422,22 @@ static const YY_CHAR yy_ec[256] =
 
 static const YY_CHAR yy_meta[11] =
     {   0,
-        1,    2,    3,    3,    1,    1,    1,    1,    4,    1
+        1,    2,    3,    3,    1,    1,    1,    2,    4,    1
     } ;
 
 static const flex_int16_t yy_base[35] =
     {   0,
         0,    0,    8,   15,    0,    0,   15,    0,   47,   47,
        47,    0,    6,    0,   20,    0,    0,   47,   47,    0,
-       47,    0,    0,    0,    8,    0,   47,    0,   47,   28,
+       47,    0,   47,   47,    8,    0,   47,   47,   47,   28,
        32,   36,   40,   42
     } ;
 
 static const flex_int16_t yy_def[35] =
     {   0,
        29,    1,   30,   30,   31,   31,   29,   32,   29,   29,
-       29,   32,   32,   32,   32,   32,   33,   29,   29,   34,
-       29,   32,   32,   32,   32,   33,   29,   32,    0,   29,
+       29,   32,   32,   32,   29,   32,   33,   29,   29,   34,
+       29,   32,   29,   29,   29,   33,   29,   29,    0,   29,
        29,   29,   29,   29
     } ;
 
@@ -945,12 +945,6 @@ YY_RULE_SETUP
      * to close it.
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
-      if(buffer[i] == '>') {
-        yylval.cpp_string = new std::string(buffer);
-        std::cout << *yylval.cpp_string;
-        return WORD;
-      }
-
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
@@ -980,17 +974,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 17:
 YY_RULE_SETUP
-#line 153 "shell.l"
+#line 147 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 157 "shell.l"
+#line 151 "shell.l"
 ECHO;
 	YY_BREAK
-#line 994 "lex.yy.cc"
+#line 988 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2055,4 +2049,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 157 "shell.l"
+#line 151 "shell.l"

@@ -107,7 +107,7 @@ void myunputc(int c) {
 }
 
   /* Match the majority of normal strings */
-[^ \"\n\t\>]* {
+[^ \"\n\t\|\>\<\&]* {
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
