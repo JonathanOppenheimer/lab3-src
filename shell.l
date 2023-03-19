@@ -44,6 +44,7 @@ void myunputc(int c) {
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     yylval.cpp_string = new std::string(buffer);
+    printf("Current buffer: %s\n", buffer.c_str());
     return WORD;
   }
 
@@ -64,7 +65,7 @@ void myunputc(int c) {
   }
 
   [^\\"\n]* {
-    //buffer += yytext;
+    buffer += yytext;
   }
 }
 
