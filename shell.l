@@ -121,7 +121,7 @@ void myunputc(int c) {
 [^ \"\n\t\|<>&] {
   buffer.clear();
   buffer += yytext;
-  BEGIN(command);
+  yy_push_state(command);
 }
 
 <command>{
@@ -143,7 +143,7 @@ void myunputc(int c) {
     }
 
     yylval.cpp_string = new std::string(trimmed);
-    BEGIN(INITIAL);
+    yy_pop_state()
     return WORD;
   }
 }
