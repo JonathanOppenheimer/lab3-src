@@ -941,7 +941,7 @@ YY_RULE_SETUP
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
-        BEGIN(quotes)
+        BEGIN(quotes);
         /* int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
