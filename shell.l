@@ -118,6 +118,8 @@ void myunputc(int c) {
    * does not current deal with 2>
    */
 [^ \"\n\t\|><&]* {
+  buffer.clear();
+
   /* Deals with escape characters */
   size_t len = strlen(yytext);
   buffer.reserve(len); /* Avoids buffer reallocations in the loop */
@@ -131,7 +133,6 @@ void myunputc(int c) {
   }
 
   yylval.cpp_string = new std::string(buffer);
-  buffer.clear();
   return WORD;
 }
 
