@@ -139,6 +139,7 @@ void myunputc(int c) {
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote, 1); /* Delete the trailing " */
+          std::cout << buffer; 
         }
       }
       

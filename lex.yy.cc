@@ -982,6 +982,7 @@ YY_RULE_SETUP
       
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
+        printf("%d\n", next_quote);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           printf("enter quotes");
           yy_push_state(quotes);
@@ -1007,17 +1008,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 22:
 YY_RULE_SETUP
-#line 157 "shell.l"
+#line 158 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 161 "shell.l"
+#line 162 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1021 "lex.yy.cc"
+#line 1022 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2082,4 +2083,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 161 "shell.l"
+#line 162 "shell.l"
