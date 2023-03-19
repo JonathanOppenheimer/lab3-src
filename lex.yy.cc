@@ -949,7 +949,6 @@ YY_RULE_SETUP
           buffer.erase(i,1);
           trimmed.clear();
           BEGIN(quotes);
-          break;
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
@@ -973,17 +972,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 16:
 YY_RULE_SETUP
-#line 149 "shell.l"
+#line 148 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 153 "shell.l"
+#line 152 "shell.l"
 ECHO;
 	YY_BREAK
-#line 987 "lex.yy.cc"
+#line 986 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2048,4 +2047,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 153 "shell.l"
+#line 152 "shell.l"
