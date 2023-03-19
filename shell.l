@@ -128,7 +128,7 @@ void myunputc(int c) {
 }
 
 <command>{
-  [^ \n\t]*|$ {
+  [^ \n\t]* {
     /* Deals with escape characters */
     buffer += yytext;
     std::string trimmed;
@@ -146,6 +146,11 @@ void myunputc(int c) {
     }
 
     yylval.cpp_string = new std::string(trimmed);
+    yy_pop_state();
+    return WORD;
+  }
+
+  \n {
     yy_pop_state();
     return WORD;
   }
