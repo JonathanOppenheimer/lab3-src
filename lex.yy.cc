@@ -947,7 +947,7 @@ YY_RULE_SETUP
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '>') {
         yylval.cpp_string = new std::string(buffer);
-        std::cout << yyval.cpp_string;
+        std::cout << yylval.cpp_string;
         return WORD;
       }
 
