@@ -40,6 +40,7 @@ void myunputc(int c) {
 <quotes>{
   \" { /* saw closing quote - all done */
     BEGIN(INITIAL);
+    std::cout << buffer;
     yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
