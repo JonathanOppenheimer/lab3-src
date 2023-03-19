@@ -982,18 +982,21 @@ YY_RULE_SETUP
 #line 128 "shell.l"
 {
     /* Deals with escape characters */
-    size_t len = strlen(yytext);
-    buffer.reserve(len); /* Avoids buffer reallocations in the loop */
+    buffer += yytext;
+    std:string trimmed;
+
+    size_t len = strlen(buffer);
+    trimmed.reserve(len); /* Avoids buffer reallocations in the loop */
     for(size_t i = 0; i < len; ++i) {
-      if(yytext[i] == '\\') {
-        buffer += yytext[i+1];
+      if(buffer[i] == '\\') {
+        trimmed += buffer[i+1];
         i += 1;
       } else {
-        buffer += yytext[i];
+        trimmed += buffer[i];
       }
     }
 
-    yylval.cpp_string = new std::string(buffer);
+    yylval.cpp_string = new std::string(trimmed);
     BEGIN(INITIAL);
     return WORD;
   }
@@ -1002,17 +1005,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 23:
 YY_RULE_SETUP
-#line 147 "shell.l"
+#line 150 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 151 "shell.l"
+#line 154 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1016 "lex.yy.cc"
+#line 1019 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2031,4 +2034,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 151 "shell.l"
+#line 154 "shell.l"

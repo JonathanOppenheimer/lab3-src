@@ -130,9 +130,8 @@ void myunputc(int c) {
     buffer += yytext;
     std:string trimmed;
 
-    size_t len = strlen(buffer);
     trimmed.reserve(len); /* Avoids buffer reallocations in the loop */
-    for(size_t i = 0; i < len; ++i) {
+    for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
         i += 1;
