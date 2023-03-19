@@ -34,13 +34,13 @@ void myunputc(int c) {
 %%
 
 \" {
-  BEGIN(quotes);
   buffer.clear();
+  yy_push_state(quotes);
 }
 
 <quotes>{
   \" { /* saw closing quote - all done */
-    BEGIN(INITIAL);
+    yy_pop_state();
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     yylval.cpp_string = new std::string(buffer);
@@ -134,7 +134,7 @@ void myunputc(int c) {
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
         buffer.clear();
-        BEGIN(quotes);
+        yy_push_state(quotes);
       }
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];

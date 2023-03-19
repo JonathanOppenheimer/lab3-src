@@ -1001,7 +1001,6 @@ YY_RULE_SETUP
 
     yylval.cpp_string = new std::string(trimmed);
     yy_pop_state();
-    yy_pop_state();
     return WORD;
   }
 	YY_BREAK
@@ -1009,17 +1008,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 23:
 YY_RULE_SETUP
-#line 154 "shell.l"
+#line 153 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 158 "shell.l"
+#line 157 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1023 "lex.yy.cc"
+#line 1022 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2084,4 +2083,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 158 "shell.l"
+#line 157 "shell.l"
