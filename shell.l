@@ -125,6 +125,7 @@ void myunputc(int c) {
 [^ \n\t]* {
     /* Deals with escape characters */
     buffer.clear();
+    trimmed.clear();
     buffer += yytext;
     std::string trimmed;
     for(size_t i = 0; i < buffer.size(); ++i) {
