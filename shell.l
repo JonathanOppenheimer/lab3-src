@@ -107,7 +107,6 @@ void myunputc(int c) {
   /* Match the majority of normal strings */
 [^ \n\t]* {
     /* Set up the strings for use */
-    printf(yytext);
     buffer.clear();
     buffer += yytext;
 
@@ -134,7 +133,7 @@ void myunputc(int c) {
         buffer.erase(i,1);
       }
     }
-    
+
     /* Only return a word if we did not switch to another start condition */
     if(YY_START == INITIAL) {
       yylval.cpp_string = new std::string(buffer);
