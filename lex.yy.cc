@@ -501,8 +501,8 @@ char *yytext_ptr;
  *
  */
 #line 10 "shell.l"
-
 #include <algorithm>
+#include <boost/algorithm/string.hpp>
 #include <cstring>
 #include <iostream>
 
