@@ -40,7 +40,6 @@ void myunputc(int c) {
 
 <quotes>{
   \" { /* saw closing quote - all done */
-    printf("leave quotes");
     yy_pop_state();
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
@@ -133,13 +132,11 @@ void myunputc(int c) {
         int next_quote = buffer.find('"', i+1);
         printf("%d\n", next_quote);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
-          printf("enter quotes");
           yy_push_state(quotes);
           break;
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
-          std::cout << buffer; 
         }
       }
       
