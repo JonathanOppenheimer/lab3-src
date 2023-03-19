@@ -824,7 +824,7 @@ YY_RULE_SETUP
 #line 41 "shell.l"
 { /* saw closing quote - all done */
     BEGIN(INITIAL);
-    // yylval.cpp_string = new std::string(buffer);
+    yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
 	YY_BREAK
