@@ -976,7 +976,6 @@ YY_RULE_SETUP
 {
     /* Deals with escape characters */
     buffer.clear();
-    trimmed.clear();
     buffer += yytext;
     std::string trimmed;
     for(size_t i = 0; i < buffer.size(); ++i) {
@@ -985,6 +984,7 @@ YY_RULE_SETUP
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
+          trimmed.clear();
           yy_push_state(quotes);
           break;
         } else {
