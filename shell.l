@@ -116,16 +116,17 @@ void myunputc(int c) {
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
-        int next_quote = buffer.find('"', i+1);
+        BEGIN(quotes)
+        /* int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
           BEGIN(quotes);
           break;
         } else {
-          buffer.erase(i, 1); /* Delete the trailing " */
-          buffer.erase(next_quote-1, 1); /* Delete the trailing " */
+          buffer.erase(i, 1);  Delete the trailing " 
+          buffer.erase(next_quote-1, 1);  Delete the trailing " 
           i = next_quote - 1;
-        }
+        } */ 
       }
 
       /* Trims escaped characters */
