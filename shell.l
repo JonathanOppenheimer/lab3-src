@@ -53,7 +53,7 @@ void myunputc(int c) {
   }
 
   [^ \\"\n]* {
-    buffer += yytext;
+    // buffer += yytext;
   }
 }
 
