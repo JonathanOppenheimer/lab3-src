@@ -133,7 +133,7 @@ void myunputc(int c) {
       }
     }
 
-    if(YY_BUFFER_STATE == INITIAL) { 
+    if(YY_CURRENT_BUFFER == INITIAL) { 
       yylval.cpp_string = new std::string(buffer);
       return WORD;
     }
