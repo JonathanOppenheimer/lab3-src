@@ -947,8 +947,8 @@ YY_RULE_SETUP
           BEGIN(quotes);
           break;
         } else {
-          // buffer.erase(i, 1); /* Delete the trailing " */
-          // buffer.erase(next_quote-1, 1); /* Delete the trailing " */
+          /* buffer.erase(i, 1); /* Delete the trailing " */
+          /* buffer.erase(next_quote-1, 1); /* Delete the trailing " */
           i = next_quote - 1;
         }
       }

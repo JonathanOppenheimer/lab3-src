@@ -122,8 +122,8 @@ void myunputc(int c) {
           BEGIN(quotes);
           break;
         } else {
-          /* buffer.erase(i, 1); /* Delete the trailing " */
-          /* buffer.erase(next_quote-1, 1); /* Delete the trailing " */
+          buffer.erase(i, 1); /* Delete the trailing " */
+          buffer.erase(next_quote-1, 1); /* Delete the trailing " */
           i = next_quote - 1;
         }
       }
@@ -136,6 +136,7 @@ void myunputc(int c) {
     
     /* Only return a word if we did not switch to another start condition */
     if(YY_START == INITIAL) {
+      std::cout << "Current buffer: " + buffer;
       yylval.cpp_string = new std::string(buffer);
       return WORD;
     }
