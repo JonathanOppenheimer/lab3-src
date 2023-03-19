@@ -34,7 +34,7 @@ void myunputc(int c) {
 
 \" {
   buffer.clear();
-  yy_push_state(quotes);
+  BEGIN(quotes);
 }
 
 <quotes>{
