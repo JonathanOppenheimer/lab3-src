@@ -124,7 +124,7 @@ void myunputc(int c) {
   BEGIN(command)
 }
 
-<command> {
+<command>{
   [^ \n\t\|><&]* {
   /* buffer.clear(); */
     /* Deals with escape characters */
