@@ -50,7 +50,10 @@ void myunputc(int c) {
     std::cout << "> ";
   }
   
-  \\(.|\n)  buffer += yytext[1];
+  \\(.|\n) {
+    buffer += "\\";
+    buffer += yytext[1];
+  }
 
   [^\\\n\"]+ {
     buffer += yytext;
