@@ -130,6 +130,9 @@ void myunputc(int c) {
     buffer += yytext;
     std::string trimmed;
     for(size_t i = 0; i < buffer.size(); ++i) {
+      if(buffer[i] == '"') {
+        BEGIN(quotes);
+      }
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
         i += 1;
