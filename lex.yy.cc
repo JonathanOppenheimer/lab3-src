@@ -949,7 +949,7 @@ YY_RULE_SETUP
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
-          i = next_quote-1;
+          i = next_quote - 1;
         }
       }
 
@@ -959,7 +959,7 @@ YY_RULE_SETUP
       }
     }
 
-    yylval.cpp_string = new std::string(buffer);
+    // yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
 	YY_BREAK
