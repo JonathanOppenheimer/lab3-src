@@ -968,19 +968,21 @@ YY_RULE_SETUP
   return AMPERSAND;
 }
 	YY_BREAK
-/* Match everything but stuff covered by the above -
-   * does not current deal with 2>
-   */
+/* Match the majority of normal strings */
 case 21:
 YY_RULE_SETUP
-#line 124 "shell.l"
+#line 121 "shell.l"
 {
-    /* Deals with escape characters */
+    /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
     std::string trimmed;
-    for(size_t i = 0; i < buffer.size(); ++i) {
 
+    /* Parse the string for escaped characters and '"'. Deal with quotes.
+     * In the case of an unclose '"', start the action to prompt the user 
+     * to close it.
+     */
+    for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
@@ -994,6 +996,7 @@ YY_RULE_SETUP
         }
       }
 
+      /* Trims escaped characters */
       if(buffer[i] == '\\') {
         trimmed += buffer[i+1];
         i += 1;
@@ -1009,17 +1012,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 22:
 YY_RULE_SETUP
-#line 157 "shell.l"
+#line 159 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 161 "shell.l"
+#line 163 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1023 "lex.yy.cc"
+#line 1026 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2084,4 +2087,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 161 "shell.l"
+#line 163 "shell.l"
