@@ -149,6 +149,11 @@ void myunputc(int c) {
     yy_pop_state();
     return WORD;
   }
+
+  \n {
+    yy_pop_state();
+    return NEWLINE;
+  }
 }
   /* Invalid character in input */
 . {
