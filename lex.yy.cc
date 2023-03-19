@@ -953,7 +953,7 @@ YY_RULE_SETUP
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
-          i = next_quote-2;
+          i = next_quote-1;
         }
       }
 
