@@ -41,7 +41,6 @@ void myunputc(int c) {
   \" { /* saw closing quote - all done */
     BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
-    std::cout << yyval.cpp_string;
     return WORD;
   }
 
@@ -120,6 +119,7 @@ void myunputc(int c) {
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '>') {
         yylval.cpp_string = new std::string(buffer);
+        std::cout << yyval.cpp_string;
         return WORD;
       }
 
