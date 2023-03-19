@@ -840,7 +840,7 @@ case 3:
 YY_RULE_SETUP
 #line 50 "shell.l"
 {
-    buffer += yytext;
+    // buffer += yytext;
     /* Keep prompting for input */
     std::cout << "> ";
   }

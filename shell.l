@@ -48,7 +48,7 @@ void myunputc(int c) {
   }
 
   \n {
-    // buffer += yytext;
+    buffer += yytext;
     /* Keep prompting for input */
     std::cout << "> ";
   }
@@ -64,7 +64,7 @@ void myunputc(int c) {
   }
 
   [^\\"\n]* {
-    buffer += yytext;
+    //buffer += yytext;
   }
 }
 
