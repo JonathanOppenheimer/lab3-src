@@ -65,7 +65,7 @@ void myunputc(int c) {
     buffer += yytext[1];
   }
 
-  ' ' {
+  " " {
 
   }
 
