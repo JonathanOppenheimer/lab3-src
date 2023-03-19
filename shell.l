@@ -27,6 +27,7 @@ void myunputc(int c) {
 %option noyywrap
 
 %x quotes
+%x command
 
 %%
 
@@ -117,25 +118,32 @@ void myunputc(int c) {
   /* Match everything but stuff covered by the above -
    * does not current deal with 2>
    */
-[^ \n\t\|><&]* {
+
+[^ \"\n\t\|<>&] {
   buffer.clear();
-
-  /* Deals with escape characters */
-  size_t len = strlen(yytext);
-  buffer.reserve(len); /* Avoids buffer reallocations in the loop */
-  for(size_t i = 0; i < len; ++i) {
-    if(yytext[i] == '\\') {
-      buffer += yytext[i+1];
-      i += 1;
-    } else {
-      buffer += yytext[i];
-    }
-  }
-
-  yylval.cpp_string = new std::string(buffer);
-  return WORD;
+  BEGIN(command)
 }
 
+<command> {
+  [^ \n\t\|><&]* {
+  /* buffer.clear(); */
+    /* Deals with escape characters */
+    size_t len = strlen(yytext);
+    buffer.reserve(len); /* Avoids buffer reallocations in the loop */
+    for(size_t i = 0; i < len; ++i) {
+      if(yytext[i] == '\\') {
+        buffer += yytext[i+1];
+        i += 1;
+      } else {
+        buffer += yytext[i];
+      }
+    }
+
+    yylval.cpp_string = new std::string(buffer);
+    BEGIN(INITIAL);
+    return WORD;
+  }
+}
   /* Invalid character in input */
 . {
   return NOTOKEN;
