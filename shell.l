@@ -150,6 +150,10 @@ void myunputc(int c) {
     yy_pop_state();
     return WORD;
   }
+
+  . {
+    return NOTOKEN;
+  }
 }
   /* Invalid character in input */
 . {
