@@ -118,7 +118,6 @@ void myunputc(int c) {
   /* Match everything but stuff covered by the above -
    * does not current deal with 2>
    */
-
 [^ \"\n\t\|<>&] {
   buffer.clear();
   buffer += yytext;
@@ -127,7 +126,6 @@ void myunputc(int c) {
 
 <command>{
   [^ \n\t\|><&]* {
-  /* buffer.clear(); */
     /* Deals with escape characters */
     size_t len = strlen(yytext);
     buffer.reserve(len); /* Avoids buffer reallocations in the loop */

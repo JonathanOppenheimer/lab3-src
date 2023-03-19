@@ -972,7 +972,7 @@ YY_RULE_SETUP
 #line 122 "shell.l"
 {
   buffer.clear();
-  std::cout << yytext;
+  buffer += yytext;
   BEGIN(command);
 }
 	YY_BREAK
