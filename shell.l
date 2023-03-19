@@ -140,8 +140,6 @@ void myunputc(int c) {
       }
     }
 
-    printf(trimmed.c_str());
-
     yylval.cpp_string = new std::string(trimmed);
     return WORD;
   }
