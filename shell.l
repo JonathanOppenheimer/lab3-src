@@ -131,6 +131,7 @@ void myunputc(int c) {
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
+          buffer.erase(i,1);
           yy_push_state(quotes);
           break;
         } else {
