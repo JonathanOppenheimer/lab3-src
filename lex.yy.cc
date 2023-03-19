@@ -825,7 +825,7 @@ case 2:
 YY_RULE_SETUP
 #line 41 "shell.l"
 { /* saw closing quote - all done */
-    yy_pop_state();
+    BEGIN(INITIAL);
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     yylval.cpp_string = new std::string(buffer);
@@ -958,7 +958,7 @@ YY_RULE_SETUP
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
           trimmed.clear();
-          yy_push_state(quotes);
+          BEGIN(quotes);
           break;
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
