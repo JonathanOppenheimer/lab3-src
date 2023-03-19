@@ -959,7 +959,7 @@ YY_RULE_SETUP
       }
     }
 
-    // yylval.cpp_string = new std::string(buffer);
+    yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
 	YY_BREAK

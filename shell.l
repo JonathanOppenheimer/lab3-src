@@ -119,7 +119,7 @@ void myunputc(int c) {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
-          BEGIN(quotes);
+          // BEGIN(quotes);
           break;
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
