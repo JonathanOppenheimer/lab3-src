@@ -932,6 +932,7 @@ YY_RULE_SETUP
 #line 108 "shell.l"
 {
     /* Set up the strings for use */
+    printf(yytext);
     buffer.clear();
     buffer += yytext;
 
@@ -942,7 +943,6 @@ YY_RULE_SETUP
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
         std::cout << "trigger quote trim\n";
-        std::cout << yytext;
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
