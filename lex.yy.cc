@@ -986,7 +986,7 @@ case 17:
 YY_RULE_SETUP
 #line 152 "shell.l"
 {
-  return NOTOKEN;
+  /* return NOTOKEN; */
 }
 	YY_BREAK
 case 18:

@@ -59,6 +59,10 @@ void myunputc(int c) {
     buffer += yytext;
   }
 }
+  /* Exit the shell */
+"exit" {
+  exit(1);
+}
 
   /* New line character */
 \n {
