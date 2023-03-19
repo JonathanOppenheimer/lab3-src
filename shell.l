@@ -41,7 +41,6 @@ void myunputc(int c) {
 <quotes>{
   \" { /* saw closing quote - all done */
     yy_pop_state();
-    printf(yytext);
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
     yylval.cpp_string = new std::string(buffer);
