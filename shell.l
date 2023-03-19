@@ -130,7 +130,7 @@ void myunputc(int c) {
     for(size_t i = 0; i < buffer.size(); ++i) {
       
       if(buffer[i] == '"') {
-        printf(buffer.find('"', i+1));
+        printf("%d\n", buffer.find('"', i+1));
         
         printf("enter quotes");
         yy_push_state(quotes);
