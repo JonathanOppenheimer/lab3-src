@@ -972,13 +972,14 @@ YY_RULE_SETUP
 #line 122 "shell.l"
 {
   buffer.clear();
+  std::cout << yytext;
   BEGIN(command);
 }
 	YY_BREAK
 
 case 22:
 YY_RULE_SETUP
-#line 128 "shell.l"
+#line 129 "shell.l"
 {
   /* buffer.clear(); */
     /* Deals with escape characters */
@@ -1002,17 +1003,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 23:
 YY_RULE_SETUP
-#line 148 "shell.l"
+#line 149 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 152 "shell.l"
+#line 153 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1016 "lex.yy.cc"
+#line 1017 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2031,4 +2032,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 152 "shell.l"
+#line 153 "shell.l"

@@ -121,7 +121,7 @@ void myunputc(int c) {
 
 [^ \"\n\t\|<>&] {
   buffer.clear();
-  std::cout << yytext;
+  buffer += yytext;
   BEGIN(command);
 }
 
