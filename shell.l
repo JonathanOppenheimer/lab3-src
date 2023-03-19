@@ -121,7 +121,7 @@ void myunputc(int c) {
 
 [^ \"\n\t\|<>&] {
   buffer.clear();
-  BEGIN(command)
+  BEGIN(command);
 }
 
 <command>{
