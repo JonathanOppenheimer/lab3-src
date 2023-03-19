@@ -498,7 +498,6 @@ char *yytext_ptr;
  */
 #line 10 "shell.l"
 #include <algorithm>
-#include <boost/algorithm/string.hpp>
 #include <cstring>
 #include <iostream>
 
@@ -512,9 +511,9 @@ void myunputc(int c) {
   unput(c);
 }
 
-#line 516 "lex.yy.cc"
+#line 515 "lex.yy.cc"
 
-#line 518 "lex.yy.cc"
+#line 517 "lex.yy.cc"
 
 #define INITIAL 0
 #define quotes 1
@@ -743,10 +742,10 @@ YY_DECL
 		}
 
 	{
-#line 34 "shell.l"
+#line 33 "shell.l"
 
 
-#line 750 "lex.yy.cc"
+#line 749 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -815,7 +814,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 36 "shell.l"
+#line 35 "shell.l"
 {
   buffer.clear();
   yy_push_state(quotes);
@@ -824,12 +823,11 @@ YY_RULE_SETUP
 
 case 2:
 YY_RULE_SETUP
-#line 42 "shell.l"
+#line 41 "shell.l"
 { /* saw closing quote - all done */
     yy_pop_state();
     buffer += yytext;
     buffer.erase(buffer.rfind('"'), 1); /* Delete the trailing " */
-    boost::trim(buffer);
     yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
@@ -837,7 +835,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 51 "shell.l"
+#line 49 "shell.l"
 {
     buffer += yytext;
     /* Keep prompting for input */
@@ -847,14 +845,14 @@ YY_RULE_SETUP
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 57 "shell.l"
+#line 55 "shell.l"
 {
     buffer += yytext[1];
   }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 61 "shell.l"
+#line 59 "shell.l"
 {
     buffer += yytext;
   }
@@ -864,14 +862,14 @@ YY_RULE_SETUP
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 67 "shell.l"
+#line 65 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 71 "shell.l"
+#line 69 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -879,7 +877,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 8:
 YY_RULE_SETUP
-#line 76 "shell.l"
+#line 74 "shell.l"
 {
   return PIPE;
 }
@@ -887,7 +885,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 9:
 YY_RULE_SETUP
-#line 81 "shell.l"
+#line 79 "shell.l"
 {
   return GREAT;
 }
@@ -895,7 +893,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 10:
 YY_RULE_SETUP
-#line 86 "shell.l"
+#line 84 "shell.l"
 {
   return LESS;
 }
@@ -903,7 +901,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 11:
 YY_RULE_SETUP
-#line 91 "shell.l"
+#line 89 "shell.l"
 {
   return TWOGREAT;
 }
@@ -911,7 +909,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 12:
 YY_RULE_SETUP
-#line 96 "shell.l"
+#line 94 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -919,7 +917,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 13:
 YY_RULE_SETUP
-#line 101 "shell.l"
+#line 99 "shell.l"
 {
   return GREATGREAT;
 }
@@ -927,7 +925,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 14:
 YY_RULE_SETUP
-#line 106 "shell.l"
+#line 104 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -935,7 +933,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 15:
 YY_RULE_SETUP
-#line 111 "shell.l"
+#line 109 "shell.l"
 {
   return AMPERSAND;
 }
@@ -943,7 +941,7 @@ YY_RULE_SETUP
 /* Match the majority of normal strings */
 case 16:
 YY_RULE_SETUP
-#line 116 "shell.l"
+#line 114 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -976,8 +974,7 @@ YY_RULE_SETUP
         trimmed += buffer[i];
       }
     }
-    
-    boost::trim(trimmed);
+
     yylval.cpp_string = new std::string(trimmed);
     return WORD;
   }
@@ -985,17 +982,17 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 17:
 YY_RULE_SETUP
-#line 155 "shell.l"
+#line 152 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 159 "shell.l"
+#line 156 "shell.l"
 ECHO;
 	YY_BREAK
-#line 999 "lex.yy.cc"
+#line 996 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2060,4 +2057,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 159 "shell.l"
+#line 156 "shell.l"
