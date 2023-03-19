@@ -121,7 +121,7 @@ void myunputc(int c) {
   /* Match everything but stuff covered by the above -
    * does not current deal with 2>
    */
-[^ \"\n\t\|<>&] {
+[^ \"\n\t] {
   buffer.clear();
   /* Deals with escape characters */
   buffer += yytext;
