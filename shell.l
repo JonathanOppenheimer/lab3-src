@@ -150,6 +150,7 @@ void myunputc(int c) {
     }
 
     yylval.cpp_string = new std::string(trimmed);
+    printf("Current buffer: %s\n", buffer.c_str());
     return WORD;
   }
 
