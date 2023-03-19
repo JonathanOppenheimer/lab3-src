@@ -126,7 +126,6 @@ void myunputc(int c) {
         } else {
           buffer.erase(i, 1); /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
-          trimmed += buffer.substr(i, next_quote-1);
           i = next_quote-1;
         }
       }

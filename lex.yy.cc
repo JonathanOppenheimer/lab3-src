@@ -936,7 +936,6 @@ YY_RULE_SETUP
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
-    std::string trimmed;
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
@@ -947,7 +946,6 @@ YY_RULE_SETUP
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
-          trimmed.clear();
           BEGIN(quotes);
           break;
         } else {
@@ -960,31 +958,28 @@ YY_RULE_SETUP
 
       /* Trims escaped characters */
       if(buffer[i] == '\\') {
-        trimmed += buffer[i+1];
-        i += 1;
-      } else {
-        trimmed += buffer[i];
+        buffer.erase(i+1,1);
       }
     }
 
-    yylval.cpp_string = new std::string(trimmed);
+    yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
 	YY_BREAK
 /* Invalid character in input */
 case 16:
 YY_RULE_SETUP
-#line 150 "shell.l"
+#line 145 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 154 "shell.l"
+#line 149 "shell.l"
 ECHO;
 	YY_BREAK
-#line 988 "lex.yy.cc"
+#line 983 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(command):
@@ -2049,4 +2044,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 154 "shell.l"
+#line 149 "shell.l"
