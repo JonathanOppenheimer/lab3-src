@@ -133,6 +133,7 @@ void myunputc(int c) {
     std::string trimmed;
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
+        printf("hi");
         buffer.clear();
         yy_push_state(quotes);
       }
