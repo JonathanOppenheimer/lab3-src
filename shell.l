@@ -61,7 +61,7 @@ void myunputc(int c) {
 }
   /* Exit the shell */
 "exit" {
-  exit(1);
+  exit(0);
 }
 
   /* New line character */
