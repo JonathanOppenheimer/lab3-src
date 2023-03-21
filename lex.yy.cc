@@ -1021,7 +1021,7 @@ YY_RULE_SETUP
     buffer += yytext;
 
     // Expand environment variables - catch a ${}
-    std::regex container{"\\$\\{.*\\}", std::regex_constants::ECMAScript};
+    std::regex container("\\$\\{.*\\}");
     if(std::regex_search(buffer, container)) {
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       std::regex standard("\\$\\{(?!_|SHELL)([A-Za-z0-9_]+)\\}");
@@ -1030,9 +1030,12 @@ YY_RULE_SETUP
       std::regex exclamation("\\$\\{!\\}");
       std::regex underscore("\\$\\{_\\}");
       std::regex name_shell("\\$\\{(SHELL)\\}");
+      
+      // Where to keep the results of the regex
+      std::smatch matches;
 
-      if(std::regex_search(buffer, standard)) {
-        std::cout << "Contains standard expansion\n";
+      if(std::regex_search(buffer.begin(), buffer.end(), matches, standard)) {
+        std::cout << "Contains standard expansion" + matches[0] + "\n";
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";
@@ -1090,7 +1093,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 228 "shell.l"
+#line 231 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1099,7 +1102,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 233 "shell.l"
+#line 236 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1109,10 +1112,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 240 "shell.l"
+#line 243 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1116 "lex.yy.cc"
+#line 1119 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2173,4 +2176,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 240 "shell.l"
+#line 243 "shell.l"
