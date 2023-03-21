@@ -121,9 +121,10 @@ void Command::execute() {
     return;
   }
 
-  // Used to check how the child processes return (e.g. if the child terminated
-  // normally, that is, by calling exit(3) or _exit(2), or by returning from
-  // main()
+  /* Used to check how the child processes return (e.g. if the child terminated
+   * normally, that is, by calling exit(3) or _exit(2), or by returning from
+   * main()
+   */
   int status;
 
   // Check for an error on the command line before execution
@@ -167,6 +168,7 @@ void Command::execute() {
     int fdout; // The out file descriptor
 
     for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
+      // Used to maintain whether the command is built-in or executed
       bool builtin_cmd = false;
 
       // Redirect input
@@ -221,7 +223,7 @@ void Command::execute() {
         if (setenv(argv[1], argv[2], 1)) {
           perror("setenv");
         }
-        Shell::prompt();
+        Shell::prompt(); // Required as status won't be set for later prompting
       }
 
       /* ************************************************ */
