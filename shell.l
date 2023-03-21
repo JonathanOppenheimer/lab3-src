@@ -159,7 +159,7 @@ void myunputc(int c) {
      * to close it.
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
-      if(buffer[i] == '"') {
+      if(buffer[i] == '"' && buffer[i - 1]) {
         int next_quote = buffer.find('"', i+1);
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
@@ -175,6 +175,7 @@ void myunputc(int c) {
       /* Trims escaped characters */
       if(buffer[i] == '\\') {
         buffer.erase(i,1);
+        i++;
       }
     }
 
