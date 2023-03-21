@@ -235,6 +235,8 @@ void Command::execute() {
     if (!_background) {
       // Wait for last command
       waitpid(ret, &status, 0);
+    } else {
+      Shell::zombie_processes.push_back(ret);
     }
   }
 

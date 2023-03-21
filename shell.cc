@@ -20,16 +20,35 @@ extern "C" void sigIntHandler(int sig) {
   Shell::prompt();
 }
 
+extern "C" void sigChildHandler(int sig) { printf("hi"); }
+
 int main() {
-  struct sigaction signalAction;
-  signalAction.sa_handler = sigIntHandler;
-  sigemptyset(&signalAction.sa_mask);
-  signalAction.sa_flags = SA_RESTART;
-  int error = sigaction(SIGINT, &signalAction, NULL);
-  if (error) {
+  /********* CTRL-C HANDLING **********/
+  struct sigaction sigintSignalAction;
+  sigintSignalAction.sa_handler = sigIntHandler;
+  sigemptyset(&sigintSignalAction.sa_mask);
+  sigintSignalAction.sa_flags = SA_RESTART;
+  int intError = sigaction(SIGINT, &sigintSignalAction, NULL);
+  if (intError) {
     perror("sigaction");
     exit(-1);
   }
+
+  /* ******************************** */
+
+  /********* Zombie Handling **********/
+
+  struct sigaction sigchildSignalAction;
+  sigchildSignalAction.sa_handler = sigChildHandler;
+  sigemptyset(&sigchildSignalAction.sa_mask);
+  sigchildSignalAction.sa_flags = SA_RESTART;
+  int childError = sigaction(SIGCHLD, &sigchildSignalAction, NULL);
+  if (childError) {
+    perror("sigaction");
+    exit(-1);
+  }
+
+  /* ******************************** */
 
   Shell::prompt();
   yyparse();
