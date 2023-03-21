@@ -372,8 +372,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 		YY_FATAL_ERROR( "token too large, exceeds YYLMAX" ); \
 	yy_flex_strncpy( yytext, (yytext_ptr), yyleng + 1 ); \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 23
-#define YY_END_OF_BUFFER 24
+#define YY_NUM_RULES 22
+#define YY_END_OF_BUFFER 23
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -383,11 +383,11 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[47] =
     {   0,
-        0,    0,    0,    0,    7,    7,   24,   21,   12,   11,
-        1,   20,   21,   15,   14,   22,   21,   21,   13,    5,
-        3,    2,   23,    9,    7,    8,   21,   21,    0,   16,
-       17,   18,   21,   21,    5,    4,    9,    7,   19,   21,
-       21,   10,   21,   21,    6,    0
+        0,    0,    0,    0,    6,    6,   23,   20,   11,   10,
+       21,   19,   20,   14,   13,   21,   20,   20,   12,    4,
+        2,    1,   22,    8,    6,    7,   20,   20,    0,   15,
+       16,   17,   20,   20,    4,    3,    8,    6,   18,   20,
+       20,    9,   20,   20,    5,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -485,10 +485,10 @@ static const flex_int16_t yy_chk[127] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[24] =
+static const flex_int32_t yy_rule_can_match_eol[23] =
     {   0,
-0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 1, 0, 0,     };
+0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    1, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -772,7 +772,13 @@ YY_DECL
 
 #line 40 "shell.l"
   /* Start quotes mode (for parsing quoted strings) */
-#line 776 "lex.yy.cc"
+ /* \" {
+  buffer.clear();
+  BEGIN(quotes);
+  } */
+
+  /* All quote specific rules "[xyz]" */
+#line 782 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -841,16 +847,6 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 41 "shell.l"
-{
-  buffer.clear();
-  BEGIN(quotes);
-}
-	YY_BREAK
-/* All quote specific rules "[xyz]" */
-
-case 2:
-YY_RULE_SETUP
 #line 48 "shell.l"
 { /* saw closing quote - all done */
     BEGIN(INITIAL);
@@ -858,8 +854,8 @@ YY_RULE_SETUP
     return WORD;
   }
 	YY_BREAK
-case 3:
-/* rule 3 can match eol */
+case 2:
+/* rule 2 can match eol */
 YY_RULE_SETUP
 #line 54 "shell.l"
 {
@@ -868,8 +864,8 @@ YY_RULE_SETUP
     std::cout << "> ";
   }
 	YY_BREAK
-case 4:
-/* rule 4 can match eol */
+case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
 #line 60 "shell.l"
 {
@@ -877,7 +873,7 @@ YY_RULE_SETUP
     buffer += yytext[1];
   }
 	YY_BREAK
-case 5:
+case 4:
 YY_RULE_SETUP
 #line 65 "shell.l"
 {
@@ -886,7 +882,7 @@ YY_RULE_SETUP
 	YY_BREAK
 
 /* Start source mode e.g. after source cmds.txt */
-case 6:
+case 5:
 YY_RULE_SETUP
 #line 71 "shell.l"
 {
@@ -895,15 +891,15 @@ YY_RULE_SETUP
 	YY_BREAK
 /* All source specific rules */
 
-case 7:
+case 6:
 YY_RULE_SETUP
 #line 77 "shell.l"
 {
     /* eat the whitespace */
   }
 	YY_BREAK
-case 8:
-/* rule 8 can match eol */
+case 7:
+/* rule 7 can match eol */
 YY_RULE_SETUP
 #line 81 "shell.l"
 { /* Didn't provide an arguement */ 
@@ -912,7 +908,7 @@ YY_RULE_SETUP
     return NEWLINE;
   }
 	YY_BREAK
-case 9:
+case 8:
 YY_RULE_SETUP
 #line 87 "shell.l"
 { /* Get the source file name */
@@ -931,7 +927,7 @@ YY_RULE_SETUP
 	YY_BREAK
 
 /* Exit the shell */
-case 10:
+case 9:
 YY_RULE_SETUP
 #line 103 "shell.l"
 {
@@ -939,15 +935,15 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* New line character */
-case 11:
-/* rule 11 can match eol */
+case 10:
+/* rule 10 can match eol */
 YY_RULE_SETUP
 #line 108 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
-case 12:
+case 11:
 YY_RULE_SETUP
 #line 112 "shell.l"
 {
@@ -955,7 +951,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* Pipe */
-case 13:
+case 12:
 YY_RULE_SETUP
 #line 117 "shell.l"
 {
@@ -963,7 +959,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* Output redirection (stdout: 1 ) */
-case 14:
+case 13:
 YY_RULE_SETUP
 #line 122 "shell.l"
 {
@@ -971,7 +967,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* Input redirection */
-case 15:
+case 14:
 YY_RULE_SETUP
 #line 127 "shell.l"
 {
@@ -979,7 +975,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* Output redirection (stderr : 2) */
-case 16:
+case 15:
 YY_RULE_SETUP
 #line 132 "shell.l"
 {
@@ -987,7 +983,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* Output redirection (stdout and stderr : 1 and 2) */
-case 17:
+case 16:
 YY_RULE_SETUP
 #line 137 "shell.l"
 {
@@ -995,7 +991,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* Append output (stdout : 1) */
-case 18:
+case 17:
 YY_RULE_SETUP
 #line 142 "shell.l"
 {
@@ -1003,7 +999,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* Append output (stdout and stderr : 1 and 2) */
-case 19:
+case 18:
 YY_RULE_SETUP
 #line 147 "shell.l"
 {
@@ -1011,7 +1007,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 /* Run process in background */
-case 20:
+case 19:
 YY_RULE_SETUP
 #line 152 "shell.l"
 {
@@ -1021,8 +1017,8 @@ YY_RULE_SETUP
 /* Match the majority of normal strings (non-special handled above)
    * Currently does not handle 2> as 2 is a normal character
    */
-case 21:
-/* rule 21 can match eol */
+case 20:
+/* rule 20 can match eol */
 YY_RULE_SETUP
 #line 159 "shell.l"
 {
@@ -1062,7 +1058,7 @@ YY_RULE_SETUP
   }
 	YY_BREAK
 /* Invalid character in input */
-case 22:
+case 21:
 YY_RULE_SETUP
 #line 196 "shell.l"
 {
@@ -1081,12 +1077,12 @@ case YY_STATE_EOF(manual_source):
   }
 }
 	YY_BREAK
-case 23:
+case 22:
 YY_RULE_SETUP
 #line 208 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1090 "lex.yy.cc"
+#line 1086 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
