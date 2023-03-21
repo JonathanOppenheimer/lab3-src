@@ -45,10 +45,9 @@ void myunputc(int c) {
   /* All quote specific rules "[xyz]" */
 <quotes>{
   \" { /* saw closing quote - all done */
-    yylval.cpp_string = new std::string(buffer);
-    yy_switch_to_buffer(yy_scan_string(buffer.c_str()));
-    YY_FLUSH_BUFFER; // Flush yyin because we modified it
     BEGIN(INITIAL);
+    yylval.cpp_string = new std::string(buffer);
+    return WORD;
   }
 
   \n {
