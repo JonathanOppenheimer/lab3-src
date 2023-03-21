@@ -1036,7 +1036,7 @@ YY_RULE_SETUP
 
       if(std::regex_search(buffer, matches, standard)) {
         std::cout << "Contains standard expansion" << matches[0] << "\n";
-        for(match : matches) {
+        for(int i=0; i < matches.size(); i++) {
            // std::cout << match << "\n";
         }
         // buffer = regex_replace(buffer, standard, getenv());
