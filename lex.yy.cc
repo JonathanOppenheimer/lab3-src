@@ -905,11 +905,11 @@ case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
 #line 80 "shell.l"
-{
-      std::cout << "hi\n";
+{ /* Didn't provide an arguement */ 
+      std::cout << "source: usage: source filename [arguments]\n";
       BEGIN(INITIAL);
       return NEWLINE;
-     }
+    }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
