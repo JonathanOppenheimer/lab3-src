@@ -916,10 +916,10 @@ YY_RULE_SETUP
 #line 86 "shell.l"
 { /* Get the source file name */
       // std::cout << yytext;
-      
+
       yyin = fopen(yytext, "r");
       if (!yyin) {
-        std::cout << "[]: No such file or directory";
+        std::cout << yytext + ": No such file or directory";
         YY_FLUSH_BUFFER;
       } else {
         yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
