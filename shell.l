@@ -157,7 +157,7 @@ void myunputc(int c) {
     buffer += yytext;
 
     // Expand environment variables - catch a ${}
-    std::regex container{"\\$\\{.*\\}", std::regex_constants::ECMAScript};
+    std::regex container("\\$\\{.*\\}");
     if(std::regex_search(buffer, container)) {
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       std::regex standard("\\$\\{(?!_|SHELL)([A-Za-z0-9_]+)\\}");
@@ -166,9 +166,12 @@ void myunputc(int c) {
       std::regex exclamation("\\$\\{!\\}");
       std::regex underscore("\\$\\{_\\}");
       std::regex name_shell("\\$\\{(SHELL)\\}");
+      
+      // Where to keep the results of the regex
+      std::smatch matches;
 
-      if(std::regex_search(buffer, standard)) {
-        std::cout << "Contains standard expansion\n";
+      if(std::regex_search(buffer.begin(), buffer.end(), matches, standard)) {
+        std::cout << "Contains standard expansion" + matches[0] + "\n";
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";

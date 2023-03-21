@@ -1030,13 +1030,13 @@ YY_RULE_SETUP
       std::regex exclamation("\\$\\{!\\}");
       std::regex underscore("\\$\\{_\\}");
       std::regex name_shell("\\$\\{(SHELL)\\}");
-      
+
       if(std::regex_search(buffer, standard)) {
         std::cout << "Contains standard expansion\n";
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";
-        
+
       } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
         std::cout << "Contains special ? expansion\n";
 
@@ -1050,7 +1050,7 @@ YY_RULE_SETUP
         std::cout << "Contains special SHELL expansion\n";
 
       } else {
-        std::cout << buffer + ": bad substitution";
+        std::cout << buffer + ": bad substitution\n";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
         return NEWLINE;
       }
