@@ -83,6 +83,8 @@ void myunputc(int c) {
     }
 
     [^ \t\n]+ { /* Get the source file name */
+      std::cout << yytext;
+
       yyin = fopen(yytext, "r");
       if (!yyin) {
         std::cout << "[]: No such file or directory";
