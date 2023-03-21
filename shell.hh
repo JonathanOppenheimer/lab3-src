@@ -3,12 +3,12 @@
 
 #include "command.hh"
 
-extern std::vector<int> zombie_processes;
-
 struct Shell {
   static void prompt();
 
   static Command _currentCommand;
+
+  static std::vector<int> zombie_processes;
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include <cstdio>
 
+#include <iostream>
 #include <signal.h>
 #include <unistd.h>
 
@@ -22,7 +23,9 @@ extern "C" void sigIntHandler(int sig) {
   Shell::prompt();
 }
 
-extern "C" void sigChildHandler(int sig) { /* printf("hi"); */ }
+extern "C" void sigChildHandler(int sig) {
+  std::cout << zombie_processes.front();
+}
 
 int main() {
   /********* CTRL-C HANDLING **********/
