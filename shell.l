@@ -188,8 +188,8 @@ void myunputc(int c) {
 
       } else {
         std::cout << buffer + ": bad substitution\n";
-        return NEWLINE;
-      } 
+        return;
+      }
     }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
