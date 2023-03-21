@@ -909,7 +909,7 @@ YY_RULE_SETUP
         yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
         fclose(yyin);
       } else {
-        std::cout << yyin + ": No such file or directory";
+        std::cout << ": No such file or directory";
       }
 
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
