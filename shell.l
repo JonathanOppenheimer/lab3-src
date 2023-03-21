@@ -159,7 +159,7 @@ void myunputc(int c) {
      * to close it.
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
-      if(buffer[i] == '"' && buffer[i - 1]) {
+      if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         // std::cout << "pos:" << buffer[next_quote] << "\n";
 
