@@ -14,6 +14,7 @@
 int yyparse(void);
 
 std::vector<pid_t> background_pids;
+std::string shell_location;
 
 void Shell::prompt() {
   if (isatty(0)) {
@@ -43,7 +44,10 @@ extern "C" void sigChildHandler(int sig) {
   }
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+  // Get the location of ./shell
+  shell_location = std::string(realpath(argv[0], NULL));
+
   /********* CTRL-C HANDLING **********/
   struct sigaction sigintSignalAction;
   sigintSignalAction.sa_handler = sigIntHandler;
