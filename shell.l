@@ -83,7 +83,7 @@ void myunputc(int c) {
     }
 
     [^ \t\n]+ { /* Get the source file name */
-      std::cout << yytext;
+      // std::cout << yytext;
 
       yyin = fopen(yytext, "r");
       if (!yyin) {
