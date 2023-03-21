@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <signal.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <vector>
 
@@ -26,6 +27,7 @@ extern "C" void sigIntHandler(int sig) {
 
 extern "C" void sigChildHandler(int sig) {
   std::cout << global_variable.front();
+  int pid = waitpid(-1, NULL, WNOHANG);
 }
 
 int main() {
