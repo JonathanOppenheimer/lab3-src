@@ -29,6 +29,7 @@ extern "C" void sigIntHandler(int sig) {
 }
 
 extern "C" void sigChildHandler(int sig) {
+  // Need to empty out all the background processes
   while (!background_pids.empty()) {
     pid_t pid = waitpid(-1, NULL, WNOHANG);
     if (std::find(background_pids.begin(), background_pids.end(), pid) !=
