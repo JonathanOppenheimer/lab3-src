@@ -1504,7 +1504,7 @@ yyreduce:
 
   case 20:
 #line 156 "shell.y"
-            { 
+            {
       Shell::_currentCommand.execute();
     }
 #line 1511 "y.tab.cc"
