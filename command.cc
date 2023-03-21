@@ -167,6 +167,8 @@ void Command::execute() {
     int fdout; // The out file descriptor
 
     for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
+      bool builtin_cmd = false;
+
       // Redirect input
       dup2(fdin, 0);
       close(fdin);
@@ -211,27 +213,41 @@ void Command::execute() {
       // Ensure the last member of the argv is NULL for execv
       argv.back() = nullptr;
 
-      // Create child process
-      ret = fork();
-      if (ret == 0) {
-        // Do a special check for printenv
-        if (!strcmp(argv[0], "printenv")) {
-          char **p = environ;
-          while (*p != NULL) {
-            printf("%s\n", *p);
-            p++;
-          }
-          exit(0);
-        }
+      /* Specific commands that must be run in the parent */
 
-        // Call execvp with modified arguements for all other commands
-        execvp(argv[0], argv.data());
-        perror("execvp");
-        _exit(1);
-      } else if (ret < 0) {
-        // There was an error in fork
-        perror("fork");
-        exit(2);
+      // Set environment variable
+      if (!strcmp(argv[0], "setenv")) {
+        builtin_cmd = true;
+        if (setenv(argv[1], argv[2], 1)) {
+          perror("setenv");
+        }
+      }
+
+      /* ************************************************ */
+
+      // Create child process if required (non-built in functions)
+      if (!builtin_cmd) {
+        ret = fork();
+        if (ret == 0) {
+          // Do a special check for printenv
+          if (!strcmp(argv[0], "printenv")) {
+            char **p = environ;
+            while (*p != NULL) {
+              printf("%s\n", *p);
+              p++;
+            }
+            exit(0);
+          }
+
+          // Call execvp with modified arguements for all other commands
+          execvp(argv[0], argv.data());
+          perror("execvp");
+          _exit(1);
+        } else if (ret < 0) {
+          // There was an error in fork
+          perror("fork");
+          exit(2);
+        }
       }
     }
 
