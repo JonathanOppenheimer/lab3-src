@@ -171,7 +171,8 @@ void myunputc(int c) {
       std::smatch matches;
 
       if(std::regex_search(buffer standard)) {
-        while( std::regex_search(buffer, standard) ) {
+        while(std::regex_search(buffer, matches, standard)) {
+
           std::cout << matches[0] << std::endl;
           std::string env_variable = matches[1];
         }
