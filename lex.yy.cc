@@ -1050,9 +1050,9 @@ YY_RULE_SETUP
         std::cout << "Contains special SHELL expansion\n";
 
       } else {
-        std::cout << buffer + ": bad substitution\n";
+        std::cout << buffer + ": bad substitution";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
-        return NEWLINE; 
+        return NEWLINE;
       }
     }
 
