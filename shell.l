@@ -187,6 +187,8 @@ void myunputc(int c) {
 
       } else {
         std::cout << buffer + ": bad substitution\n";
+        YY_FLUSH_BUFFER; // Flush yyin stop parsing
+        return NEWLINE; 
       }
     }
 
