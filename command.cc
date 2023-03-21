@@ -247,7 +247,7 @@ void Command::execute() {
         } else { // Otherwise go to provided directory
           error_string = "cd: can't cd to " + std::string(argv[1]);
           if (chdir(argv[1])) {
-            perror("cd");
+            perror(error_string.c_str());
           }
         }
       }
