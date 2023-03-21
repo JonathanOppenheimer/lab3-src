@@ -30,6 +30,7 @@ extern "C" void sigIntHandler(int sig) {
 
 extern "C" void sigChildHandler(int sig) {
   pid_t pid = waitpid(-1, NULL, WNOHANG);
+
   if (std::find(background_pids.begin(), background_pids.end(), pid) !=
       background_pids.end()) {
     // Remove the background PID from the vector
