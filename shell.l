@@ -78,6 +78,7 @@ void myunputc(int c) {
 
      \n {
       std::cout << "hi\n";
+      BEGIN(INITIAL);
       return NEWLINE;
      }
 
