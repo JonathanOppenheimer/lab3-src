@@ -31,7 +31,7 @@ void myunputc(int c) {
 %option verbose
 
 %x quotes
-%x man_source
+%x manual_source
 
 %%
 
@@ -67,11 +67,11 @@ void myunputc(int c) {
 
   /* Start source mode e.g. after source cmds.txt */
 "source" {
-  BEGIN(man_source);
+  BEGIN(manual_source);
 }
 
   /* All source specific rules */
-<man_source>{
+<manual_source>{
   [ \t]* {
     /* eat the whitespace */
   }
@@ -199,7 +199,7 @@ void myunputc(int c) {
   /* Terminates the scanner - should happen by default but just double checking */
 <<EOF>> {
   yypop_buffer_state();
-  if ( !YY_CURRENT_BUFFER ) {
+  if (!YY_CURRENT_BUFFER) {
     yyterminate();
   }
 }
