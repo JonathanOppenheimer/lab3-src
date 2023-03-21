@@ -1035,7 +1035,7 @@ YY_RULE_SETUP
       std::smatch matches;
 
       if(std::regex_search(buffer standard)) {
-        while(regex_search(strr, match, rgx)) {
+        while(std::regex_search(buffer, matches, standard)) {
           std::cout << match[0] << std::endl;
           std::string env_variable = match[1];
         }

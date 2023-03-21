@@ -173,7 +173,7 @@ void myunputc(int c) {
       if(std::regex_search(buffer standard)) {
         while(std::regex_search(buffer, matches, standard)) {
           std::cout << match[0] << std::endl;
-          std::string env_variable = match[1];
+          std::string env_variable = matches[1];
         }
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
