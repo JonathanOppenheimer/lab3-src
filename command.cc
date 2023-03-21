@@ -116,6 +116,7 @@ void Command::print() {
 
 void Command::execute() {
   // Don't do anything if there are no simple commands
+  std::cout << source;
   if (_simpleCommands.size() == 0 && !source) {
     Shell::prompt(); // Reprompt
     source = false;  // Restore the source variable to false
