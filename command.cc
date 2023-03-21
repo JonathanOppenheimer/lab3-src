@@ -117,9 +117,8 @@ void Command::print() {
 void Command::execute() {
   // Don't do anything if there are no simple commands
   std::cout << source;
-  if (_simpleCommands.size() == 0 && !source) {
+  if (_simpleCommands.size() == 0) {
     // Shell::prompt(); // Reprompt
-    source = false; // Restore the source variable to false
     return;
   }
 
@@ -287,7 +286,7 @@ void Command::execute() {
 
   // Print new prompt if the child process exited normally
   if (WIFEXITED(status)) {
-    Shell::prompt();
+    // Shell::prompt();
   }
 }
 
