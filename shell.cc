@@ -34,7 +34,7 @@ extern "C" void sigChildHandler(int sig) {
   while (!background_pids.empty()) {
     pid_t pid = waitpid(background_pids.back(), NULL, 0);
     background_pids.pop_back();
-    std::cout << std::to_string(pid) + " exited.";
+    std::cout << std::to_string(pid) + " exited.\n";
   }
 }
 
