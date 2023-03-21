@@ -172,9 +172,8 @@ void myunputc(int c) {
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
           i = next_quote-1;
         }
-      }
-
       std::cout << buffer << "\n";
+      }
 
       /* Trims escaped characters */
       if(buffer[i] == '\\') {
