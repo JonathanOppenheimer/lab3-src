@@ -1020,7 +1020,7 @@ YY_RULE_SETUP
     buffer.clear();
     buffer += yytext;
     
-    buffer = std::regex.replace(buffer, ".+", "HELLO");
+    buffer = std::regex.replace(buffer, "${(?!_|SHELL)([A-Za-z0-9_]+)}", "HELLO");
     // Expand environment variables - catch a ${}
     // std::regex container("(${})");
    //  if(std::regex_search(buffer, container)) {

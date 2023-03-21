@@ -155,11 +155,10 @@ void myunputc(int c) {
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
-    
-    buffer = std::regex.replace(buffer, "${(?!_|SHELL)([A-Za-z0-9_]+)}", "HELLO");
+
     // Expand environment variables - catch a ${}
-    // std::regex container("(${})");
-   //  if(std::regex_search(buffer, container)) {
+    std::regex container("(${})");
+    if(std::regex_search(buffer, container)) {
       // std::cout << "hi\n";
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       // std::regex standard("${(?!_|SHELL)([A-Za-z0-9_]+)}");
@@ -186,7 +185,7 @@ void myunputc(int c) {
         std::cout << buffer + ": bad substitution\n";
         return NEWLINE;
       } */
-    // }
+    }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
