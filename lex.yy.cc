@@ -1021,7 +1021,8 @@ YY_RULE_SETUP
     buffer += yytext;
 
     // Expand environment variables - catch a ${}
-    if(std::regex_match(buffer, std::regex("${(.*)}"))) {
+    std::regex container("${(.*)}"); 
+    if(std::regex_match(buffer, container)) {
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       std::regex standard("${(?!_|SHELL)([A-Za-z0-9_]+)}");
       std::regex dollar("${$}");
@@ -1083,7 +1084,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 221 "shell.l"
+#line 222 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1092,7 +1093,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 226 "shell.l"
+#line 227 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1102,10 +1103,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 233 "shell.l"
+#line 234 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1109 "lex.yy.cc"
+#line 1110 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2166,4 +2167,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 233 "shell.l"
+#line 234 "shell.l"

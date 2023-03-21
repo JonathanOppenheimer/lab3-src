@@ -157,7 +157,7 @@ void myunputc(int c) {
     buffer += yytext;
 
     // Expand environment variables - catch a ${}
-    std::regex container("${(.*)}"); 
+    regex container("${(.*)}"); 
     if(std::regex_match(buffer, container)) {
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       std::regex standard("${(?!_|SHELL)([A-Za-z0-9_]+)}");
