@@ -155,7 +155,7 @@ void myunputc(int c) {
   /* Match the majority of normal strings (non-special handled above)
    * Currently does not handle 2> as 2 is a normal character
    */
-(([^ \"\n\t\|\>\<\&\\])|(2\>)|(\\\")|(\\\n)|(\\\t)|(\\\>)|(\\\<)|(\\\&)|(\\\\))+ {
+(([^ \n\t\|\>\<\&\\])|(2\>)|(\\\")|(\\\n)|(\\\t)|(\\\>)|(\\\<)|(\\\&)|(\\\\))+ {
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
