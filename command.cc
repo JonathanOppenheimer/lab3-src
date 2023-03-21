@@ -236,8 +236,16 @@ void Command::execute() {
       // Change directory
       if (!strcmp(argv[0], "cd")) {
         builtin_cmd = true;
-        if (chdir(argv[1])) {
-          perror("cd");
+
+        // No argument provided, default to home directory
+        if (argv[1] == nullptr) {
+          if (chdir(getenv("HOME"))) {
+            perror("cd");
+          }
+        } else { // Otherwise go to provided directory
+          if (chdir(argv[1])) {
+            perror("cd");
+          }
         }
       }
 
