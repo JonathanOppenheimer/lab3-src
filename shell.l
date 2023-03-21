@@ -19,7 +19,7 @@
 
 static void yyunput (int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
-static bool source; // A poor yet easy way to track if the command was source
+bool source; // A poor yet easy way to track if the command was source
 
 void myunputc(int c) {
   unput(c);
