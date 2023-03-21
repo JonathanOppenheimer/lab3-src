@@ -31,7 +31,7 @@ void myunputc(int c) {
 %option verbose
 
 %x quotes
-%x source
+%x man_source
 
 %%
 
@@ -67,11 +67,11 @@ void myunputc(int c) {
 
   /* Start source mode e.g. after source cmds.txt */
 "source" {
-  BEGIN(source);
+  BEGIN(man_source);
 }
 
   /* All source specific rules */
-<source>{
+<man_source>{
     [ \t]* {
       /* eat the whitespace */
     }
