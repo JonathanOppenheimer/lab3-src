@@ -89,8 +89,6 @@ void myunputc(int c) {
       if (!yyin) {
         std::cout << "[]: No such file or directory";
         YY_FLUSH_BUFFER;
-        BEGIN(INITIAL);
-        return NEWLINE;
       } else {
         yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
       }
