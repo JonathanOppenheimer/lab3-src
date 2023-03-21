@@ -170,7 +170,7 @@ void myunputc(int c) {
         } else {
           buffer.erase(i, 1);  /* Delete the first " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
-          i = next_quote - 1;
+          i = next_quote;
         }
       }
 
