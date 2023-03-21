@@ -76,11 +76,11 @@ void myunputc(int c) {
       /* eat the whitespace */
     }
 
-     \n {
-      std::cout << "hi\n";
+    \n { /* Didn't provide an arguement */ 
+      std::cout << "source: usage: source filename [arguments]\n";
       BEGIN(INITIAL);
       return NEWLINE;
-     }
+    }
 
     [^ \t\n]+ { /* Get the source file name */
       yyin = fopen(yytext, "r");
