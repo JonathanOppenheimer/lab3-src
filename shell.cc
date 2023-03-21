@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <cstdio>
 
 #include <iostream>
@@ -10,7 +11,7 @@
 
 int yyparse(void);
 
-std::vector<int> global_variable;
+std::vector<pid_t> background_pids;
 
 void Shell::prompt() {
   if (isatty(0)) {
@@ -26,9 +27,12 @@ extern "C" void sigIntHandler(int sig) {
 }
 
 extern "C" void sigChildHandler(int sig) {
-  int pid = waitpid(-1, NULL, WNOHANG);
-  std::cout << pid;
-  if (!global_variable.empty()) {
+  // int pid = waitpid(-1, NULL, WNOHANG);
+  // std::cout << pid;
+
+  while (!global_variable.empty()) {
+    pid_t pid = waitpid(global_variable.pop_back(), NULL, 0);
+    std::cout << pid;
   }
 }
 
