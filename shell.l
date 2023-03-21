@@ -170,7 +170,7 @@ void myunputc(int c) {
       // Where to keep the results of the regex
       std::smatch matches;
 
-      if(std::regex_search(buffer standard)) {
+      if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
 
           std::cout << matches[0] << std::endl;
