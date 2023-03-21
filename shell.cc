@@ -71,7 +71,7 @@ int main() {
 
   /* ******************************** */
 
-  Shell::prompt();
+  // Shell::prompt();
   yyparse();
 }
 
