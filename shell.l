@@ -161,7 +161,7 @@ void myunputc(int c) {
     if(std::regex_search(buffer, container)) {
       std::cout << "hi!!\n";
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
-      std::regex standard("\\$\\{([A-Za-z0-9_]+)\\}");
+      std::regex standard("\\$\\{[A-Za-z0-9_]+\\}");
       // std::regex standard("\\$\\{(?!_|SHELL)([A-Za-z0-9_]+)\\}");
 
       // std::regex dollar("${$}");
