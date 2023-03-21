@@ -31,7 +31,8 @@ extern "C" void sigChildHandler(int sig) {
   // std::cout << pid;
 
   while (!background_pids.empty()) {
-    pid_t pid = waitpid(background_pids.pop_back(), NULL, 0);
+    pid_t pid = waitpid(background_pids.back(), NULL, 0);
+    background_pids.pop_back();
     std::cout << pid;
   }
 }
