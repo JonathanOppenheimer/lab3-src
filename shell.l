@@ -47,6 +47,7 @@ void myunputc(int c) {
   \" { /* saw closing quote - all done */
     yylval.cpp_string = new std::string(buffer);
     yy_switch_to_buffer(yy_scan_string(buffer.c_str()));
+    YY_FLUSH_BUFFER; // Flush yyin because we modified it
     BEGIN(INITIAL);
   }
 
