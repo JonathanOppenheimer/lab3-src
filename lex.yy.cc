@@ -919,7 +919,7 @@ YY_RULE_SETUP
 
       yyin = fopen(yytext, "r");
       if (!yyin) {
-        std::cout << std::string(yytext) + ": No such file or directory";
+        std::cout << std::string(yytext) + ": No such file or directory\n";
         YY_FLUSH_BUFFER;
       } else {
         yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));

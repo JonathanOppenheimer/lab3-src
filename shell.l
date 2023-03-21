@@ -93,7 +93,6 @@ void myunputc(int c) {
         yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
       }
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
-      return NEWLINE;
     }
 }
 
