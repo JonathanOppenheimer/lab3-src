@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <signal.h>
+#include <string>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <vector>
@@ -33,7 +34,7 @@ extern "C" void sigChildHandler(int sig) {
   while (!background_pids.empty()) {
     pid_t pid = waitpid(background_pids.back(), NULL, 0);
     background_pids.pop_back();
-    std::cout << pid;
+    std::cout << std::to_string(pid) + " exited.";
   }
 }
 
