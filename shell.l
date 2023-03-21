@@ -162,31 +162,34 @@ void myunputc(int c) {
       std::cout << "hi!!\n";
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       std::regex standard("\\$\\{(?!_|SHELL)([A-Za-z0-9_]+)\\}");
-
-      // std::regex dollar("${$}");
-      // std::regex question("${?}");
-      // std::regex exclamation("${!}");
-      // std::regex underscore("${_}");
-      // std::regex name_shell("${(SHELL)}");
+      std::regex dollar("\\$\\{\\$\\}");
+      std::regex question("\\$\\{\\?\\}");
+      std::regex exclamation("\\$\\{!\\}");
+      std::regex underscore("\\$\\{_\\}");
+      std::regex name_shell("\\$\\{(SHELL)\\}");
       
-      std::cout << buffer + "\n";
       if(std::regex_search(buffer, standard)) {
-        std::cout << "Contains standard expansion";
+        std::cout << "Contains standard expansion\";
         // buffer = regex_replace(buffer, standard, getenv());
-      } /* else if(std::regex_match(buffer, dollar)) { // Special ${$}
+      } else if(std::regex_match(buffer, dollar)) { // Special ${$}
+        std::cout << "Contains special $ expansion\";
         
       } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
+        std::cout << "Contains special ? expansion\";
 
       } else if(std::regex_match(buffer, question)) { // Special ${!}
+        std::cout << "Contains special ! expansion\";
 
       } else if(std::regex_match(buffer, underscore)) { // Special ${_}
+        std::cout << "Contains special _ expansion\";
 
       } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
+        std::cout << "Contains special SHELL expansion\";
 
       } else {
         std::cout << buffer + ": bad substitution\n";
         return NEWLINE;
-      } */
+      } 
     }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
