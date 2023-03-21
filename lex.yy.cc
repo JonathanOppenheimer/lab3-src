@@ -856,7 +856,7 @@ YY_RULE_SETUP
     yylval.cpp_string = new std::string(buffer);
     std::cout << *yylval.cpp_string;
     // return;
-    yy_switch_to_buffer(yy_scan_string(buffer))
+    yy_switch_to_buffer(yy_scan_string(buffer.c_str()))
     BEGIN(INITIAL);
   }
 	YY_BREAK

@@ -46,10 +46,8 @@ void myunputc(int c) {
 <quotes>{
   \" { /* saw closing quote - all done */
     yylval.cpp_string = new std::string(buffer);
-    std::cout << *yylval.cpp_string;
-    // return;
-    yy_switch_to_buffer(yy_scan_string(buffer.c_str()))
     BEGIN(INITIAL);
+    yy_switch_to_buffer(yy_scan_string(buffer.c_str()))
   }
 
   \n {
