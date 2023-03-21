@@ -72,28 +72,30 @@ void myunputc(int c) {
 
   /* All source specific rules */
 <man_source>{
-    [ \t]* {
-      /* eat the whitespace */
-    }
+  [ \t]* {
+    /* eat the whitespace */
+  }
 
-    \n { /* Didn't provide an arguement */ 
-      std::cout << "source: usage: source filename [arguments]\n";
-      BEGIN(INITIAL);
+  \n { /* Didn't provide an arguement */ 
+    std::cout << "source: usage: source filename [arguments]\n";
+    BEGIN(INITIAL);
+    return NEWLINE;
+  }
+
+  [^ \t\n]+ { /* Get the source file name */
+    // std::cout << yytext;
+
+    yyin = fopen(yytext, "r");
+    if (!yyin) {
+      std::cout << std::string(yytext) + ": No such file or directory\n";
+      YY_FLUSH_BUFFER; // Flush yyin because we modified it
+      BEGIN(INITIAL); // Finished reading file, go back to initial state */
       return NEWLINE;
-    }
-
-    [^ \t\n]+ { /* Get the source file name */
-      // std::cout << yytext;
-
-      yyin = fopen(yytext, "r");
-      if (!yyin) {
-        std::cout << std::string(yytext) + ": No such file or directory\n";
-        YY_FLUSH_BUFFER;
-      } else {
-        yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
-      }
+    } else {
+      yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
     }
+  }
 }
 
   /* Exit the shell */
