@@ -1021,7 +1021,7 @@ YY_RULE_SETUP
     buffer += yytext;
 
     // Expand environment variables - catch a ${}
-    std::regex r{"...", std::regex_constants::ECMAScript};
+    std::regex container{"...", std::regex_constants::ECMAScript};
     if(std::regex_search(buffer, container)) {
       // std::cout << "hi\n";
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
