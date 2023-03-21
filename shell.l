@@ -172,6 +172,9 @@ void myunputc(int c) {
 
       if(std::regex_search(buffer, matches, standard)) {
         std::cout << "Contains standard expansion" << matches[0] << "\n";
+        for(match : matches) {
+          std::cout << match << "\n";
+        }
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";
