@@ -242,7 +242,7 @@ void Command::execute() {
         if (argv[1] == nullptr) {
           error_string = "cd: can't cd to " + std::string(getenv("HOME"));
           if (chdir(getenv("HOME"))) {
-            perror(error_string.c_str());
+            perror("cd");
           }
         } else { // Otherwise go to provided directory
           error_string = "cd: can't cd to " + std::string(argv[1]);
