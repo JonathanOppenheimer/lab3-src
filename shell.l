@@ -45,10 +45,10 @@ void myunputc(int c) {
   /* All quote specific rules "[xyz]" */
 <quotes>{
   \" { /* saw closing quote - all done */
-    BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
     std::cout << *yylval.cpp_string;
     // return;
+    BEGIN(INITIAL);
   }
 
   \n {
@@ -171,7 +171,7 @@ void myunputc(int c) {
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
           BEGIN(quotes);
-          break;
+          // break;
         } else {
           buffer.erase(i, 1);  /* Delete the trailing " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */

@@ -856,7 +856,7 @@ YY_RULE_SETUP
     BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
     std::cout << *yylval.cpp_string;
-    return WORD;
+    // return;
   }
 	YY_BREAK
 case 3:
