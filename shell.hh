@@ -2,6 +2,7 @@
 #define shell_hh
 
 #include "command.hh"
+#include <vector>
 
 struct Shell {
   static void prompt();
