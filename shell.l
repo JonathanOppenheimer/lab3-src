@@ -28,15 +28,17 @@ void myunputc(int c) {
 %option verbose
 
 %x quotes
-%x command
+%x source
 
 %%
 
+  /* Start quotes mode (for parsing quoted strings) */
 \" {
   buffer.clear();
   BEGIN(quotes);
 }
 
+  /* All quote specific rules "[xyz]" */
 <quotes>{
   \" { /* saw closing quote - all done */
     BEGIN(INITIAL);
@@ -59,6 +61,28 @@ void myunputc(int c) {
     buffer += yytext;
   }
 }
+
+  /* Start source mode e.g. after source cmds.txt */
+"source" {
+  BEGIN(source);
+}
+
+  /* All source specific rules */
+<source>{
+    [ \t]* {
+      /* eat the whitespace */
+    }
+
+    [^ \t\n]+ { /* Get the source file name */
+      yyin = fopen(yytext, "r");
+      if (!yyin) {
+       /* error( ... ); */
+      }
+      yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
+      BEGIN(INITIAL); // Finished reading file, go back to initial state */
+    }
+}
+
   /* Exit the shell */
 "exit" {
   exit(0);
@@ -155,5 +179,13 @@ void myunputc(int c) {
   /* Invalid character in input */
 . {
   /* return NOTOKEN; */
+}
+
+  /* Terminates the scanner - should happen by default but just double checking */
+<<EOF>> {
+  yypop_buffer_state();
+  if ( !YY_CURRENT_BUFFER ) {
+    yyterminate();
+  }
 }
 
