@@ -915,7 +915,7 @@ case 9:
 YY_RULE_SETUP
 #line 86 "shell.l"
 { /* Get the source file name */
-      std::cout << yytext;
+      // std::cout << yytext;
 
       yyin = fopen(yytext, "r");
       if (!yyin) {
