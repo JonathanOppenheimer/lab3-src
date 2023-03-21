@@ -225,6 +225,14 @@ void Command::execute() {
         }
       }
 
+      // Unset environment variable
+      if (!strcmp(argv[0], "unsetenv")) {
+        builtin_cmd = true;
+        if (unsetenv(argv[1])) {
+          perror("unsetenv");
+        }
+      }
+
       /* ************************************************ */
 
       // Create child process if required (non-built in functions)
