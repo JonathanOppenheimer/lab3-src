@@ -1026,31 +1026,34 @@ YY_RULE_SETUP
       std::cout << "hi!!\n";
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       std::regex standard("\\$\\{(?!_|SHELL)([A-Za-z0-9_]+)\\}");
-
-      // std::regex dollar("${$}");
-      // std::regex question("${?}");
-      // std::regex exclamation("${!}");
-      // std::regex underscore("${_}");
-      // std::regex name_shell("${(SHELL)}");
+      std::regex dollar("\\$\\{\\$\\}");
+      std::regex question("\\$\\{\\?\\}");
+      std::regex exclamation("\\$\\{!\\}");
+      std::regex underscore("\\$\\{_\\}");
+      std::regex name_shell("\\$\\{(SHELL)\\}");
       
-      std::cout << buffer + "\n";
       if(std::regex_search(buffer, standard)) {
-        std::cout << "Contains standard expansion";
+        std::cout << "Contains standard expansion\";
         // buffer = regex_replace(buffer, standard, getenv());
-      } /* else if(std::regex_match(buffer, dollar)) { // Special ${$}
+      } else if(std::regex_match(buffer, dollar)) { // Special ${$}
+        std::cout << "Contains special $ expansion\";
         
       } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
+        std::cout << "Contains special ? expansion\";
 
       } else if(std::regex_match(buffer, question)) { // Special ${!}
+        std::cout << "Contains special ! expansion\";
 
       } else if(std::regex_match(buffer, underscore)) { // Special ${_}
+        std::cout << "Contains special _ expansion\";
 
       } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
+        std::cout << "Contains special SHELL expansion\";
 
       } else {
         std::cout << buffer + ": bad substitution\n";
         return NEWLINE;
-      } */
+      } 
     }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
@@ -1087,7 +1090,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 225 "shell.l"
+#line 228 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1096,7 +1099,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 230 "shell.l"
+#line 233 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1106,10 +1109,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 237 "shell.l"
+#line 240 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1113 "lex.yy.cc"
+#line 1116 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2170,4 +2173,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 237 "shell.l"
+#line 240 "shell.l"
