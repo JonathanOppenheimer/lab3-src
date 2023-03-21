@@ -240,12 +240,12 @@ void Command::execute() {
         std::string error_string; // If the directory does not exist
         // No argument provided, default to home directory
         if (argv[1] == nullptr) {
-          error_string = "can't cd to" + std::string(getenv("HOME"));
+          error_string = "cd: can't cd to " + std::string(getenv("HOME"));
           if (chdir(getenv("HOME"))) {
             perror(error_string.c_str());
           }
         } else { // Otherwise go to provided directory
-          error_string = "can't cd to" + std::string(argv[1]);
+          error_string = "cd: can't cd to " + std::string(argv[1]);
           if (chdir(argv[1])) {
             perror(error_string.c_str());
           }
