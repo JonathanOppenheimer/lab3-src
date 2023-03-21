@@ -82,6 +82,10 @@ void myunputc(int c) {
         std::cout << "[]: No such file or directory";
       } else {
         yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
+        yypop_buffer_state();
+        if ( !YY_CURRENT_BUFFER ) {
+          yyterminate();
+        }
       }
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
     }
