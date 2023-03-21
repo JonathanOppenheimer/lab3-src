@@ -80,7 +80,7 @@ void myunputc(int c) {
       yyin = fopen(yytext, "r");
       if (!yyin) {
         std::cout << "[]: No such file or directory";
-        yyterminate();
+        return NEWLINE;
       } else {
         yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
       }
