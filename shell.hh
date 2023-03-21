@@ -4,7 +4,7 @@
 #include "command.hh"
 #include <vector>
 
-extern std::vector<int> background_pids;
+extern std::vector<pid_t> background_pids;
 
 struct Shell {
   static void prompt();
