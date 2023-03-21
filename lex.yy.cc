@@ -1023,12 +1023,12 @@ YY_RULE_SETUP
     // Expand environment variables - catch a ${}
     if(regex_match(buffer, regex("\$\{(.*)\}"))) {
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
-      regex standard("\$\{(?!_|SHELL)([A-Za-z0-9_]+)\}");
-      regex dollar("\$\{\$\}");
-      regex question("\$\{\?\}");
-      regex exclamation("\$\{\!\}");
-      regex underscore("\$\{\_\}");
-      regex name_shell("\$\{(SHELL)\}");
+      std::regex standard("\$\{(?!_|SHELL)([A-Za-z0-9_]+)\}");
+      std::regex dollar("\$\{\$\}");
+      std::regex question("\$\{\?\}");
+      std::regex exclamation("\$\{\!\}");
+      std::regex underscore("\$\{\_\}");
+      std::regex name_shell("\$\{(SHELL)\}");
 
       if(regex_match(buffer, standard) {
         std::cout << "Contains standard expansion";
