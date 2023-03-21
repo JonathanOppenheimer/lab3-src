@@ -1034,11 +1034,11 @@ YY_RULE_SETUP
       // Where to keep the results of the regex
       std::smatch matches;
 
-      if(std::regex_search(buffer, matches, standard)) {
-        for(int i=0; i < matches.size(); i++) {
-          std::cout << "Contains standard expansion" << matches[i] << "\n";
+      if(std::regex_search(buffer standard)) {
+        while(regex_search(strr, match, rgx)) {
+          std::cout << match[0] << std::endl;
+          std::string env_variable = match[1];
         }
-
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";
