@@ -161,7 +161,7 @@ void myunputc(int c) {
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
-        std::cout << "pos:" << buffer[next_quote] << "\n";
+        std::cout << "pos:" << buffer[next_quote] << "," + std:string(next_quote) + "\n";
 
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
