@@ -1033,7 +1033,7 @@ YY_RULE_SETUP
           // break;
         } else {
           buffer.erase(i, 1);  /* Delete the first " */
-          buffer.erase(next_quote, 1); /* Delete the trailing " */
+          buffer.erase(next_quote-1, 1); /* Delete the trailing " */
           i = next_quote;
         }
       }
