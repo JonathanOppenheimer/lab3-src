@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <cstring>
 #include <iostream>
+#include <string>
+#include <regex>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -153,6 +155,35 @@ void myunputc(int c) {
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
+
+    // Expand environment variables - catch a ${}
+    if(regex_match(buffer, regex("\$\{(.*)\}"))) {
+      // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
+      regex standard("\$\{(?!_|SHELL)([A-Za-z0-9_]+)\}");
+      regex dollar("\$\{\$\}");
+      regex question("\$\{\?\}");
+      regex exclamation("\$\{\!\}");
+      regex underscore("\$\{\_\}");
+      regex name_shell("\$\{(SHELL)\}");
+
+      if(regex_match(buffer, standard) {
+        std::cout << "Contains standard expansion";
+        // buffer = regex_replace(buffer, standard, getenv());
+      } else if(regex_match(buffer, dollar) { // Special ${$}
+        
+      } else if(regex_match(buffer, exclamation) { // Special ${?}
+
+      } else if(regex_match(buffer, question) { // Special ${!}
+
+      } else if(regex_match(buffer, underscore) { // Special ${_}
+
+      } else if(regex_match(buffer, name_shell) { // Special ${SHELL}
+
+      } else {
+        std::cout << buffer + ": bad substitution\n";
+        return NEWLINE;
+      }
+    }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 

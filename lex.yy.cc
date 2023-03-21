@@ -1025,18 +1025,14 @@ YY_RULE_SETUP
     for(size_t i = 0; i < buffer.size(); ++i) {
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
-        std::cout << "pos:" << buffer[next_quote] << "," << next_quote << "\n";
-
+        // Checks to ensure the next quote is not escaped.
         if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
           buffer.erase(i,1);
           BEGIN(quotes);
-          // break;
         } else {
           buffer.erase(i, 1);  /* Delete the first " */
           buffer.erase(next_quote-1, 1); /* Delete the trailing " */
-          // i = next_quote-1;
         }
-      std::cout << buffer << "\n";
       }
 
       /* Trims escaped characters */
@@ -1056,7 +1052,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 194 "shell.l"
+#line 190 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1065,7 +1061,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 199 "shell.l"
+#line 195 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1075,10 +1071,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 206 "shell.l"
+#line 202 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1082 "lex.yy.cc"
+#line 1078 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2139,4 +2135,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 206 "shell.l"
+#line 202 "shell.l"
