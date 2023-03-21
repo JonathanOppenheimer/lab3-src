@@ -157,7 +157,7 @@ void myunputc(int c) {
     buffer += yytext;
 
     // Expand environment variables - catch a ${}
-    std::regex container{"[a-z]", std::regex_constants::ECMAScript};
+    std::regex container{"\\$\\{\\}", std::regex_constants::ECMAScript};
     if(std::regex_search(buffer, container)) {
       std::cout << "hi!!\n";
       // std::cout << "hi\n";
