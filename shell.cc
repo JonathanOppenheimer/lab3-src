@@ -22,7 +22,7 @@ extern "C" void sigIntHandler(int sig) {
   Shell::prompt();
 }
 
-extern "C" void sigChildHandler(int sig) { printf("hi"); }
+extern "C" void sigChildHandler(int sig) { /* printf("hi"); */ }
 
 int main() {
   /********* CTRL-C HANDLING **********/
