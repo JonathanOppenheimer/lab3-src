@@ -153,7 +153,7 @@ command_line:
   | pipe_list io_modifier_list background_optional NEWLINE {
       Shell::_currentCommand.execute();
     }
-  | NEWLINE { 
+  | NEWLINE {
       Shell::_currentCommand.execute();
     } /* accept empty cmd line */
   | error NEWLINE{
