@@ -78,6 +78,7 @@ void myunputc(int c) {
 
      \n {
       std::cout << "hi\n";
+      return NEWLINE;
      }
 
     [^ \t\n]+ { /* Get the source file name */

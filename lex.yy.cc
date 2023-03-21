@@ -372,8 +372,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 		YY_FATAL_ERROR( "token too large, exceeds YYLMAX" ); \
 	yy_flex_strncpy( yytext, (yytext_ptr), yyleng + 1 ); \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 22
-#define YY_END_OF_BUFFER 23
+#define YY_NUM_RULES 23
+#define YY_END_OF_BUFFER 24
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -383,11 +383,11 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[47] =
     {   0,
-        0,    0,    0,    0,    7,    7,   23,   20,   11,   10,
-        1,   19,   20,   14,   13,   21,   20,   20,   12,    5,
-        3,    2,   22,    8,    7,   22,   20,   20,    0,   15,
-       16,   17,   20,   20,    5,    4,    8,    7,   18,   20,
-       20,    9,   20,   20,    6,    0
+        0,    0,    0,    0,    7,    7,   24,   21,   12,   11,
+        1,   20,   21,   15,   14,   22,   21,   21,   13,    5,
+        3,    2,   23,    9,    7,    8,   21,   21,    0,   16,
+       17,   18,   21,   21,    5,    4,    9,    7,   19,   21,
+       21,   10,   21,   21,    6,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -485,10 +485,10 @@ static const flex_int16_t yy_chk[127] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[23] =
+static const flex_int32_t yy_rule_can_match_eol[24] =
     {   0,
-0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    1, 0, 0,     };
+0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 1, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -902,8 +902,16 @@ YY_RULE_SETUP
     }
 	YY_BREAK
 case 8:
+/* rule 8 can match eol */
 YY_RULE_SETUP
 #line 80 "shell.l"
+{
+      std::cout << "hi\n";
+     }
+	YY_BREAK
+case 9:
+YY_RULE_SETUP
+#line 84 "shell.l"
 { /* Get the source file name */
       yyin = fopen(yytext, "r");
       if (!yyin) {
@@ -916,89 +924,89 @@ YY_RULE_SETUP
 	YY_BREAK
 
 /* Exit the shell */
-case 9:
+case 10:
 YY_RULE_SETUP
-#line 92 "shell.l"
+#line 96 "shell.l"
 {
   exit(0);
 }
 	YY_BREAK
 /* New line character */
-case 10:
-/* rule 10 can match eol */
+case 11:
+/* rule 11 can match eol */
 YY_RULE_SETUP
-#line 97 "shell.l"
+#line 101 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
-case 11:
+case 12:
 YY_RULE_SETUP
-#line 101 "shell.l"
+#line 105 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 /* Pipe */
-case 12:
+case 13:
 YY_RULE_SETUP
-#line 106 "shell.l"
+#line 110 "shell.l"
 {
   return PIPE;
 }
 	YY_BREAK
 /* Output redirection (stdout: 1 ) */
-case 13:
+case 14:
 YY_RULE_SETUP
-#line 111 "shell.l"
+#line 115 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 /* Input redirection */
-case 14:
+case 15:
 YY_RULE_SETUP
-#line 116 "shell.l"
+#line 120 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 /* Output redirection (stderr : 2) */
-case 15:
+case 16:
 YY_RULE_SETUP
-#line 121 "shell.l"
+#line 125 "shell.l"
 {
   return TWOGREAT;
 }
 	YY_BREAK
 /* Output redirection (stdout and stderr : 1 and 2) */
-case 16:
+case 17:
 YY_RULE_SETUP
-#line 126 "shell.l"
+#line 130 "shell.l"
 {
   return GREATAMPERSAND;
 }
 	YY_BREAK
 /* Append output (stdout : 1) */
-case 17:
+case 18:
 YY_RULE_SETUP
-#line 131 "shell.l"
+#line 135 "shell.l"
 {
   return GREATGREAT;
 }
 	YY_BREAK
 /* Append output (stdout and stderr : 1 and 2) */
-case 18:
+case 19:
 YY_RULE_SETUP
-#line 136 "shell.l"
+#line 140 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
 	YY_BREAK
 /* Run process in background */
-case 19:
+case 20:
 YY_RULE_SETUP
-#line 141 "shell.l"
+#line 145 "shell.l"
 {
   return AMPERSAND;
 }
@@ -1006,10 +1014,10 @@ YY_RULE_SETUP
 /* Match the majority of normal strings (non-special handled above)
    * Currently does not handle 2> as 2 is a normal character
    */
-case 20:
-/* rule 20 can match eol */
+case 21:
+/* rule 21 can match eol */
 YY_RULE_SETUP
-#line 148 "shell.l"
+#line 152 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -1047,9 +1055,9 @@ YY_RULE_SETUP
   }
 	YY_BREAK
 /* Invalid character in input */
-case 21:
+case 22:
 YY_RULE_SETUP
-#line 185 "shell.l"
+#line 189 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1058,7 +1066,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(man_source):
-#line 190 "shell.l"
+#line 194 "shell.l"
 {
   yypop_buffer_state();
   if ( !YY_CURRENT_BUFFER ) {
@@ -1066,12 +1074,12 @@ case YY_STATE_EOF(man_source):
   }
 }
 	YY_BREAK
-case 22:
+case 23:
 YY_RULE_SETUP
-#line 197 "shell.l"
+#line 201 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1075 "lex.yy.cc"
+#line 1083 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2132,4 +2140,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 197 "shell.l"
+#line 201 "shell.l"
