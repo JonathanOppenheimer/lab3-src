@@ -25,7 +25,7 @@ extern "C" void sigIntHandler(int sig) {
 }
 
 extern "C" void sigChildHandler(int sig) {
-  std::cout << global_variable.front();
+  // std::cout << global_variable.front();
 }
 
 int main() {
