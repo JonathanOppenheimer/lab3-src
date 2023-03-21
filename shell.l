@@ -166,18 +166,18 @@ void myunputc(int c) {
       std::regex underscore("\$\{\_\}");
       std::regex name_shell("\$\{(SHELL)\}");
 
-      if(std::regex_match(buffer, standard) {
+      if(std::regex_match(buffer, standard)) {
         std::cout << "Contains standard expansion";
         // buffer = regex_replace(buffer, standard, getenv());
-      } else if(std::regex_match(buffer, dollar) { // Special ${$}
+      } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         
-      } else if(std::regex_match(buffer, exclamation) { // Special ${?}
+      } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
 
-      } else if(std::regex_match(buffer, question) { // Special ${!}
+      } else if(std::regex_match(buffer, question)) { // Special ${!}
 
-      } else if(std::regex_match(buffer, underscore) { // Special ${_}
+      } else if(std::regex_match(buffer, underscore)) { // Special ${_}
 
-      } else if(std::regex_match(buffer, name_shell) { // Special ${SHELL}
+      } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
 
       } else {
         std::cout << buffer + ": bad substitution\n";
