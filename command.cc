@@ -21,6 +21,7 @@
 #include <iostream>
 
 #include <fcntl.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -28,6 +29,8 @@
 
 #include "command.hh"
 #include "shell.hh"
+
+extern char **environ; // System global var inherited from parent
 
 Command::Command() {
   // Initialize a new vector of Simple Commands
@@ -197,6 +200,7 @@ void Command::execute() {
       // Create child process
       ret = fork();
       if (ret == 0) {
+
         // Conver the current command vector to a state suitable for execvp
         SimpleCommand *current_command = _simpleCommands.at(i);
         std::vector<std::string *> vector_args = current_command->_arguments;
@@ -210,6 +214,16 @@ void Command::execute() {
 
         // Ensure the last member of the argv is NULL for execv
         argv.back() = nullptr;
+
+        // Do a special check for printenv
+        if (!strcmp(argv[0], "printenv")) {
+          char **p = environ;
+          while (*p != NULL) {
+            printf("%s\n:", *p);
+            p++;
+          }
+          exit(0);
+        }
 
         // Call execvp with modified arguements
         execvp(argv[0], argv.data());
