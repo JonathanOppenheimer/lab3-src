@@ -37,10 +37,10 @@ void myunputc(int c) {
 %%
 
   /* Start quotes mode (for parsing quoted strings) */
-\" {
+ /* \" {
   buffer.clear();
   BEGIN(quotes);
-}
+  } */
 
   /* All quote specific rules "[xyz]" */
 <quotes>{
