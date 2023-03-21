@@ -8,7 +8,7 @@
 
 int yyparse(void);
 
-extern std::vector<int> zombie_processes;
+int global_variable = 0;
 
 void Shell::prompt() {
   if (isatty(0)) {
@@ -24,7 +24,7 @@ extern "C" void sigIntHandler(int sig) {
 }
 
 extern "C" void sigChildHandler(int sig) {
-  std::cout << zombie_processes.front();
+  // std::cout << zombie_processes.front();
 }
 
 int main() {

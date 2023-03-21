@@ -4,7 +4,7 @@
 #include "command.hh"
 #include <vector>
 
-static std::vector<int> zombie_processes;
+extern int global_variable;
 
 struct Shell {
   static void prompt();
