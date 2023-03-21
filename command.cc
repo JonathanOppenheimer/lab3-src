@@ -236,7 +236,7 @@ void Command::execute() {
       // Wait for last command
       waitpid(ret, &status, 0);
     } else {
-      global_variable++;
+      global_variable.push_back(ret);
       // zombie_processes.push_back(ret);
     }
   }

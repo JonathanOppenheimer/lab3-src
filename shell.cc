@@ -3,12 +3,13 @@
 #include <iostream>
 #include <signal.h>
 #include <unistd.h>
+#include <vector>
 
 #include "shell.hh"
 
 int yyparse(void);
 
-int global_variable = 0;
+std::vector<int> global_variable;
 
 void Shell::prompt() {
   if (isatty(0)) {

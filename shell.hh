@@ -4,7 +4,7 @@
 #include "command.hh"
 #include <vector>
 
-extern int global_variable;
+extern std::vector<int> global_variable;
 
 struct Shell {
   static void prompt();
