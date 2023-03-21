@@ -118,7 +118,7 @@ void Command::execute() {
   // Don't do anything if there are no simple commands
   std::cout << source;
   if (_simpleCommands.size() == 0) {
-    // Shell::prompt(); // Reprompt
+    Shell::prompt(); // Reprompt
     return;
   }
 
