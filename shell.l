@@ -169,7 +169,8 @@ void myunputc(int c) {
       // std::regex exclamation("${!}");
       // std::regex underscore("${_}");
       // std::regex name_shell("${(SHELL)}");
-
+      
+      std::cout << buffer + "\n";
       if(std::regex_search(buffer, standard)) {
         std::cout << "Contains standard expansion";
         // buffer = regex_replace(buffer, standard, getenv());
