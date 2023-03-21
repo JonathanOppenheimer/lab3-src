@@ -197,24 +197,23 @@ void Command::execute() {
       dup2(fdout, 1);
       close(fdout);
 
+      // Convert the current command vector to a state suitable for execvp
+      SimpleCommand *current_command = _simpleCommands.at(i);
+      std::vector<std::string *> vector_args = current_command->_arguments;
+
+      // Conver the arguement vector into an arg list
+      std::vector<char *> argv(vector_args.size() + 1);
+
+      // Copy pointers to each string's buffer into the new vector
+      std::transform(vector_args.begin(), vector_args.end(), argv.begin(),
+                     [](std::string *arg) { return arg->data(); });
+
+      // Ensure the last member of the argv is NULL for execv
+      argv.back() = nullptr;
+
       // Create child process
       ret = fork();
       if (ret == 0) {
-
-        // Conver the current command vector to a state suitable for execvp
-        SimpleCommand *current_command = _simpleCommands.at(i);
-        std::vector<std::string *> vector_args = current_command->_arguments;
-
-        // Conver the arguement vector into an arg list
-        std::vector<char *> argv(vector_args.size() + 1);
-
-        // Copy pointers to each string's buffer into the new vector
-        std::transform(vector_args.begin(), vector_args.end(), argv.begin(),
-                       [](std::string *arg) { return arg->data(); });
-
-        // Ensure the last member of the argv is NULL for execv
-        argv.back() = nullptr;
-
         // Do a special check for printenv
         if (!strcmp(argv[0], "printenv")) {
           char **p = environ;
@@ -225,7 +224,7 @@ void Command::execute() {
           exit(0);
         }
 
-        // Call execvp with modified arguements
+        // Call execvp with modified arguements for all other commands
         execvp(argv[0], argv.data());
         perror("execvp");
         _exit(1);
