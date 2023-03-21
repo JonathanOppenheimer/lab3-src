@@ -76,6 +76,10 @@ void myunputc(int c) {
       /* eat the whitespace */
     }
 
+     \n {
+      std::cout << "hi\n";
+     }
+
     [^ \t\n]+ { /* Get the source file name */
       yyin = fopen(yytext, "r");
       if (!yyin) {
