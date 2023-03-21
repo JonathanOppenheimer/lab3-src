@@ -78,7 +78,6 @@ void myunputc(int c) {
 
     [^ \t\n]+ { /* Get the source file name */
       if(yyin = fopen(yytext, "r")) {
-        yyin = input;
         yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
         if (!yyin) {
           /* error( ... ); */

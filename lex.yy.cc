@@ -913,7 +913,7 @@ YY_RULE_SETUP
         }
         fclose(yyin);
       } else {
-        std::cout << input + ": No such file or directory";
+        std::cout << yyin + ": No such file or directory";
       }
 
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
