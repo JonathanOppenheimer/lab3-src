@@ -907,7 +907,7 @@ YY_RULE_SETUP
 { /* Get the source file name */
       yyin = fopen(yytext, "r");
       if (!yyin) {
-        // error( ... );
+        std::cout << "hi";
       }
       yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
