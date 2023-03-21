@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "shell.hh"
 #include "y.tab.hh"
 
 static void yyunput (int c ,char *buf_ptr);
