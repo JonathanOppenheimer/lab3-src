@@ -79,9 +79,6 @@ void myunputc(int c) {
     [^ \t\n]+ { /* Get the source file name */
       if(yyin = fopen(yytext, "r")) {
         yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
-        if (!yyin) {
-          /* error( ... ); */
-        }
         fclose(yyin);
       } else {
         std::cout << yyin + ": No such file or directory";
