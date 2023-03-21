@@ -233,6 +233,14 @@ void Command::execute() {
         }
       }
 
+      // Change directory
+      if (!strcmp(argv[0], "cd")) {
+        builtin_cmd = true;
+        if (chdir(argv[1])) {
+          perror("cd");
+        }
+      }
+
       /* ************************************************ */
 
       // Create child process if required (non-built in functions)
