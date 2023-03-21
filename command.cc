@@ -223,7 +223,6 @@ void Command::execute() {
         if (setenv(argv[1], argv[2], 1)) {
           perror("setenv");
         }
-        Shell::prompt(); // Required as status won't be set for later prompting
       }
 
       /* ************************************************ */
