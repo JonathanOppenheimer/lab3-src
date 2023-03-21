@@ -221,6 +221,7 @@ void Command::execute() {
         if (setenv(argv[1], argv[2], 1)) {
           perror("setenv");
         }
+        Shell::prompt();
       }
 
       /* ************************************************ */
@@ -274,7 +275,7 @@ void Command::execute() {
   clear();
 
   // Print new prompt if the child process exited normally
-  if WIFEXITED (status) {
+  if (WIFEXITED(status)) {
     Shell::prompt();
   }
 }

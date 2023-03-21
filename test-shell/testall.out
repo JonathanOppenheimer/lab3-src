@@ -13,7 +13,7 @@ test_pipes_redirect_err Passed 2/2
 test_background Passed 2/2
 test_zombie Passed 1/1
 test_printenv Passed 1/1
-test_setenv Failed 0/.5
+test_setenv Passed .5/.5
 test_unsetenv Failed 0/.5
 test_source Failed 0/2
 test_cd1 Failed 0/.5
@@ -42,4 +42,4 @@ test_wildcards6 Failed 0/1
 test_wildcards7 Passed 1/1
 test_tilde Failed 0/2
 test_robustness Failed 0/10
-Total:                   28.0 of 70.0
+Total:                   28.5 of 70.0
