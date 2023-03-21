@@ -17,7 +17,7 @@ test_setenv Passed .5/.5
 test_unsetenv Passed .5/.5
 test_source Failed 0/2
 test_cd1 Passed .5/.5
-test_cd2 Failed 0/.5
+test_cd2 Passed .5/.5
 test_cd3 Failed 0/.5
 test_cd4 Failed 0/.5
 test_parsing1 Passed .5/.5
@@ -42,4 +42,4 @@ test_wildcards6 Failed 0/1
 test_wildcards7 Passed 1/1
 test_tilde Failed 0/2
 test_robustness Failed 0/10
-Total:                   29.5 of 70.0
+Total:                   30.0 of 70.0

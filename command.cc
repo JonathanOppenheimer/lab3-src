@@ -240,11 +240,11 @@ void Command::execute() {
         // No argument provided, default to home directory
         if (argv[1] == nullptr) {
           if (chdir(getenv("HOME"))) {
-            perror("cd");
+            perror("can't cd to");
           }
         } else { // Otherwise go to provided directory
           if (chdir(argv[1])) {
-            perror("cd");
+            perror("can't cd to");
           }
         }
       }
