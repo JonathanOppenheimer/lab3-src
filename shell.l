@@ -159,7 +159,6 @@ void myunputc(int c) {
     // Expand environment variables - catch a ${}
     std::regex container{"\\$\\{.*\\}", std::regex_constants::ECMAScript};
     if(std::regex_search(buffer, container)) {
-      std::cout << "hi!!\n";
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       std::regex standard("\\$\\{(?!_|SHELL)([A-Za-z0-9_]+)\\}");
       std::regex dollar("\\$\\{\\$\\}");
@@ -188,7 +187,6 @@ void myunputc(int c) {
 
       } else {
         std::cout << buffer + ": bad substitution\n";
-        return;
       }
     }
 
