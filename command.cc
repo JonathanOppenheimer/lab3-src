@@ -117,7 +117,8 @@ void Command::print() {
 void Command::execute() {
   // Don't do anything if there are no simple commands
   if (_simpleCommands.size() == 0 && !source) {
-    Shell::prompt();
+    Shell::prompt(); // Reprompt
+    source = false;  // Restore the source variable to false
     return;
   }
 
