@@ -8,7 +8,7 @@
 
 int yyparse(void);
 
-std::vector<int> zombie_processes;
+extern std::vector<int> zombie_processes;
 
 void Shell::prompt() {
   if (isatty(0)) {
