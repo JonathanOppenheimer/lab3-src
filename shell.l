@@ -48,7 +48,7 @@ void myunputc(int c) {
     BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
     std::cout << *yylval.cpp_string;
-    return WORD;
+    // return;
   }
 
   \n {
