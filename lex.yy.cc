@@ -1033,7 +1033,8 @@ YY_RULE_SETUP
       // std::regex exclamation("${!}");
       // std::regex underscore("${_}");
       // std::regex name_shell("${(SHELL)}");
-
+      
+      std::cout << buffer + "\n";
       if(std::regex_search(buffer, standard)) {
         std::cout << "Contains standard expansion";
         // buffer = regex_replace(buffer, standard, getenv());
@@ -1087,7 +1088,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 225 "shell.l"
+#line 226 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1096,7 +1097,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 230 "shell.l"
+#line 231 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1106,10 +1107,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 237 "shell.l"
+#line 238 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1113 "lex.yy.cc"
+#line 1114 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2170,4 +2171,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 237 "shell.l"
+#line 238 "shell.l"
