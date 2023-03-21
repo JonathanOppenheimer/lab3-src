@@ -235,7 +235,7 @@ void Command::execute() {
 
       // Change directory
       if (!strcmp(argv[0], "cd")) {
-        // builtin_cmd = true;
+        builtin_cmd = true;
         if (chdir(argv[1])) {
           perror("cd");
         }
