@@ -16,9 +16,9 @@
 
 #include "y.tab.hh"
 
-static  void yyunput (int c,char *buf_ptr);
-
-std::string buffer;
+static void yyunput (int c ,char *buf_ptr);
+std::string buffer; // Used to go through yytext
+static bool source; // A poor yet easy way to track if the command was source
 
 void myunputc(int c) {
   unput(c);
@@ -94,6 +94,7 @@ void myunputc(int c) {
     } else {
       yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
+      source = true;
     }
   }
 }

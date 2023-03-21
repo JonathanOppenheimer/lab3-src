@@ -541,7 +541,7 @@ void myunputc(int c) {
 
 #define INITIAL 0
 #define quotes 1
-#define man_source 2
+#define manual_source 2
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -889,7 +889,7 @@ case 6:
 YY_RULE_SETUP
 #line 70 "shell.l"
 {
-  BEGIN(man_source);
+  BEGIN(manual_source);
 }
 	YY_BREAK
 /* All source specific rules */
@@ -1072,11 +1072,11 @@ YY_RULE_SETUP
 /* Terminates the scanner - should happen by default but just double checking */
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
-case YY_STATE_EOF(man_source):
+case YY_STATE_EOF(manual_source):
 #line 201 "shell.l"
 {
   yypop_buffer_state();
-  if ( !YY_CURRENT_BUFFER ) {
+  if (!YY_CURRENT_BUFFER) {
     yyterminate();
   }
 }
