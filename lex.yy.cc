@@ -1019,11 +1019,10 @@ YY_RULE_SETUP
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
-    
-    buffer = std::regex.replace(buffer, "${(?!_|SHELL)([A-Za-z0-9_]+)}", "HELLO");
+
     // Expand environment variables - catch a ${}
-    // std::regex container("(${})");
-   //  if(std::regex_search(buffer, container)) {
+    std::regex container("(${})");
+    if(std::regex_search(buffer, container)) {
       // std::cout << "hi\n";
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       // std::regex standard("${(?!_|SHELL)([A-Za-z0-9_]+)}");
@@ -1050,7 +1049,7 @@ YY_RULE_SETUP
         std::cout << buffer + ": bad substitution\n";
         return NEWLINE;
       } */
-    // }
+    }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
@@ -1086,7 +1085,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 224 "shell.l"
+#line 223 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1095,7 +1094,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 229 "shell.l"
+#line 228 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1105,10 +1104,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 236 "shell.l"
+#line 235 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1112 "lex.yy.cc"
+#line 1111 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2169,4 +2168,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 236 "shell.l"
+#line 235 "shell.l"
