@@ -1036,6 +1036,9 @@ YY_RULE_SETUP
 
       if(std::regex_search(buffer, matches, standard)) {
         std::cout << "Contains standard expansion" << matches[0] << "\n";
+        for(match : matches) {
+          std::cout << match << "\n";
+        }
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";
@@ -1093,7 +1096,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 231 "shell.l"
+#line 234 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1102,7 +1105,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 236 "shell.l"
+#line 239 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1112,10 +1115,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 243 "shell.l"
+#line 246 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1119 "lex.yy.cc"
+#line 1122 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2176,4 +2179,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 243 "shell.l"
+#line 246 "shell.l"

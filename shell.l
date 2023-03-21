@@ -166,14 +166,14 @@ void myunputc(int c) {
       std::regex exclamation("\\$\\{!\\}");
       std::regex underscore("\\$\\{_\\}");
       std::regex name_shell("\\$\\{(SHELL)\\}");
-      
+
       // Where to keep the results of the regex
       std::smatch matches;
 
       if(std::regex_search(buffer, matches, standard)) {
         std::cout << "Contains standard expansion" << matches[0] << "\n";
         for(match : matches) {
-          std::cout << match << "\n";
+           // std::cout << match << "\n";
         }
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
