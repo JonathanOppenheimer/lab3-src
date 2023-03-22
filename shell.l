@@ -31,15 +31,17 @@ bool source; // A poor yet easy way to track if the command was sourced
 void set_source() {
   if(isatty(0)) {
     std::cout << "HELLO!!\n";
-    yy_scan_string("source .shellrc\0");
-    // char tstr[] = "source .shellrc\0\0";
-    // note yy_scan_buffer is is looking for a double null string
-    // yy_scan_buffer(tstr, sizeof(tstr));
-    // yyrestart(yyin);
-    yyparse();
-    std::cout << "GOT HERE\n";
-    // YY_FLUSH_BUFFER;
-    yylex_destroy();
+    yyin = fopen(".shellrc", "r");
+    if (!yyin) {
+      std::cout << std::string(yytext) + ": No such file or directory\n";
+      YY_FLUSH_BUFFER; // Flush yyin because we modified it
+      BEGIN(INITIAL); // Finished reading file, go back to initial state */
+      return NEWLINE;
+    } else {
+      yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
+      BEGIN(INITIAL); // Finished reading file, go back to initial state */
+      source = true;
+    }
   }
 }
 
