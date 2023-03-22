@@ -6,7 +6,7 @@
 #include <set>
 #include <vector>
 
-extern int set_source();
+extern void set_source();
 
 /* Extra global variables for program to share information with */
 
