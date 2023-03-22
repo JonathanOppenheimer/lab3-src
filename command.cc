@@ -30,7 +30,11 @@
 #include "command.hh"
 #include "shell.hh"
 
-extern char **environ; // System global var inherited from parent
+extern char **environ;     // System global var inherited from parent
+pid_t last_background_pid; // PID of the last process run in the background
+std::string
+    last_argument; // The last argument in the fully expanded previous command
+std::string shell_location; // Used to store where the shell executable is
 
 Command::Command() {
   // Initialize a new vector of Simple Commands
