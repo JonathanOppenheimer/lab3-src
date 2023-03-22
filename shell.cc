@@ -69,9 +69,16 @@ int main(int argc, char *argv[]) {
 
   /* ******************************** */
 
-  Shell::prompt();        // First prompt
-  yyparse();              // Start parse
-  set_source(".shellrc"); // run source on boot (can modify path here)
+  yyscan_t scanner;
+  YY_BUFFER_STATE buf;
+  yylex_init(&scanner);
+  buf = yy_scan_string("source .shellrc", scanner);
+  yylex(scanner);
+  yy_delete_buffer(buf, scanner);
+  yylex_destroy(scanner);
+  Shell::prompt(); // First prompt
+  yyparse();       // Start parse
+  // set_source(".shellrc"); // run source on boot (can modify path here)
 }
 
 Command Shell::_currentCommand;
