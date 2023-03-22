@@ -1039,7 +1039,7 @@ YY_RULE_SETUP
         while(std::regex_search(buffer, matches, standard)) {
           // First check if the environment variable exists
           if(getenv(matches[1])) {
-            buffer = std::regex_replace(buffer, standard, matches[1]);
+            buffer = std::regex_replace(buffer, standard, std::string(matches[1]));
           } else {
             buffer = std::regex_replace(buffer, standard, "");
           }
