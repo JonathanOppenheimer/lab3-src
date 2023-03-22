@@ -21,7 +21,6 @@
 #include "y.tab.hh"
 
 extern int yylex_destroy(void);
-extern yyscan_t;
 extern int yyparse();
 extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
 
@@ -30,12 +29,11 @@ std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was sourced
 
 void set_source() {
-    yyscan_t scanner;
     YY_BUFFER_STATE buf;
-    buf = yy_scan_string("replace me with the string youd like to scan", scanner);
+    buf = yy_scan_string("replace me with the string youd like to scan");
     yyparse();
-    yy_delete_buffer(buf, scanner);
-    yylex_destroy(scanner);
+    yy_delete_buffer(buf);
+    // yylex_destroy(scanner);
   /* char tstr[] = "source .shellrc\0\0";
   // note yy_scan_buffer is is looking for a double null string
   yy_scan_buffer(tstr, sizeof(tstr));
