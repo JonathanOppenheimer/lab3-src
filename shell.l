@@ -194,7 +194,7 @@ void myunputc(int c) {
         }
       } else if(std::regex_match(buffer, underscore)) { // Special ${_}
         while(std::regex_search(buffer, matches, underscore)) {
-          buffer = std::regex_replace(buffer, underscore, shell_location);
+          buffer = std::regex_replace(buffer, underscore, last_arguement);
         }
       } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
         while(std::regex_search(buffer, matches, name_shell)) {
