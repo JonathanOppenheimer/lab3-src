@@ -1034,39 +1034,51 @@ YY_RULE_SETUP
       // Where to keep the results of the regex
       std::smatch matches;
 
-      if(std::regex_search(buffer, standard)) {
-        // buffer = std::regex_replace(buffer, standard, getenv("a"));
-        while(std::regex_search(buffer, matches, standard)) {
-          // First check if the environment variable exists
-          if(getenv(matches.str(1).c_str())) {
-            buffer = std::regex_replace(buffer, standard, getenv(matches.str(1).c_str()));
-          } else {
-            buffer = std::regex_replace(buffer, standard, "");
-          }
-          // std::cout << matches.str(0) << std::endl;
-        } 
-        // buffer = regex_replace(buffer, standard, getenv());
-      } else if(std::regex_match(buffer, dollar)) { // Special ${$}
-        std::cout << "Contains special $ expansion\n";
-
-      } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
-        std::cout << "Contains special ? expansion\n";
-
-      } else if(std::regex_match(buffer, question)) { // Special ${!}
-        std::cout << "Contains special ! expansion\n";
-
-      } else if(std::regex_match(buffer, underscore)) { // Special ${_}
-        std::cout << "Contains special _ expansion\n";
-
-      } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
-        std::cout << "Contains special SHELL expansion\n";
-
-      } else {
-        std::cout << buffer + ": bad substitution\n";
-        YY_FLUSH_BUFFER; // Flush yyin stop parsing
-        return NEWLINE;
+      // Standard environment variable
+      while(std::regex_search(buffer, matches, standard)) {
+        // First check if the environment variable exists
+        if(getenv(matches.str(1).c_str())) { // If it does replace it with the environment variable
+          buffer = std::regex_replace(buffer, standard, getenv(matches.str(1).c_str()));
+        } else { // If not just delete it
+          buffer = std::regex_replace(buffer, standard, "");
+        }
       }
+
+      // Special environment variable ${$}
+      while(std::regex_search(buffer, matches, dollar)) {
+        // Just delete it for now
+        buffer = std::regex_replace(buffer, standard, "DOLLAR");
+      }
+
+      // Special environment variable ${?}
+      while(std::regex_search(buffer, matches, question)) {
+        // Just delete it for now
+        buffer = std::regex_replace(buffer, standard, "QUESTION");
+      }
+
+      // Special environment variable ${!}
+      while(std::regex_search(buffer, matches, dollar)) {
+        // Just delete it for now
+        buffer = std::regex_replace(buffer, standard, "EXCLAMATION");
+      }
+
+      // Special environment variable ${_}
+      while(std::regex_search(buffer, matches, dollar)) {
+        // Just delete it for now
+        buffer = std::regex_replace(buffer, standard, "_");
+      }
+
+      // Special environment variable ${SHELL}
+      while(std::regex_search(buffer, matches, dollar)) {
+        // Just delete it for now
+        buffer = std::regex_replace(buffer, standard, "SHELL");
+      }
+    } else {
+      std::cout << buffer + ": bad substitution\n";
+      YY_FLUSH_BUFFER; // Flush yyin stop parsing
+       return NEWLINE;
     }
+    
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
@@ -1102,7 +1114,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 240 "shell.l"
+#line 252 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1111,7 +1123,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 245 "shell.l"
+#line 257 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1121,10 +1133,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 252 "shell.l"
+#line 264 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1128 "lex.yy.cc"
+#line 1140 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2185,4 +2197,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 252 "shell.l"
+#line 264 "shell.l"
