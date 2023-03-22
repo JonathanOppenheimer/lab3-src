@@ -175,7 +175,7 @@ void myunputc(int c) {
         while(std::regex_search(buffer, matches, standard)) {
           // First check if the environment variable exists
           if(getenv(matches.str(1))) {
-            buffer = std::regex_replace(buffer, standard, std::string(matches.str(1));
+            buffer = std::regex_replace(buffer, standard, getenv(matches.str(1));
           } else {
             buffer = std::regex_replace(buffer, standard, "");
           }
