@@ -32,6 +32,7 @@ void set_source() {
   yyparse();
   yylex_destroy();
   YY_FLUSH_BUFFER;
+  return; 
 
   /*Analyze the string*/
 

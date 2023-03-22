@@ -538,9 +538,9 @@ void set_source() {
   std::cout << "HELLO!\n";
   /*Copy string into new buffer and Switch buffers*/
   yy_scan_string ("source .shellrc");
-      yyparse();
-
+  yyparse();
   yylex_destroy();
+  YY_FLUSH_BUFFER;
 
   /*Analyze the string*/
 
