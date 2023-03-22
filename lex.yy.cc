@@ -2208,6 +2208,7 @@ int set_source() {
       return NEWLINE;
     } else {
       yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
+      YY_FLUSH_BUFFER; // Flush yyin because we modified it
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
