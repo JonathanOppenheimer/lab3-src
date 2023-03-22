@@ -173,9 +173,13 @@ void myunputc(int c) {
       if(std::regex_search(buffer, standard)) {
         // buffer = std::regex_replace(buffer, standard, getenv("a"));
         while(std::regex_search(buffer, matches, standard)) {
+          // First check if the environment variable exists
+          if(getenv(matches[1])) {
+            buffer = std::regex_replace(buffer, standard, matches[1]);
+          } else {
+            buffer = std::regex_replace(buffer, standard, "");
+          }
           std::cout << matches[0] << std::endl;
-          // buffer = std::regex_replace(buffer, )
-          std::string env_variable = matches[1];
         } 
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
