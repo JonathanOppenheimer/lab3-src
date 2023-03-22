@@ -25,6 +25,7 @@ std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was source
 
 void set_source(std::string src_file) {
+  std::cout << "HELLO!\n";
   /*Copy string into new buffer and Switch buffers*/
   yy_scan_string ("source .shellrc");
 
