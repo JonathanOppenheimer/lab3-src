@@ -34,14 +34,7 @@ extern "C" void sigChildHandler(int sig) {
   pid_t pid = waitpid(-1, NULL, WNOHANG);
   if (background_pids.count(pid) == 1) {
     std::cout << std::to_string(pid) + " exited.\n";
-  }
-
-  if (std::find(background_pids.begin(), background_pids.end(), pid) !=
-      background_pids.end()) {
-    // Remove the background PID from the vector
-    background_pids.erase(
-        std::remove(background_pids.begin(), background_pids.end(), pid),
-        background_pids.end());
+    background_pids.erase(pid);
   }
 }
 
