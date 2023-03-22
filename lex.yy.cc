@@ -2200,10 +2200,11 @@ void yyfree (void * ptr )
 
 int set_source() {
   if(isatty(0)) {
-  YY_BUFFER_STATE cur = YY_CURRENT_BUFFER;
-  YY_BUFFER_STATE n = yy_scan_string("source .shellrc\0\0");
-  yypush_buffer_state(n);
-  // yy_switch_to_buffer(cur);
+    YY_BUFFER_STATE cur = YY_CURRENT_BUFFER;
+    YY_BUFFER_STATE n = yy_scan_string("source .shellrc\0\0");
+    yypush_buffer_state(n);
+    yypush_buffer_state(n);
+    // yy_switch_to_buffer(cur);
 
     std::cout << "HELLO!!\n";
     // yyin = fopen(".shellrc", "r");
