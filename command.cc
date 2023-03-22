@@ -31,6 +31,7 @@
 #include "shell.hh"
 
 extern char **environ;     // System global var inherited from parent
+int last_return_code;      // Return code of the last executed simple command
 pid_t last_background_pid; // PID of the last process run in the background
 std::string
     last_argument; // The last argument in the fully expanded previous command
