@@ -32,7 +32,6 @@ bool source; // A poor yet easy way to track if the command was sourced
 void set_source() {
     yyscan_t scanner;
     YY_BUFFER_STATE buf;
-    yylex_init(&scanner);
     buf = yy_scan_string("replace me with the string youd like to scan", scanner);
     yyparse();
     yy_delete_buffer(buf, scanner);
