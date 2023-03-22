@@ -31,14 +31,13 @@ void set_source(std::string src_file) {
   } else {
     // Add the file contents to the buffer
     yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
-    source = true;
+    // source = true;
   }
 
   // Clean up */
   // fclose(yyin);
   // YY_FLUSH_BUFFER; // Flush yyin because we modified it
   // return NEWLINE;
-  YY_INPUT()
 }
 
 void myunputc(int c) {
