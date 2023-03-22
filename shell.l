@@ -23,9 +23,10 @@
 extern int yylex_destroy(void);
 static void yyunput (int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
-bool source; // A poor yet easy way to track if the command was source
+bool source; // A poor yet easy way to track if the command was sourced
 
 void set_source() {
+  std::cout << "hello!\n";
   yyin = fopen(".shellrc", "r");
   if (!yyin) {
     // Do nothing, no .shellrc file
