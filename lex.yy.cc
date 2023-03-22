@@ -2213,6 +2213,7 @@ int set_source() {
     //  BEGIN(INITIAL); // Finished reading file, go back to initial state */
     //  source = true;
     }
+    return 0;
   }
 }
 
