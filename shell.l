@@ -36,6 +36,12 @@ void set_source() {
     // yy_scan_buffer(tstr, sizeof(tstr));
     // yyparse();
     // yylex_destroy();
+    yyscan_t scanner;
+    yylex_init_extra(NULL, &scanner);
+    YY_BUFFER_STATE state = yy_scan_string("source .bashrc\0", scanner);
+    yyparse(scanner,result);
+    yy_delete_buffer(state, scanner);
+    yylex_destroy(scanner);
   }
 }
 
@@ -270,13 +276,3 @@ void myunputc(int c) {
 
 %%
 
-void parse(std::string& function) {
-  string result = "";
-  yyscan_t scanner;
-  yylex_init_extra(NULL, &scanner);
-  YY_BUFFER_STATE state = yy_scan_string(function.c_str() , scanner);
-  yyparse(scanner,result);
-  yy_delete_buffer(state, scanner);
-  yylex_destroy(scanner);
-  function = " " + result + " ";  
-}
