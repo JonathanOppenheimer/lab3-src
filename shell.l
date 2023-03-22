@@ -186,7 +186,7 @@ void myunputc(int c) {
         }
       } else if(std::regex_match(buffer, question)) { // Special ${?}
         while(std::regex_search(buffer, matches, question)) {
-          buffer = std::regex_replace(buffer, question, shell_location);
+          buffer = std::regex_replace(buffer, question, std::to_string(last_return_code));
         }
       } else if(std::regex_match(buffer, exclamation)) { // Special ${!}
         while(std::regex_search(buffer, matches, exclamation)) {
