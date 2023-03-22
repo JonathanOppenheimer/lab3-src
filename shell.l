@@ -28,22 +28,6 @@ static void yyunput (int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was sourced
 
-void set_source() {
-  if(isatty(0)) {
-    std::cout << "HELLO!!\n";
-    yyin = fopen(".shellrc", "r");
-    if (!yyin) {
-      std::cout << std::string(yytext) + ": No such file or directory\n";
-      YY_FLUSH_BUFFER; // Flush yyin because we modified it
-      BEGIN(INITIAL); // Finished reading file, go back to initial state */
-      return NEWLINE;
-    } else {
-      yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
-      BEGIN(INITIAL); // Finished reading file, go back to initial state */
-      source = true;
-    }
-  }
-}
 
 void myunputc(int c) {
   unput(c);
@@ -272,3 +256,21 @@ void myunputc(int c) {
   }
 }
 
+%%
+
+void set_source() {
+  if(isatty(0)) {
+    std::cout << "HELLO!!\n";
+    yyin = fopen(".shellrc", "r");
+    if (!yyin) {
+      std::cout << std::string(yytext) + ": No such file or directory\n";
+      YY_FLUSH_BUFFER; // Flush yyin because we modified it
+      BEGIN(INITIAL); // Finished reading file, go back to initial state */
+      return NEWLINE;
+    } else {
+      yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
+      BEGIN(INITIAL); // Finished reading file, go back to initial state */
+      source = true;
+    }
+  }
+}
