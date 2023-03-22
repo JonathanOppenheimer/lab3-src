@@ -538,17 +538,11 @@ bool source; // A poor yet easy way to track if the command was sourced
 void set_source() {
   if(isatty(0)) {
     std::cout << "HELLO!!\n";
-    //char tstr[] = "source .shellrc\0\0";
-    // note yy_scan_buffer is is looking for a double null string
+    char tstr[] = "source .shellrc\0\0";
+    note yy_scan_buffer is is looking for a double null string
     // yy_scan_buffer(tstr, sizeof(tstr));
     // yyparse();
     // yylex_destroy();
-    yyscan_t scanner;
-    yylex_init_extra(NULL, &scanner);
-    YY_BUFFER_STATE state = yy_scan_string("source .bashrc\0", scanner);
-    yyparse(scanner,result);
-    yy_delete_buffer(state, scanner);
-    yylex_destroy(scanner);
   }
 }
 
@@ -557,9 +551,9 @@ void myunputc(int c) {
 }
 
 
-#line 561 "lex.yy.cc"
+#line 555 "lex.yy.cc"
 
-#line 563 "lex.yy.cc"
+#line 557 "lex.yy.cc"
 
 #define INITIAL 0
 #define quotes 1
@@ -788,12 +782,12 @@ YY_DECL
 		}
 
 	{
-#line 61 "shell.l"
+#line 55 "shell.l"
 
 
-#line 64 "shell.l"
+#line 58 "shell.l"
   /* All quote specific rules "[xyz]" */
-#line 797 "lex.yy.cc"
+#line 791 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -862,7 +856,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 66 "shell.l"
+#line 60 "shell.l"
 { /* saw closing quote - all done */
     BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
@@ -872,7 +866,7 @@ YY_RULE_SETUP
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 72 "shell.l"
+#line 66 "shell.l"
 {
     buffer += yytext;
     /* Keep prompting for input */
@@ -882,7 +876,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 78 "shell.l"
+#line 72 "shell.l"
 {
     buffer += "\\";
     buffer += yytext[1];
@@ -890,7 +884,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 83 "shell.l"
+#line 77 "shell.l"
 {
     buffer += yytext;
   }
@@ -899,7 +893,7 @@ YY_RULE_SETUP
 /* Start source mode e.g. after source cmds.txt */
 case 5:
 YY_RULE_SETUP
-#line 89 "shell.l"
+#line 83 "shell.l"
 {
   BEGIN(manual_source);
 }
@@ -908,7 +902,7 @@ YY_RULE_SETUP
 
 case 6:
 YY_RULE_SETUP
-#line 95 "shell.l"
+#line 89 "shell.l"
 {
     /* eat the whitespace */
   }
@@ -916,7 +910,7 @@ YY_RULE_SETUP
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 99 "shell.l"
+#line 93 "shell.l"
 { /* Didn't provide an arguement */ 
     std::cout << "source: usage: source filename [arguments]\n";
     BEGIN(INITIAL);
@@ -925,7 +919,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 105 "shell.l"
+#line 99 "shell.l"
 { /* Get the source file name */
     yyin = fopen(yytext, "r");
     if (!yyin) {
@@ -944,7 +938,7 @@ YY_RULE_SETUP
 /* Exit the shell */
 case 9:
 YY_RULE_SETUP
-#line 121 "shell.l"
+#line 115 "shell.l"
 {
   exit(0);
 }
@@ -953,14 +947,14 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 126 "shell.l"
+#line 120 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 130 "shell.l"
+#line 124 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -968,7 +962,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 12:
 YY_RULE_SETUP
-#line 135 "shell.l"
+#line 129 "shell.l"
 {
   return PIPE;
 }
@@ -976,7 +970,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 13:
 YY_RULE_SETUP
-#line 140 "shell.l"
+#line 134 "shell.l"
 {
   return GREAT;
 }
@@ -984,7 +978,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 14:
 YY_RULE_SETUP
-#line 145 "shell.l"
+#line 139 "shell.l"
 {
   return LESS;
 }
@@ -992,7 +986,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 15:
 YY_RULE_SETUP
-#line 150 "shell.l"
+#line 144 "shell.l"
 {
   return TWOGREAT;
 }
@@ -1000,7 +994,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 16:
 YY_RULE_SETUP
-#line 155 "shell.l"
+#line 149 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -1008,7 +1002,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 17:
 YY_RULE_SETUP
-#line 160 "shell.l"
+#line 154 "shell.l"
 {
   return GREATGREAT;
 }
@@ -1016,7 +1010,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 18:
 YY_RULE_SETUP
-#line 165 "shell.l"
+#line 159 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -1024,7 +1018,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 19:
 YY_RULE_SETUP
-#line 170 "shell.l"
+#line 164 "shell.l"
 {
   return AMPERSAND;
 }
@@ -1035,7 +1029,7 @@ YY_RULE_SETUP
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 177 "shell.l"
+#line 171 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -1125,7 +1119,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 264 "shell.l"
+#line 258 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1134,7 +1128,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 269 "shell.l"
+#line 263 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1144,10 +1138,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 276 "shell.l"
+#line 270 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1151 "lex.yy.cc"
+#line 1145 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2208,4 +2202,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 276 "shell.l"
+#line 270 "shell.l"
