@@ -170,51 +170,39 @@ void myunputc(int c) {
       // Where to keep the results of the regex
       std::smatch matches;
 
-      // Standard environment variable
-      while(std::regex_search(buffer, matches, standard)) {
-        // First check if the environment variable exists
-        if(getenv(matches.str(1).c_str())) { // If it does replace it with the environment variable
-          buffer = std::regex_replace(buffer, standard, getenv(matches.str(1).c_str()));
-        } else { // If not just delete it
-          buffer = std::regex_replace(buffer, standard, "");
-        }
-      }
+      if(std::regex_search(buffer, standard)) {
+        // buffer = std::regex_replace(buffer, standard, getenv("a"));
+        while(std::regex_search(buffer, matches, standard)) {
+          // First check if the environment variable exists
+          if(getenv(matches.str(1).c_str())) {
+            buffer = std::regex_replace(buffer, standard, getenv(matches.str(1).c_str()));
+          } else {
+            buffer = std::regex_replace(buffer, standard, "");
+          }
+          // std::cout << matches.str(0) << std::endl;
+        } 
+        // buffer = regex_replace(buffer, standard, getenv());
+      } else if(std::regex_match(buffer, dollar)) { // Special ${$}
+        std::cout << "Contains special $ expansion\n";
 
-      // Special environment variable ${$}
-      while(std::regex_search(buffer, matches, dollar)) {
-        // Just delete it for now
-        buffer = std::regex_replace(buffer, standard, "DOLLAR");
-      }
+      } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
+        std::cout << "Contains special ? expansion\n";
 
-      // Special environment variable ${?}
-      while(std::regex_search(buffer, matches, question)) {
-        // Just delete it for now
-        buffer = std::regex_replace(buffer, standard, "QUESTION");
-      }
+      } else if(std::regex_match(buffer, question)) { // Special ${!}
+        std::cout << "Contains special ! expansion\n";
 
-      // Special environment variable ${!}
-      while(std::regex_search(buffer, matches, dollar)) {
-        // Just delete it for now
-        buffer = std::regex_replace(buffer, standard, "EXCLAMATION");
-      }
+      } else if(std::regex_match(buffer, underscore)) { // Special ${_}
+        std::cout << "Contains special _ expansion\n";
 
-      // Special environment variable ${_}
-      while(std::regex_search(buffer, matches, dollar)) {
-        // Just delete it for now
-        buffer = std::regex_replace(buffer, standard, "_");
-      }
+      } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
+        std::cout << "Contains special SHELL expansion\n";
 
-      // Special environment variable ${SHELL}
-      while(std::regex_search(buffer, matches, dollar)) {
-        // Just delete it for now
-        buffer = std::regex_replace(buffer, standard, "SHELL");
+      } else {
+        std::cout << buffer + ": bad substitution\n";
+        YY_FLUSH_BUFFER; // Flush yyin stop parsing
+        return NEWLINE;
       }
-    } else {
-      std::cout << buffer + ": bad substitution\n";
-      YY_FLUSH_BUFFER; // Flush yyin stop parsing
-       return NEWLINE;
     }
-    
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
