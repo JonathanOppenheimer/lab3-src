@@ -2198,7 +2198,7 @@ void yyfree (void * ptr )
 #line 260 "shell.l"
 
 
-void set_source() {
+int set_source() {
   if(isatty(0)) {
     std::cout << "HELLO!!\n";
     yyin = fopen(".shellrc", "r");
