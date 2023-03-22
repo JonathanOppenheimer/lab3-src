@@ -35,6 +35,7 @@ void set_source() {
     // char tstr[] = "source .shellrc\0\0";
     // note yy_scan_buffer is is looking for a double null string
     // yy_scan_buffer(tstr, sizeof(tstr));
+    YY_FLUSH_BUFFER;
     yyparse();
     YY_FLUSH_BUFFER;
     // yylex_destroy();
