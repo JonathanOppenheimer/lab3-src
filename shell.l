@@ -274,5 +274,3 @@ void myunputc(int c) {
   }
 }
 
-%%
-
