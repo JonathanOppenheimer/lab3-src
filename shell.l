@@ -179,19 +179,22 @@ void myunputc(int c) {
             buffer = std::regex_replace(buffer, standard, "");
           }
         }
-        // matches = nullptr_t; // Empty matches
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
-        std::cout << "Contains special $ expansion\n";
-
+        while(std::regex_search(buffer, matches, dollar)) {
+          buffer = std::regex_replace(buffer, dollar, getpid());
+        }
       } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
-        std::cout << "Contains special ? expansion\n";
-
+        while(std::regex_search(buffer, matches, name_shell)) {
+          buffer = std::regex_replace(buffer, name_shell, shell_location);
+        }
       } else if(std::regex_match(buffer, question)) { // Special ${!}
-        std::cout << "Contains special ! expansion\n";
-
+        while(std::regex_search(buffer, matches, name_shell)) {
+          buffer = std::regex_replace(buffer, name_shell, shell_location);
+        }
       } else if(std::regex_match(buffer, underscore)) { // Special ${_}
-        std::cout << "Contains special _ expansion\n";
-
+        while(std::regex_search(buffer, matches, name_shell)) {
+          buffer = std::regex_replace(buffer, name_shell, shell_location);
+        }
       } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
         while(std::regex_search(buffer, matches, name_shell)) {
           buffer = std::regex_replace(buffer, name_shell, shell_location);
