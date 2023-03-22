@@ -21,8 +21,6 @@
 #include "y.tab.hh"
 
 
-extern yy_buffer_state;
-typedef yy_buffer_state *YY_BUFFER_STATE;
 extern int yyparse();
 extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
 
