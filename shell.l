@@ -165,7 +165,7 @@ void myunputc(int c) {
       std::regex question("\\$\\{\\?\\}");
       std::regex exclamation("\\$\\{!\\}");
       std::regex underscore("\\$\\{_\\}");
-      std::regex name_shell("\\$\\{(SHELL)\\}");
+      std::regex name_shell("\\$\\{SHELL\\}");
 
       // Where to keep the results of the regex
       std::smatch matches;
