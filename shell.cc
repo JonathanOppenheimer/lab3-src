@@ -70,8 +70,8 @@ int main(int argc, char *argv[]) {
   /* ******************************** */
 
   Shell::prompt();        // First prompt
-  set_source(".shellrc"); // run source on boot (can modify path here)
   yyparse();              // Start parse
+  set_source(".shellrc"); // run source on boot (can modify path here)
 }
 
 Command Shell::_currentCommand;
