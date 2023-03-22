@@ -2214,6 +2214,5 @@ int set_source() {
     //  source = true;
     }
     return 0;
-  }
 }
 
