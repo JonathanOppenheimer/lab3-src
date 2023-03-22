@@ -68,10 +68,9 @@ int main(int argc, char *argv[]) {
   }
 
   /* ******************************** */
-  set_source();    // run source on boot (can modify path here)
   Shell::prompt(); // First prompt
   yyparse();       // Start parse
-  yy_scan_buffer("a test string");
+  set_source();    // run source on boot (can modify path here)
 }
 
 Command Shell::_currentCommand;
