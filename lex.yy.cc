@@ -1038,12 +1038,12 @@ YY_RULE_SETUP
         // buffer = std::regex_replace(buffer, standard, getenv("a"));
         while(std::regex_search(buffer, matches, standard)) {
           // First check if the environment variable exists
-          if(getenv(matches[1])) {
-            buffer = std::regex_replace(buffer, standard, std::string(matches[1]));
+          if(getenvs(matches.str(1))) {
+            buffer = std::regex_replace(buffer, standard, std::string(matches.str(1_));
           } else {
             buffer = std::regex_replace(buffer, standard, "");
           }
-          std::cout << matches[0] << std::endl;
+          // std::cout << matches.str(0) << std::endl;
         } 
         // buffer = regex_replace(buffer, standard, getenv());
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
