@@ -1035,7 +1035,7 @@ YY_RULE_SETUP
       std::smatch matches;
 
       if(std::regex_search(buffer, standard)) {
-        buffer = std::regex_replace(buffer, standard, getenv("$1"));
+        buffer = std::regex_replace(buffer, standard, "$1"));
         /* while(std::regex_search(buffer, matches, standard)) {
           std::cout << matches[0] << std::endl;
           buffer = std::regex_replace(buffer, )
