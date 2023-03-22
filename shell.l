@@ -174,7 +174,7 @@ void myunputc(int c) {
         // buffer = std::regex_replace(buffer, standard, getenv("a"));
         while(std::regex_search(buffer, matches, standard)) {
           std::cout << matches[0] << std::endl;
-          buffer = std::regex_replace(buffer, )
+          // buffer = std::regex_replace(buffer, )
           std::string env_variable = matches[1];
         } 
         // buffer = regex_replace(buffer, standard, getenv());
