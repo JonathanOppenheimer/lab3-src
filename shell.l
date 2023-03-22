@@ -55,7 +55,6 @@ void myunputc(int c) {
 %option noyywrap
 %option stack
 %option verbose
-%option reentrant
 
 %x quotes
 %x manual_source
