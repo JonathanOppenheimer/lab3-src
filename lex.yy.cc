@@ -2202,7 +2202,7 @@ int set_source() {
   if(isatty(0)) {
   YY_BUFFER_STATE cur = YY_CURRENT_BUFFER;
   YY_BUFFER_STATE n = yy_scan_string("source .shellrc\0\0");
-  yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
+  yypush_buffer_state(n);
   // yy_switch_to_buffer(cur);
 
     std::cout << "HELLO!!\n";
