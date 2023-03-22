@@ -184,17 +184,17 @@ void myunputc(int c) {
         while(std::regex_search(buffer, matches, dollar)) {
           buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
         }
-      } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
-        while(std::regex_search(buffer, matches, name_shell)) {
-          buffer = std::regex_replace(buffer, name_shell, shell_location);
+      } else if(std::regex_match(buffer, question)) { // Special ${?}
+        while(std::regex_search(buffer, matches, question)) {
+          buffer = std::regex_replace(buffer, question, shell_location);
         }
-      } else if(std::regex_match(buffer, question)) { // Special ${!}
-        while(std::regex_search(buffer, matches, name_shell)) {
-          buffer = std::regex_replace(buffer, name_shell, shell_location);
+      } else if(std::regex_match(buffer, exclamation)) { // Special ${!}
+        while(std::regex_search(buffer, matches, exclamation)) {
+          buffer = std::regex_replace(buffer, exclamation, std::to_string(last_background_pid));
         }
       } else if(std::regex_match(buffer, underscore)) { // Special ${_}
-        while(std::regex_search(buffer, matches, name_shell)) {
-          buffer = std::regex_replace(buffer, name_shell, shell_location);
+        while(std::regex_search(buffer, matches, underscore)) {
+          buffer = std::regex_replace(buffer, underscore, shell_location);
         }
       } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
         while(std::regex_search(buffer, matches, name_shell)) {
