@@ -1058,7 +1058,7 @@ YY_RULE_SETUP
         }
       } else if(std::regex_match(buffer, underscore)) { // Special ${_}
         while(std::regex_search(buffer, matches, underscore)) {
-          buffer = std::regex_replace(buffer, underscore, last_arguement);
+          buffer = std::regex_replace(buffer, underscore, last_argument);
         }
       } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
         while(std::regex_search(buffer, matches, name_shell)) {

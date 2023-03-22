@@ -28,11 +28,11 @@ test_escape Passed 2/2
 test_subshell Failed 0/10
 test_env_expand1 Passed 1/1
 test_env_expand2 Failed 0/1
-test_env_var_shell Failed 0/1
-test_env_var_dollar Failed 0/1
+test_env_var_shell Passed 1/1
+test_env_var_dollar Passed 1/1
 test_env_var_question Failed 0/1
 test_env_var_bang Failed 0/1
-test_env_var_uscore Failed 0/1
+test_env_var_uscore Passed 1/1
 test_wildcards1 Failed 0/3
 test_wildcards2 Failed 0/1
 test_wildcards3 Failed 0/1
@@ -42,4 +42,4 @@ test_wildcards6 Failed 0/1
 test_wildcards7 Passed 1/1
 test_tilde Failed 0/2
 test_robustness Failed 0/10
-Total:                   34.0 of 70.0
+Total:                   37.0 of 70.0
