@@ -298,8 +298,8 @@ void Command::execute() {
     close(tmperr);
 
     if (!_background) {
-      waitpid(ret, &status, 0);  // Wait for last command
-      last_return_code = status; // Update global last return code
+      waitpid(ret, &status, 0);               // Wait for last command
+      last_return_code = WEXITSTATUS(status); // Update global last return code
     } else {
       background_pids.insert(
           ret); // Add background PID to global vector for zombie elimination
