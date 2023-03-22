@@ -31,10 +31,12 @@ extern "C" void sigIntHandler(int sig) {
 
 extern "C" void sigChildHandler(int sig) {
   // Need to empty out all the background processes
-  pid_t pid = waitpid(-1, NULL, WNOHANG);
-  if (background_pids.count(pid) == 1) {
-    std::cout << std::to_string(pid) + " exited.\n";
-    background_pids.erase(pid);
+  pid_t pid; // pid to check
+  while ((pid = waitpid(-1, NULL, WNOHANG)) > 0) {
+    if (background_pids.count(pid) == 1) {
+      std::cout << std::to_string(pid) + " exited.\n";
+      background_pids.erase(pid);
+    }
   }
 }
 
