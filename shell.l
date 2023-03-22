@@ -31,8 +31,6 @@ void set_source() {
   yy_scan_string ("source .shellrc");
   yyparse();
   yyrestart(yyin);
-  YY_FLUSH_BUFFER;
-  return;
 
   /*Analyze the string*/
 
