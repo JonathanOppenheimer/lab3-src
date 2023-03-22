@@ -29,7 +29,6 @@ void set_source(std::string src_file) {
   yy_scan_string ("source .shellrc");
 
   /*Analyze the string*/
-  yylex();
 
   /*Delete the new buffer*/
   yy_delete_buffer(YY_CURRENT_BUFFER); 

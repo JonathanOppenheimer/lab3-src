@@ -534,14 +534,14 @@ std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was source
 
 void set_source(std::string src_file) {
+  /*Copy string into new buffer and Switch buffers*/
+  yy_scan_string ("source .shellrc");
 
-  yyscan_t scanner;
-  YY_BUFFER_STATE buf;
-  yylex_init(&scanner);
-  buf = yy_scan_string("source .shellrc", scanner);
-  yylex(scanner);
-  yy_delete_buffer(buf, scanner);
-  yylex_destroy(scanner);
+  /*Analyze the string*/
+  yylex();
+
+  /*Delete the new buffer*/
+  yy_delete_buffer(YY_CURRENT_BUFFER); 
   /* yyin = fopen(src_file.c_str(), "r");
   if (!yyin) {
     // Do nothing, no .shellrc file
