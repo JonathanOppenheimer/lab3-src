@@ -533,10 +533,10 @@ static void yyunput (int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was source
 
-void set_source(FILE *src_file) {
-  /* yyin = fopen(argv[1], "r");
-    yylex();
-    fclose(yyin); */
+void set_source(std::string src_file) {
+  yyin = fopen(argv[1], "r");
+  yylex();
+  fclose(yyin);
   std::cout << "HELLO!!\n";
 }
 
