@@ -2203,7 +2203,6 @@ int set_source() {
     std::cout << "HELLO!!\n";
     yyin = fopen(".shellrc", "r");
     if (!yyin) {
-      std::cout << std::string(yytext) + ": No such file or directory\n";
       YY_FLUSH_BUFFER; // Flush yyin because we modified it
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       return NEWLINE;
