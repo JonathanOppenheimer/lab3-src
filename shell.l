@@ -170,8 +170,6 @@ void myunputc(int c) {
       // Where to keep the results of the regex
       std::smatch matches;
 
-      std::cout << shell_location;
-
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
           // First check if the environment variable exists
@@ -198,6 +196,7 @@ void myunputc(int c) {
         while(std::regex_search(buffer, matches, standard)) {
           buffer = std::regex_replace(buffer, name_shell, shell_location);
         }
+        std::cout << shell_location;
         // matches = nullptr_t; // Empty matches
       } else {
         std::cout << buffer + ": bad substitution\n";

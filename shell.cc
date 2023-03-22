@@ -47,7 +47,6 @@ extern "C" void sigChildHandler(int sig) {
 int main(int argc, char *argv[]) {
   // Get the location of ./shell
   shell_location = std::string(realpath(argv[0], NULL));
-  std::cout << shell_location;
 
   /********* CTRL-C HANDLING **********/
   struct sigaction sigintSignalAction;
