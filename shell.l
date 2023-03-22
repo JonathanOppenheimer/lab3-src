@@ -36,7 +36,7 @@ void set_source() {
     // source = true;
   }
 
-  yylex_destroy();
+  // yylex_destroy();
 
   // Clean up */
   // fclose(yyin);
