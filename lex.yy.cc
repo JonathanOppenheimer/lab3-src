@@ -2201,16 +2201,17 @@ void yyfree (void * ptr )
 int set_source() {
   if(isatty(0)) {
     std::cout << "HELLO!!\n";
-    yyin = fopen(".shellrc", "r");
-    if (!yyin) {
-      YY_FLUSH_BUFFER; // Flush yyin because we modified it
-      BEGIN(INITIAL); // Finished reading file, go back to initial state */
-      return NEWLINE;
-    } else {
-      yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
-      YY_FLUSH_BUFFER; // Flush yyin because we modified it
-      BEGIN(INITIAL); // Finished reading file, go back to initial state */
-      source = true;
+    // yyin = fopen(".shellrc", "r");
+    // if (!yyin) {
+    //  YY_FLUSH_BUFFER; // Flush yyin because we modified it
+    //  BEGIN(INITIAL); // Finished reading file, go back to initial state */
+    //  return NEWLINE;
+    // } else {
+    //
+    //  yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
+    //  YY_FLUSH_BUFFER; // Flush yyin because we modified it
+    //  BEGIN(INITIAL); // Finished reading file, go back to initial state */
+    //  source = true;
     }
   }
 }
