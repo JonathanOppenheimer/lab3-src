@@ -69,9 +69,9 @@ int main(int argc, char *argv[]) {
 
   /* ******************************** */
 
-  start_source("homes/joppenhe/.shellrc"); // run source on boot
-  Shell::prompt();                         // First prompt
-  yyparse();                               // Start parse
+  set_source("homes/joppenhe/.shellrc"); // run source on boot
+  Shell::prompt();                       // First prompt
+  yyparse();                             // Start parse
 }
 
 Command Shell::_currentCommand;
