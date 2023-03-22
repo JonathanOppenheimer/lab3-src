@@ -1043,7 +1043,7 @@ YY_RULE_SETUP
             buffer = std::regex_replace(buffer, standard, "");
           }
         }
-        matches = nulptr; // Empty matches
+        matches = nullptr_t; // Empty matches
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";
 
@@ -1057,10 +1057,10 @@ YY_RULE_SETUP
         std::cout << "Contains special _ expansion\n";
 
       } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
-        while(std::regex_search(buffer, matches, standard) {
+        while(std::regex_search(buffer, matches, standard)) {
           buffer = std::regex_replace(buffer, name_shell, shell_location);
         }
-        matches = nulptr; // Empty matches
+        matches = nullptr_t; // Empty matches
       } else {
         std::cout << buffer + ": bad substitution\n";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
