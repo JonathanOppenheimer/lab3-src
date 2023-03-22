@@ -546,7 +546,7 @@ void set_source(std::string src_file) {
 
   // Clean up */
   // fclose(yyin);
-  /* YY_FLUSH_BUFFER; // Flush yyin because we modified it */
+  YY_FLUSH_BUFFER; // Flush yyin because we modified it
 }
 
 void myunputc(int c) {
