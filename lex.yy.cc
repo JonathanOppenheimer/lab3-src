@@ -535,7 +535,7 @@ bool source; // A poor yet easy way to track if the command was source
 
 void set_source(std::string src_file) {
   yyin = fopen(src_file.c_str(), "r");
-  yyparse();
+  // yyparse();
   /* if (!yyin) {
     // Do nothing, no .shellrc file
   } else {
