@@ -6,6 +6,8 @@
 #include <set>
 #include <vector>
 
+extern void set_source();
+
 /* Extra global variables for program to share information with */
 
 extern bool source; // Used to track whether the command parsed was source
