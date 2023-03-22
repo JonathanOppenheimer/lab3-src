@@ -270,7 +270,6 @@ void myunputc(int c) {
 
 %%
 
-usage : 
 void parse(std::string& function) {
   string result = "";
   yyscan_t scanner;
