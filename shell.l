@@ -36,8 +36,8 @@ void set_source() {
     // source = true;
   }
 
-    YY_FLUSH_BUFFER;
-  // yylex_destroy();
+  YY_FLUSH_BUFFER;
+  yylex_destroy();
 
   // Clean up */
   // fclose(yyin);
