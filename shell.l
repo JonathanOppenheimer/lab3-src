@@ -24,9 +24,17 @@ static void yyunput (int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was source
 
+int main(int argc, char *argv[]) {
+  /* yyin = fopen(argv[1], "r");
+    yylex();
+    fclose(yyin); */
+  std::cout << "HELLO!!\n";
+}
+
 void myunputc(int c) {
   unput(c);
 }
+
 
 %}
 
