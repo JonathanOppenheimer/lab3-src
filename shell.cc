@@ -71,6 +71,7 @@ int main(int argc, char *argv[]) {
   set_source();    // run source on boot (can modify path here)
   Shell::prompt(); // First prompt
   yyparse();       // Start parse
+  Shell::prompt();
 }
 
 Command Shell::_currentCommand;

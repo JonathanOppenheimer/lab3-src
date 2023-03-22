@@ -540,7 +540,7 @@ void set_source() {
   yy_scan_string ("source .shellrc");
   yyparse();
   yylex_destroy();
-
+  return;
   /*Analyze the string*/
 
   /*Delete the new buffer*/
