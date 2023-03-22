@@ -26,17 +26,7 @@ std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was source
 
 void set_source() {
-  std::cout << "HELLO!\n";
-  /*Copy string into new buffer and Switch buffers*/
-  yy_scan_string ("source .shellrc");
-  yyparse();
-  yylex_destroy();
-  return;
-  /*Analyze the string*/
-
-  /*Delete the new buffer*/
-  // yy_delete_buffer(YY_CURRENT_BUFFER); 
-  /* yyin = fopen(src_file.c_str(), "r");
+  yyin = fopen(".shellrc", "r");
   if (!yyin) {
     // Do nothing, no .shellrc file
   } else {
@@ -44,6 +34,8 @@ void set_source() {
     yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
     // source = true;
   }
+
+  yylex_destroy();
 
   // Clean up */
   // fclose(yyin);
