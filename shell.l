@@ -170,16 +170,19 @@ void myunputc(int c) {
       // Where to keep the results of the regex
       std::smatch matches;
 
-      while(std::regex_search(buffer, matches, standard)) {
-        // First check if the environment variable exists
-        if(getenv(matches.str(1).c_str())) { // If it does replace it with the expanded value
-          buffer = std::regex_replace(buffer, standard, getenv(matches.str(1).c_str()));
-        } else { // Otherwise delete the ${x}
-          buffer = std::regex_replace(buffer, standard, "");
-        }
-      }
-
-      if(std::regex_match(buffer, dollar)) { // Special ${$}
+      if(std::regex_search(buffer, standard)) {
+        // buffer = std::regex_replace(buffer, standard, getenv("a"));
+        while(std::regex_search(buffer, matches, standard)) {
+          // First check if the environment variable exists
+          if(getenv(matches.str(1).c_str())) {
+            buffer = std::regex_replace(buffer, standard, getenv(matches.str(1).c_str()));
+          } else {
+            buffer = std::regex_replace(buffer, standard, "");
+          }
+          // std::cout << matches.str(0) << std::endl;
+        } 
+        // buffer = regex_replace(buffer, standard, getenv());
+      } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";
 
       } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
