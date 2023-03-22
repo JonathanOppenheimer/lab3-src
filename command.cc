@@ -215,6 +215,9 @@ void Command::execute() {
       // Ensure the last member of the argv is NULL for execv
       argv.back() = nullptr;
 
+      // Update the global last argument
+      last_argument = argv.at(argv.size() - 2);
+
       /* Specific commands that must be run in the parent */
 
       // Set environment variable
@@ -291,11 +294,12 @@ void Command::execute() {
     close(tmperr);
 
     if (!_background) {
-      // Wait for last command
-      waitpid(ret, &status, 0);
+      waitpid(ret, &status, 0);  // Wait for last command
+      last_return_code = status; // Update global last return code
     } else {
-      background_pids.push_back(ret);
-      // zombie_processes.push_back(ret);
+      background_pids.push_back(
+          ret); // Add background PID to global vector for zombie elimination
+      last_background_pid = ret; // Update global last background pid
     }
   }
 
