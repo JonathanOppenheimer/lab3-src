@@ -46,6 +46,7 @@ void myunputc(int c) {
 
 %}
 
+%option noyywrap
 %option stack
 %option verbose
 
