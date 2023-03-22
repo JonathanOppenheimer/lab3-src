@@ -31,7 +31,7 @@ bool source; // A poor yet easy way to track if the command was sourced
 void set_source() {
   if(isatty(0)) {
     std::cout << "HELLO!!\n";
-    yy_read_line("source .bashrc\0");
+    yy_scan_string("source .bashrc\0");
     // char tstr[] = "source .shellrc\0\0";
     // note yy_scan_buffer is is looking for a double null string
     // yy_scan_buffer(tstr, sizeof(tstr));
