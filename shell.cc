@@ -69,10 +69,9 @@ int main(int argc, char *argv[]) {
 
   /* ******************************** */
 
-  FILE *src_file = fopen(".shellrc", "r"); // Open the user's source file
-  set_source(src_file);                    // run source on boot
-  Shell::prompt();                         // First prompt
-  yyparse();                               // Start parse
+  set_source(".shellrc"); // run source on boot (can modify path here)
+  Shell::prompt();        // First prompt
+  yyparse();              // Start parse
 }
 
 Command Shell::_currentCommand;

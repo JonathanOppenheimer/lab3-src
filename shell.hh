@@ -6,7 +6,7 @@
 #include <set>
 #include <vector>
 
-extern void set_source(FILE *src_file);
+extern void set_source(std::string src_file);
 
 /* Extra global variables for program to share information with */
 
