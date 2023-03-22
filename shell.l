@@ -182,7 +182,7 @@ void myunputc(int c) {
         }
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         while(std::regex_search(buffer, matches, dollar)) {
-          buffer = std::regex_replace(buffer, dollar, std::string(getpid()));
+          buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
         }
       } else if(std::regex_match(buffer, exclamation)) { // Special ${?}
         while(std::regex_search(buffer, matches, name_shell)) {
