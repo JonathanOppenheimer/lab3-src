@@ -28,10 +28,20 @@ static void yyunput (int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was sourced
 
+void set_source() {
+  if(isatty(0)) {
+    char tstr[] = "source .shellrc\0\0";
+    // note yy_scan_buffer is is looking for a double null string
+    yy_scan_buffer(tstr, sizeof(tstr));
+    yyparse();
+    yylex_destroy();
+  }
+}
 
 void myunputc(int c) {
   unput(c);
 }
+
 
 %}
 
@@ -254,39 +264,5 @@ void myunputc(int c) {
   if (!YY_CURRENT_BUFFER) {
     yyterminate();
   }
-}
-
-%%
-
-int set_source() {
-  if(isatty(0)) {
-    // yyparse();
-    // YY_BUFFER_STATE cur = YY_CURRENT_BUFFER;
-    YY_BUFFER_STATE source = yy_scan_string("source .shellrc\0\0");
-    // yyparse();
-    // yy_delete_buffer(source);
-    // yyin = cur;
-    // yyparse();
-
-    // YY_BUFFER_STATE cur = YY_CURRENT_BUFFER;
-    // YY_BUFFER_STATE n = yy_scan_string("source .shellrc\0\0");
-    // yy_switch_to_buffer(n);
-    // yypush_buffer_state(n);
-    // yy_switch_to_buffer(cur);
-
-    std::cout << "HELLO!!\n";
-    // yyin = fopen(".shellrc", "r");
-    // if (!yyin) {
-    //  YY_FLUSH_BUFFER; // Flush yyin because we modified it
-    //  BEGIN(INITIAL); // Finished reading file, go back to initial state */
-    //  return NEWLINE;
-    // } else {
-    //
-    //  yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
-    //  YY_FLUSH_BUFFER; // Flush yyin because we modified it
-    //  BEGIN(INITIAL); // Finished reading file, go back to initial state */
-    //  source = true;
-  }
-  return 0;
 }
 
