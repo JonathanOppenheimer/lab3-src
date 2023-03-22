@@ -1057,11 +1057,9 @@ YY_RULE_SETUP
         std::cout << "Contains special _ expansion\n";
 
       } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
-        while(std::regex_search(buffer, matches, standard)) {
+        while(std::regex_search(buffer, matches, name_shell)) {
           buffer = std::regex_replace(buffer, name_shell, shell_location);
         }
-        std::cout << shell_location;
-        // matches = nullptr_t; // Empty matches
       } else {
         std::cout << buffer + ": bad substitution\n";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
@@ -1103,7 +1101,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 241 "shell.l"
+#line 239 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1112,7 +1110,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 246 "shell.l"
+#line 244 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1122,10 +1120,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 253 "shell.l"
+#line 251 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1129 "lex.yy.cc"
+#line 1127 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2186,4 +2184,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 253 "shell.l"
+#line 251 "shell.l"
