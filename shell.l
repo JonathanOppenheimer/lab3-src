@@ -33,6 +33,7 @@ void set_source() {
   // note yy_scan_buffer is is looking for a double null string
   yy_scan_buffer(tstr, sizeof(tstr));
   yyparse();
+  yylex_destroy();
 }
 
 void myunputc(int c) {
