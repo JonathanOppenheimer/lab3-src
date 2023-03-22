@@ -20,7 +20,8 @@
 #include "shell.hh"
 #include "y.tab.hh"
 
-
+extern int yylex_destroy(void);
+extern yyscan_t;
 extern int yyparse();
 extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
 
