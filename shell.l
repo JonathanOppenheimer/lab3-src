@@ -262,7 +262,7 @@ int set_source() {
   if(isatty(0)) {
     YY_BUFFER_STATE source = yy_scan_string("source .shellrc\0\0");
     yy_switch_to_buffer(source);
-    yy_delete_buffer( YY_CURRENT_BUFFER );
+    // yy_delete_buffer( YY_CURRENT_BUFFER );
     yyparse();
 
     // YY_BUFFER_STATE cur = YY_CURRENT_BUFFER;
