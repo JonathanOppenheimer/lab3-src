@@ -30,11 +30,10 @@ bool source; // A poor yet easy way to track if the command was sourced
 
 void set_source() {
   if(isatty(0)) {
-    char tstr[] = "source .shellrc\0\0";
-    // note yy_scan_buffer is is looking for a double null string
-    yy_scan_buffer(tstr, sizeof(tstr));
-    yyparse();
-    yylex_destroy();
+    char tstr[] = "source .shellrc\0\0"; // Write the command
+    yy_scan_buffer(tstr, sizeof(tstr)); // Scan it
+    yyparse(); // Reparse to get input from the user
+    yylex_destroy(); // Destroy the buffer
     source = false;
   }
 }
