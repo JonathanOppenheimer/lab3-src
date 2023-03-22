@@ -30,6 +30,7 @@ void set_source() {
   /*Copy string into new buffer and Switch buffers*/
   yy_scan_string ("source .shellrc");
   yyparse();
+  yylex_destroy();
 
   /*Analyze the string*/
 
