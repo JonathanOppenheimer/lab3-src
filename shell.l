@@ -44,11 +44,6 @@ void myunputc(int c) {
   unput(c);
 }
 
-int yywrap(){
-  return(1);
-}
-
-
 %}
 
 %option stack
