@@ -544,8 +544,8 @@ void set_source(std::string src_file) {
   }
 
   // Clean up */
-  fclose(yyin);
-  YY_FLUSH_BUFFER; // Flush yyin because we modified it
+  // fclose(yyin);
+  // YY_FLUSH_BUFFER; // Flush yyin because we modified it
   // return NEWLINE;
 }
 
