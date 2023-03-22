@@ -35,6 +35,7 @@ void set_source() {
     yy_scan_buffer(tstr, sizeof(tstr));
     yyparse();
     yylex_destroy();
+    source = false;
   }
 }
 
