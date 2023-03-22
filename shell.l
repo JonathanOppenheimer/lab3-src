@@ -29,17 +29,11 @@ std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was sourced
 
 void set_source() {
-    YY_BUFFER_STATE buf;
-    buf = yy_scan_string("replace me with the string youd like to scan");
-    yyparse();
-    // yy_delete_buffer(buf);
-    // yylex_destroy(scanner);
-  /* char tstr[] = "source .shellrc\0\0";
+  char tstr[] = "source .shellrc\0\0";
   // note yy_scan_buffer is is looking for a double null string
   yy_scan_buffer(tstr, sizeof(tstr));
   yyparse();
   yylex_destroy();
-  */
 }
 
 void myunputc(int c) {

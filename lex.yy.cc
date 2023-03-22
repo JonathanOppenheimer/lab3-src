@@ -541,7 +541,7 @@ void set_source() {
     YY_BUFFER_STATE buf;
     buf = yy_scan_string("replace me with the string youd like to scan");
     yyparse();
-    yy_delete_buffer(buf);
+    // yy_delete_buffer(buf);
     // yylex_destroy(scanner);
   /* char tstr[] = "source .shellrc\0\0";
   // note yy_scan_buffer is is looking for a double null string
