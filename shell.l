@@ -27,7 +27,7 @@ bool source; // A poor yet easy way to track if the command was source
 void set_source(std::string src_file) {
   yyin = fopen(src_file.c_str(), "r");
   std::cout << yytext;
-  if (!yyin) {
+  /* if (!yyin) {
     // Do nothing, no .shellrc file
   } else {
     // Add the file contents to the buffer
@@ -35,7 +35,7 @@ void set_source(std::string src_file) {
     source = true;
   }
 
-  // Clean up
+  // Clean up */
   fclose(yyin);
   YY_FLUSH_BUFFER; // Flush yyin because we modified it
 }
