@@ -32,7 +32,7 @@ void set_source(std::string src_file) {
   /*Analyze the string*/
 
   /*Delete the new buffer*/
-  yy_delete_buffer(YY_CURRENT_BUFFER); 
+  // yy_delete_buffer(YY_CURRENT_BUFFER); 
   /* yyin = fopen(src_file.c_str(), "r");
   if (!yyin) {
     // Do nothing, no .shellrc file
