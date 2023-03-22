@@ -2202,8 +2202,8 @@ int set_source() {
   if(isatty(0)) {
   yy_scan_string("source .shellrc\0\0");
   // yylex
+ yy_delete_buffer( YY_CURRENT_BUFFER );
   yyparse();
-  // yy_delete_buffer( YY_CURRENT_BUFFER );
 
     // YY_BUFFER_STATE cur = YY_CURRENT_BUFFER;
     // YY_BUFFER_STATE n = yy_scan_string("source .shellrc\0\0");
