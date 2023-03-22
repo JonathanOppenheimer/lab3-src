@@ -179,7 +179,7 @@ void myunputc(int c) {
             buffer = std::regex_replace(buffer, standard, "");
           }
         }
-        matches = nullptr_t; // Empty matches
+        // matches = nullptr_t; // Empty matches
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         std::cout << "Contains special $ expansion\n";
 
@@ -196,7 +196,7 @@ void myunputc(int c) {
         while(std::regex_search(buffer, matches, standard)) {
           buffer = std::regex_replace(buffer, name_shell, shell_location);
         }
-        matches = nullptr_t; // Empty matches
+        // matches = nullptr_t; // Empty matches
       } else {
         std::cout << buffer + ": bad substitution\n";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
