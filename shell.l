@@ -20,29 +20,22 @@
 #include "shell.hh"
 #include "y.tab.hh"
 
-extern int yylex_destroy(void);
+
+extern yy_buffer_state;
+typedef yy_buffer_state *YY_BUFFER_STATE;
+extern int yyparse();
+extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
+
 static void yyunput (int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
 bool source; // A poor yet easy way to track if the command was sourced
 
 void set_source() {
-  std::cout << "hello!\n";
-  yyin = fopen(".shellrc", "r");
-  if (!yyin) {
-    // Do nothing, no .shellrc file
-  } else {
-    // Add the file contents to the buffer
-    yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
-    // source = true;
-  }
-
-  YY_FLUSH_BUFFER;
-  yylex_destroy();
-
-  // Clean up */
-  // fclose(yyin);
-  // YY_FLUSH_BUFFER; // Flush yyin because we modified it
-  // return NEWLINE; */
+  char tstr[] = "source .shellrc\n\0\0";
+  // note yy_scan_buffer is is looking for a double null string
+  yy_scan_buffer(tstr, sizeof(tstr));
+  yy_parse();
+  return;
 }
 
 void myunputc(int c) {
