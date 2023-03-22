@@ -265,7 +265,7 @@ int set_source() {
     yyparse();
     // yy_delete_buffer(source);
     yyin = stdin;
-    yyparse();
+    // yyparse();
 
     // YY_BUFFER_STATE cur = YY_CURRENT_BUFFER;
     // YY_BUFFER_STATE n = yy_scan_string("source .shellrc\0\0");
