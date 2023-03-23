@@ -190,7 +190,7 @@ void myunputc(int c) {
       buffer = std::regex_replace(buffer, underscore, last_argument);
       buffer = std::regex_replace(buffer, name_shell, shell_location);
 
-      // Do more standard regexes next - and then error for all other regex matches (non valid env_vars)
+      // Do more standard regexes next 
       std::smatch matches; // Where to keep the results of the regex
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
@@ -201,11 +201,13 @@ void myunputc(int c) {
             buffer = std::regex_replace(buffer, cur_match, "");
           }
         }
-      } else { // Doesn't work
-        std::cout << buffer + ": bad substitution\n";
-        YY_FLUSH_BUFFER; // Flush yyin stop parsing
-        return NEWLINE;
       }
+    }
+    // If anything else remains it must be a bad regex (non_valid env_vars) - so serror
+    if(std::regex_search(buffer, container)) {
+      std::cout << buffer + ": bad substitution\n";
+      YY_FLUSH_BUFFER; // Flush yyin stop parsing
+      return NEWLINE;
     }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.

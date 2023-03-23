@@ -1047,14 +1047,15 @@ YY_RULE_SETUP
       std::regex underscore("\\$\\{_\\}");
       std::regex name_shell("\\$\\{SHELL\\}");
 
-      // Where to keep the results of the regex
-      std::smatch matches;
+      // Do simple (non-variable) regex replacements first
       buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
       buffer = std::regex_replace(buffer, question, std::to_string(last_return_code));
       buffer = std::regex_replace(buffer, exclamation, std::to_string(last_background_pid));
       buffer = std::regex_replace(buffer, underscore, last_argument);
       buffer = std::regex_replace(buffer, name_shell, shell_location);
 
+      // Do more standard regexes next - and then error for all other regex matches (non valid env_vars)
+      std::smatch matches; // Where to keep the results of the regex
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
           std::regex cur_match("\\$\\{" + matches.str(1) + "\\}"); // Formulate specific regex
@@ -1064,7 +1065,7 @@ YY_RULE_SETUP
             buffer = std::regex_replace(buffer, cur_match, "");
           }
         }
-      } else {
+      } else { // Doesn't work
         std::cout << buffer + ": bad substitution\n";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
         return NEWLINE;
@@ -1105,7 +1106,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 243 "shell.l"
+#line 244 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1114,7 +1115,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 248 "shell.l"
+#line 249 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1124,10 +1125,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 255 "shell.l"
+#line 256 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1131 "lex.yy.cc"
+#line 1132 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2188,4 +2189,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 255 "shell.l"
+#line 256 "shell.l"
