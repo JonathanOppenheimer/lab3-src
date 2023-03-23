@@ -186,8 +186,14 @@ void myunputc(int c) {
       // Where to keep the results of the regex
       std::smatch matches;
 
-      if(std::regex_search(buffer, standard)) {
-        int index = 1; // Used to get the groups (needs to be incremented by 2 every time)
+      if(std::regex_search(buffer, standard)){
+        const std::sregex_token_iterator End;
+        Expression.assign("rel=\"nofollow\">(.*?)</a>");
+        for (std::sregex_token_iterator match(Tables.begin(), Tables.end(), Expression, 1); i != End; ++i) {
+          std::cout << *match << std::endl; // *i only yields the captured part
+        }
+
+        /* int index = 1; // Used to get the groups (needs to be incremented by 2 every time)
         while(std::regex_search(buffer, matches, standard)) {
           // First check if the environment variable exists
           if(getenv(matches.str(index).c_str())) { // If there are replace them with the expanded environment variable
@@ -195,8 +201,8 @@ void myunputc(int c) {
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, standard, "");
           }
-          std::cout << matches.str(3); 
-        }
+          std::cout << matches.str(3);
+        } */
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         while(std::regex_search(buffer, matches, dollar)) {
           buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));

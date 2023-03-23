@@ -1059,7 +1059,7 @@ YY_RULE_SETUP
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, standard, "");
           }
-          index += 2;
+          std::cout << matches.str(3); 
         }
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         while(std::regex_search(buffer, matches, dollar)) {
