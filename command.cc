@@ -228,7 +228,7 @@ void Command::execute() {
       if (!strcmp(argv[0], "setenv")) {
         builtin_cmd = true;
         if (argv.size() != 4) {
-          perror("setenv");
+          perror("setenv: Invalid arguement count.");
         } else {
           if (setenv(argv[1], argv[2], 1)) {
             perror("setenv");
