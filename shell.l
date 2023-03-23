@@ -185,9 +185,11 @@ void myunputc(int c) {
 
       // Where to keep the results of the regex
       std::smatch matches;
+      
+      buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
+      
 
       if(std::regex_search(buffer, standard)) {
-        buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
         while(std::regex_search(buffer, matches, standard)) {
           std::regex cur_match("\\$\\{" + matches.str(1) + "\\}"); // Formulate specific regex
           if(getenv(matches.str(1).c_str())) { // If there are replace them with the expanded environment variable

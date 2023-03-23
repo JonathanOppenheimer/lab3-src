@@ -1093,11 +1093,11 @@ YY_RULE_SETUP
         while(std::regex_search(buffer, matches, name_shell)) {
           buffer = std::regex_replace(buffer, name_shell, shell_location);
         }
-      } else {
+      } /* else {
         std::cout << buffer + ": bad substitution\n";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
         return NEWLINE;
-      }
+      } */
     }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
