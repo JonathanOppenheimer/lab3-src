@@ -188,10 +188,11 @@ void myunputc(int c) {
 
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
+          std::string cur_match = matches.str(); // Get the group match
           if(getenv(matches.str(1).c_str())) { // If there are replace them with the expanded environment variable
-            buffer = std::regex_replace(buffer, matches.str(), getenv(matches.str(1).c_str()));
+            buffer = std::regex_replace(buffer, cur_match, getenv(matches.str(1).c_str()));
           } else { // If not delete the ${x}
-            buffer = std::regex_replace(buffer, matches.str(), "");
+            buffer = std::regex_replace(buffer, cur_match, "");
           }
         }
 

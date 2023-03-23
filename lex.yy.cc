@@ -1050,8 +1050,16 @@ YY_RULE_SETUP
       // Where to keep the results of the regex
       std::smatch matches;
 
-      if(std::regex_search(buffer, standard)){
-        const std::sregex_token_iterator End;
+      if(std::regex_search(buffer, standard)) {
+        while(std::regex_search(buffer, matches, standard)) {
+          if(getenv(matches.str(1).c_str())) { // If there are replace them with the expanded environment variable
+            buffer = std::regex_replace(buffer, matches.str(), getenv(matches.str(1).c_str()));
+          } else { // If not delete the ${x}
+            buffer = std::regex_replace(buffer, matches.str(), "");
+          }
+        }
+
+        /* const std::sregex_token_iterator End;
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
           std::string cur_match = matches.str(); // Get the group match
@@ -1062,7 +1070,7 @@ YY_RULE_SETUP
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, standard, "");
           }
-        }
+        } */
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         while(std::regex_search(buffer, matches, dollar)) {
           buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
@@ -1124,7 +1132,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 262 "shell.l"
+#line 270 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1133,7 +1141,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 267 "shell.l"
+#line 275 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1143,10 +1151,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 274 "shell.l"
+#line 282 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1150 "lex.yy.cc"
+#line 1158 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2207,4 +2215,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 274 "shell.l"
+#line 282 "shell.l"
