@@ -187,6 +187,7 @@ void myunputc(int c) {
       std::smatch matches;
 
       if(std::regex_search(buffer, standard)) {
+        buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
         while(std::regex_search(buffer, matches, standard)) {
           std::regex cur_match("\\$\\{" + matches.str(1) + "\\}"); // Formulate specific regex
           if(getenv(matches.str(1).c_str())) { // If there are replace them with the expanded environment variable
@@ -208,10 +209,10 @@ void myunputc(int c) {
             buffer = std::regex_replace(buffer, standard, "");
           }
         } */
-      } else if(std::regex_match(buffer, dollar)) { // Special ${$}
+      /* } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         while(std::regex_search(buffer, matches, dollar)) {
           buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
-        }
+        } */
       } else if(std::regex_match(buffer, question)) { // Special ${?}
         while(std::regex_search(buffer, matches, question)) {
           buffer = std::regex_replace(buffer, question, std::to_string(last_return_code));
