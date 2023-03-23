@@ -1057,7 +1057,7 @@ YY_RULE_SETUP
           std::string cur_match = matches.str(1); // Get the group match
           // First check if the environment variable exists
           if(getenv(cur_match.c_str())) { // If there are replace them with the expanded environment variable
-            buffer = std::regex_replace(buffer, standard, getenv(matches.str(index).c_str()));
+            buffer = std::regex_replace(buffer, standard, getenv(cur_match.c_str()));
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, standard, "");
           }
