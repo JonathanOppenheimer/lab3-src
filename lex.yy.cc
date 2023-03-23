@@ -1054,7 +1054,8 @@ YY_RULE_SETUP
         const std::sregex_token_iterator End;
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
-          std::cout << "Match value: " << matches.str().substr(2, matches.str().size() - 2) << " at Position " << matches.position() << '\n';
+          std::string cur_match = matches.str()
+          cur_match = cur_match.substr(2, cur_match().size() - 1);
           /* for(auto index = 1; index < matches.size(); ++index ) {
             if (matches[index].matched) {
               std::cout << "Capture group ID: " << index-1 << std::endl;
@@ -1134,7 +1135,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 272 "shell.l"
+#line 273 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1143,7 +1144,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 277 "shell.l"
+#line 278 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1153,10 +1154,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 284 "shell.l"
+#line 285 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1160 "lex.yy.cc"
+#line 1161 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2217,4 +2218,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 284 "shell.l"
+#line 285 "shell.l"
