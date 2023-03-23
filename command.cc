@@ -227,8 +227,10 @@ void Command::execute() {
       // Set environment variable
       if (!strcmp(argv[0], "setenv")) {
         builtin_cmd = true;
-        if (argv.size() != 4) {
-          fprintf(stderr, "setenv: Invalid arguement count.\n");
+        if (argv.size() > (3 + 1)) {
+          fprintf(stderr, "setenv: too many arguments\n");
+        } else if (argv.size() < (3 + 1)) {
+          fprintf(stderr, "setenv: too few arguments\n");
         } else {
           if (setenv(argv[1], argv[2], 1)) {
             perror("setenv");
@@ -240,8 +242,14 @@ void Command::execute() {
       // Unset environment variable
       if (!strcmp(argv[0], "unsetenv")) {
         builtin_cmd = true;
-        if (unsetenv(argv[1])) {
-          perror("unsetenv");
+        if (argv.size() > (2 + 1)) {
+          fprintf(stderr, "unsetenv: too many arguments\n");
+        } else if (argv.size() < (2 + 1)) {
+          fprintf(stderr, "setenv: too few arguments\n");
+        } else {
+          if (unsetenv(argv[1])) {
+            perror("unsetenv");
+          }
         }
         status = 0;
       }
@@ -249,18 +257,21 @@ void Command::execute() {
       // Change directory
       if (!strcmp(argv[0], "cd")) {
         builtin_cmd = true;
-
-        std::string error_string; // If the directory does not exist
-        // No argument provided, default to home directory
-        if (argv[1] == nullptr) {
-          error_string = "cd: can't cd to " + std::string(getenv("HOME"));
-          if (chdir(getenv("HOME"))) {
-            perror(error_string.c_str());
-          }
-        } else { // Otherwise go to provided directory
-          error_string = "cd: can't cd to " + std::string(argv[1]);
-          if (chdir(argv[1])) {
-            perror(error_string.c_str());
+        if (argv.size() > (2 + 1)) {
+          fprintf(stderr, "cd: too many arguments\n");
+        } else {
+          std::string error_string; // If the directory does not exist
+          // No argument provided, default to home directory
+          if (argv[1] == nullptr) {
+            error_string = "cd: can't cd to " + std::string(getenv("HOME"));
+            if (chdir(getenv("HOME"))) {
+              perror(error_string.c_str());
+            }
+          } else { // Otherwise go to provided directory
+            error_string = "cd: can't cd to " + std::string(argv[1]);
+            if (chdir(argv[1])) {
+              perror(error_string.c_str());
+            }
           }
         }
         status = 0;
