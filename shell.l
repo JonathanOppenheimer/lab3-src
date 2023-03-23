@@ -189,7 +189,7 @@ void myunputc(int c) {
       if(std::regex_search(buffer, standard)){
         const std::sregex_token_iterator End;
         // Expression.assign("rel=\"nofollow\">(.*?)</a>");
-        for (std::sregex_token_iterator match(buffer.begin(), buffer.end(), standard, 1); match != End; ++i) {
+        for (std::sregex_token_iterator match(buffer.begin(), buffer.end(), standard, 1); match != End; ++match) {
           std::cout << *match << std::endl; // *i only yields the captured part
         }
 
