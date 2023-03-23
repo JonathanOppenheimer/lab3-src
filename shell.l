@@ -186,8 +186,16 @@ void myunputc(int c) {
       // Where to keep the results of the regex
       std::smatch matches;
 
-      if(std::regex_search(buffer, standard)){
-        const std::sregex_token_iterator End;
+      if(std::regex_search(buffer, standard)) {
+        while(std::regex_search(buffer, matches, standard)) {
+          if(getenv(matches.str(1).c_str())) { // If there are replace them with the expanded environment variable
+            buffer = std::regex_replace(buffer, matches.str(), getenv(matches.str(1).c_str()));
+          } else { // If not delete the ${x}
+            buffer = std::regex_replace(buffer, matches.str(), "");
+          }
+        }
+
+        /* const std::sregex_token_iterator End;
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
           std::string cur_match = matches.str(); // Get the group match
@@ -198,7 +206,7 @@ void myunputc(int c) {
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, standard, "");
           }
-        }
+        } */
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         while(std::regex_search(buffer, matches, dollar)) {
           buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
