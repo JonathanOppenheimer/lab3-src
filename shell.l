@@ -190,10 +190,11 @@ void myunputc(int c) {
         const std::sregex_token_iterator End;
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
-          std::string cur_match = matches.str(1); // Get the group match
+          std::string cur_match = matches.str(); // Get the group match
           // First check if the environment variable exists
+          std::cout << cur_match + "\n";
           if(getenv(cur_match.c_str())) { // If there are replace them with the expanded environment variable
-            buffer = std::regex_replace(buffer, "\\$\\{" + cur_match + "\\}", getenv(cur_match.c_str()));
+            buffer = std::regex_replace(buffer, standard, getenv(cur_match.c_str()));
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, standard, "");
           }
