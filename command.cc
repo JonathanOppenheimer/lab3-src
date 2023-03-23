@@ -230,6 +230,7 @@ void Command::execute() {
         if (setenv(argv[1], argv[2], 1)) {
           perror("setenv");
         }
+        status = 0;
       }
 
       // Unset environment variable
