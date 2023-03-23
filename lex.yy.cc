@@ -1053,13 +1053,12 @@ YY_RULE_SETUP
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
           std::cout << matches.str() + "\n";
-          std::regex cur_match("\"" + matches.str() + "\"");
-          /* std::regex cur_match(matches.str()); // Formulate specific regex
+          std::regex cur_match("\"" + matches.str() + "\""); // Formulate specific regex
           if(getenv(matches.str(1).c_str())) { // If there are replace them with the expanded environment variable
             buffer = std::regex_replace(buffer, cur_match, getenv(matches.str(1).c_str()));
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, cur_match, "");
-          } */
+          }
         }
 
         /* const std::sregex_token_iterator End;
@@ -1135,7 +1134,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 273 "shell.l"
+#line 272 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1144,7 +1143,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 278 "shell.l"
+#line 277 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1154,10 +1153,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 285 "shell.l"
+#line 284 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1161 "lex.yy.cc"
+#line 1160 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2218,4 +2217,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 285 "shell.l"
+#line 284 "shell.l"
