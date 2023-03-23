@@ -191,7 +191,7 @@ void myunputc(int c) {
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
           std::string cur_match = matches.str(1);
-          cur_match = cur_match.substr(2, cur_match().length() - 1);
+          cur_match = cur_match.substr(2, cur_match.length() - 1);
           /* for(auto index = 1; index < matches.size(); ++index ) {
             if (matches[index].matched) {
               std::cout << "Capture group ID: " << index-1 << std::endl;
