@@ -188,7 +188,6 @@ void myunputc(int c) {
 
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
-          std::cout << matches.str(1) + "\n";
           std::regex cur_match("\\$\\{" + matches.str(1) + "\\}"); // Formulate specific regex
           if(getenv(matches.str(1).c_str())) { // If there are replace them with the expanded environment variable
             buffer = std::regex_replace(buffer, cur_match, getenv(matches.str(1).c_str()));
