@@ -192,6 +192,7 @@ void myunputc(int c) {
           matches = *i;
           std::string cur_match = matches.str(1);
           cur_match = cur_match.substr(2, cur_match.length() - 1);
+          std::cout << cur_match;
           /* for(auto index = 1; index < matches.size(); ++index ) {
             if (matches[index].matched) {
               std::cout << "Capture group ID: " << index-1 << std::endl;
