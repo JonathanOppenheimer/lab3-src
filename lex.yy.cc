@@ -1054,7 +1054,7 @@ YY_RULE_SETUP
         const std::sregex_token_iterator End;
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
-          std::string cur_match = matches.str();
+          std::string cur_match = matches.str(1);
           cur_match = cur_match.substr(2, cur_match().size() - 1);
           /* for(auto index = 1; index < matches.size(); ++index ) {
             if (matches[index].matched) {
