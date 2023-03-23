@@ -190,26 +190,15 @@ void myunputc(int c) {
         const std::sregex_token_iterator End;
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
-          std::string cur_match = matches.str(1);
-          std::cout << cur_match + "\n";
-          /* for(auto index = 1; index < matches.size(); ++index ) {
-            if (matches[index].matched) {
-              std::cout << "Capture group ID: " << index-1 << std::endl;
-              break;
-            }
-            std::cout << matches.str(1);
-          } */
-        }
-        /* int index = 1; // Used to get the groups (needs to be incremented by 2 every time)
-        while(std::regex_search(buffer, matches, standard)) {
+          std::string cur_match = matches.str(1); // Get the group match
           // First check if the environment variable exists
-          if(getenv(matches.str(index).c_str())) { // If there are replace them with the expanded environment variable
+          if(getenv(cur_match.c_str())) { // If there are replace them with the expanded environment variable
             buffer = std::regex_replace(buffer, standard, getenv(matches.str(index).c_str()));
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, standard, "");
           }
           std::cout << matches.str(3);
-        } */
+        }
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         while(std::regex_search(buffer, matches, dollar)) {
           buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
