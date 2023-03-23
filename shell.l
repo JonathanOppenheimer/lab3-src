@@ -188,7 +188,7 @@ void myunputc(int c) {
 
       if(std::regex_search(buffer, standard)){
         const std::sregex_token_iterator End;
-        for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard, 1); i != std::sregex_iterator(); ++i) {
+        for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
           std::string cur_match = matches.str();
           cur_match = cur_match.substr(2, cur_match().size() - 1);
