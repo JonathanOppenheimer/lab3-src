@@ -1050,8 +1050,14 @@ YY_RULE_SETUP
       // Where to keep the results of the regex
       std::smatch matches;
 
-      if(std::regex_search(buffer, standard)) {
-        int index = 1; // Used to get the groups (needs to be incremented by 2 every time)
+      if(std::regex_search(buffer, standard)){
+        const std::sregex_token_iterator End;
+        Expression.assign("rel=\"nofollow\">(.*?)</a>");
+        for (std::sregex_token_iterator match(Tables.begin(), Tables.end(), Expression, 1); i != End; ++i) {
+          std::cout << *match << std::endl; // *i only yields the captured part
+        }
+
+        /* int index = 1; // Used to get the groups (needs to be incremented by 2 every time)
         while(std::regex_search(buffer, matches, standard)) {
           // First check if the environment variable exists
           if(getenv(matches.str(index).c_str())) { // If there are replace them with the expanded environment variable
@@ -1059,8 +1065,8 @@ YY_RULE_SETUP
           } else { // If not delete the ${x}
             buffer = std::regex_replace(buffer, standard, "");
           }
-          std::cout << matches.str(3); 
-        }
+          std::cout << matches.str(3);
+        } */
       } else if(std::regex_match(buffer, dollar)) { // Special ${$}
         while(std::regex_search(buffer, matches, dollar)) {
           buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
@@ -1122,7 +1128,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 260 "shell.l"
+#line 266 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1131,7 +1137,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 265 "shell.l"
+#line 271 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1141,10 +1147,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 272 "shell.l"
+#line 278 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1148 "lex.yy.cc"
+#line 1154 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2205,4 +2211,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 272 "shell.l"
+#line 278 "shell.l"
