@@ -227,8 +227,12 @@ void Command::execute() {
       // Set environment variable
       if (!strcmp(argv[0], "setenv")) {
         builtin_cmd = true;
-        if (setenv(argv[1], argv[2], 1)) {
+        if (argv.size() != 4) {
           perror("setenv");
+        } else {
+          if (setenv(argv[1], argv[2], 1)) {
+            perror("setenv");
+          }
         }
         status = 0;
       }
