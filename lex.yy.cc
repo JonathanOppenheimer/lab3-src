@@ -1053,7 +1053,7 @@ YY_RULE_SETUP
       if(std::regex_search(buffer, standard)){
         const std::sregex_token_iterator End;
         Expression.assign("rel=\"nofollow\">(.*?)</a>");
-        for (std::sregex_token_iterator match(buffer.begin(), buffer.end(), Expression, 1); i != End; ++i) {
+        for (std::sregex_token_iterator match(buffer.begin(), buffer.end(), Expression, 1); match != End; ++i) {
           std::cout << *match << std::endl; // *i only yields the captured part
         }
 
