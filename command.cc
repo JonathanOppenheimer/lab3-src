@@ -229,8 +229,9 @@ void Command::execute() {
         builtin_cmd = true;
         if (setenv(argv[1], argv[2], 1)) {
           perror("setenv");
+        } else {
+          status = 0;
         }
-        status = 0;
       }
 
       // Unset environment variable
@@ -238,6 +239,8 @@ void Command::execute() {
         builtin_cmd = true;
         if (unsetenv(argv[1])) {
           perror("unsetenv");
+        } else {
+          status = 0;
         }
       }
 
@@ -251,11 +254,16 @@ void Command::execute() {
           error_string = "cd: can't cd to " + std::string(getenv("HOME"));
           if (chdir(getenv("HOME"))) {
             perror(error_string.c_str());
+          } else {
+            status = 0;
           }
+
         } else { // Otherwise go to provided directory
           error_string = "cd: can't cd to " + std::string(argv[1]);
           if (chdir(argv[1])) {
             perror(error_string.c_str());
+          } else {
+            status = 0;
           }
         }
       }
