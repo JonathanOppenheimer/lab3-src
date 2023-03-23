@@ -188,9 +188,7 @@ void myunputc(int c) {
 
       if(std::regex_search(buffer, standard)){
         const std::sregex_token_iterator End;
-        // Expression.assign("rel=\"nofollow\">(.*?)</a>");
         for (std::sregex_token_iterator i(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
-          // std::cout << *match << std::endl; // *i only yields the captured part
           std::smatch m = *i;
           std::cout << "Match value: " << m.str() << " at Position " << m.position() << '\n';
           for(auto index = 1; index < m.size(); ++index ) {
@@ -200,7 +198,6 @@ void myunputc(int c) {
             }
           }
         }
-      }
         /* int index = 1; // Used to get the groups (needs to be incremented by 2 every time)
         while(std::regex_search(buffer, matches, standard)) {
           // First check if the environment variable exists
