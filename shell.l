@@ -183,14 +183,15 @@ void myunputc(int c) {
       std::regex underscore("\\$\\{_\\}");
       std::regex name_shell("\\$\\{SHELL\\}");
 
-      // Where to keep the results of the regex
-      std::smatch matches;
+      // Do simple (non-variable) regex replacements first
       buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
       buffer = std::regex_replace(buffer, question, std::to_string(last_return_code));
       buffer = std::regex_replace(buffer, exclamation, std::to_string(last_background_pid));
       buffer = std::regex_replace(buffer, underscore, last_argument);
       buffer = std::regex_replace(buffer, name_shell, shell_location);
 
+      // Do more standard regexes next - and then error for all other regex matches (non valid env_vars)
+      std::smatch matches; // Where to keep the results of the regex
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
           std::regex cur_match("\\$\\{" + matches.str(1) + "\\}"); // Formulate specific regex
@@ -200,7 +201,7 @@ void myunputc(int c) {
             buffer = std::regex_replace(buffer, cur_match, "");
           }
         }
-      } else {
+      } else { // Doesn't work
         std::cout << buffer + ": bad substitution\n";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
         return NEWLINE;

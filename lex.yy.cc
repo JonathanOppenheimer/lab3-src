@@ -1049,9 +1049,11 @@ YY_RULE_SETUP
 
       // Where to keep the results of the regex
       std::smatch matches;
-      
       buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
-      
+      buffer = std::regex_replace(buffer, question, std::to_string(last_return_code));
+      buffer = std::regex_replace(buffer, exclamation, std::to_string(last_background_pid));
+      buffer = std::regex_replace(buffer, underscore, last_argument);
+      buffer = std::regex_replace(buffer, name_shell, shell_location);
 
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
@@ -1062,44 +1064,11 @@ YY_RULE_SETUP
             buffer = std::regex_replace(buffer, cur_match, "");
           }
         }
-
-        /* const std::sregex_token_iterator End;
-        for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
-          matches = *i;
-          std::string cur_match = matches.str(); // Get the group match
-          // First check if the environment variable exists
-          std::cout << cur_match + "\n";
-          if(getenv(cur_match.c_str())) { // If there are replace them with the expanded environment variable
-            buffer = std::regex_replace(buffer, standard, getenv(cur_match.c_str()));
-          } else { // If not delete the ${x}
-            buffer = std::regex_replace(buffer, standard, "");
-          }
-        } */
-      /* } else if(std::regex_match(buffer, dollar)) { // Special ${$}
-        while(std::regex_search(buffer, matches, dollar)) {
-          buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
-        } */
-      } else if(std::regex_match(buffer, question)) { // Special ${?}
-        while(std::regex_search(buffer, matches, question)) {
-          buffer = std::regex_replace(buffer, question, std::to_string(last_return_code));
-        }
-      } else if(std::regex_match(buffer, exclamation)) { // Special ${!}
-        while(std::regex_search(buffer, matches, exclamation)) {
-          buffer = std::regex_replace(buffer, exclamation, std::to_string(last_background_pid));
-        }
-      } else if(std::regex_match(buffer, underscore)) { // Special ${_}
-        while(std::regex_search(buffer, matches, underscore)) {
-          buffer = std::regex_replace(buffer, underscore, last_argument);
-        }
-      } else if(std::regex_match(buffer, name_shell)) { // Special ${SHELL}
-        while(std::regex_search(buffer, matches, name_shell)) {
-          buffer = std::regex_replace(buffer, name_shell, shell_location);
-        }
-      } /* else {
+      } else {
         std::cout << buffer + ": bad substitution\n";
         YY_FLUSH_BUFFER; // Flush yyin stop parsing
         return NEWLINE;
-      } */
+      }
     }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
@@ -1136,7 +1105,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 274 "shell.l"
+#line 243 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1145,7 +1114,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 279 "shell.l"
+#line 248 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1155,10 +1124,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 286 "shell.l"
+#line 255 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1162 "lex.yy.cc"
+#line 1131 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2219,4 +2188,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 286 "shell.l"
+#line 255 "shell.l"
