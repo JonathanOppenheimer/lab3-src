@@ -1055,7 +1055,7 @@ YY_RULE_SETUP
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
           std::string cur_match = matches.str(1);
-          cur_match = cur_match.substr(2, cur_match.length() - 1);
+          cur_match = cur_match.substr(0, cur_match.length() - 1);
           std::cout << cur_match;
           /* for(auto index = 1; index < matches.size(); ++index ) {
             if (matches[index].matched) {
