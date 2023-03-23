@@ -285,6 +285,8 @@ void Command::execute() {
           exit(2);
         }
       }
+
+      builtin_cmd = false;
     }
 
     // Restore input, output, and error defaults

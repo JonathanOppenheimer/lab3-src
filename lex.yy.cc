@@ -1054,7 +1054,7 @@ YY_RULE_SETUP
       buffer = std::regex_replace(buffer, underscore, last_argument);
       buffer = std::regex_replace(buffer, name_shell, shell_location);
 
-      // Do more standard regexes next - and then error for all other regex matches (non valid env_vars)
+      // Do more standard regexes next 
       std::smatch matches; // Where to keep the results of the regex
       if(std::regex_search(buffer, standard)) {
         while(std::regex_search(buffer, matches, standard)) {
@@ -1065,11 +1065,13 @@ YY_RULE_SETUP
             buffer = std::regex_replace(buffer, cur_match, "");
           }
         }
-      } else { // Doesn't work
-        std::cout << buffer + ": bad substitution\n";
-        YY_FLUSH_BUFFER; // Flush yyin stop parsing
-        return NEWLINE;
       }
+    }
+    // If anything else remains it must be a bad regex (non_valid env_vars) - so serror
+    if(std::regex_search(buffer, container)) {
+      std::cout << buffer + ": bad substitution\n";
+      YY_FLUSH_BUFFER; // Flush yyin stop parsing
+      return NEWLINE;
     }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
@@ -1106,7 +1108,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 21:
 YY_RULE_SETUP
-#line 244 "shell.l"
+#line 246 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1115,7 +1117,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 249 "shell.l"
+#line 251 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1125,10 +1127,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 256 "shell.l"
+#line 258 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1132 "lex.yy.cc"
+#line 1134 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2189,4 +2191,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 256 "shell.l"
+#line 258 "shell.l"
