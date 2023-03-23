@@ -1054,7 +1054,7 @@ YY_RULE_SETUP
         const std::sregex_token_iterator End;
         for(std::sregex_iterator i = std::sregex_iterator(buffer.begin(), buffer.end(), standard); i != std::sregex_iterator(); ++i) {
           matches = *i;
-          std::cout << "Match value: " << matches.str().erase(0, 2).pop_back() << " at Position " << matches.position() << '\n';
+          std::cout << "Match value: " << matches.str().erase(0, 2).erase(0, matches.size() - 1) << " at Position " << matches.position() << '\n';
           /* for(auto index = 1; index < matches.size(); ++index ) {
             if (matches[index].matched) {
               std::cout << "Capture group ID: " << index-1 << std::endl;
