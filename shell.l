@@ -89,8 +89,9 @@ void myunputc(int c) {
     /* eat the whitespace */
   }
 
-  \n { /* Didn't provide an arguement */ 
-    std::cout << "source: usage: source filename [arguments]\n";
+  \n { /* Didn't provide an arguement */
+    fprintf(stderr, "source: filename argument required\n");
+    fprintf(stderr, "source: usage: source filename [arguments]\n");
     BEGIN(INITIAL);
     return NEWLINE;
   }
