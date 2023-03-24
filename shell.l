@@ -127,8 +127,6 @@ void myunputc(int c) {
   // Append 'exit' to the command so we can leave the subshell
   trimmed += "\nexit\n";
   
-  std::cout << trimmed;
-
   // Save old input and output
   int old_in = dup(0);
   int old_out = dup(1);
@@ -175,7 +173,7 @@ void myunputc(int c) {
   std::vector<char *> results;
   char char_buffer[1];
   int is_eof = read(pout[0], char_buffer, 1);
-  while(!is_eof) {
+  while(is_eof) {
     results.push_back(char_buffer);
     fprintf(stderr, "%s\n", char_buffer);
     int is_eof = read(pout[0], char_buffer, 1);
