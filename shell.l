@@ -124,7 +124,7 @@ void myunputc(int c) {
 \$\([^\n\)][^\n\)]*\) {
   raw_subshell.clear();
   raw_subshell += yytext;
-  std::cout << buffer;
+  std::cout << raw_subshell;
   return NEWLINE;
 }
 
