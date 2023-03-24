@@ -136,7 +136,6 @@ void myunputc(int c) {
   int pout[2]; // Output of length
   pipe(pin);
   pipe(pout);
-  
 
   // Write the command into the created in pipe
   write(pin[1], trimmed.c_str(), trimmed.length());
@@ -177,11 +176,10 @@ void myunputc(int c) {
     if(*char_buffer != '\n') {
       results.push_back(char_buffer);
     }
-    fprintf(stderr, "%s", char_buffer);
+    // fprintf(stderr, "%s", char_buffer);
     eof = read(pout[0], char_buffer, 1);
   }
   
-  fprintf(stderr, "%d", results.size());
   while(!results.empty()) {
     myunputc((int)results.back()[1]);
     results.pop_back();
