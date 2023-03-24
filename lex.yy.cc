@@ -1030,15 +1030,15 @@ YY_RULE_SETUP
     // if(*char_buffer != '\n') {
     results.push_back(char_buffer);
     // fprintf(stderr, "%s\n", char_buffer);
-    fprintf(stderr, "%s\n", results.back());
+    // fprintf(stderr, "%s\n", results.back());
     // }
     eof = read(pout[0], char_buffer, 1);
   }
 
   while(!results.empty()) {
     char temp = *results.back();
-    fprintf(stderr, "%c", temp);
-    // myunputc(results.back());
+    // fprintf(stderr, "%c", temp);
+    myunputc(results.back());
     results.pop_back();
   }
 
