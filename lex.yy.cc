@@ -1029,7 +1029,7 @@ YY_RULE_SETUP
   while(eof != 0) {
     if(*char_buffer != '\n') {
       results.push_back(char_buffer);
-      fprintf(stderr, "%s", *char_buffer);
+      fprintf(stderr, "%s", char_buffer);
     }
     eof = read(pout[0], char_buffer, 1);
   }
