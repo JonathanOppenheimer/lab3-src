@@ -126,7 +126,7 @@ void myunputc(int c) {
   }
 
   [^\n\)][^\n\)]* {
-    raw_subshell += yytext;
+    buffer += yytext;
   }
 
   \n {
@@ -135,7 +135,7 @@ void myunputc(int c) {
   }
 
   \) {
-    std::cout << raw_subshell;
+    std::cout << buffer;
     BEGIN(INITIAL);
     return NEWLINE;
   }

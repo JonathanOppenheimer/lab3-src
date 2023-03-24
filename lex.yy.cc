@@ -1143,9 +1143,11 @@ YY_RULE_SETUP
      * to close it.
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
-      //
-      // if(buffer[i] == '$')
-      // Detect $( to begin subshell
+      
+      if(buffer[i] == '$' && buffer[i+1] == '(') {
+        buffer.erase(i,2);
+        BEGIN(subshell);
+      }
       
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
@@ -1176,7 +1178,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 26:
 YY_RULE_SETUP
-#line 281 "shell.l"
+#line 283 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1186,7 +1188,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 286 "shell.l"
+#line 288 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1196,10 +1198,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 293 "shell.l"
+#line 295 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1203 "lex.yy.cc"
+#line 1205 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2260,4 +2262,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 293 "shell.l"
+#line 295 "shell.l"
