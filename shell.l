@@ -173,7 +173,6 @@ void myunputc(int c) {
   std::vector<char *> results;
   char char_buffer[1];
   int eof = read(pout[0], char_buffer, 1);
-  std::cerr << not_eof;
   while(eof != 0) {
     // if(*char_buffer != '\n') {
     results.push_back(char_buffer);
