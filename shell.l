@@ -247,7 +247,7 @@ void myunputc(int c) {
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
       //
-      if(buffer[i] == '$')
+      // if(buffer[i] == '$')
       // Detect $( to begin subshell
       
       if(buffer[i] == '"') {
