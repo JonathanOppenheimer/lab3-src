@@ -181,6 +181,8 @@ void myunputc(int c) {
     eof = read(pout[0], char_buffer, 1);
   }
 
+  std::cerr << results;
+
   while(!results.empty()) {
     char temp = *results.back();
     // fprintf(stderr, "%c", temp);
