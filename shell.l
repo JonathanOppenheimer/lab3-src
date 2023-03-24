@@ -123,6 +123,19 @@ void myunputc(int c) {
 
   // Delete the $( and )
   std::string trimmed = raw_subshell.substr(2, raw_subshell.length() - 3);
+  
+
+  // Save old input and output
+  int old_in = dup(0);
+  int old_out = dup(1);
+
+  // Create pipes for communication between the subshell and the shell -- PARENT
+  int pin[2];
+  int pout[2];
+
+  pipe(pin);
+  pipe(iout)
+
 
   std::cout << trimmed;
   return NEWLINE;
