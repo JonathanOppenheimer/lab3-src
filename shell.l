@@ -128,6 +128,8 @@ void myunputc(int c) {
   [^\n][^\n]*\) {
     buffer += yytext;
     std::cout << buffer;
+    BEGIN(INITIAL);
+    return NEWLINE;
   }
 
   \n {
