@@ -157,7 +157,9 @@ void myunputc(int c) {
   // Execute the subshell commands
   int ret = fork();
   if(ret == 0) {
-    // 
+    execvp(subshell_commands[0], subshell_commands.data());
+    perror("execvp");
+    _exit(1);
   }
 
 
