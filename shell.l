@@ -138,7 +138,7 @@ void myunputc(int c) {
   pipe(pout);
 
   // Write the command into the created in pipe
-  write(pin[1], trimmed.c_str());
+  write(pin[1], trimmed.c_str(), trimmed.length());
 
   // Set up input to put into subshell
   dup2(pin[0], 0);
