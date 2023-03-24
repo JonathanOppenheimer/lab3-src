@@ -126,6 +126,9 @@ void myunputc(int c) {
 
   // Append 'exit' to the command so we can leave the subshell
   trimmed += "\nexit\n";
+
+  std::cout << trimmed.length(); 
+
   
   // Save old input and output
   int old_in = dup(0);
@@ -136,6 +139,7 @@ void myunputc(int c) {
   int pout[2]; // Output of length
   pipe(pin);
   pipe(pout);
+  
 
   // Write the command into the created in pipe
   write(pin[1], trimmed.c_str(), trimmed.length());
