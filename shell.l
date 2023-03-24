@@ -180,7 +180,7 @@ void myunputc(int c) {
   }
 
   while(!results.empty()) {
-    myunputc(results.back());
+    myunputc((int)results.back());
     results.pop_back();
   }
 
