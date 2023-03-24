@@ -182,8 +182,9 @@ void myunputc(int c) {
   }
 
   while(!results.empty()) {
-    fprintf(stderr, "%s", results.back());
-    myunputc((char *)results.back());
+    char temp = *results.back()
+    fprintf(stderr, "%c", temp);
+    myunputc(results.back());
     results.pop_back();
   }
 
