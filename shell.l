@@ -128,8 +128,7 @@ void myunputc(int c) {
   trimmed += "\nexit\n";
 
   std::cout << trimmed.length(); 
-
-  
+ 
   // Save old input and output
   int old_in = dup(0);
   int old_out = dup(1);
@@ -161,7 +160,6 @@ void myunputc(int c) {
   // Execute the subshell commands
   int ret = fork();
   if(ret == 0) {
-    fprintf(stderr, "I'm in ret\n");
     execvp(subshell_commands[0], subshell_commands.data());
     perror("execvp");
     _exit(1);
