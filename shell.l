@@ -176,14 +176,13 @@ void myunputc(int c) {
     if(*char_buffer != '\n') {
       results.push_back(char_buffer);
       fprintf(stderr, "%s", char_buffer);
-
     }
     eof = read(pout[0], char_buffer, 1);
   }
 
   while(!results.empty()) {
     fprintf(stderr, "%s", results.back()[0]);
-    myunputc((int)results.back()[0]);
+    myunputc(results.back()[0]);
     results.pop_back();
   }
 
