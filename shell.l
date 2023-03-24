@@ -179,7 +179,7 @@ void myunputc(int c) {
     results.push_back(char_buffer);
     // }
     fprintf(stderr, "%s\n", char_buffer);
-    int is_eof = read(pout[0], char_buffer, 1);
+    eof = read(pout[0], char_buffer, 1);
   }
   
   fprintf(stderr, "%d", results.size());
