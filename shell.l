@@ -172,14 +172,14 @@ void myunputc(int c) {
   // Now we need to read from pout 0 and put it back into the buffer
   std::vector<char *> results;
   char char_buffer[1];
-  int is_eof = read(pout[0], char_buffer, 1);
-  /* while(is_eof) {
+  read(pout[0], char_buffer, 1);
+  while(!pout[0].eof()) {
     // if(*char_buffer != '\n') {
     results.push_back(char_buffer);
     // }
     fprintf(stderr, "%s\n", char_buffer);
     int is_eof = read(pout[0], char_buffer, 1);
-  } */
+  } 
   
   fprintf(stderr, "%d", results.size());
   /* while(!results.empty()) {
