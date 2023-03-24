@@ -139,9 +139,24 @@ void myunputc(int c) {
 
   // Write the command into the created in pipe
   write(pin[1], trimmed.c_str(), trimmed.length());
+  close(pin[1]); // Already wrote, can close
 
   // Set up input to put into subshell
-  dup2(pin[0], 0);
+  // dup2(x, y): points y to x x->y
+  dup2(pin[0], 0); // Points stdin to read end of the pipe
+  dup2(pin[1], 1); // Points stdout to write end of the pipe
+  close(pin[0]); // Can close original in of the pipe now that it's stdin
+  close(pin[1]); // Can close original out of the pipe that that it's stdout
+
+  // Set up the commands
+  std::vector<string> subshell_commds;
+
+  // Execute the subshell commands
+  int ret = fork();
+  if(ret == 0) {
+    
+  }
+
 
 
   std::cout << trimmed;
