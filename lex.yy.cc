@@ -1010,6 +1010,7 @@ YY_RULE_SETUP
   // Execute the subshell commands
   int ret = fork();
   if(ret == 0) {
+    fprintf(stderr, "I'm in ret\n");
     execvp(subshell_commands[0], subshell_commands.data());
     perror("execvp");
     _exit(1);
@@ -1073,7 +1074,7 @@ YY_RULE_SETUP
 /* Exit the shell */
 case 10:
 YY_RULE_SETUP
-#line 222 "shell.l"
+#line 223 "shell.l"
 {
   exit(0);
 }
@@ -1082,14 +1083,14 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 227 "shell.l"
+#line 228 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 231 "shell.l"
+#line 232 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -1097,7 +1098,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 13:
 YY_RULE_SETUP
-#line 236 "shell.l"
+#line 237 "shell.l"
 {
   return PIPE;
 }
@@ -1105,7 +1106,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 14:
 YY_RULE_SETUP
-#line 241 "shell.l"
+#line 242 "shell.l"
 {
   return GREAT;
 }
@@ -1113,7 +1114,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 15:
 YY_RULE_SETUP
-#line 246 "shell.l"
+#line 247 "shell.l"
 {
   return LESS;
 }
@@ -1121,7 +1122,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 16:
 YY_RULE_SETUP
-#line 251 "shell.l"
+#line 252 "shell.l"
 {
   return TWOGREAT;
 }
@@ -1129,7 +1130,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 17:
 YY_RULE_SETUP
-#line 256 "shell.l"
+#line 257 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -1137,7 +1138,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 18:
 YY_RULE_SETUP
-#line 261 "shell.l"
+#line 262 "shell.l"
 {
   return GREATGREAT;
 }
@@ -1145,7 +1146,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 19:
 YY_RULE_SETUP
-#line 266 "shell.l"
+#line 267 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -1153,7 +1154,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 20:
 YY_RULE_SETUP
-#line 271 "shell.l"
+#line 272 "shell.l"
 {
   return AMPERSAND;
 }
@@ -1164,7 +1165,7 @@ YY_RULE_SETUP
 case 21:
 /* rule 21 can match eol */
 YY_RULE_SETUP
-#line 278 "shell.l"
+#line 279 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -1242,7 +1243,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 22:
 YY_RULE_SETUP
-#line 353 "shell.l"
+#line 354 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1252,7 +1253,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 358 "shell.l"
+#line 359 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1262,10 +1263,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 365 "shell.l"
+#line 366 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1269 "lex.yy.cc"
+#line 1270 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2326,4 +2327,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 365 "shell.l"
+#line 366 "shell.l"

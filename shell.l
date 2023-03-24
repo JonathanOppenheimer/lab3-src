@@ -174,8 +174,8 @@ void myunputc(int c) {
   int is_eof = read(pout[0], char_buffer, 1);
   while(!is_eof) {
     results.push_back(char_buffer);
-    int is_eof = read(pout[0], char_buffer, 1);
     fprintf(stderr, "%s\n", char_buffer);
+    int is_eof = read(pout[0], char_buffer, 1);
   }
 
   /* while(!results.empty()) {
