@@ -174,7 +174,7 @@ void myunputc(int c) {
   int eof = read(pout[0], char_buffer, 1);
   while(eof != 0) {
     if(char_buffer[0] != '\n') {
-      results.push_back(char_buffer[0]);
+      results.push_back(*char_buffer[0]);
       fprintf(stderr, "%s", char_buffer[0]);
     }
     eof = read(pout[0], char_buffer, 1);
