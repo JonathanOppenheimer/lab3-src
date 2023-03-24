@@ -149,7 +149,9 @@ void myunputc(int c) {
   close(pin[1]); // Can close original out of the pipe that that it's stdout
 
   // Set up the commands
-  std::vector<string> subshell_commds;
+  std::vector<char *> subshell_commands;
+  subshell_commands.push_back("/proc/self/exe");
+  subshell_commands.push_back(trimmed.c_str());
 
   // Execute the subshell commands
   int ret = fork();
