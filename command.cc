@@ -209,7 +209,7 @@ void Command::execute() {
       SimpleCommand *current_command = _simpleCommands.at(i);
       std::vector<std::string *> vector_args = current_command->_arguments;
 
-      // Conver the arguement vector into an arg list
+      // Convert the arguement vector into an arg list
       std::vector<char *> argv(vector_args.size() + 1);
 
       // Copy pointers to each string's buffer into the new vector
