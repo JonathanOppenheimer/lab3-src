@@ -1033,7 +1033,7 @@ YY_RULE_SETUP
       results.push_back(*char_buffer);
       // fprintf(stderr, "%s\n", char_buffer);
     }
-    fprintf(stderr, "%s", results.back());
+    fprintf(stderr, "%c", results.back());
     eof = read(pout[0], char_buffer, 1);
   }
 
