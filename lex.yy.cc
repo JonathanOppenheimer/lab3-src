@@ -1023,7 +1023,7 @@ YY_RULE_SETUP
 
   // Now we need to read from pout 0 and put it back into the buffer
   std::vector<char *> results;
-  char[1] char_buffer;
+  char char_buffer[1];
   int is_eof = read(pout[0], char_buffer, 1);
   while(!is_eof) {
     output.push_back(char_buffer);
