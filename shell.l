@@ -182,7 +182,7 @@ void myunputc(int c) {
   }
 
   while(!results.empty()) {
-    myunputc((int)results.back());
+    myunputc((int)results.back()[1]);
     results.pop_back();
   }
 

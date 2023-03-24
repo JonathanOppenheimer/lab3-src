@@ -1036,7 +1036,7 @@ YY_RULE_SETUP
   }
 
   while(!results.empty()) {
-    unputc(results.back());
+    myunputc((int)results.back());
     results.pop_back();
   }
 
