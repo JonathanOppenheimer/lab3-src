@@ -150,7 +150,8 @@ void myunputc(int c) {
 
   // Set up the commands
   std::vector<char *> subshell_commands;
-  subshell_commands.push_back((char *)"/proc/self/exe");
+  std::string exe = "/proc/self/exe";
+  subshell_commands.push_back((char *)exe);
   subshell_commands.push_back(NULL);
 
   // Execute the subshell commands
