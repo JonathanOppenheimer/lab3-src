@@ -123,18 +123,25 @@ void myunputc(int c) {
 
   // Delete the $( and )
   std::string trimmed = raw_subshell.substr(2, raw_subshell.length() - 3);
-  
+
+  // Append 'exit' to the command so we can leave the subshell
+  trimmed += "\nexit\n";
 
   // Save old input and output
   int old_in = dup(0);
   int old_out = dup(1);
 
   // Create pipes for communication between the subshell and the shell -- PARENT
-  int pin[2];
-  int pout[2];
-
+  int pin[2]; // Input of length 2
+  int pout[2]; // Output of length
   pipe(pin);
-  pipe(iout)
+  pipe(pout);
+
+  // Write the command into the created in pipe
+  write(pin[1], trimmed);
+
+  // Set up input to put into subshell
+  dup2(pin[0], 0);
 
 
   std::cout << trimmed;
