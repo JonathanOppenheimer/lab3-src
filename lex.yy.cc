@@ -998,14 +998,13 @@ YY_RULE_SETUP
   // Set up input to put into subshell
   // dup2(x, y): points y to x x->y
   dup2(pin[0], 0); // Points stdin to read end of the pipe
-  dup2(pin[1], 1); // Points stdout to write end of the pipe
+  dup2(pout[1], 1); // Points stdout to write end of the pipe
   close(pin[0]); // Can close original in of the pipe now that it's stdin
-  close(pin[1]); // Can close original out of the pipe that that it's stdout
+  close(pout[1]); // Can close original out of the pipe that that it's stdout
 
   // Set up the commands
   std::vector<char *> subshell_commands;
   subshell_commands.push_back((char *)"/proc/self/exe");
-  subshell_commands.push_back((char *)trimmed.c_str());
   subshell_commands.push_back(NULL);
 
   // Execute the subshell commands
@@ -1016,10 +1015,30 @@ YY_RULE_SETUP
     _exit(1);
   }
 
+  // Now that command has been executed, need to restore old fds and close temps
+  dup2(old_in, 0);
+  dup2(old_out, 1)
+  close(old_in);
+  close(old_out);
+
+  // Now we need to read from pout 0 and put it back into the buffer
+  std::vector<char *> results;
+  char[1] char_buffer;
+  int is_eof = read(pout[0], char_buffer, 1);
+  while(!is_eof) {
+    output.push_back(char_buffer);
+    int is_eof = read(pout[0], char_buffer, 1);
+    fprintf(stdout, "%s\n", char_buffer);
+  }
+
+  /* while(!results.empty()) {
+    myunput(results.back());
+
+  } */ 
 
 
-  std::cout << trimmed;
-  return NEWLINE;
+  // std::cout << trimmed;
+  // return NEWLINE;
 }
 	YY_BREAK
 /* \$\( {
@@ -1054,7 +1073,7 @@ YY_RULE_SETUP
 /* Exit the shell */
 case 10:
 YY_RULE_SETUP
-#line 203 "shell.l"
+#line 222 "shell.l"
 {
   exit(0);
 }
@@ -1063,14 +1082,14 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 208 "shell.l"
+#line 227 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 212 "shell.l"
+#line 231 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -1078,7 +1097,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 13:
 YY_RULE_SETUP
-#line 217 "shell.l"
+#line 236 "shell.l"
 {
   return PIPE;
 }
@@ -1086,7 +1105,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 14:
 YY_RULE_SETUP
-#line 222 "shell.l"
+#line 241 "shell.l"
 {
   return GREAT;
 }
@@ -1094,7 +1113,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 15:
 YY_RULE_SETUP
-#line 227 "shell.l"
+#line 246 "shell.l"
 {
   return LESS;
 }
@@ -1102,7 +1121,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 16:
 YY_RULE_SETUP
-#line 232 "shell.l"
+#line 251 "shell.l"
 {
   return TWOGREAT;
 }
@@ -1110,7 +1129,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 17:
 YY_RULE_SETUP
-#line 237 "shell.l"
+#line 256 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -1118,7 +1137,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 18:
 YY_RULE_SETUP
-#line 242 "shell.l"
+#line 261 "shell.l"
 {
   return GREATGREAT;
 }
@@ -1126,7 +1145,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 19:
 YY_RULE_SETUP
-#line 247 "shell.l"
+#line 266 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -1134,7 +1153,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 20:
 YY_RULE_SETUP
-#line 252 "shell.l"
+#line 271 "shell.l"
 {
   return AMPERSAND;
 }
@@ -1145,7 +1164,7 @@ YY_RULE_SETUP
 case 21:
 /* rule 21 can match eol */
 YY_RULE_SETUP
-#line 259 "shell.l"
+#line 278 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -1223,7 +1242,7 @@ YY_RULE_SETUP
 /* Invalid character in input */
 case 22:
 YY_RULE_SETUP
-#line 334 "shell.l"
+#line 353 "shell.l"
 {
   /* return NOTOKEN; */
 }
@@ -1233,7 +1252,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 339 "shell.l"
+#line 358 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1243,10 +1262,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 346 "shell.l"
+#line 365 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1250 "lex.yy.cc"
+#line 1269 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2307,4 +2326,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 346 "shell.l"
+#line 365 "shell.l"

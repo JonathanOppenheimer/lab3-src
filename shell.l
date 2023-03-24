@@ -163,7 +163,7 @@ void myunputc(int c) {
 
   // Now that command has been executed, need to restore old fds and close temps
   dup2(old_in, 0);
-  dup2(old_out, 1)
+  dup2(old_out, 1);
   close(old_in);
   close(old_out);
 
