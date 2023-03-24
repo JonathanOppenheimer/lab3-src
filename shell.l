@@ -183,8 +183,8 @@ void myunputc(int c) {
     eof = read(pout[0], char_buffer, 1);
   }
 
-  for (char i: results)
-    std::cout << i << ' ';
+  /* for (char i: results)
+    std::cout << i; */
 
   while(!results.empty()) {
     char temp = results.back();
