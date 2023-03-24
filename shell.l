@@ -136,6 +136,7 @@ void myunputc(int c) {
 
   \) {
     std::cout << raw_subshell;
+    BEGIN(INITIAL);
     return NEWLINE;
   }
 }
