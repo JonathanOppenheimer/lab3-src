@@ -117,9 +117,14 @@ void myunputc(int c) {
 
 
 \$\([^\n\)][^\n\)]*\) {
+  // Add the parsed text to our temporary buffer 
   raw_subshell.clear();
   raw_subshell += yytext;
-  std::cout << raw_subshell;
+
+  // Delete the $( and )
+  std::string trimmed = raw_subshell.substr(1, raw_subshell.length() - 2);
+
+  std::cout << trimmed;
   return NEWLINE;
 }
 
