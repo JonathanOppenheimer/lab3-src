@@ -246,9 +246,11 @@ void myunputc(int c) {
      * to close it.
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
-      //
-      // if(buffer[i] == '$')
-      // Detect $( to begin subshell
+      
+      if(buffer[i] == '$' && buffer[i+1] == '(') {
+        buffer.erase(i,2);
+        BEGIN(subshell);
+      }
       
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
