@@ -986,7 +986,7 @@ YY_RULE_SETUP
 {
   raw_subshell.clear();
   raw_subshell += yytext;
-  std::cout << buffer;
+  std::cout << raw_subshell;
   return NEWLINE;
 }
 	YY_BREAK

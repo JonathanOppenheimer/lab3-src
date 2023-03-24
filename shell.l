@@ -114,11 +114,6 @@ void myunputc(int c) {
 }
 
 
-\$\( {
-  raw_subshell.clear();
-  BEGIN(subshell);
-}
-
 
 
 \$\([^\n\)][^\n\)]*\) {
@@ -128,30 +123,35 @@ void myunputc(int c) {
   return NEWLINE;
 }
 
-<subshell>{
-  [ \t]* {
-    /* Cut stuf f before command e.g. $(      ls) */
-    /* eat the whitespace */
-  }
-
+ /* \$\( {
+  * raw_subshell.clear();
+  * BEGIN(subshell);
+  * } 
+  *
+  * <subshell>{
+  * [ \t]* {
+  *   Cut stuf f before command e.g. $(      ls) 
+  *  eat the whitespace 
+  * }
+  
   [^\n][^\n]*\) {
     buffer += yytext;
     std::cout << buffer;
     BEGIN(INITIAL);
     return NEWLINE;
-  }
+  } 
 
-  \n {
-    /* Keep prompting for input */
+   \n { 
+    Keep prompting for input 
     std::cout << "> ";
-  }
+  } 
 
-  /* \) {
+   \) {
     std::cout << buffer;
     BEGIN(INITIAL);
     return NEWLINE;
+  } 
   } */
-}
 
   /* Exit the shell */
 "exit" {
