@@ -1027,7 +1027,7 @@ YY_RULE_SETUP
   char char_buffer[1];
   int eof = read(pout[0], char_buffer, 1);
   while(eof != 0) {
-    if(char_buffer != '\n') {
+    if(*char_buffer != '\n') {
       results.push_back(char_buffer);
       fprintf(stderr, "%s", *char_buffer);
     }
