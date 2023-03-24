@@ -1034,7 +1034,7 @@ YY_RULE_SETUP
   }
 
   while(!results.empty()) {
-    fprintf(stderr, "%s", results.back()[1]);
+    fprintf(stderr, "%s", results.back());
     myunputc((int)results.back()[1]);
     results.pop_back();
   }
