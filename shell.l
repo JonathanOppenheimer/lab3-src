@@ -179,14 +179,13 @@ void myunputc(int c) {
     int is_eof = read(pout[0], char_buffer, 1);
   }
 
-  /* while(!results.empty()) {
+  while(!results.empty()) {
     myunput(results.back());
+    results.pop_back();
+  }
 
-  } */ 
-
-
-  // std::cout << trimmed;
-  // return NEWLINE;
+  // Clean up, close file
+  close(pout[0]);
 }
 
  /* \$\( {
