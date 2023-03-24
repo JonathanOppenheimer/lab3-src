@@ -125,7 +125,7 @@ void myunputc(int c) {
     /* eat the whitespace */
   }
 
-  [^\n\)][^\n]*\) {
+  [^\n\)][^\n]* {
     buffer += yytext;
     std::cout << buffer;
     BEGIN(INITIAL);
@@ -137,11 +137,11 @@ void myunputc(int c) {
     std::cout << "> ";
   }
 
-  /* \) {
+  \) {
     std::cout << buffer;
     BEGIN(INITIAL);
     return NEWLINE;
-  } */
+  } 
 }
 
   /* Exit the shell */
