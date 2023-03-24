@@ -313,7 +313,6 @@ void myunputc(int c) {
       /* Trims escaped characters */
       if(buffer[i] == '\\') {
         buffer.erase(i,1);
-        i++;
       }
     }
 
