@@ -175,15 +175,15 @@ void myunputc(int c) {
   while(eof != 0) {
     if(*char_buffer != '\n') {
       results.push_back(char_buffer);
-      fprintf(stderr, "%s\n", char_buffer);
-      fprintf(stderr, "%s\n", results.back());
+     // fprintf(stderr, "%s\n", char_buffer);
+     // fprintf(stderr, "%s\n", results.back());
     }
     eof = read(pout[0], char_buffer, 1);
   }
 
   while(!results.empty()) {
     fprintf(stderr, "%s", results.back());
-    myunputc(*results.back());
+    myunputc(results.back());
     results.pop_back();
   }
 

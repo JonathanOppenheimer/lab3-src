@@ -372,8 +372,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 		YY_FATAL_ERROR( "token too large, exceeds YYLMAX" ); \
 	yy_flex_strncpy( yytext, (yytext_ptr), yyleng + 1 ); \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 23
-#define YY_END_OF_BUFFER 24
+#define YY_NUM_RULES 22
+#define YY_END_OF_BUFFER 23
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -383,9 +383,9 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[61] =
     {   0,
-        0,    0,    0,    0,    6,    6,    0,    0,   24,   21,
+        0,    0,    0,    0,    6,    6,    0,    0,   23,   21,
        12,   11,   21,   20,   21,   15,   14,   22,   21,   21,
-       13,    4,    2,    1,   23,    8,    6,    7,   23,   21,
+       13,    4,    2,    1,   22,    8,    6,    7,   22,   21,
        21,    0,   21,   16,   17,   18,   21,   21,    4,    3,
         8,    6,   21,    0,   21,    0,   19,   21,   21,   21,
         0,    9,   21,    0,    9,   10,   21,   21,    5,    0
@@ -511,10 +511,10 @@ static const flex_int16_t yy_chk[223] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[24] =
+static const flex_int32_t yy_rule_can_match_eol[23] =
     {   0,
 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 1, 0, 0,     };
+    0, 1, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -1029,7 +1029,8 @@ YY_RULE_SETUP
   while(eof != 0) {
     if(*char_buffer != '\n') {
       results.push_back(char_buffer);
-      fprintf(stderr, "%s", char_buffer);
+      fprintf(stderr, "%s\n", char_buffer);
+      fprintf(stderr, "%s\n", results.back());
     }
     eof = read(pout[0], char_buffer, 1);
   }
@@ -1076,7 +1077,7 @@ YY_RULE_SETUP
 /* Exit the shell */
 case 10:
 YY_RULE_SETUP
-#line 225 "shell.l"
+#line 226 "shell.l"
 {
   exit(0);
 }
@@ -1085,14 +1086,14 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 230 "shell.l"
+#line 231 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 234 "shell.l"
+#line 235 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -1100,7 +1101,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 13:
 YY_RULE_SETUP
-#line 239 "shell.l"
+#line 240 "shell.l"
 {
   return PIPE;
 }
@@ -1108,7 +1109,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 14:
 YY_RULE_SETUP
-#line 244 "shell.l"
+#line 245 "shell.l"
 {
   return GREAT;
 }
@@ -1116,7 +1117,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 15:
 YY_RULE_SETUP
-#line 249 "shell.l"
+#line 250 "shell.l"
 {
   return LESS;
 }
@@ -1124,7 +1125,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 16:
 YY_RULE_SETUP
-#line 254 "shell.l"
+#line 255 "shell.l"
 {
   return TWOGREAT;
 }
@@ -1132,7 +1133,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 17:
 YY_RULE_SETUP
-#line 259 "shell.l"
+#line 260 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -1140,7 +1141,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 18:
 YY_RULE_SETUP
-#line 264 "shell.l"
+#line 265 "shell.l"
 {
   return GREATGREAT;
 }
@@ -1148,7 +1149,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 19:
 YY_RULE_SETUP
-#line 269 "shell.l"
+#line 270 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -1156,7 +1157,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 20:
 YY_RULE_SETUP
-#line 274 "shell.l"
+#line 275 "shell.l"
 {
   return AMPERSAND;
 }
@@ -1167,7 +1168,7 @@ YY_RULE_SETUP
 case 21:
 /* rule 21 can match eol */
 YY_RULE_SETUP
-#line 281 "shell.l"
+#line 282 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -1242,20 +1243,12 @@ YY_RULE_SETUP
     }
   }
 	YY_BREAK
-/* Invalid character in input */
-case 22:
-YY_RULE_SETUP
-#line 356 "shell.l"
-{
-  /* return NOTOKEN; */
-}
-	YY_BREAK
 /* Terminates the scanner - should happen by default but just double checking */
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 361 "shell.l"
+#line 357 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1263,12 +1256,12 @@ case YY_STATE_EOF(subshell):
   }
 }
 	YY_BREAK
-case 23:
+case 22:
 YY_RULE_SETUP
-#line 368 "shell.l"
+#line 364 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1272 "lex.yy.cc"
+#line 1265 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2329,4 +2322,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 368 "shell.l"
+#line 364 "shell.l"
