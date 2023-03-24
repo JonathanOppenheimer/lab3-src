@@ -125,7 +125,7 @@ void myunputc(int c) {
     /* eat the whitespace */
   }
 
-  [^\n][^\n]* {
+  [^\n\)][^\n\)]* {
     raw_subshell += yytext;
   }
 
