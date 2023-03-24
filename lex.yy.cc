@@ -1023,7 +1023,7 @@ YY_RULE_SETUP
   close(old_out);
 
   // Now we need to read from pout 0 and put it back into the buffer
-  std::vector<char *> results;
+  std::vector<char> results;
   char char_buffer[1];
   int eof = read(pout[0], char_buffer, 1);
   while(eof != 0) {
