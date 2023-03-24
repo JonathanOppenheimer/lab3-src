@@ -114,7 +114,7 @@ void myunputc(int c) {
 }
 
 
-\$( {
+\$\( {
   raw_subshell.clear();
   BEGIN(subshell);
 }
