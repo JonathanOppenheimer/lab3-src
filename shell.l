@@ -126,6 +126,8 @@ void myunputc(int c) {
 
   // Append 'exit' to the command so we can leave the subshell
   trimmed += "\nexit\n";
+  
+  std::cout << trimmed;
 
   // Save old input and output
   int old_in = dup(0);
