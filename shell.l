@@ -180,11 +180,12 @@ void myunputc(int c) {
     fprintf(stderr, "%s\n", char_buffer);
     int is_eof = read(pout[0], char_buffer, 1);
   }
-
-  while(!results.empty()) {
+  
+  fprintf(stderr, results.size());
+  /* while(!results.empty()) {
     myunputc((int)results.back()[1]);
     results.pop_back();
-  }
+  } */ 
 
   // Clean up, close file
   close(pout[0]);
