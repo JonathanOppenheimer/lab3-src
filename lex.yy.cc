@@ -1026,8 +1026,8 @@ YY_RULE_SETUP
   // Now we need to read from pout 0 and put it back into the buffer
   std::vector<char *> results;
   char char_buffer[1];
-  read(pout[0], char_buffer, 1);
-  while(!pout[0].eof()) {
+  int not_eof = read(pout[0], char_buffer, 1);
+  while(not_eof) {
     // if(*char_buffer != '\n') {
     results.push_back(char_buffer);
     // }
