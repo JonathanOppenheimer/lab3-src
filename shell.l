@@ -144,14 +144,13 @@ void myunputc(int c) {
   // Set up input to put into subshell
   // dup2(x, y): points y to x x->y
   dup2(pin[0], 0); // Points stdin to read end of the pipe
-  dup2(pin[1], 1); // Points stdout to write end of the pipe
+  dup2(pout[1], 1); // Points stdout to write end of the pipe
   close(pin[0]); // Can close original in of the pipe now that it's stdin
-  close(pin[1]); // Can close original out of the pipe that that it's stdout
+  close(pout[1]); // Can close original out of the pipe that that it's stdout
 
   // Set up the commands
   std::vector<char *> subshell_commands;
   subshell_commands.push_back((char *)"/proc/self/exe");
-  subshell_commands.push_back((char *)trimmed.c_str());
   subshell_commands.push_back(NULL);
 
   // Execute the subshell commands
@@ -162,10 +161,30 @@ void myunputc(int c) {
     _exit(1);
   }
 
+  // Now that command has been executed, need to restore old fds and close temps
+  dup2(old_in, 0);
+  dup2(old_out, 1)
+  close(old_in);
+  close(old_out);
+
+  // Now we need to read from pout 0 and put it back into the buffer
+  std::vector<char *> results;
+  char[1] char_buffer;
+  int is_eof = read(pout[0], char_buffer, 1);
+  while(!is_eof) {
+    output.push_back(char_buffer);
+    int is_eof = read(pout[0], char_buffer, 1);
+    fprintf(stdout, "%s\n", char_buffer);
+  }
+
+  /* while(!results.empty()) {
+    myunput(results.back());
+
+  } */ 
 
 
-  std::cout << trimmed;
-  return NEWLINE;
+  // std::cout << trimmed;
+  // return NEWLINE;
 }
 
  /* \$\( {
