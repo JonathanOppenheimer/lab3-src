@@ -114,10 +114,10 @@ void myunputc(int c) {
 }
 
 
-  /* \$( {
+\$( {
   raw_subshell.clear();
   BEGIN(subshell);
-  /* }
+}
 
 <subshell>{
   [ \t]* {
@@ -125,7 +125,7 @@ void myunputc(int c) {
     /* eat the whitespace */
   }
 
-  [^\n]+ {
+  [^\n][^\n]* {
     raw_subshell += yytext;
   }
 
