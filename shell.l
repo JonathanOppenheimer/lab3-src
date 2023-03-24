@@ -168,10 +168,11 @@ void myunputc(int c) {
   close(old_in);
   close(old_out);
 
-  // Now we need to read from pout 0 and put it back into the buffer
   std::vector<char> results;
   char char_buffer[1];
   int eof = read(pout[0], char_buffer, 1);
+
+  // Now we need to read from pout 0 and put it back into the buffer
   while(eof != 0) {
     if(*char_buffer == '\n') {
       results.push_back(' ');
@@ -191,36 +192,6 @@ void myunputc(int c) {
   // Clean up, close file
   close(pout[0]);
 }
-
- /* \$\( {
-  * raw_subshell.clear();
-  * BEGIN(subshell);
-  * } 
-  *
-  * <subshell>{
-  * [ \t]* {
-  *   Cut stuf f before command e.g. $(      ls) 
-  *  eat the whitespace 
-  * }
-  
-  [^\n][^\n]*\) {
-    buffer += yytext;
-    std::cout << buffer;
-    BEGIN(INITIAL);
-    return NEWLINE;
-  } 
-
-   \n { 
-    Keep prompting for input 
-    std::cout << "> ";
-  } 
-
-   \) {
-    std::cout << buffer;
-    BEGIN(INITIAL);
-    return NEWLINE;
-  } 
-  } */
 
   /* Exit the shell */
 "exit" {
@@ -342,7 +313,7 @@ void myunputc(int c) {
       /* Trims escaped characters */
       if(buffer[i] == '\\') {
         buffer.erase(i,1);
-        i++;
+        // i++;
       }
     }
 
