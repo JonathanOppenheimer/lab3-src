@@ -1205,7 +1205,6 @@ YY_RULE_SETUP
       /* Trims escaped characters */
       if(buffer[i] == '\\') {
         buffer.erase(i,1);
-        i++;
       }
     }
 
@@ -1221,7 +1220,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 329 "shell.l"
+#line 328 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1231,10 +1230,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 336 "shell.l"
+#line 335 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1238 "lex.yy.cc"
+#line 1237 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2295,4 +2294,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 336 "shell.l"
+#line 335 "shell.l"
