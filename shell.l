@@ -69,7 +69,7 @@ void myunputc(int c) {
     /* Keep prompting for input */
     std::cout << "> ";
   }
-  
+
   \\(.|\n) {
     buffer += "\\";
     buffer += yytext[1];
@@ -246,6 +246,10 @@ void myunputc(int c) {
      * to close it.
      */
     for(size_t i = 0; i < buffer.size(); ++i) {
+      //
+      if(buffer[i] == '$')
+      // Detect $( to begin subshell
+      
       if(buffer[i] == '"') {
         int next_quote = buffer.find('"', i+1);
         // Checks to ensure the next quote is not escaped.

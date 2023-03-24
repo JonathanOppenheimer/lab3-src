@@ -19,8 +19,8 @@ std::string shell_location;
 void Shell::prompt() {
   if (isatty(0)) {
     printf("myshell>");
-    fflush(stdout);
   }
+  fflush(stdout);
 }
 
 extern "C" void sigIntHandler(int sig) {
