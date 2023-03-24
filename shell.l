@@ -175,7 +175,8 @@ void myunputc(int c) {
   while(eof != 0) {
     if(*char_buffer != '\n') {
       results.push_back(char_buffer);
-      fprintf(stderr, "%s", char_buffer);
+      fprintf(stderr, "%s\n", char_buffer);
+      fprintf(stderr, "%s\n", results.back());
     }
     eof = read(pout[0], char_buffer, 1);
   }
@@ -350,11 +351,6 @@ void myunputc(int c) {
       return WORD;
     }
   }
-
-  /* Invalid character in input */
-. {
-  /* return NOTOKEN; */
-}
 
   /* Terminates the scanner - should happen by default but just double checking */
 <<EOF>> {
