@@ -978,7 +978,7 @@ case 11:
 YY_RULE_SETUP
 #line 129 "shell.l"
 {
-    raw_subshell += yytext;
+    buffer += yytext;
   }
 	YY_BREAK
 case 12:
@@ -994,7 +994,7 @@ case 13:
 YY_RULE_SETUP
 #line 138 "shell.l"
 {
-    std::cout << raw_subshell;
+    std::cout << buffer;
     BEGIN(INITIAL);
     return NEWLINE;
   }

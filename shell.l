@@ -125,8 +125,10 @@ void myunputc(int c) {
     /* eat the whitespace */
   }
 
-  [^\n\)][^\n\)]* {
+  [^\n\)][^\n]*\) {
     buffer += yytext;
+    std::cout << buffer;
+
   }
 
   \n {
