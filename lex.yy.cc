@@ -976,7 +976,7 @@ YY_RULE_SETUP
   raw_subshell += yytext;
 
   // Delete the $( and )
-  std::string trimmed = raw_subshell.substr(1, raw_subshell.length() - 2);
+  std::string trimmed = raw_subshell.substr(2, raw_subshell.length() - 2);
 
   std::cout << trimmed;
   return NEWLINE;
