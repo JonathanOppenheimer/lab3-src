@@ -1005,7 +1005,7 @@ YY_RULE_SETUP
   // Set up the commands
   std::vector<char *> subshell_commands;
   subshell_commands.push_back("/proc/self/exe");
-  subshell_commands.push_back(trimmed);
+  subshell_commands.push_back(trimmed->c_str());
   subshell_commands.push_back(NULL);
 
   // Execute the subshell commands
