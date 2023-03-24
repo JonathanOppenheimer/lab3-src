@@ -178,12 +178,8 @@ void myunputc(int c) {
     } else {
       results.push_back(*char_buffer);
     }
-    // fprintf(stderr, "%c", results.back());
     eof = read(pout[0], char_buffer, 1);
   }
-
-  /* for (char i: results)
-    std::cout << i; */
 
   while(!results.empty()) {
     char temp = results.back();
