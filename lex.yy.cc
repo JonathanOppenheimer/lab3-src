@@ -968,7 +968,7 @@ YY_RULE_SETUP
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
-    // fclose(yyin);
+    fclose(fd);
   }
 	YY_BREAK
 
