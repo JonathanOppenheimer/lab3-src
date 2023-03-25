@@ -175,36 +175,6 @@ void Command::execute() {
       // Used to maintain whether the command is built-in or executed
       bool builtin_cmd = false;
 
-      // Redirect input
-      dup2(fdin, 0);
-      close(fdin);
-
-      // Setup the output based on the user on the last simple command
-      if (i == _simpleCommands.size() - 1) {
-        // Change final output to the user provided output file
-        if (_outFile) {
-          // Check if we need to append or simply edit the file
-          if (_append) {
-            fdout =
-                open(_outFile->c_str(), O_CREAT | O_WRONLY | O_APPEND, 0644);
-          } else {
-            fdout = open(_outFile->c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0644);
-          }
-        } else { // Otherwise, use default output
-          fdout = dup(tmpout);
-        }
-      } else { // Not last command - pipe output to next command
-        // Create the pipe
-        int fdpipe[2];
-        pipe(fdpipe);
-        fdout = fdpipe[1];
-        fdin = fdpipe[0];
-      }
-
-      // Redirect output
-      dup2(fdout, 1);
-      close(fdout);
-
       // Convert the current command vector to a state suitable for execvp
       SimpleCommand *current_command = _simpleCommands.at(i);
       std::vector<std::string *> vector_args = current_command->_arguments;
@@ -290,6 +260,36 @@ void Command::execute() {
       }
 
       /* ************************************************ */
+
+      // Redirect input
+      dup2(fdin, 0);
+      close(fdin);
+
+      // Setup the output based on the user on the last simple command
+      if (i == _simpleCommands.size() - 1) {
+        // Change final output to the user provided output file
+        if (_outFile) {
+          // Check if we need to append or simply edit the file
+          if (_append) {
+            fdout =
+                open(_outFile->c_str(), O_CREAT | O_WRONLY | O_APPEND, 0644);
+          } else {
+            fdout = open(_outFile->c_str(), O_CREAT | O_WRONLY | O_TRUNC, 0644);
+          }
+        } else { // Otherwise, use default output
+          fdout = dup(tmpout);
+        }
+      } else { // Not last command - pipe output to next command
+        // Create the pipe
+        int fdpipe[2];
+        pipe(fdpipe);
+        fdout = fdpipe[1];
+        fdin = fdpipe[0];
+      }
+
+      // Redirect output
+      dup2(fdout, 1);
+      close(fdout);
 
       // Create child process if required (non-built in functions)
       if (!builtin_cmd) {
