@@ -332,7 +332,7 @@ void Command::execute() {
   clear();
 
   // Print new prompt if the child process exited normally
-  if (!source) {
+  if (!source && status != 2) {
     Shell::prompt();
   }
 }
