@@ -196,7 +196,7 @@ void myunputc(int c) {
   // Clean up, close file
   close(pout[0]);
 
-  delete results;
+  delete subshell_commands;
 }
 
   /* New line character */
