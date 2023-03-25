@@ -24,7 +24,7 @@ extern int yylex_destroy(void);
 extern int yyparse();
 extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
 
-static void yyunput (int c ,char *buf_ptr);
+static void yyunput(int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
 std::string raw_subshell; // Used to parse subshell text
 bool source; // A poor yet easy way to track if the command was sourced
@@ -99,14 +99,15 @@ void myunputc(int c) {
   }
 
   [^ \t\n]+ { /* Get the source file name */
-    yyin = fopen(yytext, "r");
-    if (!yyin) {
+    FILE* sourced = fopen(yytext, "r");
+    if (!sourced) {
       std::cout << std::string(yytext) + ": No such file or directory\n";
       YY_FLUSH_BUFFER; // Flush yyin because we modified it
+      fclose(sourced);
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       return NEWLINE;
     } else {
-      yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
+      yypush_buffer_state(yy_create_buffer(sourced, YY_BUF_SIZE));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
