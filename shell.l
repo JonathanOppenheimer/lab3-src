@@ -36,7 +36,6 @@ void set_source() {
     yyparse(); // Reparse to get input from the user
     yylex_destroy(); // Destroy the buffer
     source = false;
-    yy_delete_buffer(temp);
   }
 }
 
