@@ -250,7 +250,7 @@ void myunputc(int c) {
   /* Match the majority of normal strings (non-special handled above)
    * Currently does not handle 2> as 2 is a normal character
    */
-(([^ \n\t\|\>\<\&\)])|(2\>)|(\\\")|(\\\n)|(\\\t)|(\\\>)|(\\\<)|(\\\&)|(\\\\))+ {
+(([^ \n\t\|\>\<\&])|(2\>)|(\\\")|(\\\n)|(\\\t)|(\\\>)|(\\\<)|(\\\&)|(\\\\))+ {
     /* Set up the strings for use */
     buffer.clear();
     buffer += yytext;
@@ -291,7 +291,7 @@ void myunputc(int c) {
       std::cout << buffer + ": bad substitution\n";
       YY_FLUSH_BUFFER; // Flush yyin stop parsing
       return NEWLINE;
-    }
+    }``
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
