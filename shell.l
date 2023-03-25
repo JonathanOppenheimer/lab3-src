@@ -200,9 +200,6 @@ void myunputc(int c) {
 
   /* Exit the shell */
 "exit" {
-  FILE* fd = open(".shellrc", "r");
-  close(fd);
-  fd = NULL;
   exit(0);
 }
 

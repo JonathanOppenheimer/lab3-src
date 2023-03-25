@@ -1061,7 +1061,7 @@ YY_RULE_SETUP
 #line 203 "shell.l"
 {
   FILE* fd = open(".shellrc", "r");
-  fclose(fd);
+  close(fd);
   fd = NULL;
   exit(0);
 }
