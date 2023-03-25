@@ -1186,7 +1186,7 @@ YY_RULE_SETUP
       std::cout << buffer + ": bad substitution\n";
       YY_FLUSH_BUFFER; // Flush yyin stop parsing
       return NEWLINE;
-    }``
+    }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
