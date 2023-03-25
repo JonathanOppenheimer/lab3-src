@@ -276,7 +276,7 @@ void myunputc(int c) {
       buffer = std::regex_replace(buffer, question, std::to_string(last_return_code));
       buffer = std::regex_replace(buffer, exclamation, std::to_string(last_background_pid));
       buffer = std::regex_replace(buffer, underscore, last_argument);
-      buffer = std::regex_replace(buffer, name_shell, std::to_string(shell_location));
+      buffer = std::regex_replace(buffer, name_shell, std::to_string(*shell_location));
 
       // Do more standard regexes next 
       std::smatch matches; // Where to keep the results of the regex
