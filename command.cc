@@ -222,7 +222,12 @@ void Command::execute() {
       // Update the global last argument
       last_argument = argv.at(argv.size() - 2);
 
-      /* Specific commands that must be run in the parent */
+      /* Specific built-in commands that must be run in the parent */
+
+      // Exit
+      if (!strcmp(argv[0], "exit")) {
+        exit(0);
+      }
 
       // Set environment variable
       if (!strcmp(argv[0], "setenv")) {

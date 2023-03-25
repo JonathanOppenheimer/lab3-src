@@ -1238,14 +1238,15 @@ case YY_STATE_EOF(subshell):
   if (!YY_CURRENT_BUFFER) {
     yyterminate();
   }
+  source = false;
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 344 "shell.l"
+#line 345 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1249 "lex.yy.cc"
+#line 1250 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2306,4 +2307,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 344 "shell.l"
+#line 345 "shell.l"

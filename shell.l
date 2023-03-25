@@ -195,16 +195,8 @@ void myunputc(int c) {
 
   // Clean up, close file
   close(pout[0]);
-}
 
-  /* Exit the shell */
-"exit" {
-  // Close all extra file descriptors
-  int current_fd = 3;
-  while(close(current_fd) != -1) {
-    current_fd++;
-  }
-  exit(0);
+  delete results;
 }
 
   /* New line character */
