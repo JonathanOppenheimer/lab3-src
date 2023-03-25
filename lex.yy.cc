@@ -547,7 +547,7 @@ char *yytext_ptr;
 
 extern int yylex_destroy(void);
 extern int yyparse();
-extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
+// extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
 
 static void yyunput(int c ,char *buf_ptr);
 std::string buffer; // Used to go through yytext
