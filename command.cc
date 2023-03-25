@@ -194,18 +194,6 @@ void Command::execute() {
 
       /* Specific built-in commands that must be run in the parent */
 
-      // Exit
-      if (!strcmp(argv[0], "exit")) {
-        // Close all open file descriptors -- clean up time!
-        while (!opened_fds.empty()) {
-          close(opened_fds.back());
-          opened_fds.pop_back();
-        }
-
-        // Exit parent
-        exit(0);
-      }
-
       // Set environment variable
       if (!strcmp(argv[0], "setenv")) {
         builtin_cmd = true;
