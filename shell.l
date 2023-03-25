@@ -111,9 +111,9 @@ void myunputc(int c) {
       yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
+      fclose(temp_fd);
     }
     yyin = og_fd;
-    fclose(temp_fd);
   }
 }
 
