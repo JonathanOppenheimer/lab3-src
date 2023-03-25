@@ -129,7 +129,7 @@ void Command::execute() {
    * normally, that is, by calling exit(3) or _exit(2), or by returning from
    * main()
    */
-  int status;
+  int status = 0;
 
   // Check for an error on the command line before execution
   if (!_errorFlag.empty()) {
