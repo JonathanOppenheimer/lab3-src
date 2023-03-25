@@ -1059,7 +1059,7 @@ case 10:
 YY_RULE_SETUP
 #line 202 "shell.l"
 {
-  FILE* fd = fopen(".shellrc", "r");
+  FILE* fd = open(".shellrc", "r");
   fclose(fd);
   fd = NULL;
   exit(0);
