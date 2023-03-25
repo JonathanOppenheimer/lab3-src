@@ -106,13 +106,16 @@ void myunputc(int c) {
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       return NEWLINE;
     } else {
-      yypush_buffer_state(yy_create_buffer(sourced, YY_BUF_SIZE));
+      YY_BUFFER_STATE source_buffer = yy_create_buffer(sourced, YY_BUF_SIZE);
+      yy_switch_to_buffer(source_buffer);
+      // yypush_buffer_state(yy_create_buffer(sourced, YY_BUF_SIZE));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
 
       // Close the sourced filed descriptor now that we are done with it
       fclose(sourced);
       sourced = NULL;
+      yy_switch_to_buffer(yyin);
     }
   }
 }
