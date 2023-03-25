@@ -112,7 +112,7 @@ void myunputc(int c) {
       source = true;
 
       // Close the sourced filed descriptor now that we are done with it
-      close(sourced);
+      // fclose(sourced);
       sourced = NULL;
     }
   }

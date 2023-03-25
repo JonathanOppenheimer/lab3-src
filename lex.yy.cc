@@ -969,8 +969,8 @@ YY_RULE_SETUP
       source = true;
 
       // Close the sourced filed descriptor now that we are done with it
-      // fclose(sourced);
-      //sourced = NULL;
+      close(sourced);
+      sourced = NULL;
     }
   }
 	YY_BREAK
@@ -1061,10 +1061,10 @@ YY_RULE_SETUP
 #line 203 "shell.l"
 {
   // Close all extra file descriptors
-  int current_fd = 0;
+  /* int current_fd = 3;
   while(close(current_fd) != -1) {
     current_fd++;
-  }
+  } */
   exit(0);
 }
 	YY_BREAK
