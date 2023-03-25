@@ -968,8 +968,8 @@ YY_RULE_SETUP
       source = true;
 
       // Close the sourced filed descriptor now that we are done with it
-      fclose(sourced);
-      sourced = NULL;
+      // fclose(sourced);
+      // sourced = NULL;
     }
   }
 	YY_BREAK
