@@ -322,7 +322,6 @@ void Command::execute() {
       background_pids.insert(
           ret); // Add background PID to global vector for zombie elimination
       last_background_pid = ret; // Update global last background pid
-      // std::cout << last_background_pid << "\n";
     }
   }
 
