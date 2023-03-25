@@ -548,9 +548,10 @@ char *yytext_ptr;
 extern int yylex_destroy(void);
 static void yyunput(int c ,char *buf_ptr);
 
+bool source; // A poor yet easy way to track if the command was sourced
 std::string buffer; // Used to go through yytext
 std::string raw_subshell; // Used to parse subshell text
-bool source; // A poor yet easy way to track if the command was sourced
+std::vector<int> opened_fds; // Used to keep track of opened file descriptors
 
 void set_source() {
   if(isatty(0)) {
@@ -566,9 +567,9 @@ void myunputc(int c) {
 }
 
 
-#line 570 "lex.yy.cc"
+#line 571 "lex.yy.cc"
 
-#line 572 "lex.yy.cc"
+#line 573 "lex.yy.cc"
 
 #define INITIAL 0
 #define quotes 1
@@ -798,12 +799,12 @@ YY_DECL
 		}
 
 	{
-#line 55 "shell.l"
+#line 56 "shell.l"
 
 
-#line 58 "shell.l"
+#line 59 "shell.l"
   /* All quote specific rules "[xyz]" */
-#line 807 "lex.yy.cc"
+#line 808 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -872,7 +873,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 60 "shell.l"
+#line 61 "shell.l"
 { /* saw closing quote - all done */
     BEGIN(INITIAL);
     yylval.cpp_string = new std::string(buffer);
@@ -882,7 +883,7 @@ YY_RULE_SETUP
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 66 "shell.l"
+#line 67 "shell.l"
 {
     buffer += yytext;
     /* Keep prompting for input */
@@ -892,7 +893,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 72 "shell.l"
+#line 73 "shell.l"
 {
     buffer += "\\";
     buffer += yytext[1];
@@ -900,7 +901,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 77 "shell.l"
+#line 78 "shell.l"
 {
     buffer += yytext;
   }
@@ -909,7 +910,7 @@ YY_RULE_SETUP
 /* Start source mode e.g. after source cmds.txt */
 case 5:
 YY_RULE_SETUP
-#line 83 "shell.l"
+#line 84 "shell.l"
 {
   BEGIN(manual_source);
 }
@@ -918,7 +919,7 @@ YY_RULE_SETUP
 
 case 6:
 YY_RULE_SETUP
-#line 89 "shell.l"
+#line 90 "shell.l"
 {
     /* eat the whitespace */
   }
@@ -926,7 +927,7 @@ YY_RULE_SETUP
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 93 "shell.l"
+#line 94 "shell.l"
 { /* Didn't provide an arguement */
     fprintf(stderr, "source: filename argument required\n");
     fprintf(stderr, "source: usage: source filename [arguments]\n");
@@ -936,7 +937,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 100 "shell.l"
+#line 101 "shell.l"
 { /* Get the source file name */
     FILE* sourced = fopen(yytext, "r");
     if (!sourced) {
@@ -949,9 +950,8 @@ YY_RULE_SETUP
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
 
-      // Close the sourced filed descriptor now that we are done with it
-      // fclose(sourced);
-      // sourced = NULL;
+      // Add the file descriptor to global array to close later on exit
+      opened_fds.push_back(fileno(sourced));
     }
   }
 	YY_BREAK

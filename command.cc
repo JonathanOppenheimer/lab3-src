@@ -226,6 +226,13 @@ void Command::execute() {
 
       // Exit
       if (!strcmp(argv[0], "exit")) {
+        // Close all open file descriptors -- clean up time!
+        while (!opened_fds.empty()) {
+          close(opened_fds.back());
+          opened_fds.pop_back();
+        }
+
+        // Exit parent
         exit(0);
       }
 
