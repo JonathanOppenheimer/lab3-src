@@ -195,7 +195,7 @@ void myunputc(int c) {
 
   /* Exit the shell */
 "exit" {
-  delete buffer;
+  delete yylval.cpp_string;
   exit(0);
 }
 
