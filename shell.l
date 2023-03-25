@@ -338,5 +338,6 @@ void myunputc(int c) {
   if (!YY_CURRENT_BUFFER) {
     yyterminate();
   }
+  source = false;
 }
 
