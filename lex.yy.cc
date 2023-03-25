@@ -963,7 +963,7 @@ YY_RULE_SETUP
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       return NEWLINE;
     } else {
-      yypush_buffer_state(yy_create_buffer(temp_fd, YY_BUF_SIZE));
+      yypush_buffer_state(yy_create_buffer(yyin, YY_BUF_SIZE));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
