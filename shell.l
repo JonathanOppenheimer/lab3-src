@@ -34,7 +34,7 @@ void set_source() {
     char tstr[] = "source .shellrc\0\0"; // Write the command
     YY_BUFFER_STATE temp = yy_scan_buffer(tstr, sizeof(tstr)); // Scan it
     yyparse(); // Reparse to get input from the user
-    yylex_destroy(); // Destroy the buffer
+    // yylex_destroy(); // Destroy the buffer
     source = false;
     yy_delete_buffer(temp);
   }
