@@ -17,7 +17,7 @@ std::set<pid_t> background_pids;
 std::string shell_location;
 
 void Shell::prompt() {
-  if (isatty(0)) {
+  if (isatty(0) && !source) {
     printf("myshell>");
   }
   fflush(stdout);
