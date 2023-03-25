@@ -168,8 +168,8 @@ void Command::execute() {
     dup2(fderr, 2);
     close(fderr);
 
-    int ret;   // fork(): 0 if child, > 0 if parent, < 0 if error
-    int fdout; // The out file descriptor
+    int ret = -1; // fork(): 0 if child, > 0 if parent, < 0 if error
+    int fdout;    // The out file descriptor
 
     for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
       // Used to maintain whether the command is built-in or executed
@@ -303,8 +303,6 @@ void Command::execute() {
           exit(2);
         }
       }
-
-      builtin_cmd = false;
     }
 
     // Restore input, output, and error defaults
