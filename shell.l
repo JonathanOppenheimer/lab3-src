@@ -333,10 +333,10 @@ void myunputc(int c) {
   }
 
   /* Terminates the scanner - should happen by default but just double checking */
-<<EOF>> {
+  /* <<EOF>> {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
     yyterminate();
-  }
+  } */
 }
 
