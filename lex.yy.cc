@@ -958,7 +958,7 @@ YY_RULE_SETUP
 { /* Get the source file name */
     FILE* og_fd = yyin;
     FILE* temp_fd = fopen(yytext, "r");
-    yyin = temp_fd;
+    // yyin = temp_fd;
     if (!yyin) {
       std::cout << std::string(yytext) + ": No such file or directory\n";
       YY_FLUSH_BUFFER; // Flush yyin because we modified it
