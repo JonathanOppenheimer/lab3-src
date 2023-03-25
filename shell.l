@@ -103,13 +103,16 @@ void myunputc(int c) {
     if (!sourced) {
       std::cout << std::string(yytext) + ": No such file or directory\n";
       YY_FLUSH_BUFFER; // Flush yyin because we modified it
-      fclose(sourced);
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       return NEWLINE;
     } else {
       yypush_buffer_state(yy_create_buffer(sourced, YY_BUF_SIZE));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
+
+      // Close the sourced filed descriptor now that we are done with it
+      fclose(sourced);
+      sourced = NULL;
     }
   }
 }
