@@ -332,7 +332,7 @@ void Command::execute() {
   clear();
 
   // Print new prompt if the child process exited normally
-  if (WIFEXITED(status) && !source) {
+  if (!source) {
     Shell::prompt();
   }
 }

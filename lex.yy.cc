@@ -565,7 +565,7 @@ extern int yyparse();
 extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
 
 static void yyunput (int c ,char *buf_ptr);
-std::string* buffer; // Used to go through yytext
+std::string buffer; // Used to go through yytext
 std::string raw_subshell; // Used to parse subshell text
 bool source; // A poor yet easy way to track if the command was sourced
 
