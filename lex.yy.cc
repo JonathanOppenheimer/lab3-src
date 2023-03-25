@@ -956,7 +956,8 @@ case 8:
 YY_RULE_SETUP
 #line 102 "shell.l"
 { /* Get the source file name */
-    yyin = fopen(yytext, "r");
+    FILE* fd = fopen(yytext, "r");
+    yyin = fd;
     if (!yyin) {
       std::cout << std::string(yytext) + ": No such file or directory\n";
       YY_FLUSH_BUFFER; // Flush yyin because we modified it
@@ -967,13 +968,13 @@ YY_RULE_SETUP
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
-    fclose(yyin);
+    // fclose(yyin);
   }
 	YY_BREAK
 
 case 9:
 YY_RULE_SETUP
-#line 121 "shell.l"
+#line 122 "shell.l"
 {
   // Add the parsed text to our temporary buffer 
   raw_subshell.clear();
@@ -1054,7 +1055,7 @@ YY_RULE_SETUP
 /* Exit the shell */
 case 10:
 YY_RULE_SETUP
-#line 199 "shell.l"
+#line 200 "shell.l"
 {
   exit(0);
 }
@@ -1063,14 +1064,14 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 204 "shell.l"
+#line 205 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 208 "shell.l"
+#line 209 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -1078,7 +1079,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 13:
 YY_RULE_SETUP
-#line 213 "shell.l"
+#line 214 "shell.l"
 {
   return PIPE;
 }
@@ -1086,7 +1087,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 14:
 YY_RULE_SETUP
-#line 218 "shell.l"
+#line 219 "shell.l"
 {
   return GREAT;
 }
@@ -1094,7 +1095,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 15:
 YY_RULE_SETUP
-#line 223 "shell.l"
+#line 224 "shell.l"
 {
   return LESS;
 }
@@ -1102,7 +1103,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 16:
 YY_RULE_SETUP
-#line 228 "shell.l"
+#line 229 "shell.l"
 {
   return TWOGREAT;
 }
@@ -1110,7 +1111,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 17:
 YY_RULE_SETUP
-#line 233 "shell.l"
+#line 234 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -1118,7 +1119,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 18:
 YY_RULE_SETUP
-#line 238 "shell.l"
+#line 239 "shell.l"
 {
   return GREATGREAT;
 }
@@ -1126,7 +1127,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 19:
 YY_RULE_SETUP
-#line 243 "shell.l"
+#line 244 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -1134,7 +1135,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 20:
 YY_RULE_SETUP
-#line 248 "shell.l"
+#line 249 "shell.l"
 {
   return AMPERSAND;
 }
@@ -1145,7 +1146,7 @@ YY_RULE_SETUP
 case 21:
 /* rule 21 can match eol */
 YY_RULE_SETUP
-#line 255 "shell.l"
+#line 256 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -1224,7 +1225,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 329 "shell.l"
+#line 330 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1234,10 +1235,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 336 "shell.l"
+#line 337 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1241 "lex.yy.cc"
+#line 1242 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2298,4 +2299,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 336 "shell.l"
+#line 337 "shell.l"

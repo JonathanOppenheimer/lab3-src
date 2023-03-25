@@ -111,7 +111,7 @@ void myunputc(int c) {
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
-    // fclose(yyin);
+    fclose(fd);
   }
 }
 
