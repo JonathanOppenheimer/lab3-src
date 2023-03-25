@@ -32,7 +32,7 @@ bool source; // A poor yet easy way to track if the command was sourced
 void set_source() {
   if(isatty(0)) {
     char tstr[] = "source .shellrc\0\0"; // Write the command
-    yypush_buffer_state(yy_scan_buffer(tstr, sizeof(tstr))); // Scan it
+    yy_scan_buffer(tstr, sizeof(tstr)); // Scan it
     yyparse(); // Reparse to get input from the user
     yylex_destroy(); // Destroy the buffer
     source = false;
@@ -110,6 +110,7 @@ void myunputc(int c) {
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
+    fclose(yyin);
   }
 }
 
