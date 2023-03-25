@@ -199,6 +199,9 @@ void myunputc(int c) {
 
   /* Exit the shell */
 "exit" {
+  FILE* fd = fopen(".shellrc", "r");
+  fclose(fd);
+  fd = NULL;
   exit(0);
 }
 
