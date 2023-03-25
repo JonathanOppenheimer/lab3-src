@@ -958,7 +958,6 @@ YY_RULE_SETUP
 { /* Get the source file name */
     FILE* og_fd = yyin;
     FILE* temp_fd = fopen(yytext, "r");
-    yyin = temp_fd;
 
     if (!yyin) {
       std::cout << std::string(yytext) + ": No such file or directory\n";
@@ -967,11 +966,12 @@ YY_RULE_SETUP
       return NEWLINE;
     } else {
       yypush_buffer_state(yy_create_buffer(temp_fd, YY_BUF_SIZE));
+      yyin = temp_fd;
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
-    fclose(temp_fd);
     yyin = og_fd;
+    fclose(temp_fd);
   }
 	YY_BREAK
 

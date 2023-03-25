@@ -99,9 +99,7 @@ void myunputc(int c) {
   }
 
   [^ \t\n]+ { /* Get the source file name */
-    FILE* og_fd = yyin;
-    FILE* temp_fd = fopen(yytext, "r");
-
+    yyin = fopen(yytext, "r");
     if (!yyin) {
       std::cout << std::string(yytext) + ": No such file or directory\n";
       YY_FLUSH_BUFFER; // Flush yyin because we modified it
@@ -113,8 +111,6 @@ void myunputc(int c) {
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
-    yyin = og_fd;
-    fclose(temp_fd);
   }
 }
 
