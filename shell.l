@@ -84,6 +84,17 @@ void myunputc(int c) {
   BEGIN(manual_source);
 }
 
+"exit" {
+// Exit
+  while (!opened_fds.empty()) {
+    close(opened_fds.back());
+    opened_fds.pop_back();
+  }
+
+  // Exit parent
+  exit(0);
+}
+
   /* All source specific rules */
 <manual_source>{
   [ \t]* {
@@ -114,9 +125,6 @@ void myunputc(int c) {
     }
   }
 }
-
-
-
 
 \$\([^\n\)][^\n\)]*\) {
   // Add the parsed text to our temporary buffer 
