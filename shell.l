@@ -36,7 +36,6 @@ void set_source() {
     yy_scan_buffer(tstr, sizeof(tstr)); // Scan it
     yyparse(); // Reparse to get input from the user
     yylex_destroy(); // Destroy the buffer
-    source = false;
   }
 }
 
@@ -113,7 +112,7 @@ void myunputc(int c) {
 
       // Close the sourced filed descriptor now that we are done with it
       // fclose(sourced);
-      sourced = NULL;
+      // sourced = NULL;
     }
   }
 }
