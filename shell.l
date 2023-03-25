@@ -24,9 +24,10 @@
 extern int yylex_destroy(void);
 static void yyunput(int c ,char *buf_ptr);
 
+bool source; // A poor yet easy way to track if the command was sourced
 std::string buffer; // Used to go through yytext
 std::string raw_subshell; // Used to parse subshell text
-bool source; // A poor yet easy way to track if the command was sourced
+std::vector<int> opened_fds; // Used to keep track of opened file descriptors
 
 void set_source() {
   if(isatty(0)) {
@@ -108,9 +109,8 @@ void myunputc(int c) {
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
 
-      // Close the sourced filed descriptor now that we are done with it
-      // fclose(sourced);
-      // sourced = NULL;
+      // Add the file descriptor to global array to close later on exit
+      opened_fds.push_back(fileno(sourced));
     }
   }
 }

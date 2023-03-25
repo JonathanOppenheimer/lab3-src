@@ -20,6 +20,8 @@ extern std::string
     shell_location; // Used to store where the shell executable is
 extern std::set<pid_t>
     background_pids; // Used to put the vectors of background processes into
+extern std::vector<int>
+    opened_fds; // Used to track open file descriptors to close on exit
 
 /* ************************************************************ */
 
