@@ -1061,7 +1061,7 @@ YY_RULE_SETUP
 #line 203 "shell.l"
 {
   // Close all extra file descriptors
-  int current_fd = 3;
+  int current_fd = 0;
   while(close(current_fd) != -1) {
     current_fd++;
   }

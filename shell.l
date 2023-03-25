@@ -112,8 +112,8 @@ void myunputc(int c) {
       source = true;
 
       // Close the sourced filed descriptor now that we are done with it
-      // fclose(sourced);
-      //sourced = NULL;
+      close(sourced);
+      sourced = NULL;
     }
   }
 }
@@ -201,10 +201,10 @@ void myunputc(int c) {
   /* Exit the shell */
 "exit" {
   // Close all extra file descriptors
-  int current_fd = 0;
+  /* int current_fd = 3;
   while(close(current_fd) != -1) {
     current_fd++;
-  }
+  } */
   exit(0);
 }
 
