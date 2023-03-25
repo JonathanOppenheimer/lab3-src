@@ -112,10 +112,8 @@ void myunputc(int c) {
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       source = true;
     }
-    auto temp = yyin;
-    fclose(temp);
-    // yyin = og_fd;
-    // fclose(temp_fd);
+    yyin = og_fd;
+    fclose(temp_fd);
   }
 }
 
