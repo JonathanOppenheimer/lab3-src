@@ -1037,7 +1037,7 @@ YY_RULE_SETUP
   // Clean up, close file
   close(pout[0]);
 
-  delete results;
+  delete subshell_commands;
 }
 	YY_BREAK
 /* New line character */
