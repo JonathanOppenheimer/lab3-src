@@ -99,6 +99,7 @@ void myunputc(int c) {
   }
 
   [^ \t\n]+ { /* Get the source file name */
+    YY_BUFFER_STATE og_buffer = YY_CURRENT_BUFFER;
     FILE* sourced = fopen(yytext, "r");
     if (!sourced) {
       std::cout << std::string(yytext) + ": No such file or directory\n";
@@ -113,9 +114,10 @@ void myunputc(int c) {
       source = true;
 
       // Close the sourced filed descriptor now that we are done with it
-      fclose(sourced);
-      sourced = NULL;
-      yy_switch_to_buffer(yyin);
+      // fclose(sourced);
+      //sourced = NULL;
+      yy_delete_buffer(source_buffer);
+      yy_switch_to_buffer(YY_CURRENT_BUFFER);
     }
   }
 }
