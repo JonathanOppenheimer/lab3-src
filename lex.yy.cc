@@ -1055,7 +1055,7 @@ case 10:
 YY_RULE_SETUP
 #line 198 "shell.l"
 {
-  delete buffer;
+  delete yylval.cpp_string;
   exit(0);
 }
 	YY_BREAK
