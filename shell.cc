@@ -14,7 +14,7 @@
 int yyparse(void);
 
 std::set<pid_t> background_pids;
-std::string shell_location;
+char *shell_location;
 
 void Shell::prompt() {
   if (isatty(0) && !source) {
