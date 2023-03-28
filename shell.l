@@ -311,8 +311,7 @@ void myunputc(int c) {
         buffer.replace(0, 1, getenv("HOME"));
       } else if(buffer.size() != 1 && first_slash == std::string::npos) { // Before a user
         std::string user = buffer.substr(1);
-        pw = getpwnam(user.c_str());
-        if (pw == NULL) {
+        if ((pw = getpwnam(user.c_str())) == NULL) {
           // User could not be found - do not -- do not manipulated string
         } else {
           buffer.replace(0, 1 + user.length(), pw->pw_dir); // Replace with found home directory
