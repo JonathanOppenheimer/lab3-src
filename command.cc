@@ -15,6 +15,7 @@
  */
 
 #include <algorithm>
+#include <asm-generic/errno-base.h>
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
@@ -210,8 +211,10 @@ void Command::execute() {
         builtin_cmd = true;
         if (argv.size() > (3 + 1)) {
           fprintf(stderr, "setenv: too many arguments\n");
+          errno = E2BIG;
         } else if (argv.size() < (3 + 1)) {
           fprintf(stderr, "setenv: too few arguments\n");
+          errno = EINVAL;
         } else {
           if (setenv(argv[1], argv[2], 1)) {
             perror("setenv");
@@ -225,8 +228,10 @@ void Command::execute() {
         builtin_cmd = true;
         if (argv.size() > (2 + 1)) {
           fprintf(stderr, "unsetenv: too many arguments\n");
+          errno = E2BIG;
         } else if (argv.size() < (2 + 1)) {
           fprintf(stderr, "setenv: too few arguments\n");
+          errno = EINVAL;
         } else {
           if (unsetenv(argv[1])) {
             perror("unsetenv");
@@ -240,6 +245,7 @@ void Command::execute() {
         builtin_cmd = true;
         if (argv.size() > (2 + 1)) {
           fprintf(stderr, "cd: too many arguments\n");
+          errno = E2BIG;
         } else {
           std::string error_string; // If the directory does not exist
           // No argument provided, default to home directory
@@ -304,10 +310,12 @@ void Command::execute() {
           exit(2);
         }
       }
-    }
 
-    if (errno != 0) {
-      std::cout << "whoops!\n";
+      if ((errno != 0) && (i == _simpleCommands.size() - 1)) {
+        std::cout << "whoops!\n";
+      }
+
+      errno = 0; // Reset errno to 0 after execution of command
     }
 
     // Restore input, output, and error defaults
