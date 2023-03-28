@@ -1196,25 +1196,21 @@ YY_RULE_SETUP
       return NEWLINE;
     }
 
-    /* Expand ~ section - will only expand if there is an even number of " to the left of the ~ - otherwise, the ~ is within the quotes     * and should not be expanded
-     */
+    // Replace ~ section
+    if(buffer[0] == '~') {
+      size_t first_slash = buffer.find('/'); // Find the first / to see if we need to list subdirectory
 
+      // 3 cases - solo, before a user, or before a user/directory
 
-
-     for(size_t i = 0; i < buffer.size(); ++i) {
-        if(buffer[i] == '~') {
-          std::string::difference_type paren_count = std::count(buffer.begin(), buffer.begin() + i, '"');
-          if(paren_count % 2 == 0) { // Is even
-            // 3 cases - solo, before a user, or before a user/directory
-
-            // Solo case:
-            if(i == buffer.size() - 1) {
-              buffer.replace(i, 1, getenv("HOME"));
-            }
-          }
-          std::cout << paren_count << "\n";
-        }
-     }
+      // Solo case:
+      if(buffer.size() == 1) {
+        buffer.replace(i, 1, getenv("HOME"));
+      } else if(buffer.size() != 1 && first_slash == string::npos) { // Before a user
+        std::cout << buffer.substr(1) << "\n"; // The user
+      } else {
+  
+      }
+    }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
@@ -1251,7 +1247,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 353 "shell.l"
+#line 349 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1262,10 +1258,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 361 "shell.l"
+#line 357 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1269 "lex.yy.cc"
+#line 1265 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2326,4 +2322,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 361 "shell.l"
+#line 357 "shell.l"
