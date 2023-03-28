@@ -1200,22 +1200,24 @@ YY_RULE_SETUP
 
     // Replace ~ section
     if(buffer[0] == '~') {
-      size_t first_slash = buffer.find('/'); // Find the first / to see if we need to list subdirectory
       struct passwd *pw; // User record structure
 
-      // 3 cases - solo, before a user, or before a user/directory 
+      // 3 cases - solo, before a user, or before a user/directory
       // Solo case:
       if(buffer.size() == 1) {
         buffer.replace(0, 1, getenv("HOME"));
-      } else if(buffer.size() != 1 && first_slash == std::string::npos) { // Before a user
+      } else {
         std::string user = buffer.substr(1);
+        size_t first_slash = buffer.find('/'); // Find the first / to see if we need to list subdirectory
         if ((pw = getpwnam(user.c_str())) == NULL) {
           // User could not be found - do not -- do not manipulated string
-        } else {
-          buffer.replace(0, 1 + user.length(), pw->pw_dir); // Replace with found home directory
+        } else { // Replace with found home directory
+          if(first_slash == std::string::npos) { // Before a user
+            buffer.replace(0, 1 + user.length(), pw->pw_dir);
+          } else { // Before a user/directory
+            buffer.replace(0, 1 + (first_slash), pw->pw_dir);
+          }
         }
-      } else {
-
       }
     }
 
@@ -1254,7 +1256,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 356 "shell.l"
+#line 358 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1265,10 +1267,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 364 "shell.l"
+#line 366 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1272 "lex.yy.cc"
+#line 1274 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2329,4 +2331,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 364 "shell.l"
+#line 366 "shell.l"
