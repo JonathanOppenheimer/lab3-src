@@ -310,7 +310,7 @@ void myunputc(int c) {
         buffer.replace(0, 1, getenv("HOME"));
       } else {
         size_t first_slash = buffer.find('/'); // Find the first / to see if we need to list subdirectory
-        std::string user = buffer.substr(1, first_slash);
+        std::string user = buffer.substr(1, first_slash - 1);
         std::cout << user << "\n";
         if ((pw = getpwnam(user.c_str())) == NULL) {
           // User could not be found - do not -- do not manipulated string
