@@ -1198,9 +1198,20 @@ YY_RULE_SETUP
 
     /* Expand ~ section - will only expand if there is an even number of " to the left of the ~ - otherwise, the ~ is within the quotes     * and should not be expanded
      */
+
+
+
      for(size_t i = 0; i < buffer.size(); ++i) {
         if(buffer[i] == '~') {
           std::string::difference_type paren_count = std::count(buffer.begin(), buffer.begin() + i, '"');
+          if(paren_count % 2 == 0) { // Is even
+            // 3 cases - solo, before a user, or before a user/directory
+
+            // Solo case:
+            if(i == buffer.size() - 1) {
+              buffer.replace(i, 1, getenv("HOME"));
+            }
+          }
           std::cout << paren_count << "\n";
         }
      }
@@ -1240,7 +1251,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 342 "shell.l"
+#line 353 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1251,10 +1262,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 350 "shell.l"
+#line 361 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1258 "lex.yy.cc"
+#line 1269 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2315,4 +2326,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 350 "shell.l"
+#line 361 "shell.l"
