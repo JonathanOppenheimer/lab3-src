@@ -1215,7 +1215,8 @@ YY_RULE_SETUP
           if(first_slash == std::string::npos) { // Before a user
             buffer.replace(0, 1 + user.length(), pw->pw_dir);
           } else { // Before a user/directory
-            buffer.replace(0, 1 + (first_slash), pw->pw_dir);
+            std::cout << "HERE!!!\n";
+            buffer.replace(0, 1 + first_slash, pw->pw_dir);
           }
         }
       }
@@ -1256,7 +1257,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 358 "shell.l"
+#line 359 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1267,10 +1268,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 366 "shell.l"
+#line 367 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1274 "lex.yy.cc"
+#line 1275 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2331,4 +2332,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 366 "shell.l"
+#line 367 "shell.l"
