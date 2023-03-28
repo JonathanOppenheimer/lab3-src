@@ -296,7 +296,7 @@ void myunputc(int c) {
     if(std::regex_search(buffer, container)) {
       std::cout << buffer + ": bad substitution\n";
       YY_FLUSH_BUFFER; // Flush yyin stop parsing
-      // return NEWLINE;
+      return NEWLINE;
     }
 
     // Replace ~ section
