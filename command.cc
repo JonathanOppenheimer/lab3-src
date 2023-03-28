@@ -195,6 +195,15 @@ void Command::execute() {
 
       /* Specific built-in commands that must be run in the parent */
 
+      // Do a special check for printenv
+      if (!strcmp(argv[0], "printenv")) {
+        char **p = environ;
+        while (*p != NULL) {
+          printf("%s\n", *p);
+          p++;
+        }
+      }
+
       // Set environment variable
       if (!strcmp(argv[0], "setenv")) {
         builtin_cmd = true;
@@ -284,15 +293,6 @@ void Command::execute() {
       if (!builtin_cmd) {
         ret = fork();
         if (ret == 0) {
-          // Do a special check for printenv
-          if (!strcmp(argv[0], "printenv")) {
-            char **p = environ;
-            while (*p != NULL) {
-              printf("%s\n", *p);
-              p++;
-            }
-            exit(0);
-          }
 
           // Call execvp with modified arguements for all other commands
           execvp(argv[0], argv.data());
