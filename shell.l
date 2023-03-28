@@ -298,6 +298,15 @@ void myunputc(int c) {
       return NEWLINE;
     }
 
+    /* Expand ~ section - will only expand if there is an even number of " to the left of the ~ - otherwise, the ~ is within the quotes     * and should not be expanded
+     */
+     for(size_t i = 0; i < buffer.size(); ++i) {
+        if(buffer[i] == '~') {
+          std::string::difference_type paren_count = std::count(buffer.begin(), buffer.begin() + i, '"');
+          std::cout << paren_count << "\n";
+        }
+     }
+
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
      * to close it.
