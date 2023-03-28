@@ -318,7 +318,7 @@ void myunputc(int c) {
           if(first_slash == std::string::npos) { // Before a user
             buffer.replace(0, 1 + user.length(), pw->pw_dir);
           } else { // Before a user/directory
-            buffer.replace(0, 1 + 1 + first_slash, pw->pw_dir);
+            buffer.replace(0, first_slash, pw->pw_dir);
           }
         }
       }
