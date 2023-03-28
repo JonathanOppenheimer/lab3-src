@@ -40,6 +40,6 @@ test_wildcards4 Failed 0/1
 test_wildcards5 Failed 0/1
 test_wildcards6 Failed 0/1
 test_wildcards7 Passed 1/1
-test_tilde Failed 0/2
+test_tilde Passed 2/2
 test_robustness Failed 0/10
-Total:                   50.0 of 70.0
+Total:                   52.0 of 70.0

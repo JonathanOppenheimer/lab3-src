@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <iostream>
 
+#include <errno.h>
 #include <fcntl.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -303,6 +304,12 @@ void Command::execute() {
           exit(2);
         }
       }
+
+      if (errno != 0) {
+        std::cout << "whoops!\n";
+      }
+
+      errno = 0; // Reset errno before next execution;
     }
 
     // Restore input, output, and error defaults

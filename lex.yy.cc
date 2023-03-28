@@ -1209,7 +1209,6 @@ YY_RULE_SETUP
       } else {
         size_t first_slash = buffer.find('/'); // Find the first / to see if we need to list subdirectory
         std::string user = buffer.substr(1, first_slash - 1);
-        std::cout << user << "\n";
         if ((pw = getpwnam(user.c_str())) == NULL) {
           // User could not be found - do not -- do not manipulated string
         } else { // Replace with found home directory
@@ -1257,7 +1256,7 @@ case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
 case YY_STATE_EOF(subshell):
-#line 359 "shell.l"
+#line 358 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1268,10 +1267,10 @@ case YY_STATE_EOF(subshell):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 367 "shell.l"
+#line 366 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1275 "lex.yy.cc"
+#line 1274 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2332,4 +2331,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 367 "shell.l"
+#line 366 "shell.l"
