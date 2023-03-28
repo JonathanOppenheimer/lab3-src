@@ -175,7 +175,6 @@ void Command::execute() {
     for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
       // Used to maintain whether the command is built-in or executed
       bool builtin_cmd = false;
-      errno = 0; // Reset errno before next execution;
 
       // Convert the current command vector to a state suitable for execvp
       SimpleCommand *current_command = _simpleCommands.at(i);
@@ -305,6 +304,8 @@ void Command::execute() {
           exit(2);
         }
       }
+
+      errno = 0; // Reset errno before next execution;
     }
 
     if (errno != 0) {
