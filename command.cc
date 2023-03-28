@@ -176,7 +176,6 @@ void Command::execute() {
     for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
       // Used to maintain whether the command is built-in or executed
       bool builtin_cmd = false;
-      // errno = 0; // Reset errno to 0 after execution of command
 
       // Convert the current command vector to a state suitable for execvp
       SimpleCommand *current_command = _simpleCommands.at(i);
@@ -332,12 +331,6 @@ void Command::execute() {
           ret); // Add background PID to global vector for zombie elimination
       last_background_pid = ret; // Update global last background pid
     }
-  }
-
-  if (errno != 0) {
-    std::cout << errno << "\n";
-    std::cout << "whoops!\n";
-    errno = 0;
   }
 
   // Clear to prepare for next command

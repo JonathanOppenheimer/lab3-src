@@ -53,7 +53,6 @@ void myunputc(int c) {
 
 %x quotes
 %x manual_source
-%x subshell
 
 %%
 
