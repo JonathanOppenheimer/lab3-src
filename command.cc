@@ -306,10 +306,6 @@ void Command::execute() {
       }
     }
 
-    if (errno != 0) {
-      std::cout << "whoops!\n";
-    }
-
     // Restore input, output, and error defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
