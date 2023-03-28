@@ -294,7 +294,7 @@ void myunputc(int c) {
     }
     // If anything else remains it must be a bad regex (non_valid env_vars) - so serror
     if(std::regex_search(buffer, container)) {
-      std::cout << buffer + ": bad substitution\n";
+      std::cout << buffer + ": bad substitution";
       YY_FLUSH_BUFFER; // Flush yyin stop parsing
       return NEWLINE;
     }
