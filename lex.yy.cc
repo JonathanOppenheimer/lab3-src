@@ -1204,7 +1204,7 @@ YY_RULE_SETUP
 
       // Solo case:
       if(buffer.size() == 1) {
-        buffer.replace(i, 1, getenv("HOME"));
+        buffer.replace(0, 1, getenv("HOME"));
       } else if(buffer.size() != 1 && first_slash == string::npos) { // Before a user
         std::cout << buffer.substr(1) << "\n"; // The user
       } else {
