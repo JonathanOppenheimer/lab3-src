@@ -15,7 +15,6 @@
  */
 
 #include <algorithm>
-#include <asm-generic/errno-base.h>
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
@@ -211,10 +210,8 @@ void Command::execute() {
         builtin_cmd = true;
         if (argv.size() > (3 + 1)) {
           fprintf(stderr, "setenv: too many arguments\n");
-          errno = E2BIG;
         } else if (argv.size() < (3 + 1)) {
           fprintf(stderr, "setenv: too few arguments\n");
-          errno = EINVAL;
         } else {
           if (setenv(argv[1], argv[2], 1)) {
             perror("setenv");
@@ -228,10 +225,8 @@ void Command::execute() {
         builtin_cmd = true;
         if (argv.size() > (2 + 1)) {
           fprintf(stderr, "unsetenv: too many arguments\n");
-          errno = E2BIG;
         } else if (argv.size() < (2 + 1)) {
           fprintf(stderr, "setenv: too few arguments\n");
-          errno = EINVAL;
         } else {
           if (unsetenv(argv[1])) {
             perror("unsetenv");
@@ -245,7 +240,6 @@ void Command::execute() {
         builtin_cmd = true;
         if (argv.size() > (2 + 1)) {
           fprintf(stderr, "cd: too many arguments\n");
-          errno = E2BIG;
         } else {
           std::string error_string; // If the directory does not exist
           // No argument provided, default to home directory
@@ -303,7 +297,6 @@ void Command::execute() {
           // Call execvp with modified arguements for all other commands
           execvp(argv[0], argv.data());
           perror("execvp");
-
           _exit(1);
         } else if (ret < 0) {
           // There was an error in fork
@@ -311,6 +304,10 @@ void Command::execute() {
           exit(2);
         }
       }
+    }
+
+    if (errno != 0) {
+      std::cout << "whoops!\n";
     }
 
     // Restore input, output, and error defaults
