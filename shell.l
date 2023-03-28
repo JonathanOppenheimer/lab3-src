@@ -298,25 +298,21 @@ void myunputc(int c) {
       return NEWLINE;
     }
 
-    /* Expand ~ section - will only expand if there is an even number of " to the left of the ~ - otherwise, the ~ is within the quotes     * and should not be expanded
-     */
+    // Replace ~ section
+    if(buffer[0] == '~') {
+      size_t first_slash = buffer.find('/'); // Find the first / to see if we need to list subdirectory
 
+      // 3 cases - solo, before a user, or before a user/directory
 
-
-     for(size_t i = 0; i < buffer.size(); ++i) {
-        if(buffer[i] == '~') {
-          std::string::difference_type paren_count = std::count(buffer.begin(), buffer.begin() + i, '"');
-          if(paren_count % 2 == 0) { // Is even
-            // 3 cases - solo, before a user, or before a user/directory
-
-            // Solo case:
-            if(i == buffer.size() - 1) {
-              buffer.replace(i, 1, getenv("HOME"));
-            }
-          }
-          std::cout << paren_count << "\n";
-        }
-     }
+      // Solo case:
+      if(buffer.size() == 1) {
+        buffer.replace(i, 1, getenv("HOME"));
+      } else if(buffer.size() != 1 && first_slash == string::npos) { // Before a user
+        std::cout << buffer.substr(1) << "\n"; // The user
+      } else {
+  
+      }
+    }
 
     /* Parse the string for escaped characters and '"'. Deal with quotes.
      * In the case of an unclose '"', start the action to prompt the user 
