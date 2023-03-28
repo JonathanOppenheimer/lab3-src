@@ -305,16 +305,16 @@ void Command::execute() {
           execvp(argv[0], argv.data());
           perror("execvp");
 
-          if ((errno != 0) && (i == _simpleCommands.size() - 1)) {
-            std::cout << "whoops!\n";
-          }
-
           _exit(1);
         } else if (ret < 0) {
           // There was an error in fork
           perror("fork");
           exit(2);
         }
+      }
+
+      if ((errno != 0) && (i == _simpleCommands.size() - 1)) {
+        std::cout << "whoops!\n";
       }
     }
 
