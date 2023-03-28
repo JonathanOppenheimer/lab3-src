@@ -202,6 +202,7 @@ void Command::execute() {
           printf("%s\n", *p);
           p++;
         }
+        status = 0;
       }
 
       // Set environment variable
@@ -293,7 +294,6 @@ void Command::execute() {
       if (!builtin_cmd) {
         ret = fork();
         if (ret == 0) {
-
           // Call execvp with modified arguements for all other commands
           execvp(argv[0], argv.data());
           perror("execvp");
