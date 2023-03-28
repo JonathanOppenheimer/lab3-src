@@ -171,6 +171,7 @@ void Command::execute() {
 
     int ret = -1; // fork(): 0 if child, > 0 if parent, < 0 if error
     int fdout;    // The out file descriptor
+    errno = 0;    // Reset errno if not done already
 
     for (std::size_t i = 0, max = _simpleCommands.size(); i != max; ++i) {
       // Used to maintain whether the command is built-in or executed
