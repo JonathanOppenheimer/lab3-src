@@ -314,6 +314,7 @@ void Command::execute() {
       }
 
       if ((errno != 0) && (i == _simpleCommands.size() - 1)) {
+        std::cout << errno << "\n";
         std::cout << "whoops!\n";
         errno = 0;
       }
