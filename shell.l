@@ -14,8 +14,10 @@
 #include <regex>
 
 #include <fcntl.h>
+#include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include "shell.hh"
