@@ -304,8 +304,6 @@ void Command::execute() {
           exit(2);
         }
       }
-
-      errno = 0; // Reset errno before next execution;
     }
 
     if (errno != 0) {
