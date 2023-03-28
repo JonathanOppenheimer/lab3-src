@@ -312,12 +312,6 @@ void Command::execute() {
           exit(2);
         }
       }
-
-      if ((errno != 0) && (errno != 10) && (i == _simpleCommands.size() - 1)) {
-        std::cout << errno << "\n";
-        std::cout << "whoops!\n";
-        errno = 0;
-      }
     }
 
     // Restore input, output, and error defaults
@@ -338,6 +332,12 @@ void Command::execute() {
           ret); // Add background PID to global vector for zombie elimination
       last_background_pid = ret; // Update global last background pid
     }
+  }
+
+  if (errno != 0) {
+    std::cout << errno << "\n";
+    std::cout << "whoops!\n";
+    errno = 0;
   }
 
   // Clear to prepare for next command
