@@ -300,9 +300,20 @@ void myunputc(int c) {
 
     /* Expand ~ section - will only expand if there is an even number of " to the left of the ~ - otherwise, the ~ is within the quotes     * and should not be expanded
      */
+
+
+
      for(size_t i = 0; i < buffer.size(); ++i) {
         if(buffer[i] == '~') {
           std::string::difference_type paren_count = std::count(buffer.begin(), buffer.begin() + i, '"');
+          if(paren_count % 2 == 0) { // Is even
+            // 3 cases - solo, before a user, or before a user/directory
+
+            // Solo case:
+            if(i == buffer.size() - 1) {
+              buffer.replace(i, 1, getenv("HOME"));
+            }
+          }
           std::cout << paren_count << "\n";
         }
      }
