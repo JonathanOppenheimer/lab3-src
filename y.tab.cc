@@ -1792,6 +1792,8 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
     }
   }
 
+  std::cout << raw_string << "\n";
+
   // Finished building regex
   std::regex built_regex(raw_string);
 
