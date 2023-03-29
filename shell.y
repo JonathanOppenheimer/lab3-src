@@ -49,7 +49,7 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    expandWildCardsIfNecessary($1);
+    expandWildCardsIfNecessary($2);
   }
   | /* can be empty */
 ;
