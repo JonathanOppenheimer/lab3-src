@@ -177,8 +177,10 @@ int yyparse (void);
 /* Second part of user prologue.  */
 #line 35 "shell.y"
 
+#include <algorithm>
 #include <cstdio>
 #include <iostream>
+#include <string>
 
 #include "shell.hh"
 
@@ -187,7 +189,7 @@ void expandWildCardsIfNecessary(std::string*);
 int yylex();
 
 
-#line 191 "y.tab.cc"
+#line 193 "y.tab.cc"
 
 
 #ifdef short
@@ -549,9 +551,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    49,    49,    51,    54,    58,    58,    68,    69,    73,
-      81,    89,    97,   112,   121,   141,   142,   146,   152,   155,
-     158,   161,   167,   168
+       0,    51,    51,    53,    56,    60,    60,    70,    71,    75,
+      83,    91,    99,   114,   123,   143,   144,   148,   154,   157,
+     160,   163,   169,   170
 };
 #endif
 
@@ -1361,32 +1363,32 @@ yyreduce:
   switch (yyn)
     {
   case 3:
-#line 51 "shell.y"
+#line 53 "shell.y"
                 {
     expandWildCardsIfNecessary( (yyvsp[0].cpp_string) );
   }
-#line 1369 "y.tab.cc"
+#line 1371 "y.tab.cc"
     break;
 
   case 5:
-#line 58 "shell.y"
+#line 60 "shell.y"
        {
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument((yyvsp[0].cpp_string));
   }
-#line 1378 "y.tab.cc"
+#line 1380 "y.tab.cc"
     break;
 
   case 6:
-#line 62 "shell.y"
+#line 64 "shell.y"
            {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
   }
-#line 1386 "y.tab.cc"
+#line 1388 "y.tab.cc"
     break;
 
   case 9:
-#line 73 "shell.y"
+#line 75 "shell.y"
                { /* > */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1395,11 +1397,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous output redirect.";
       }
     }
-#line 1399 "y.tab.cc"
+#line 1401 "y.tab.cc"
     break;
 
   case 10:
-#line 81 "shell.y"
+#line 83 "shell.y"
               { /* < */
       /* Redirect stdin */
       if(Shell::_currentCommand._inFile == NULL) {
@@ -1408,11 +1410,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous input redirect.";
       }
     }
-#line 1412 "y.tab.cc"
+#line 1414 "y.tab.cc"
     break;
 
   case 11:
-#line 89 "shell.y"
+#line 91 "shell.y"
                   { /* 2> */
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
@@ -1421,11 +1423,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirect.";
       }
     }
-#line 1425 "y.tab.cc"
+#line 1427 "y.tab.cc"
     break;
 
   case 12:
-#line 97 "shell.y"
+#line 99 "shell.y"
                         { /* >& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1441,11 +1443,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
-#line 1445 "y.tab.cc"
+#line 1447 "y.tab.cc"
     break;
 
   case 13:
-#line 112 "shell.y"
+#line 114 "shell.y"
                     { /* >> */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1455,11 +1457,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous output redirection";
       }
     }
-#line 1459 "y.tab.cc"
+#line 1461 "y.tab.cc"
     break;
 
   case 14:
-#line 121 "shell.y"
+#line 123 "shell.y"
                              { /* >>& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1477,51 +1479,51 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
-#line 1481 "y.tab.cc"
+#line 1483 "y.tab.cc"
     break;
 
   case 17:
-#line 146 "shell.y"
+#line 148 "shell.y"
               {
       Shell::_currentCommand._background = true;
     }
-#line 1489 "y.tab.cc"
+#line 1491 "y.tab.cc"
     break;
 
   case 18:
-#line 152 "shell.y"
+#line 154 "shell.y"
                                        {
       Shell::_currentCommand.execute();
     }
-#line 1497 "y.tab.cc"
+#line 1499 "y.tab.cc"
     break;
 
   case 19:
-#line 155 "shell.y"
+#line 157 "shell.y"
                                                            {
       Shell::_currentCommand.execute();
     }
-#line 1505 "y.tab.cc"
+#line 1507 "y.tab.cc"
     break;
 
   case 20:
-#line 158 "shell.y"
+#line 160 "shell.y"
             {
       Shell::_currentCommand.execute();
     }
-#line 1513 "y.tab.cc"
+#line 1515 "y.tab.cc"
     break;
 
   case 21:
-#line 161 "shell.y"
+#line 163 "shell.y"
                  {
       yyerrok; /* Clear the errors */
     }
-#line 1521 "y.tab.cc"
+#line 1523 "y.tab.cc"
     break;
 
 
-#line 1525 "y.tab.cc"
+#line 1527 "y.tab.cc"
 
       default: break;
     }
@@ -1753,7 +1755,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 171 "shell.y"
+#line 173 "shell.y"
 
 
 void yyerror(const char* s) {
