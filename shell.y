@@ -57,7 +57,7 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    std::vector<std::string> matching_args;
+    std::vector<std::string*> matching_args;
     expandWildCardsIfNecessary($2, matching_args);
   }
   | /* can be empty */
@@ -183,7 +183,7 @@ void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
 
-void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
+void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string*> matching_args) {
   std::string raw_string = *arg;
 
   /* 
@@ -223,10 +223,10 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
         // Then check if it starts with a .
         if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
           if ((*arg)[0] == '.')
-            matching_args.push_back(dp->d_name);
+            matching_args.push_back(dp.d_name);
         }
       } else { // Otherwise add it
-        matching_args.push_back(dp->d_name);
+        matching_args.push_back(dp.d_name);
       }
     }
     // std::cout << dp->d_name << "\n";
@@ -241,7 +241,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
 
   // Add the entries as arguements
   for (int i = 0; i < matching_args.size(); i++) {
-    Command::_currentSimpleCommand->insertArgument(matching_args[i]));
+    Command::_currentSimpleCommand->insertArgument(std::string(matching_args[i]));
   }
 }
 
