@@ -190,7 +190,7 @@ int yyparse (void);
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string*, std::vector<std::string *>);
+void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
 int isDirectory(const char *);
 int yylex();
 
@@ -1769,7 +1769,7 @@ void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
 
-void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string*> matching_args) {
+void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
   std::string raw_string = *arg;
 
   /* 
@@ -1809,10 +1809,10 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string*> matc
         // Then check if it starts with a .
         if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
           if ((*arg)[0] == '.')
-            matching_args.push_back(new std::string(dp->d_name));
+            matching_args.push_back(std::string(dp->d_name));
         }
       } else { // Otherwise add it
-        matching_args.push_back(new std::string(dp->d_name));
+        matching_args.push_back(std::string(dp->d_name));
       }
     }
     // std::cout << dp->d_name << "\n";
