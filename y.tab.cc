@@ -1792,8 +1792,6 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
     }
   }
 
-  std::cout << raw_string << "\n";
-
   // Finished building regex
   std::regex built_regex(raw_string);
 
@@ -1819,7 +1817,6 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
         matching_args.push_back(std::string(dp->d_name));
       }
     }
-    // std::cout << dp->d_name << "\n";
   }
   
 
@@ -1829,17 +1826,23 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
   // Sort the vector 
   std::sort(matching_args.begin(), matching_args.end());
 
-  // Add the entries as arguements if matches found, otherwise
-  for (int i = 0; i < matching_args.size(); i++) {
-    Command::_currentSimpleCommand->insertArgument(new std::string(matching_args[i]));
+  // Add the entries as arguements if matches found, otherwise, just insert the original arg
+  if(matching_args.size() > 0 ) {
+    for (int i = 0; i < matching_args.size(); i++) {
+      Command::_currentSimpleCommand->insertArgument(new std::string(matching_args[i]));
+    }
+  } else {
+    Command::_currentSimpleCommand->insertArgument(new std::string(arg);
   }
 }
 
 int isNotDirectory(const char *path) {
-   struct stat statbuf;
-   if (stat(path, &statbuf) != 0)
-       return 0;
-   return S_ISDIR(statbuf.st_mode);
+  struct stat statbuf;
+  if (stat(path, &statbuf) != 0) {
+    return 0;
+  } else {
+    return S_ISDIR(statbuf.st_mode);
+  }
 }
 
 
