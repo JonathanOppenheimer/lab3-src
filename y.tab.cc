@@ -1371,7 +1371,7 @@ yyreduce:
 #line 57 "shell.y"
        {
     Command::_currentSimpleCommand = new SimpleCommand();
-    Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
+    expandWildcardsIfNecessary((yyvsp[0].cpp_string));
   }
 #line 1377 "y.tab.cc"
     break;
@@ -1760,7 +1760,8 @@ void yyerror(const char* s) {
 }
 
 void expandWildCardsIfNecessary(char* arg) {
-
+  std::string raw_arg = std::string(arg);
+  std::cout << raw_arg;
 }
 
 

@@ -33,8 +33,9 @@
 %define parse.error verbose
 
 %{
-//#define yylex yylex
 #include <cstdio>
+#include <iostream>
+
 #include "shell.hh"
 
 void yyerror(const char * s);
