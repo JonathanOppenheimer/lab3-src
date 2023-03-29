@@ -190,7 +190,7 @@ int yyparse (void);
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
+void expandWildCardsIfNecessary(std::string*, std::vector<std::string*>);
 int isDirectory(const char *);
 int yylex();
 

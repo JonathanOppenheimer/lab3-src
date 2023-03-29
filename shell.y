@@ -46,7 +46,7 @@
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string*, std::vector<std::string*>);
+void expandWildCardsIfNecessary(std::string*, std::vector<std::string *>);
 int isDirectory(const char *);
 int yylex();
 
@@ -57,7 +57,7 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    std::vector<std::string*> matching_args;
+    std::vector<std::string *> matching_args;
     expandWildCardsIfNecessary($2, matching_args);
   }
   | /* can be empty */
