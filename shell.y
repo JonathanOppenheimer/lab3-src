@@ -186,7 +186,7 @@ void expandWildCardsIfNecessary(std::string* arg) {
    * Replace . with \\.
    */
   std::replace(arg->begin(), arg->end(), "*", ".*");
-  std::replace(arg->begin(), arg->end(), ""?", ".");
+  std::replace(arg->begin(), arg->end(), "?", ".");
   std::replace(arg->begin(), arg->end(), ".", "\\.");
 
   Command::_currentSimpleCommand->insertArgument( arg );
