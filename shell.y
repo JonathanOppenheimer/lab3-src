@@ -222,7 +222,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
       if(!isDirectory(dp)) {
         // Then check if it starts with a .
         if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
-          if (arg[0] == '.')
+          if ((*arg)[0] == '.')
             matching_args.push_back(dp->d_name);
           }
         } else { // Otherwise add it
