@@ -38,6 +38,7 @@
 #include "shell.hh"
 
 void yyerror(const char * s);
+void expandWildCardsIfNecessary(char *);
 int yylex();
 
 %}
@@ -168,11 +169,14 @@ command_list:
 
 %%
 
-void
-yyerror(const char * s)
-{
+void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
+
+void expandWildCardsIfNecessary(char* arg) {
+
+}
+
 
 #if 0
 main()
