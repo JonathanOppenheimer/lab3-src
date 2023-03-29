@@ -1363,7 +1363,7 @@ yyreduce:
   case 3:
 #line 51 "shell.y"
                 {
-    expandWildCardsIfNecessary( (yyvsp[0].cpp_string) )
+    expandWildCardsIfNecessary( (yyvsp[0].cpp_string) );
   }
 #line 1369 "y.tab.cc"
     break;
