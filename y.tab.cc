@@ -182,6 +182,7 @@ int yyparse (void);
 #include <iostream>
 #include <regex>
 #include <string>
+#include <vector>
 
 #include <dirent.h>
 #include <sys/types.h>
@@ -189,11 +190,12 @@ int yyparse (void);
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string*);
+void expandWildCardsIfNecessary(std::string*, std::vector<string>);
+int isDirectory(const char *);
 int yylex();
 
 
-#line 197 "y.tab.cc"
+#line 199 "y.tab.cc"
 
 
 #ifdef short
@@ -555,9 +557,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    55,    55,    57,    60,    64,    64,    74,    75,    79,
-      87,    95,   103,   118,   127,   147,   148,   152,   158,   161,
-     164,   167,   173,   174
+       0,    57,    57,    59,    63,    67,    67,    77,    78,    82,
+      90,    98,   106,   121,   130,   150,   151,   155,   161,   164,
+     167,   170,   176,   177
 };
 #endif
 
@@ -1367,32 +1369,33 @@ yyreduce:
   switch (yyn)
     {
   case 3:
-#line 57 "shell.y"
+#line 59 "shell.y"
                 {
-    expandWildCardsIfNecessary( (yyvsp[0].cpp_string) );
+    std::vector<string> matching_args;
+    expandWildCardsIfNecessary((yyvsp[0].cpp_string), matching_args);
   }
-#line 1375 "y.tab.cc"
+#line 1378 "y.tab.cc"
     break;
 
   case 5:
-#line 64 "shell.y"
+#line 67 "shell.y"
        {
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument((yyvsp[0].cpp_string));
   }
-#line 1384 "y.tab.cc"
+#line 1387 "y.tab.cc"
     break;
 
   case 6:
-#line 68 "shell.y"
+#line 71 "shell.y"
            {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
   }
-#line 1392 "y.tab.cc"
+#line 1395 "y.tab.cc"
     break;
 
   case 9:
-#line 79 "shell.y"
+#line 82 "shell.y"
                { /* > */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1401,11 +1404,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous output redirect.";
       }
     }
-#line 1405 "y.tab.cc"
+#line 1408 "y.tab.cc"
     break;
 
   case 10:
-#line 87 "shell.y"
+#line 90 "shell.y"
               { /* < */
       /* Redirect stdin */
       if(Shell::_currentCommand._inFile == NULL) {
@@ -1414,11 +1417,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous input redirect.";
       }
     }
-#line 1418 "y.tab.cc"
+#line 1421 "y.tab.cc"
     break;
 
   case 11:
-#line 95 "shell.y"
+#line 98 "shell.y"
                   { /* 2> */
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
@@ -1427,11 +1430,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirect.";
       }
     }
-#line 1431 "y.tab.cc"
+#line 1434 "y.tab.cc"
     break;
 
   case 12:
-#line 103 "shell.y"
+#line 106 "shell.y"
                         { /* >& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1447,11 +1450,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
-#line 1451 "y.tab.cc"
+#line 1454 "y.tab.cc"
     break;
 
   case 13:
-#line 118 "shell.y"
+#line 121 "shell.y"
                     { /* >> */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1461,11 +1464,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous output redirection";
       }
     }
-#line 1465 "y.tab.cc"
+#line 1468 "y.tab.cc"
     break;
 
   case 14:
-#line 127 "shell.y"
+#line 130 "shell.y"
                              { /* >>& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1483,51 +1486,51 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
-#line 1487 "y.tab.cc"
+#line 1490 "y.tab.cc"
     break;
 
   case 17:
-#line 152 "shell.y"
+#line 155 "shell.y"
               {
       Shell::_currentCommand._background = true;
     }
-#line 1495 "y.tab.cc"
+#line 1498 "y.tab.cc"
     break;
 
   case 18:
-#line 158 "shell.y"
+#line 161 "shell.y"
                                        {
       Shell::_currentCommand.execute();
     }
-#line 1503 "y.tab.cc"
+#line 1506 "y.tab.cc"
     break;
 
   case 19:
-#line 161 "shell.y"
+#line 164 "shell.y"
                                                            {
       Shell::_currentCommand.execute();
     }
-#line 1511 "y.tab.cc"
+#line 1514 "y.tab.cc"
     break;
 
   case 20:
-#line 164 "shell.y"
+#line 167 "shell.y"
             {
       Shell::_currentCommand.execute();
     }
-#line 1519 "y.tab.cc"
+#line 1522 "y.tab.cc"
     break;
 
   case 21:
-#line 167 "shell.y"
+#line 170 "shell.y"
                  {
       yyerrok; /* Clear the errors */
     }
-#line 1527 "y.tab.cc"
+#line 1530 "y.tab.cc"
     break;
 
 
-#line 1531 "y.tab.cc"
+#line 1534 "y.tab.cc"
 
       default: break;
     }
@@ -1759,14 +1762,14 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 177 "shell.y"
+#line 180 "shell.y"
 
 
 void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
 
-void expandWildCardsIfNecessary(std::string* arg) {
+void expandWildCardsIfNecessary(std::string* arg, std::vector<string> matching_args) {
   std::string raw_string = *arg;
 
   /* 
@@ -1801,11 +1804,38 @@ void expandWildCardsIfNecessary(std::string* arg) {
 
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
-      std::cout << dp->d_name << "\n";
+      // First check if the dp is not a directory
+      if(!isDirectory(dp)) {
+        // Then check if it starts with a .
+        if (dp->d_name[0] == ‘.’) { // If it does only add if the word started with a .
+          if (arg[0] == ‘.’)
+            matching_args.push_back(dp->d_name);
+          }
+        } else { // Otherwise add it
+          matching_args.push_back(dp->d_name);
+        }
+      }
+      // std::cout << dp->d_name << "\n";
     }
   }
 
-  Command::_currentSimpleCommand->insertArgument( arg );
+  // Close the dir
+  closedir(dir);
+
+  // Sort the vector 
+  std::sort(matching_args.begin(), matching_args.end());
+
+  // Add the entries as arguements
+  for (int i = 0; i < matching_args.size(); i++) {
+    Command::_currentSimpleCommand->insertArgument(matching_args[i]));
+  }
+}
+
+int isDirectory(const char *path) {
+   struct stat statbuf;
+   if (stat(path, &statbuf) != 0)
+       return 0;
+   return S_ISDIR(statbuf.st_mode);
 }
 
 
