@@ -221,7 +221,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
       // First check if the dp is not a directory
-      if(isDirectory(dp->d_name)) {
+      if(isNotDirectory(dp->d_name)) {
         // Then check if it starts with a .
         if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
           if ((*arg)[0] == '.')
@@ -241,13 +241,13 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
   // Sort the vector 
   std::sort(matching_args.begin(), matching_args.end());
 
-  // Add the entries as arguements
+  // Add the entries as arguements if matches found, otherwise
   for (int i = 0; i < matching_args.size(); i++) {
     Command::_currentSimpleCommand->insertArgument(new std::string(matching_args[i]));
   }
 }
 
-int isDirectory(const char *path) {
+int isNotDirectory(const char *path) {
    struct stat statbuf;
    if (stat(path, &statbuf) != 0)
        return 0;
