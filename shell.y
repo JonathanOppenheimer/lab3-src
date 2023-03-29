@@ -38,6 +38,9 @@
 #include <iostream>
 #include <string>
 
+#include <dirent.h>
+#include <sys/types.h>
+
 #include "shell.hh"
 
 void yyerror(const char * s);
