@@ -56,7 +56,7 @@ arg_list:
 cmd_and_args:
   WORD {
     Command::_currentSimpleCommand = new SimpleCommand();
-    Command::_currentSimpleCommand->insertArgument( $1 );
+    expandWildcardsIfNecessary($1);
   }
   arg_list {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
@@ -174,7 +174,8 @@ void yyerror(const char* s) {
 }
 
 void expandWildCardsIfNecessary(char* arg) {
-
+  std::string raw_arg = std::string(arg);
+  std::cout << raw_arg;
 }
 
 
