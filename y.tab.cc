@@ -1363,7 +1363,7 @@ yyreduce:
   case 3:
 #line 51 "shell.y"
                 {
-    Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
+    expandWildCardsIfNecessary( (yyvsp[0].cpp_string) )
   }
 #line 1369 "y.tab.cc"
     break;
@@ -1761,7 +1761,8 @@ void yyerror(const char* s) {
 }
 
 void expandWildCardsIfNecessary(std::string* arg) {
-  std::cout << *arg << "\n";
+  Command::_currentSimpleCommand->insertArgument( $2 );
+  // std::cout << *arg << "\n";
 }
 
 
