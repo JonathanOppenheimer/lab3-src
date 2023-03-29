@@ -49,7 +49,7 @@
 
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
-int isDirectory(const char *);
+int isNotDirectory(const char *);
 int yylex();
 
 %}
