@@ -1771,12 +1771,22 @@ void expandWildCardsIfNecessary(std::string* arg) {
    * Replace ? with .
    * Replace . with \\.
    */
-  std::replace(arg->begin(), arg->end(), "*", ".*");
-  std::replace(arg->begin(), arg->end(), "?", ".");
-  std::replace(arg->begin(), arg->end(), ".", "\\.");
+ 
+  for(int i=0; i<raw_string.length(); i++) {
+    if(raw_string[i] == "*") {
+      raw_string.replace(i, 2, ".*");
+      i++;
+    } else if(raw_string[i] == "?" ) {
+      raw_string.replace(i, 1, ".");
+    } else if(raw_string[i] == ".") {
+      raw_string.replace(i, 1, "\\.");
+      i+=2;
+    }
+  }
+
+  std::cout << raw_string << "\n";
 
   Command::_currentSimpleCommand->insertArgument( arg );
-  std::cout << *arg << "\n";
 }
 
 
