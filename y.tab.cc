@@ -183,7 +183,7 @@ int yyparse (void);
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string);
+void expandWildCardsIfNecessary(std::string*);
 int yylex();
 
 
@@ -1760,7 +1760,7 @@ void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
 
-void expandWildCardsIfNecessary(std::string arg) {
+void expandWildCardsIfNecessary(std::string* arg) {
   std::string raw_arg = std::string(arg);
   std::cout << raw_arg;
 }
