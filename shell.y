@@ -57,7 +57,7 @@ arg_list:
 cmd_and_args:
   WORD {
     Command::_currentSimpleCommand = new SimpleCommand();
-    expandWildcardsIfNecessary($1);
+    expandWildCardsIfNecessary($1);
   }
   arg_list {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
