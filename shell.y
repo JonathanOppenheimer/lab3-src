@@ -49,7 +49,7 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    expandWildCardsIfNecessary($2);
+    Command::_currentSimpleCommand->insertArgument( $2 );
   }
   | /* can be empty */
 ;
@@ -57,6 +57,7 @@ arg_list:
 cmd_and_args:
   WORD {
     Command::_currentSimpleCommand = new SimpleCommand();
+    Command::_currentSimpleCommand->insertArgument($1);
   }
   arg_list {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
@@ -175,8 +176,6 @@ void yyerror(const char* s) {
 
 void expandWildCardsIfNecessary(std::string* arg) {
   std::cout << *arg << "\n";
-  Command::_currentSimpleCommand->insertArgument(arg);
-  return;
 }
 
 
