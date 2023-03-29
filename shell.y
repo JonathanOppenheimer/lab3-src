@@ -36,6 +36,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <iostream>
+#include <regex>
 #include <string>
 
 #include <dirent.h>
