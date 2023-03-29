@@ -1832,7 +1832,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
       Command::_currentSimpleCommand->insertArgument(new std::string(matching_args[i]));
     }
   } else {
-    Command::_currentSimpleCommand->insertArgument(new std::string(arg);
+    Command::_currentSimpleCommand->insertArgument(arg);
   }
 }
 
