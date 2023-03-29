@@ -41,7 +41,9 @@
 #include <vector>
 
 #include <dirent.h>
+#include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include "shell.hh"
 
