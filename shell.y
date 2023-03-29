@@ -223,10 +223,10 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string*> matc
         // Then check if it starts with a .
         if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
           if ((*arg)[0] == '.')
-            matching_args.push_back(dp.d_name);
+            matching_args.push_back(dp->d_name);
         }
       } else { // Otherwise add it
-        matching_args.push_back(dp.d_name);
+        matching_args.push_back(dp->d_name);
       }
     }
     // std::cout << dp->d_name << "\n";

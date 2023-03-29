@@ -190,7 +190,7 @@ int yyparse (void);
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string*, std::vector<std::string*>);
+void expandWildCardsIfNecessary(std::string*, std::vector<std::string *>);
 int isDirectory(const char *);
 int yylex();
 
@@ -1371,7 +1371,7 @@ yyreduce:
   case 3:
 #line 59 "shell.y"
                 {
-    std::vector<std::string*> matching_args;
+    std::vector<std::string *> matching_args;
     expandWildCardsIfNecessary((yyvsp[0].cpp_string), matching_args);
   }
 #line 1378 "y.tab.cc"
