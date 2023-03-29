@@ -33,8 +33,10 @@
 %define parse.error verbose
 
 %{
+#include <algorithm>
 #include <cstdio>
 #include <iostream>
+#include <string>
 
 #include "shell.hh"
 
