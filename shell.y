@@ -193,7 +193,7 @@ void expandWildCardsIfNecessary(std::string* arg) {
     } else if(raw_string[i] == '?' ) {
       raw_string.replace(i, 1, ".");
     } else if(raw_string[i] == '.') {
-      raw_string.replace(i, 1, "\\.");
+      raw_string.replace(i, 1, "\.");
       i+=2;
     }
   }
