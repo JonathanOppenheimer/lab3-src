@@ -38,6 +38,7 @@
 #include <iostream>
 #include <regex>
 #include <string>
+#include <vector>
 
 #include <dirent.h>
 #include <sys/types.h>
@@ -45,7 +46,8 @@
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string*);
+void expandWildCardsIfNecessary(std::string*, std::vector<string>);
+int isDirectory(const char *);
 int yylex();
 
 %}
@@ -55,7 +57,8 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    expandWildCardsIfNecessary( $2 );
+    std::vector<string> matching_args;
+    expandWildCardsIfNecessary($2, matching_args);
   }
   | /* can be empty */
 ;
@@ -180,7 +183,7 @@ void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
 
-void expandWildCardsIfNecessary(std::string* arg) {
+void expandWildCardsIfNecessary(std::string* arg, std::vector<string> matching_args) {
   std::string raw_string = *arg;
 
   /* 
@@ -215,11 +218,38 @@ void expandWildCardsIfNecessary(std::string* arg) {
 
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
-      std::cout << dp->d_name << "\n";
+      // First check if the dp is not a directory
+      if(!isDirectory(dp)) {
+        // Then check if it starts with a .
+        if (dp->d_name[0] == ‘.’) { // If it does only add if the word started with a .
+          if (arg[0] == ‘.’)
+            matching_args.push_back(dp->d_name);
+          }
+        } else { // Otherwise add it
+          matching_args.push_back(dp->d_name);
+        }
+      }
+      // std::cout << dp->d_name << "\n";
     }
   }
 
-  Command::_currentSimpleCommand->insertArgument( arg );
+  // Close the dir
+  closedir(dir);
+
+  // Sort the vector 
+  std::sort(matching_args.begin(), matching_args.end());
+
+  // Add the entries as arguements
+  for (int i = 0; i < matching_args.size(); i++) {
+    Command::_currentSimpleCommand->insertArgument(matching_args[i]));
+  }
+}
+
+int isDirectory(const char *path) {
+   struct stat statbuf;
+   if (stat(path, &statbuf) != 0)
+       return 0;
+   return S_ISDIR(statbuf.st_mode);
 }
 
 
