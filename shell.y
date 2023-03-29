@@ -241,7 +241,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
 
   // Add the entries as arguements
   for (int i = 0; i < matching_args.size(); i++) {
-    Command::_currentSimpleCommand->insertArgument(std::string(matching_args[i]));
+    Command::_currentSimpleCommand->insertArgument(new std::string(matching_args[i]));
   }
 }
 
