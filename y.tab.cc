@@ -1372,7 +1372,7 @@ yyreduce:
 #line 58 "shell.y"
        {
     Command::_currentSimpleCommand = new SimpleCommand();
-    expandWildcardsIfNecessary((yyvsp[0].cpp_string));
+    expandWildCardsIfNecessary((yyvsp[0].cpp_string));
   }
 #line 1378 "y.tab.cc"
     break;
