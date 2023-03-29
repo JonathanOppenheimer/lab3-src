@@ -46,7 +46,7 @@
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string*, std::vector<string>);
+void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
 int isDirectory(const char *);
 int yylex();
 
@@ -57,7 +57,7 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    std::vector<string> matching_args;
+    std::vector<std::string> matching_args;
     expandWildCardsIfNecessary($2, matching_args);
   }
   | /* can be empty */
@@ -183,7 +183,7 @@ void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
 
-void expandWildCardsIfNecessary(std::string* arg, std::vector<string> matching_args) {
+void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
   std::string raw_string = *arg;
 
   /* 
