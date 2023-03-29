@@ -49,7 +49,7 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    Command::_currentSimpleCommand->insertArgument( $2 );
+    expandWildCardsIfNecessary($1);
   }
   | /* can be empty */
 ;
@@ -57,7 +57,6 @@ arg_list:
 cmd_and_args:
   WORD {
     Command::_currentSimpleCommand = new SimpleCommand();
-    expandWildCardsIfNecessary($1);
   }
   arg_list {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
