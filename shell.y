@@ -202,14 +202,14 @@ void expandWildCardsIfNecessary(std::string* arg) {
   // Start directory search for matching directories
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
-  dir = opendir(“.”);
+  dir = opendir(".");
   if (dir == NULL) {
     perror(“opendir”);
     return;
   }
 
   while ((dp = readdir(dir)) != NULL) {
-    std::cout << ent->d_name << "\n";
+    std::cout << dp->d_name << "\n";
   }
 
   Command::_currentSimpleCommand->insertArgument( arg );

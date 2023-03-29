@@ -1771,7 +1771,6 @@ void expandWildCardsIfNecessary(std::string* arg) {
    * Replace ? with .
    * Replace . with \\.
    */
- 
   for(int i=0; i<raw_string.length(); i++) {
     if(raw_string[i] == '*') {
       raw_string.replace(i, 2, ".*");
@@ -1785,6 +1784,19 @@ void expandWildCardsIfNecessary(std::string* arg) {
   }
 
   std::cout << raw_string << "\n";
+
+  // Start directory search for matching directories
+  DIR *dir; // The directory
+  struct dirent *dp; // The directory stream of the directory
+  dir = opendir(“.”);
+  if (dir == NULL) {
+    perror(“opendir”);
+    return;
+  }
+
+  while ((dp = readdir(dir)) != NULL) {
+    std::cout << ent->d_name << "\n";
+  }
 
   Command::_currentSimpleCommand->insertArgument( arg );
 }
