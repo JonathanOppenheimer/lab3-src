@@ -1761,8 +1761,7 @@ void yyerror(const char* s) {
 }
 
 void expandWildCardsIfNecessary(std::string* arg) {
-  std::string raw_arg = std::string(arg);
-  std::cout << raw_arg;
+  std::cout << arg;
 }
 
 
@@ -1771,4 +1770,4 @@ main()
 {
   yyparse();
 }
-#endif
+#endimaif
