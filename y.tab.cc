@@ -1763,15 +1763,17 @@ void yyerror(const char* s) {
 }
 
 void expandWildCardsIfNecessary(std::string* arg) {
+  std::string raw_string = *arg;
+
   /* 
    * Build regex expression:
    * Replace * with .*
    * Replace ? with .
    * Replace . with \\.
    */
-  std::replace(arg.begin(), arg.end(), '*', '.*');
-  std::replace(arg.begin(), arg.end(), '?', '.');
-  std::replace(arg.begin(), arg.end(), '.', '\\.');
+  std::replace(arg->begin(), arg->end(), '*', '.*');
+  std::replace(arg->begin(), arg->end(), '?', '.');
+  std::replace(arg->begin(), arg->end(), '.', '\\.');
 
   Command::_currentSimpleCommand->insertArgument( arg );
   std::cout << *arg << "\n";
