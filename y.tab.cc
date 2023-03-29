@@ -1761,7 +1761,7 @@ void yyerror(const char* s) {
 }
 
 void expandWildCardsIfNecessary(std::string* arg) {
-  Command::_currentSimpleCommand->insertArgument( $2 );
+  Command::_currentSimpleCommand->insertArgument( arg );
   // std::cout << *arg << "\n";
 }
 
