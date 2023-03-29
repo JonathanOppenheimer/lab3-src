@@ -57,7 +57,7 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    std::vector<std::string *> matching_args;
+    std::vector<std::string> matching_args;
     expandWildCardsIfNecessary($2, matching_args);
   }
   | /* can be empty */

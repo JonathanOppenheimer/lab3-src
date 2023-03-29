@@ -1769,7 +1769,7 @@ void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
 
-void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
+void expandWildCardsIfNecessary(std::string arg, std::vector<std::string> matching_args) {
   std::string raw_string = *arg;
 
   /* 
