@@ -1786,7 +1786,8 @@ void expandWildCardsIfNecessary(std::string* arg) {
     }
   }
 
-  std::cout << raw_string << "\n";
+  // Finished building regex
+  std::regex build_regex(raw_string);
 
   // Start directory search for matching directories
   DIR *dir; // The directory
@@ -1798,6 +1799,7 @@ void expandWildCardsIfNecessary(std::string* arg) {
   }
 
   while ((dp = readdir(dir)) != NULL) {
+  if (std::regex_match(dp->d_name, built_regex)) {
     std::cout << dp->d_name << "\n";
   }
 

@@ -213,8 +213,9 @@ void expandWildCardsIfNecessary(std::string* arg) {
   }
 
   while ((dp = readdir(dir)) != NULL) {
-  if (std::regex_match(dp->d_name, built_regex)) {
-    std::cout << dp->d_name << "\n";
+    if (std::regex_match(dp->d_name, built_regex)) {
+      std::cout << dp->d_name << "\n";
+    }
   }
 
   Command::_currentSimpleCommand->insertArgument( arg );
