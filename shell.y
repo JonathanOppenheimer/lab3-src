@@ -196,7 +196,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
    */
   for(int i=0; i<raw_string.length(); i++) {
     if(raw_string[i] == '*') {
-      raw_string.replace(i, 2, ".*");
+      raw_string.replace(i, 1, ".*");
       i++;
     } else if(raw_string[i] == '?' ) {
       raw_string.replace(i, 1, ".");
