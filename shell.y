@@ -253,12 +253,22 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
 
   // Expand the suffix to match possible directories
 
+  // First check if expansion is necessary - does the current level have wildcards?
   std::string cur_level = suffix.substr(0, suffix.find('/'));
+  std::string::difference_type num_star = std::count(cur_level.begin(), cur_level.end(), '*');
+  std::string::difference_type num_q = std::count(cur_level.begin(), cur_level.end(), '?');
+
+  // Expansion is not necessary
+  if(num_star + num_q > 0) {
+    getAllWildCards(prefix + cur_level, suffix, matching_args);
+    return;
+  }
+
+  // Expansion is necessary
   std::string reg_cur_level = cur_level;
   suffix.erase(0, suffix.find('/'));
-  bool need_to_expand = false;
 
-  /* 
+  /*
    * Build regex expression:
    * Replace * with .*
    * Replace ? with .
@@ -268,21 +278,14 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
     if(reg_cur_level[i] == '*') {
       reg_cur_level.replace(i, 1, ".*");
       i++;
-      need_to_expand = true;
     } else if(reg_cur_level[i] == '?' ) {
       reg_cur_level.replace(i, 1, ".");
-      need_to_expand = true;
     } else if(reg_cur_level[i] == '.') {
       reg_cur_level.replace(i, 1, "\\.");
       i++;
     }
   }
   std::regex built_regex(reg_cur_level);
-
-  if(!need_to_expand) {
-    getAllWildCards(prefix + cur_level, suffix, matching_args);
-    return;
-  }
 
   std::cout << "Prefix: " << prefix << "\n";
   std::cout << "cur_level: " << cur_level << "\n";

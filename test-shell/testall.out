@@ -18,28 +18,28 @@ test_unsetenv Passed .5/.5
 test_source Passed 2/2
 test_cd1 Passed .5/.5
 test_cd2 Passed .5/.5
-test_cd3 Passed .5/.5
+test_cd3 Failed 0/.5
 test_cd4 Passed .5/.5
 test_parsing1 Passed .5/.5
 test_parsing2 Passed .5/.5
 test_quotes1 Passed 1/1
 test_quotes2 Passed 1/1
-test_escape Passed 2/2
+test_escape Failed 0/2
 test_subshell Passed 10/10
 test_env_expand1 Passed 1/1
 test_env_expand2 Passed 1/1
-test_env_var_shell Passed 1/1
+test_env_var_shell Failed 0/1
 test_env_var_dollar Passed 1/1
 test_env_var_question Passed 1/1
 test_env_var_bang Passed 1/1
 test_env_var_uscore Passed 1/1
-test_wildcards1 Passed 3/3
+test_wildcards1 Failed 0/3
 test_wildcards2 Failed 0/1
 test_wildcards3 Failed 0/1
 test_wildcards4 Failed 0/1
-test_wildcards5 Passed 1/1
+test_wildcards5 Failed 0/1
 test_wildcards6 Failed 0/1
-test_wildcards7 Passed 1/1
-test_tilde Passed 2/2
+test_wildcards7 Failed 0/1
+test_tilde Failed 0/2
 test_robustness Failed 0/10
-Total:                   56.0 of 70.0
+Total:                   45.5 of 70.0
