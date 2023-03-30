@@ -53,6 +53,8 @@ void getAllWildCards(std::string, std::string, std::vector<std::string> matching
 int isNotDirectory(const char *);
 int yylex();
 
+std::vector<std::string> matching args;
+
 %}
 
 %%
@@ -60,16 +62,28 @@ int yylex();
 goal: command_list;
 arg_list:
   arg_list WORD {
-    std::vector<std::string> matching_args;
-
+    // Wild card expansion below
+    
     std::string prefix = "";
     std::string suffix = *($2);
     if(suffix[0] != '/') { // Need to prepend ./ as it's not an absolute path
      suffix.insert(0, "./");
     }
-
+    
+    // Get all the wild cards given the prefix and the suffix
     getAllWildCards(prefix, suffix, matching_args);
-    // expandWildCardsIfNecessary($2, matching_args);
+    
+    // Sort the vector of matching results
+    std::sort(matching_args.begin(), matching_args.end());
+
+    // Add the entries as arguements if matches found, otherwise, just insert the original arg
+    if(matching_args.size() > 0 ) {
+      for (int i = 0; i < matching_args.size(); i++) {
+        Command::_currentSimpleCommand->insertArgument(new std::string(matching_args[i]));
+      }
+    } else {
+      Command::_currentSimpleCommand->insertArgument( $2 );
+    }
   }
   | /* can be empty */
 ;
