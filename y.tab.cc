@@ -193,7 +193,7 @@ int yyparse (void);
 
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
-void getAllWildCards(std::string, std::string);
+void getAllWildCards(std::string, std::string, std::vector<std::string> matching_args);
 int isNotDirectory(const char *);
 int yylex();
 
@@ -1382,8 +1382,8 @@ yyreduce:
      suffix.insert(0, "./");
     }
 
-    getAllWildCards(prefix, suffix);
-    expandWildCardsIfNecessary((yyvsp[0].cpp_string), matching_args);
+    getAllWildCards(prefix, suffix, matching_args);
+    // expandWildCardsIfNecessary($2, matching_args);
   }
 #line 1389 "y.tab.cc"
     break;
@@ -1781,10 +1781,19 @@ void yyerror(const char* s) {
 }
 
 
-void getAllWildCards(std::string prefix, std::string suffix) {
-  if(suffix.length() == 0) { // Recursive expansion is done
+void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string> matching_args) {
+  
+  if(suffix.length() == 0) { // Recursive expansion is done, we add both files and folder
+    matching_args.push_back(prefix);
     std::cout << "Prefix: " << prefix << "\n";
     std::cout << "Suffix: " << suffix << "\n";
+    return;
+  }
+
+  if(suffix == "/") { // Recursive expansion is done, we only add folders
+    std::cout << "Prefix: " << prefix << "\n";
+    std::cout << "Suffix: " << suffix << "\n";
+    matching_args.push_back(prefix + suffix);
     return;
   }
 
