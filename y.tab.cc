@@ -1790,7 +1790,6 @@ void getAllWildCards(std::string prefix, std::string suffix) {
 
   // See if we're starting in . or /
   if(prefix.length() == 0) {
-    if(suffix)
     int first_slash = suffix.find('/');
     prefix += suffix.substr(0, first_slash + 1);
     suffix.erase(0, first_slash + 1);
