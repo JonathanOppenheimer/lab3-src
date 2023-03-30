@@ -1801,6 +1801,7 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
     matching_args.push_back(prefix);
     std::cout << "Prefix: " << prefix << "\n";
     std::cout << "Suffix: " << suffix << "\n";
+    std::cout << matching_args.begin() << "\n";
     return;
   }
 
