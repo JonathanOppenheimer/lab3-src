@@ -1824,7 +1824,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
 
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
-  dir = opendir(prefix);
+  dir = opendir(prefix.c_str());
   if (dir == NULL) {
     perror("opendir");
     return;
