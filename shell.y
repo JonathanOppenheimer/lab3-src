@@ -310,10 +310,10 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
 
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
-      bool include_start_period = dp->d_name[0] == '.'; false
-      bool include_files = suffix.length() == 0; true
-      bool is_directory = isDirectory((prefix + dp->d_name).c_str()); true
-      bool start_period = cur_level[0] == '.'; true
+      bool include_start_period = dp->d_name[0] == '.'; 
+      bool include_files = suffix.length() == 0; 
+      bool is_directory = isDirectory((prefix + dp->d_name).c_str()); 
+      bool start_period = cur_level[0] == '.'; 
 
 
       if(include_start_period && start_period) {
