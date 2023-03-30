@@ -1853,7 +1853,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
       // Then check if it starts with a .
       if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
         if(cur_level[0] == '.') {
-          getAllWildCards(prefix += dp->name, suffix);
+          getAllWildCards(prefix += dp->d_name, suffix);
         }
       } else {
         getAllWildCards(prefix += dp->d_name, suffix);
