@@ -203,7 +203,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
 
   // See if we're starting in . or /
-  if(prefix.length == 0) {
+  if(prefix.length() == 0) {
     if(suffix)
     int first_slash = suffix.find('/');
     prefix += suffix.substr(0, first_slash + 1);
