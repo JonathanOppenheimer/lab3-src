@@ -214,8 +214,11 @@ void getAllWildCards(std::string prefix, std::string suffix) {
 
   std::cout << "Prefix: " << prefix << "\n";
   std::cout << "Suffix: " << suffix << "\n";
-  
-  // Expand the prefix to match possible directors
+
+  // Expand the suffix to match possible directories
+
+  std::string sub_level = suffix.substr(0, suffix.find(/));
+  bool need_to_expand = false;
 
   /* 
    * Build regex expression:
@@ -223,20 +226,20 @@ void getAllWildCards(std::string prefix, std::string suffix) {
    * Replace ? with .
    * Replace . with \\.
    */
-  for(int i=0; i<prefix; i++) {
-    if(prefix[i] == '*') {
-      prefix.replace(i, 1, ".*");
+  for(int i=0; i<sub_level; i++) {
+    if(sub_level[i] == '*') {
+      sub_level.replace(i, 1, ".*");
       i++;
       need_to_expand = true;
-    } else if(raw_string[i] == '?' ) {
-      raw_string.replace(i, 1, ".");
+    } else if(sub_level[i] == '?' ) {
+      sub_level.replace(i, 1, ".");
       need_to_expand = true;
-    } else if(raw_string[i] == '.') {
-      raw_string.replace(i, 1, "\\.");
+    } else if(sub_level[i] == '.') {
+      sub_level.replace(i, 1, "\\.");
       i++;
     }
   }
-
+  
 
 
 }

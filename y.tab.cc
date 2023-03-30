@@ -1788,14 +1788,41 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   // Deal with multi-level wildcards - start directory search for matching directories
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
 
-  int first_slash = suffix.find('/');
-  prefix = suffix.substr(0, first_slash + 1);
-  suffix.erase(0, first_slash + 1);
-
+  // See if we're starting in . or /
+  if(prefix.length == 0) {
+    if(suffix)
+    int first_slash = suffix.find('/');
+    prefix += suffix.substr(0, first_slash + 1);
+    suffix.erase(0, first_slash + 1);
+    getAllWildCards(prefix, suffix);
+    return; // Do initial setup so we have have a prefix to open
+  }
 
   std::cout << "Prefix: " << prefix << "\n";
   std::cout << "Suffix: " << suffix << "\n";
   
+  // Expand the prefix to match possible directors
+
+  /* 
+   * Build regex expression:
+   * Replace * with .*
+   * Replace ? with .
+   * Replace . with \\.
+   */
+  for(int i=0; i<prefix; i++) {
+    if(prefix[i] == '*') {
+      prefix.replace(i, 1, ".*");
+      i++;
+      need_to_expand = true;
+    } else if(raw_string[i] == '?' ) {
+      raw_string.replace(i, 1, ".");
+      need_to_expand = true;
+    } else if(raw_string[i] == '.') {
+      raw_string.replace(i, 1, "\\.");
+      i++;
+    }
+  }
+
 
 
 }
