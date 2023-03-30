@@ -196,9 +196,6 @@ void yyerror(const char* s) {
 
 
 void getAllWildCards(std::string prefix, std::string suffix) {
-  DIR *dir; // The directory
-  struct dirent *dp; // The directory stream of the directory
-
   // Deal with multi-level wildcards - start directory search for matching directories
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
 
@@ -238,9 +235,16 @@ void getAllWildCards(std::string prefix, std::string suffix) {
       i++;
     }
   }
-  
 
+  DIR *dir; // The directory
+  struct dirent *dp; // The directory stream of the directory
+  dir = opendir(prefix);
+  if (dir == NULL) {
+    perror("opendir");
+    return;
+  }
 
+  std::cout << sub_level << "\n";
 }
 
 void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
