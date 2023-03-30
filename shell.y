@@ -200,8 +200,6 @@ void yyerror(const char* s) {
 void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string> directories) {
   // Deal with multi-level wildcards - start directory search for matching directories
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
-  std::string running_prefix = "";
-  std::string diminishing_suffix = *arg;
 
   std::cout << suffix << "\n";
 

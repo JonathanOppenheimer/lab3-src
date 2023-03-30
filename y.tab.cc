@@ -1380,9 +1380,9 @@ yyreduce:
     std::string prefix = "";
     std::string suffix = *((yyvsp[0].cpp_string));
     std::cout << suffix << "\n";
-    if(suffix[0] != "/") { // Need to prepend ./ as it's not an absolute path
-      suffix.insert(0, "./");
-    }
+    // if(suffix[0] != "/") { // Need to prepend ./ as it's not an absolute path
+    //  suffix.insert(0, "./");
+    // }
 
     getAllWildCards(prefix, suffix, directories);
     expandWildCardsIfNecessary((yyvsp[0].cpp_string), matching_args);
@@ -1785,7 +1785,7 @@ void yyerror(const char* s) {
 
 void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string> directories) {
   // Deal with multi-level wildcards - start directory search for matching directories
-  std::string::difference_type slash_count = std::count(s.begin(), s.end(), '/');
+  std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
   std::string running_prefix = "";
   std::string diminishing_suffix = *arg;
 
