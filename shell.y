@@ -64,7 +64,6 @@ arg_list:
 
     std::string prefix = "";
     std::string suffix = *($2);
-    std::cout << suffix << "\n";
     if(suffix[0] != '/') { // Need to prepend ./ as it's not an absolute path
      suffix.insert(0, "./");
     }
@@ -203,12 +202,10 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   // Deal with multi-level wildcards - start directory search for matching directories
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
 
-  if(suffix[0] == '.') { // Start in current directory
-    int first_slash = suffix.find('/');
-    prefix = suffix.substr(0, first_slash + 1);
-    suffix.erase(0, first_slash + 1);
-    dir = opendir(".");
-  }
+  int first_slash = suffix.find('/');
+  prefix = suffix.substr(0, first_slash + 1);
+  suffix.erase(0, first_slash + 1);
+
 
   std::cout << "Prefix: " << prefix << "\n";
   std::cout << "Suffix: " << suffix << "\n";
