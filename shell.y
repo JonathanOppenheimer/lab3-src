@@ -205,8 +205,8 @@ void getAllWildCards(std::string prefix, std::string suffix) {
 
   if(suffix[0] == '.') { // Start in current directory
     int first_slash = suffix.find('/');
-    prefix = suffix.substr(0, first_slash);
-    suffix.erase(0, first_slash);
+    prefix = suffix.substr(0, first_slash + 1);
+    suffix.erase(0, first_slash + 1);
     dir = opendir(".");
   }
 
