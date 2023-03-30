@@ -209,7 +209,7 @@ void yyerror(const char* s) {
 }
 
 
-void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string *> matching_args) {
+void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string *>& matching_args) {
   
   if(suffix.length() == 0) { // Recursive expansion is done, we add both files and folder
     matching_args.push_back(new std::string(prefix));
