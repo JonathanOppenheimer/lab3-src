@@ -1897,6 +1897,10 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
       bool is_directory = isDirectory((prefix + dp->d_name).c_str()); 
       bool start_period = cur_level[0] == '.';
 
+      std::cout << "start_period: " << start_period << "\n";
+      std::cout << "include_start_period: " << include_start_period << "\n";
+
+
       if(include_start_period && start_period) {
         if(!include_files && is_directory) {
           getAllWildCards(prefix + dp->d_name, suffix, matching_args);
