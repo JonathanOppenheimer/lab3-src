@@ -1782,8 +1782,6 @@ void yyerror(const char* s) {
 
 
 void getAllWildCards(std::string prefix, std::string suffix) {
-  std::
-
   if(suffix.length() == 0) { // Recursive expansion is done
     std::cout << "Prefix: " << prefix << "\n";
     std::cout << "Suffix: " << suffix << "\n";
