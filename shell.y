@@ -49,7 +49,7 @@
 
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
-void getAllWildCards(std::string, std::string, std::vector<std::string>);
+void getAllWildCards(std::string, std::string);
 int isNotDirectory(const char *);
 int yylex();
 
@@ -69,7 +69,7 @@ arg_list:
      suffix.insert(0, "./");
     }
 
-    getAllWildCards(prefix, suffix, directories);
+    getAllWildCards(prefix, suffix);
     expandWildCardsIfNecessary($2, matching_args);
   }
   | /* can be empty */

@@ -560,9 +560,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    60,    60,    62,    76,    80,    80,    90,    91,    95,
-     103,   111,   119,   134,   143,   163,   164,   168,   174,   177,
-     180,   183,   189,   190
+       0,    60,    60,    62,    75,    79,    79,    89,    90,    94,
+     102,   110,   118,   133,   142,   162,   163,   167,   173,   176,
+     179,   182,   188,   189
 };
 #endif
 
@@ -1375,7 +1375,6 @@ yyreduce:
 #line 62 "shell.y"
                 {
     std::vector<std::string> matching_args;
-    std::vector<std::string> directories;
 
     std::string prefix = "";
     std::string suffix = *((yyvsp[0].cpp_string));
@@ -1387,28 +1386,28 @@ yyreduce:
     getAllWildCards(prefix, suffix, directories);
     expandWildCardsIfNecessary((yyvsp[0].cpp_string), matching_args);
   }
-#line 1391 "y.tab.cc"
+#line 1390 "y.tab.cc"
     break;
 
   case 5:
-#line 80 "shell.y"
+#line 79 "shell.y"
        {
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument((yyvsp[0].cpp_string));
   }
-#line 1400 "y.tab.cc"
+#line 1399 "y.tab.cc"
     break;
 
   case 6:
-#line 84 "shell.y"
+#line 83 "shell.y"
            {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
   }
-#line 1408 "y.tab.cc"
+#line 1407 "y.tab.cc"
     break;
 
   case 9:
-#line 95 "shell.y"
+#line 94 "shell.y"
                { /* > */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1417,11 +1416,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous output redirect.";
       }
     }
-#line 1421 "y.tab.cc"
+#line 1420 "y.tab.cc"
     break;
 
   case 10:
-#line 103 "shell.y"
+#line 102 "shell.y"
               { /* < */
       /* Redirect stdin */
       if(Shell::_currentCommand._inFile == NULL) {
@@ -1430,11 +1429,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous input redirect.";
       }
     }
-#line 1434 "y.tab.cc"
+#line 1433 "y.tab.cc"
     break;
 
   case 11:
-#line 111 "shell.y"
+#line 110 "shell.y"
                   { /* 2> */
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
@@ -1443,11 +1442,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirect.";
       }
     }
-#line 1447 "y.tab.cc"
+#line 1446 "y.tab.cc"
     break;
 
   case 12:
-#line 119 "shell.y"
+#line 118 "shell.y"
                         { /* >& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1463,11 +1462,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
-#line 1467 "y.tab.cc"
+#line 1466 "y.tab.cc"
     break;
 
   case 13:
-#line 134 "shell.y"
+#line 133 "shell.y"
                     { /* >> */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1477,11 +1476,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous output redirection";
       }
     }
-#line 1481 "y.tab.cc"
+#line 1480 "y.tab.cc"
     break;
 
   case 14:
-#line 143 "shell.y"
+#line 142 "shell.y"
                              { /* >>& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1499,51 +1498,51 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
-#line 1503 "y.tab.cc"
+#line 1502 "y.tab.cc"
     break;
 
   case 17:
-#line 168 "shell.y"
+#line 167 "shell.y"
               {
       Shell::_currentCommand._background = true;
     }
-#line 1511 "y.tab.cc"
+#line 1510 "y.tab.cc"
     break;
 
   case 18:
-#line 174 "shell.y"
+#line 173 "shell.y"
                                        {
       Shell::_currentCommand.execute();
     }
-#line 1519 "y.tab.cc"
+#line 1518 "y.tab.cc"
     break;
 
   case 19:
-#line 177 "shell.y"
+#line 176 "shell.y"
                                                            {
       Shell::_currentCommand.execute();
     }
-#line 1527 "y.tab.cc"
+#line 1526 "y.tab.cc"
     break;
 
   case 20:
-#line 180 "shell.y"
+#line 179 "shell.y"
             {
       Shell::_currentCommand.execute();
     }
-#line 1535 "y.tab.cc"
+#line 1534 "y.tab.cc"
     break;
 
   case 21:
-#line 183 "shell.y"
+#line 182 "shell.y"
                  {
       yyerrok; /* Clear the errors */
     }
-#line 1543 "y.tab.cc"
+#line 1542 "y.tab.cc"
     break;
 
 
-#line 1547 "y.tab.cc"
+#line 1546 "y.tab.cc"
 
       default: break;
     }
@@ -1775,7 +1774,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 193 "shell.y"
+#line 192 "shell.y"
 
 
 void yyerror(const char* s) {
@@ -1783,20 +1782,22 @@ void yyerror(const char* s) {
 }
 
 
-void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string> directories) {
+void getAllWildCards(std::string prefix, std::string suffix) {
+  DIR *dir; // The directory
+  struct dirent *dp; // The directory stream of the directory
+
   // Deal with multi-level wildcards - start directory search for matching directories
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
 
-  std::cout << suffix << "\n";
+  if(suffix[0] == '.') { // Start in current directory
+    prefix = suffix.substr(0, 2);
+    suffix.erase(0, 2);
+    dir = opendir(".");
+  } 
 
-  if(slash_count == 0) {
-    directories.push_back(".");
-  } else {
+  std::cout << "Prefix: " << prefix << "\n";
+  std::cout << "Suffix: " << suffix << "\n";
 
-  }
-
-  DIR *dir; // The directory
-  struct dirent *dp; // The directory stream of the directory
 
 }
 
