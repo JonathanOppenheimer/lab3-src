@@ -27,7 +27,7 @@ extern int yylex_destroy(void);
 static void yyunput(int c ,char *buf_ptr);
 
 bool source; // A poor yet easy way to track if the command was sourced
-std::string buffer; // Used to go through yytext
+std::string* buffer; // Used to go through yytext
 std::string raw_subshell; // Used to parse subshell text
 std::vector<int> opened_fds; // Used to keep track of opened file descriptors
 
@@ -347,7 +347,7 @@ void myunputc(int c) {
 
     /* Only return a word if we did not switch to another start condition */
     if(YY_START == INITIAL) {
-      yylval.cpp_string = std::string(buffer);
+      yylval.cpp_string = new std::string(buffer);
       return WORD;
     }
   }

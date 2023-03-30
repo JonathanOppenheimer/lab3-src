@@ -1241,7 +1241,7 @@ YY_RULE_SETUP
 
     /* Only return a word if we did not switch to another start condition */
     if(YY_START == INITIAL) {
-      yylval.cpp_string = new std::string(buffer);
+      yylval.cpp_string = std::string(buffer);
       return WORD;
     }
   }
