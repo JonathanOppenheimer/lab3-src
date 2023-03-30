@@ -49,6 +49,7 @@
 
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
+void getAllWildCards(std::string, std::string, std::vector<std::string>);
 int isNotDirectory(const char *);
 int yylex();
 
@@ -60,6 +61,15 @@ goal: command_list;
 arg_list:
   arg_list WORD {
     std::vector<std::string> matching_args;
+    std::vector<std::string> directories;
+
+    std::string prefix = "";
+    std::string suffix = *($2);
+    if(suffix[0] != "/") { // Need to prepend ./ as it's not an absolute path
+      suffix.insert(0, "./")
+    }
+
+    getAllWildCards(prefix, suffix, directories);
     expandWildCardsIfNecessary($2, matching_args);
   }
   | /* can be empty */
@@ -185,6 +195,26 @@ void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
 }
 
+
+void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string> directories) {
+  // Deal with multi-level wildcards - start directory search for matching directories
+  std::string::difference_type slash_count = std::count(s.begin(), s.end(), '/');
+  std::string running_prefix = "";
+  std::string diminishing_suffix = *arg;
+
+  std::cout << suffix << "\n";
+
+  if(slash_count == 0) {
+    directories.push_back(".");
+  } else {
+
+  }
+
+  DIR *dir; // The directory
+  struct dirent *dp; // The directory stream of the directory
+
+}
+
 void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
   std::string raw_string = *arg;
 
@@ -219,7 +249,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
   // Finished building regex
   std::regex built_regex(raw_string);
 
-  // Start directory search for matching directories
+  // Set up current directory and stream
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
   dir = opendir(".");
