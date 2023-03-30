@@ -61,7 +61,6 @@ goal: command_list;
 arg_list:
   arg_list WORD {
     std::vector<std::string> matching_args;
-    std::vector<std::string> directories;
 
     std::string prefix = "";
     std::string suffix = *($2);
@@ -197,20 +196,22 @@ void yyerror(const char* s) {
 }
 
 
-void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string> directories) {
+void getAllWildCards(std::string prefix, std::string suffix) {
+  DIR *dir; // The directory
+  struct dirent *dp; // The directory stream of the directory
+
   // Deal with multi-level wildcards - start directory search for matching directories
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
 
-  std::cout << suffix << "\n";
+  if(suffix[0] == '.') { // Start in current directory
+    prefix = suffix.substr(0, 2);
+    suffix.erase(0, 2);
+    dir = opendir(".");
+  } 
 
-  if(slash_count == 0) {
-    directories.push_back(".");
-  } else {
+  std::cout << "Prefix: " << prefix << "\n";
+  std::cout << "Suffix: " << suffix << "\n";
 
-  }
-
-  DIR *dir; // The directory
-  struct dirent *dp; // The directory stream of the directory
 
 }
 

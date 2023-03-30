@@ -1380,7 +1380,7 @@ yyreduce:
     std::string prefix = "";
     std::string suffix = *((yyvsp[0].cpp_string));
     std::cout << suffix << "\n";
-    if(suffix[0] != "/") { // Need to prepend ./ as it's not an absolute path
+    if(suffix[0] != '/') { // Need to prepend ./ as it's not an absolute path
      suffix.insert(0, "./");
     }
 
