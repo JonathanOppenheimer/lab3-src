@@ -194,7 +194,7 @@ int yyparse (void);
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
 void getAllWildCards(std::string, std::string, std::vector<std::string *>& matching_args);
-int isNotDirectory(const char *);
+int isDirectory(const char *);
 int yylex();
 
 
@@ -1810,7 +1810,7 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   }
 
   if(suffix == "/") { // Recursive expansion is done, we only add directories
-    if(!isNotDirectory(prefix.c_str())) {
+    if(isDirectory(prefix.c_str())) {
       // Don't include the fake prefix we added if it is there
       if(prefix.substr(0,2) == "./") {
         matching_args.push_back(new std::string(prefix.erase(0, 2) + "/"));
@@ -1975,7 +1975,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
   }
 }
 
-int isNotDirectory(const char *path) {
+int isDirectory(const char *path) {
   struct stat statbuf;
   if (stat(path, &statbuf) != 0) {
     return 0;

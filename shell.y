@@ -48,7 +48,6 @@
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
 void getAllWildCards(std::string, std::string, std::vector<std::string *>& matching_args);
 int isDirectory(const char *);
 int yylex();
@@ -282,9 +281,9 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
     return;
   }
 
-  // std::cout << "Prefix: " << prefix << "\n";
-  // std::cout << "cur_level: " << cur_level << "\n";
-  // std::cout << "Suffix: " << suffix << "\n";
+  std::cout << "Prefix: " << prefix << "\n";
+  std::cout << "cur_level: " << cur_level << "\n";
+  std::cout << "Suffix: " << suffix << "\n";
 
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
@@ -311,84 +310,8 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
 
   // Close the dir
   closedir(dir);
-
 }
-
-void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
-  std::string raw_string = *arg;
-
-  bool need_to_expand = false;
-
-  /* 
-   * Build regex expression:
-   * Replace * with .*
-   * Replace ? with .
-   * Replace . with \\.
-   */
-  for(int i=0; i<raw_string.length(); i++) {
-    if(raw_string[i] == '*') {
-      raw_string.replace(i, 1, ".*");
-      i++;
-      need_to_expand = true;
-    } else if(raw_string[i] == '?' ) {
-      raw_string.replace(i, 1, ".");
-      need_to_expand = true;
-    } else if(raw_string[i] == '.') {
-      raw_string.replace(i, 1, "\\.");
-      i++;
-    }
-  }
-
-  // Check if we actually need to do expansion
-  if(!need_to_expand) {
-    Command::_currentSimpleCommand->insertArgument(arg);
-    return;
-  }
-
-  // Finished building regex
-  std::regex built_regex(raw_string);
-
-  // Set up current directory and stream
-  DIR *dir; // The directory
-  struct dirent *dp; // The directory stream of the directory
-  dir = opendir("./.");
-  if (dir == NULL) {
-    perror("opendir");
-    return;
-  }
-
-  while ((dp = readdir(dir)) != NULL) {
-    if (std::regex_match(dp->d_name, built_regex)) {
-      // First check if the dp is not a directory
-
-      // Then check if it starts with a .
-      if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
-        if((*arg)[0] == '.') {
-          matching_args.push_back(std::string(dp->d_name));
-        }
-      } else {
-        matching_args.push_back(std::string(dp->d_name));
-      }
-    }
-  }
-  
-
-  // Close the dir
-  closedir(dir);
-
-  // Sort the vector 
-  std::sort(matching_args.begin(), matching_args.end());
-
-  // Add the entries as arguements if matches found, otherwise, just insert the original arg
-  if(matching_args.size() > 0 ) {
-    for (int i = 0; i < matching_args.size(); i++) {
-      Command::_currentSimpleCommand->insertArgument(new std::string(matching_args[i]));
-    }
-  } else {
-    Command::_currentSimpleCommand->insertArgument(arg);
-  }
-}
-
+ 
 int isDirectory(const char *path) {
   struct stat statbuf;
   if (stat(path, &statbuf) != 0) {
