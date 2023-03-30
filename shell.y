@@ -247,10 +247,8 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   }
 
   std::cout << "Prefix: " << prefix << "\n";
-  std::cout << "Suffix: " << suffix << "\n";
   std::cout << "cur_level: " << cur_level << "\n";
-
-
+  std::cout << "Suffix: " << suffix << "\n";
 
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
