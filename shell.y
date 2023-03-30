@@ -49,9 +49,11 @@
 
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
-void getAllWildCards(std::string, std::string, std::vector<std::string *> matching_args);
+void getAllWildCards(std::string, std::string);
 int isNotDirectory(const char *);
 int yylex();
+
+std::vector<std::string *> matching_args;
 
 %}
 
@@ -61,18 +63,16 @@ goal: command_list;
 arg_list:
   arg_list WORD {
     // Wild card expansion below
-    
+
     std::string prefix = "";
     std::string suffix = *($2);
     if(suffix[0] != '/') { // Need to prepend ./ as it's not an absolute path
      suffix.insert(0, "./");
     }
-    
+
     // Get all the wild cards given the prefix and the suffix and store them
-    std::vector<std::string *> matching_args;
-    getAllWildCards(prefix, suffix, matching_args);
-    std::cout << matching_args.size() << "\n";
-    
+    getAllWildCards(prefix, suffix);
+
     // Sort the vector of matching results
     std::sort(matching_args.begin(), matching_args.end());
 
@@ -209,7 +209,7 @@ void yyerror(const char* s) {
 }
 
 
-void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string *> matching_args) {
+void getAllWildCards(std::string prefix, std::string suffix) {
   
   if(suffix.length() == 0) { // Recursive expansion is done, we add both files and folder
     matching_args.push_back(new std::string(prefix));
