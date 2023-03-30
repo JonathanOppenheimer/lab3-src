@@ -193,7 +193,7 @@ int yyparse (void);
 
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
-void getAllWildCards(std::string, std::string, std::vector<std::string>);
+void getAllWildCards(std::string, std::string);
 int isNotDirectory(const char *);
 int yylex();
 
@@ -1383,7 +1383,7 @@ yyreduce:
      suffix.insert(0, "./");
     }
 
-    getAllWildCards(prefix, suffix, directories);
+    getAllWildCards(prefix, suffix);
     expandWildCardsIfNecessary((yyvsp[0].cpp_string), matching_args);
   }
 #line 1390 "y.tab.cc"

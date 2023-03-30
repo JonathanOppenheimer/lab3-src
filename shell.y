@@ -204,13 +204,15 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
 
   if(suffix[0] == '.') { // Start in current directory
-    prefix = suffix.substr(0, 2);
-    suffix.erase(0, 2);
+    int first_slash = suffix.find('/');
+    prefix = suffix.substr(0, first_slash);
+    suffix.erase(0, first_slash);
     dir = opendir(".");
-  } 
+  }
 
   std::cout << "Prefix: " << prefix << "\n";
   std::cout << "Suffix: " << suffix << "\n";
+  
 
 
 }
