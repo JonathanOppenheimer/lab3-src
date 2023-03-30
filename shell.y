@@ -276,11 +276,6 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   // Expansion is necessary
   std::string reg_cur_level = cur_level;
 
-  std::cout << "Prefix: " << prefix << "\n";
-  std::cout << "cur_level: " << cur_level << "\n";
-  std::cout << "Suffix: " << suffix << "\n";
-
-
   /*
    * Build regex expression:
    * Replace * with .*
@@ -300,7 +295,6 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   }
   std::regex built_regex(reg_cur_level);
 
- 
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
   dir = opendir(prefix.c_str());
