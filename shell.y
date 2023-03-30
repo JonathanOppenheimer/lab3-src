@@ -65,8 +65,9 @@ arg_list:
 
     std::string prefix = "";
     std::string suffix = *($2);
+    std::cout << suffix << "\n";
     if(suffix[0] != "/") { // Need to prepend ./ as it's not an absolute path
-      suffix.insert(0, "./")
+      suffix.insert(0, "./");
     }
 
     getAllWildCards(prefix, suffix, directories);

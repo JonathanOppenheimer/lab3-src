@@ -193,11 +193,12 @@ int yyparse (void);
 
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
+void getAllWildCards(std::string, std::string, std::vector<std::string>);
 int isNotDirectory(const char *);
 int yylex();
 
 
-#line 201 "y.tab.cc"
+#line 202 "y.tab.cc"
 
 
 #ifdef short
@@ -559,9 +560,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    59,    59,    61,    65,    69,    69,    79,    80,    84,
-      92,   100,   108,   123,   132,   152,   153,   157,   163,   166,
-     169,   172,   178,   179
+       0,    60,    60,    62,    75,    79,    79,    89,    90,    94,
+     102,   110,   118,   133,   142,   162,   163,   167,   173,   176,
+     179,   182,   188,   189
 };
 #endif
 
@@ -1371,33 +1372,42 @@ yyreduce:
   switch (yyn)
     {
   case 3:
-#line 61 "shell.y"
+#line 62 "shell.y"
                 {
     std::vector<std::string> matching_args;
+    std::vector<std::string> directories;
+
+    std::string prefix = "";
+    std::string suffix = *((yyvsp[0].cpp_string));
+    if(suffix[0] != "/") { // Need to prepend ./ as it's not an absolute path
+      suffix.insert(0, "./")
+    }
+
+    getAllWildCards(prefix, suffix, directories);
     expandWildCardsIfNecessary((yyvsp[0].cpp_string), matching_args);
   }
-#line 1380 "y.tab.cc"
+#line 1390 "y.tab.cc"
     break;
 
   case 5:
-#line 69 "shell.y"
+#line 79 "shell.y"
        {
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument((yyvsp[0].cpp_string));
   }
-#line 1389 "y.tab.cc"
+#line 1399 "y.tab.cc"
     break;
 
   case 6:
-#line 73 "shell.y"
+#line 83 "shell.y"
            {
     Shell::_currentCommand.insertSimpleCommand(Command::_currentSimpleCommand);
   }
-#line 1397 "y.tab.cc"
+#line 1407 "y.tab.cc"
     break;
 
   case 9:
-#line 84 "shell.y"
+#line 94 "shell.y"
                { /* > */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1406,11 +1416,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous output redirect.";
       }
     }
-#line 1410 "y.tab.cc"
+#line 1420 "y.tab.cc"
     break;
 
   case 10:
-#line 92 "shell.y"
+#line 102 "shell.y"
               { /* < */
       /* Redirect stdin */
       if(Shell::_currentCommand._inFile == NULL) {
@@ -1419,11 +1429,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous input redirect.";
       }
     }
-#line 1423 "y.tab.cc"
+#line 1433 "y.tab.cc"
     break;
 
   case 11:
-#line 100 "shell.y"
+#line 110 "shell.y"
                   { /* 2> */
       /* Redirect stderr */
       if(Shell::_currentCommand._errFile == NULL) {
@@ -1432,11 +1442,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirect.";
       }
     }
-#line 1436 "y.tab.cc"
+#line 1446 "y.tab.cc"
     break;
 
   case 12:
-#line 108 "shell.y"
+#line 118 "shell.y"
                         { /* >& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1452,11 +1462,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
-#line 1456 "y.tab.cc"
+#line 1466 "y.tab.cc"
     break;
 
   case 13:
-#line 123 "shell.y"
+#line 133 "shell.y"
                     { /* >> */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1466,11 +1476,11 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous output redirection";
       }
     }
-#line 1470 "y.tab.cc"
+#line 1480 "y.tab.cc"
     break;
 
   case 14:
-#line 132 "shell.y"
+#line 142 "shell.y"
                              { /* >>& */
       /* Redirect stdout */
       if(Shell::_currentCommand._outFile == NULL) {
@@ -1488,51 +1498,51 @@ yyreduce:
         Shell::_currentCommand._errorFlag = "Ambiguous error redirection.";
       }
     }
-#line 1492 "y.tab.cc"
+#line 1502 "y.tab.cc"
     break;
 
   case 17:
-#line 157 "shell.y"
+#line 167 "shell.y"
               {
       Shell::_currentCommand._background = true;
     }
-#line 1500 "y.tab.cc"
+#line 1510 "y.tab.cc"
     break;
 
   case 18:
-#line 163 "shell.y"
+#line 173 "shell.y"
                                        {
       Shell::_currentCommand.execute();
     }
-#line 1508 "y.tab.cc"
+#line 1518 "y.tab.cc"
     break;
 
   case 19:
-#line 166 "shell.y"
+#line 176 "shell.y"
                                                            {
       Shell::_currentCommand.execute();
     }
-#line 1516 "y.tab.cc"
+#line 1526 "y.tab.cc"
     break;
 
   case 20:
-#line 169 "shell.y"
+#line 179 "shell.y"
             {
       Shell::_currentCommand.execute();
     }
-#line 1524 "y.tab.cc"
+#line 1534 "y.tab.cc"
     break;
 
   case 21:
-#line 172 "shell.y"
+#line 182 "shell.y"
                  {
       yyerrok; /* Clear the errors */
     }
-#line 1532 "y.tab.cc"
+#line 1542 "y.tab.cc"
     break;
 
 
-#line 1536 "y.tab.cc"
+#line 1546 "y.tab.cc"
 
       default: break;
     }
@@ -1764,11 +1774,31 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 182 "shell.y"
+#line 192 "shell.y"
 
 
 void yyerror(const char* s) {
   fprintf(stderr, "myshell: %s\n", s);
+}
+
+
+void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string> directories) {
+  // Deal with multi-level wildcards - start directory search for matching directories
+  std::string::difference_type slash_count = std::count(s.begin(), s.end(), '/');
+  std::string running_prefix = "";
+  std::string diminishing_suffix = *arg;
+
+  std::cout << suffix << "\n";
+
+  if(slash_count == 0) {
+    directories.push_back(".");
+  } else {
+
+  }
+
+  DIR *dir; // The directory
+  struct dirent *dp; // The directory stream of the directory
+
 }
 
 void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
@@ -1805,7 +1835,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
   // Finished building regex
   std::regex built_regex(raw_string);
 
-  // Start directory search for matching directories
+  // Set up current directory and stream
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
   dir = opendir(".");
