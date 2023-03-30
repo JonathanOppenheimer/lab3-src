@@ -196,6 +196,12 @@ void yyerror(const char* s) {
 
 
 void getAllWildCards(std::string prefix, std::string suffix) {
+  if(suffix.length() == 0) { // Recursive expansion is done
+    std::cout << "Prefix: " << prefix << "\n";
+    std::cout << "Suffix: " << suffix << "\n";
+    return;
+  }
+
   // Deal with multi-level wildcards - start directory search for matching directories
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
 
@@ -237,8 +243,14 @@ void getAllWildCards(std::string prefix, std::string suffix) {
 
   if(!need_to_expand) {
     prefix += cur_level;
-    // getAllWildCards(prefix, suffix);
+    getAllWildCards(prefix, suffix);
   }
+
+  std::cout << "Prefix: " << prefix << "\n";
+  std::cout << "Suffix: " << suffix << "\n";
+  std::cout << "cur_level: " << cur_level << "\n";
+
+
 
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
@@ -247,10 +259,6 @@ void getAllWildCards(std::string prefix, std::string suffix) {
     perror("opendir");
     return;
   }
-
-  std::cout << "Prefix: " << prefix << "\n";
-  std::cout << "Suffix: " << suffix << "\n";
-  std::cout << "cur_level: " << cur_level << "\n";
 }
 
 void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
