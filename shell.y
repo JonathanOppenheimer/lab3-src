@@ -252,9 +252,17 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
 
   // Expand the suffix to match possible directories
 
+  // Find what the current level regex will be -- start 
+  std::string cur_level;
+  if(std::count(suffix.begin(), suffx.end(), '/') == 0) { // No more /, add everything to current level 
+    cur_level = suffix.suffix.substr(0, suffix.length());
+    suffix.erase(0, suffix.length());
+  } else { // Make the cur level everything to next /
+    cur_level = suffix.substr(0, suffix.find('/') + 1);
+    suffix.erase(0, suffix.find('/') + 1);
+  }
+
   // First check if expansion is necessary - does the current level have wildcards?
-  std::string cur_level = suffix.substr(0, suffix.find('/') + 1);
-  suffix.erase(0, suffix.find('/') + 1);
   std::string::difference_type num_star = std::count(cur_level.begin(), cur_level.end(), '*');
   std::string::difference_type num_q = std::count(cur_level.begin(), cur_level.end(), '?');
 

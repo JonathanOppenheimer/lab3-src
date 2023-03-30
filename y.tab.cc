@@ -1830,9 +1830,8 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
 
   // See if we're starting in . or /
   if(prefix.length() == 0) {
-    int first_slash = suffix.find('/');
-    prefix += suffix.substr(0, first_slash + 1);
-    suffix.erase(0, first_slash + 1);
+    prefix += suffix.substr(0, suffix.find('/') + 1);
+    suffix.erase(0, suffix.find('/') + 1);
     getAllWildCards(prefix, suffix, matching_args);
     return; // Do initial setup so we have have a prefix to open
   }
@@ -1840,8 +1839,8 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   // Expand the suffix to match possible directories
 
   // First check if expansion is necessary - does the current level have wildcards?
-  std::string cur_level = suffix.substr(0, suffix.find('/'));
-  suffix.erase(0, suffix.find('/'));
+  std::string cur_level = suffix.substr(0, suffix.find('/') + 1);
+  suffix.erase(0, suffix.find('/') + 1);
   std::string::difference_type num_star = std::count(cur_level.begin(), cur_level.end(), '*');
   std::string::difference_type num_q = std::count(cur_level.begin(), cur_level.end(), '?');
 
