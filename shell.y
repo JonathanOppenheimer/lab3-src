@@ -209,7 +209,8 @@ void yyerror(const char* s) {
 
 
 void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string *>& matching_args) {
-  
+  /***************** Two end conditions *****************/
+
   if(suffix.length() == 0) { // Recursive expansion is done, we add both files and folder
     // Don't include the fake prefix we added if it is there
     if(prefix.substr(0,2) == "./") {
@@ -235,6 +236,8 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
     // std::cout << "Suffix: " << suffix << "\n";
     return;
   }
+
+ /*******************************************************/
 
   // Deal with multi-level wildcards - start directory search for matching directories
   std::string::difference_type slash_count = std::count(suffix.begin(), suffix.end(), '/');
