@@ -53,8 +53,6 @@ void getAllWildCards(std::string, std::string, std::vector<std::string> matching
 int isNotDirectory(const char *);
 int yylex();
 
-std::vector<std::string> matching args;
-
 %}
 
 %%
@@ -70,7 +68,8 @@ arg_list:
      suffix.insert(0, "./");
     }
     
-    // Get all the wild cards given the prefix and the suffix
+    // Get all the wild cards given the prefix and the suffix and store them
+    std::vector<std::string> matching args;
     getAllWildCards(prefix, suffix, matching_args);
     
     // Sort the vector of matching results
