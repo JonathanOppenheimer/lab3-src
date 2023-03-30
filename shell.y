@@ -322,9 +322,9 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
           getAllWildCards(prefix + dp->d_name, suffix, matching_args);
         }
       } else {
-        if(!include_files && is_directory) {
+        if(!include_files && is_directory && !start_period) {
           getAllWildCards(prefix + dp->d_name, suffix, matching_args);
-        } else if(include_files) {
+        } else if(include_files && !start_period) {
           getAllWildCards(prefix + dp->d_name, suffix, matching_args);
         }
       }
