@@ -1826,6 +1826,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
       i++;
     }
   }
+  std::regex built_regex(reg_cur_level);
 
   if(!need_to_expand) {
     prefix += cur_level;
@@ -1845,7 +1846,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   }
 
   while ((dp = readdir(dir)) != NULL) {
-    if (std::regex_match(dp->d_name, reg_cur_level)) {
+    if (std::regex_match(dp->d_name, built_regex)) {
       // First check if the dp is not a directory
 
       // Then check if it starts with a .
