@@ -246,14 +246,21 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
 
   // Expand the suffix to match possible directories
 
-  // Find what the current level regex will be -- start 
+  // Find what the current level regex will be -- start
   std::string cur_level;
   if(std::count(suffix.begin(), suffix.end(), '/') == 0) { // No more /, add everything to current level 
     cur_level = suffix.substr(0, suffix.length());
     suffix.erase(0, suffix.length());
   } else { // Make the cur level everything to next /
-    cur_level = suffix.substr(0, suffix.find('/'));
-    suffix.erase(0, suffix.find('/'));
+    if(suffix[0] == '/') { // Shift the / over one and try again
+      prefix += suffix.substr(0, 1);
+      suffix.erase(0, 1);
+      getAllWildCards(prefix, suffix, matching_args);
+      return;
+    } else {
+      cur_level = suffix.substr(0, suffix.find('/'));
+      suffix.erase(0, suffix.find('/'));
+    }
   }
 
   // First check if expansion is necessary - does the current level have wildcards?
@@ -308,7 +315,7 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
       bool start_period = dp->d_name[0] == '.';
       bool include_files = suffix.length() == 0;
       bool is_directory = isDirectory((prefix + dp->d_name).c_str()); 
-     
+ 
       if(include_start_period && start_period) {
         if(!include_files && is_directory) {
           getAllWildCards(prefix + dp->d_name, suffix, matching_args);

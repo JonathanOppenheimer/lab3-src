@@ -1808,13 +1808,11 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   }
 
   if(suffix == "/") { // Recursive expansion is done, we only add directories
-    if(isDirectory(prefix.c_str())) {
-      // Don't include the fake prefix we added if it is there
-      if(prefix.substr(0,2) == "./") {
-        matching_args.push_back(new std::string(prefix.erase(0, 2) + "/"));
-      } else {
-        matching_args.push_back(new std::string(prefix + "/"));
-      }
+    // Don't include the fake prefix we added if it is there
+    if(prefix.substr(0,2) == "./") {
+      matching_args.push_back(new std::string(prefix.erase(0, 2) + "/"));
+    } else {
+      matching_args.push_back(new std::string(prefix + "/"));
     }
     return;
   }
@@ -1897,10 +1895,6 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
       bool include_files = suffix.length() == 0;
       bool is_directory = isDirectory((prefix + dp->d_name).c_str()); 
      
-      std::cout << "start_period: " << start_period << "\n";
-      std::cout << "include_start_period: " << include_start_period << "\n";
-
-
       if(include_start_period && start_period) {
         if(!include_files && is_directory) {
           getAllWildCards(prefix + dp->d_name, suffix, matching_args);
