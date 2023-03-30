@@ -255,6 +255,7 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
 
   // First check if expansion is necessary - does the current level have wildcards?
   std::string cur_level = suffix.substr(0, suffix.find('/'));
+  suffix.erase(0, suffix.find('/'));
   std::string::difference_type num_star = std::count(cur_level.begin(), cur_level.end(), '*');
   std::string::difference_type num_q = std::count(cur_level.begin(), cur_level.end(), '?');
 
@@ -266,7 +267,6 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
 
   // Expansion is necessary
   std::string reg_cur_level = cur_level;
-  suffix.erase(0, suffix.find('/'));
 
   std::cout << "Prefix: " << prefix << "\n";
   std::cout << "cur_level: " << cur_level << "\n";
