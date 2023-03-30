@@ -233,7 +233,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
     int first_slash = suffix.find('/');
     prefix += suffix.substr(0, first_slash + 1);
     suffix.erase(0, first_slash + 1);
-    getAllWildCards(prefix, suffix, matching_args);
+    getAllWildCards(prefix, suffix);
     return; // Do initial setup so we have have a prefix to open
   }
 
@@ -266,7 +266,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   std::regex built_regex(reg_cur_level);
 
   if(!need_to_expand) {
-    getAllWildCards(prefix + cur_level, suffix, matching_args);
+    getAllWildCards(prefix + cur_level, suffix);
     return;
   }
 
@@ -289,10 +289,10 @@ void getAllWildCards(std::string prefix, std::string suffix) {
       // Then check if it starts with a .
       if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
         if(cur_level[0] == '.') {
-          getAllWildCards(prefix + dp->d_name, suffix, matching_args);
+          getAllWildCards(prefix + dp->d_name, suffix);
         }
       } else {
-        getAllWildCards(prefix + dp->d_name, suffix, matching_args);
+        getAllWildCards(prefix + dp->d_name, suffix);
       }
     }
   }
