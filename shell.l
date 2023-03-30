@@ -27,7 +27,7 @@ extern int yylex_destroy(void);
 static void yyunput(int c ,char *buf_ptr);
 
 bool source; // A poor yet easy way to track if the command was sourced
-std::string* buffer; // Used to go through yytext
+std::string buffer; // Used to go through yytext
 std::string raw_subshell; // Used to parse subshell text
 std::vector<int> opened_fds; // Used to keep track of opened file descriptors
 
@@ -60,23 +60,23 @@ void myunputc(int c) {
 <quotes>{
   \" { /* saw closing quote - all done */
     BEGIN(INITIAL);
-    yylval.cpp_string = buffer;
+    yylval.cpp_string = new std::string(buffer);
     return WORD;
   }
 
   \n {
-    *buffer += yytext;
+    buffer += yytext;
     /* Keep prompting for input */
     std::cout << "> ";
   }
 
   \\(.|\n) {
-    *buffer += "\\";
-    *buffer += yytext[1];
+    buffer += "\\";
+    buffer += yytext[1];
   }
 
   [^\\\n\"]+ {
-    *buffer += yytext;
+    buffer += yytext;
   }
 }
 
@@ -258,12 +258,12 @@ void myunputc(int c) {
    */
 (([^ \n\t\|\>\<\&])|(2\>)|(\\\")|(\\\n)|(\\\t)|(\\\>)|(\\\<)|(\\\&)|(\\\\))+ {
     /* Set up the strings for use */
-    buffer->clear();
-    *buffer += yytext;
+    buffer.clear();
+    buffer += yytext;
 
     // Expand environment variables - catch a ${}
     std::regex container("\\$\\{.*\\}");
-    if(std::regex_search(*buffer, container)) {
+    if(std::regex_search(buffer, container)) {
       // Standard regex expression allowed characters: https://www.baeldung.com/linux/allowed-characters-variable-names
       std::regex standard("\\$\\{(?!_|SHELL)([A-Za-z0-9_]+)\\}");
       std::regex dollar("\\$\\{\\$\\}");
@@ -273,50 +273,50 @@ void myunputc(int c) {
       std::regex name_shell("\\$\\{SHELL\\}");
 
       // Do simple (non-variable) regex replacements first
-      *buffer = std::regex_replace(*buffer, dollar, std::to_string(getpid()));
-      *buffer = std::regex_replace(*buffer, question, std::to_string(last_return_code));
-      *buffer = std::regex_replace(*buffer, exclamation, std::to_string(last_background_pid));
-      *buffer = std::regex_replace(*buffer, underscore, last_argument);
-      *buffer = std::regex_replace(*buffer, name_shell, shell_location);
+      buffer = std::regex_replace(buffer, dollar, std::to_string(getpid()));
+      buffer = std::regex_replace(buffer, question, std::to_string(last_return_code));
+      buffer = std::regex_replace(buffer, exclamation, std::to_string(last_background_pid));
+      buffer = std::regex_replace(buffer, underscore, last_argument);
+      buffer = std::regex_replace(buffer, name_shell, shell_location);
 
       // Do more standard regexes next 
       std::smatch matches; // Where to keep the results of the regex
-      if(std::regex_search(*buffer, standard)) {
-        while(std::regex_search(*buffer, matches, standard)) {
+      if(std::regex_search(buffer, standard)) {
+        while(std::regex_search(buffer, matches, standard)) {
           std::regex cur_match("\\$\\{" + matches.str(1) + "\\}"); // Formulate specific regex
           if(getenv(matches.str(1).c_str())) { // If there are replace them with the expanded environment variable
-            *buffer = std::regex_replace(*buffer, cur_match, getenv(matches.str(1).c_str()));
+            buffer = std::regex_replace(buffer, cur_match, getenv(matches.str(1).c_str()));
           } else { // If not delete the ${x}
-            *buffer = std::regex_replace(*buffer, cur_match, "");
+            buffer = std::regex_replace(buffer, cur_match, "");
           }
         }
       }
     }
     // If anything else remains it must be a bad regex (non_valid env_vars) - so serror
-    if(std::regex_search(*buffer, container)) {
-      std::cout << *buffer + ": bad substitution\n";
+    if(std::regex_search(buffer, container)) {
+      std::cout << buffer + ": bad substitution\n";
       YY_FLUSH_BUFFER; // Flush yyin stop parsing
       return NEWLINE;
     }
 
     // Replace ~ section
-    if((*buffer)[0] == '~') {
+    if(buffer[0] == '~') {
       struct passwd *pw; // User record structure
 
       // 3 cases - solo, before a user, or before a user/directory
       // Solo case:
-      if(buffer->size() == 1) {
-        buffer->replace(0, 1, getenv("HOME"));
+      if(buffer.size() == 1) {
+        buffer.replace(0, 1, getenv("HOME"));
       } else {
-        size_t first_slash = buffer->find('/'); // Find the first / to see if we need to list subdirectory
-        std::string user = buffer->substr(1, first_slash - 1);
+        size_t first_slash = buffer.find('/'); // Find the first / to see if we need to list subdirectory
+        std::string user = buffer.substr(1, first_slash - 1);
         if ((pw = getpwnam(user.c_str())) == NULL) {
           // User could not be found - do not -- do not manipulated string
         } else { // Replace with found home directory
           if(first_slash == std::string::npos) { // Before a user
-            buffer->replace(0, 1 + user.length(), pw->pw_dir);
+            buffer.replace(0, 1 + user.length(), pw->pw_dir);
           } else { // Before a user/directory
-            buffer->replace(0, first_slash, pw->pw_dir);
+            buffer.replace(0, first_slash, pw->pw_dir);
           }
         }
       }
@@ -326,28 +326,28 @@ void myunputc(int c) {
      * In the case of an unclose '"', start the action to prompt the user 
      * to close it.
      */
-    for(size_t i = 0; i < buffer->size(); ++i) {
-      if((*buffer)[i] == '"') {
-        int next_quote = buffer->find('"', i+1);
+    for(size_t i = 0; i < buffer.size(); ++i) {
+      if(buffer[i] == '"') {
+        int next_quote = buffer.find('"', i+1);
         // Checks to ensure the next quote is not escaped.
-        if(next_quote == std::string::npos && (*buffer)[next_quote - 1] != '\\') {
-          buffer->erase(i,1);
+        if(next_quote == std::string::npos && buffer[next_quote - 1] != '\\') {
+          buffer.erase(i,1);
           BEGIN(quotes);
         } else {
-          buffer->erase(i, 1);  /* Delete the first " */
-          buffer->erase(next_quote-1, 1); /* Delete the trailing " */
+          buffer.erase(i, 1);  /* Delete the first " */
+          buffer.erase(next_quote-1, 1); /* Delete the trailing " */
         }
       }
 
       /* Trims escaped characters */
-      if((*buffer)[i] == '\\') {
-        buffer->erase(i,1);
+      if(buffer[i] == '\\') {
+        buffer.erase(i,1);
       }
     }
 
     /* Only return a word if we did not switch to another start condition */
     if(YY_START == INITIAL) {
-      yylval.cpp_string = buffer;
+      yylval.cpp_string = std::string(buffer);
       return WORD;
     }
   }
