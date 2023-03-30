@@ -259,7 +259,7 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   std::string::difference_type num_q = std::count(cur_level.begin(), cur_level.end(), '?');
 
   // Expansion is not necessary
-  if(num_star + num_q > 0) {
+  if(num_star + num_q == 0) {
     getAllWildCards(prefix + cur_level, suffix, matching_args);
     return;
   }
