@@ -243,7 +243,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   std::regex built_regex(reg_cur_level);
 
   if(!need_to_expand) {
-    getAllWildCards(prefix += cur_level, suffix);
+    getAllWildCards(prefix + cur_level, suffix);
   }
 
   std::cout << "Prefix: " << prefix << "\n";
@@ -265,10 +265,10 @@ void getAllWildCards(std::string prefix, std::string suffix) {
       // Then check if it starts with a .
       if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
         if(cur_level[0] == '.') {
-          getAllWildCards(prefix += dp->d_name, suffix);
+          getAllWildCards(prefix + dp->d_name, suffix);
         }
       } else {
-        getAllWildCards(prefix += dp->d_name, suffix);
+        getAllWildCards(prefix + dp->d_name, suffix);
       }
     }
   }
