@@ -257,6 +257,24 @@ void getAllWildCards(std::string prefix, std::string suffix) {
     perror("opendir");
     return;
   }
+
+  while ((dp = readdir(dir)) != NULL) {
+    if (std::regex_match(dp->d_name, built_regex)) {
+      // First check if the dp is not a directory
+
+      // Then check if it starts with a .
+      if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
+        if(cur_level[0] == '.') {
+        }
+      } else {
+      }
+    }
+  }
+  
+
+  // Close the dir
+  closedir(dir);
+
 }
 
 void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
