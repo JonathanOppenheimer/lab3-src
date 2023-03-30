@@ -224,7 +224,7 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   }
 
   if(suffix == "/") { // Recursive expansion is done, we only add directories
-    if(!isNotDirectory(prefix)) {
+    if(!isNotDirectory(prefix.c_str())) {
       // Don't include the fake prefix we added if it is there
       if(prefix.substr(0,2) == "./") {
         matching_args.push_back(new std::string(prefix.erase(0, 2) + "/"));
