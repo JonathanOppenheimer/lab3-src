@@ -71,6 +71,7 @@ arg_list:
     // Get all the wild cards given the prefix and the suffix and store them
     std::vector<std::string> matching_args;
     getAllWildCards(prefix, suffix, matching_args);
+    std::cout << matching_args.front() << "\n";
     
     // Sort the vector of matching results
     std::sort(matching_args.begin(), matching_args.end());
