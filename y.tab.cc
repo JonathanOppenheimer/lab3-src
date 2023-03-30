@@ -1852,12 +1852,15 @@ void getAllWildCards(std::string prefix, std::string suffix) {
       // Then check if it starts with a .
       if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
         if(cur_level[0] == '.') {
+          prefix += dp->d_name;
+          getAllWildCards(prefix, suffix);
         }
       } else {
+        prefix += dp->d_name;
+        getAllWildCards(prefix, suffix);
       }
     }
   }
-  
 
   // Close the dir
   closedir(dir);

@@ -196,6 +196,8 @@ void yyerror(const char* s) {
 
 
 void getAllWildCards(std::string prefix, std::string suffix) {
+  std::
+
   if(suffix.length() == 0) { // Recursive expansion is done
     std::cout << "Prefix: " << prefix << "\n";
     std::cout << "Suffix: " << suffix << "\n";
@@ -243,8 +245,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   std::regex built_regex(reg_cur_level);
 
   if(!need_to_expand) {
-    prefix += cur_level;
-    getAllWildCards(prefix, suffix);
+    getAllWildCards(prefix += cur_level, suffix);
   }
 
   std::cout << "Prefix: " << prefix << "\n";
@@ -266,12 +267,10 @@ void getAllWildCards(std::string prefix, std::string suffix) {
       // Then check if it starts with a .
       if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
         if(cur_level[0] == '.') {
-          prefix += dp->d_name;
-          getAllWildCards(prefix, suffix);
+          getAllWildCards(prefix += dp->name, suffix);
         }
       } else {
-        prefix += dp->d_name;
-        getAllWildCards(prefix, suffix);
+        getAllWildCards(prefix += dp->d_name, suffix);
       }
     }
   }
