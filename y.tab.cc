@@ -1385,7 +1385,7 @@ yyreduce:
     // Get all the wild cards given the prefix and the suffix and store them
     std::vector<std::string *> matching_args;
     getAllWildCards(prefix, suffix, matching_args);
-    std::cout << matching_args.front() << "\n";
+    // std::cout << matching_args.front() << "\n";
 
     // Sort the vector of matching results
     std::sort(matching_args.begin(), matching_args.end());
@@ -1799,14 +1799,14 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   
   if(suffix.length() == 0) { // Recursive expansion is done, we add both files and folder
     matching_args.push_back(new std::string(prefix));
-    std::cout << "Prefix: " << prefix << "\n";
-    std::cout << "Suffix: " << suffix << "\n";
+    // std::cout << "Prefix: " << prefix << "\n";
+    // std::cout << "Suffix: " << suffix << "\n";
     return;
   }
 
   if(suffix == "/") { // Recursive expansion is done, we only add folders
-    std::cout << "Prefix: " << prefix << "\n";
-    std::cout << "Suffix: " << suffix << "\n";
+    // std::cout << "Prefix: " << prefix << "\n";
+    // std::cout << "Suffix: " << suffix << "\n";
     matching_args.push_back(new std::string(prefix + suffix));
     return;
   }
@@ -1856,9 +1856,9 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
     return;
   }
 
-  std::cout << "Prefix: " << prefix << "\n";
-  std::cout << "cur_level: " << cur_level << "\n";
-  std::cout << "Suffix: " << suffix << "\n";
+  // std::cout << "Prefix: " << prefix << "\n";
+  // std::cout << "cur_level: " << cur_level << "\n";
+  // std::cout << "Suffix: " << suffix << "\n";
 
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
