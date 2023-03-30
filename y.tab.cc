@@ -1898,9 +1898,9 @@ void expandWildcards(std::string prefix, std::string suffix, std::vector<std::st
  
       if(include_start_period && start_period) {
         if(!include_files && is_directory) {
-          expandWildcards(refix + dp->d_name, suffix, matching_args);
+          expandWildcards(prefix + dp->d_name, suffix, matching_args);
         } else if(include_files) {
-          expandWildcards(refix + dp->d_name, suffix, matching_args);
+          expandWildcards(prefix + dp->d_name, suffix, matching_args);
         }
       } else {
         if(!include_files && is_directory && !start_period) {
