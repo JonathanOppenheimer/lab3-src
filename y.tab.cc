@@ -1807,13 +1807,13 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
       // First check if the dp is not a directory
-      if(isNotDirectory(dp->d_name)) {
-        // Then check if it starts with a .
-        if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
-          if ((*arg)[0] == '.')
-            matching_args.push_back(std::string(dp->d_name));
+
+      // Then check if it starts with a .
+      if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
+        if((*arg)[0] == '.') {
+          matching_args.push_back(std::string(dp->d_name));
         }
-      } else { // Otherwise add it
+      } else {
         matching_args.push_back(std::string(dp->d_name));
       }
     }

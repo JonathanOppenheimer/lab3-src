@@ -188,6 +188,8 @@ void yyerror(const char* s) {
 void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
   std::string raw_string = *arg;
 
+  bool need_to_expand = false;
+
   /* 
    * Build regex expression:
    * Replace * with .*
@@ -198,12 +200,20 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
     if(raw_string[i] == '*') {
       raw_string.replace(i, 1, ".*");
       i++;
+      need_to_expand = true;
     } else if(raw_string[i] == '?' ) {
       raw_string.replace(i, 1, ".");
+      need_to_expand = true;
     } else if(raw_string[i] == '.') {
       raw_string.replace(i, 1, "\\.");
       i++;
     }
+  }
+
+  // Check if we actually need to do expansion
+  if(!need_to_expand) {
+    Command::_currentSimpleCommand->insertArgument(arg);
+    return;
   }
 
   // Finished building regex
