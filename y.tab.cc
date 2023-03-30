@@ -1798,16 +1798,26 @@ void yyerror(const char* s) {
 void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string *>& matching_args) {
   
   if(suffix.length() == 0) { // Recursive expansion is done, we add both files and folder
-    matching_args.push_back(new std::string(prefix));
-    std::cout << "Prefix: " << prefix << "\n";
-    std::cout << "Suffix: " << suffix << "\n";
+    // Don't include the fake prefix we added if it is there
+    if(prefix.substr(0,2) == "./") {
+      matching_args.push_back(new std::string(prefix.erase(0, 2)));
+    } else {
+      matching_args.push_back(new std::string(prefix));
+    }
+    // std::cout << "Prefix: " << prefix << "\n";
+    // std::cout << "Suffix: " << suffix << "\n";
     return;
   }
 
   if(suffix == "/") { // Recursive expansion is done, we only add folders
+    // Don't include the fake prefix we added if it is there
+    if(prefix.substr(0,2) == "./") {
+      matching_args.push_back(new std::string(prefix.erase(0, 2)));
+    } else {
+      matching_args.push_back(new std::string(prefix));
+    }
     // std::cout << "Prefix: " << prefix << "\n";
     // std::cout << "Suffix: " << suffix << "\n";
-    matching_args.push_back(new std::string(prefix + suffix));
     return;
   }
 
