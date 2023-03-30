@@ -211,6 +211,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   // Expand the suffix to match possible directories
 
   std::string cur_level = suffix.substr(0, suffix.find('/'));
+  std::string reg_cur_level = cur_level;
   suffix.erase(0, suffix.find('/'));
   bool need_to_expand = false;
 
@@ -220,18 +221,23 @@ void getAllWildCards(std::string prefix, std::string suffix) {
    * Replace ? with .
    * Replace . with \\.
    */
-  for(int i=0; i < cur_level.length(); i++) {
-    if(cur_level[i] == '*') {
-      cur_level.replace(i, 1, ".*");
+  for(int i=0; i < reg_cur_level.length(); i++) {
+    if(reg_cur_level[i] == '*') {
+      reg_cur_level.replace(i, 1, ".*");
       i++;
       need_to_expand = true;
-    } else if(cur_level[i] == '?' ) {
-      cur_level.replace(i, 1, ".");
+    } else if(reg_cur_level[i] == '?' ) {
+      reg_cur_level.replace(i, 1, ".");
       need_to_expand = true;
-    } else if(cur_level[i] == '.') {
-      cur_level.replace(i, 1, "\\.");
+    } else if(reg_cur_level[i] == '.') {
+      reg_cur_level.replace(i, 1, "\\.");
       i++;
     }
+  }
+
+  if(!need_to_expand) {
+    prefix += cur_level;
+    getAllWildCards(prefix, suffix);
   }
 
   DIR *dir; // The directory

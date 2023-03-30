@@ -1794,12 +1794,10 @@ void getAllWildCards(std::string prefix, std::string suffix) {
     return; // Do initial setup so we have have a prefix to open
   }
 
-  std::cout << "Prefix: " << prefix << "\n";
-  std::cout << "Suffix: " << suffix << "\n";
-
   // Expand the suffix to match possible directories
 
   std::string cur_level = suffix.substr(0, suffix.find('/'));
+  suffix.erase(0, suffix.find('/'));
   bool need_to_expand = false;
 
   /* 
@@ -1830,6 +1828,8 @@ void getAllWildCards(std::string prefix, std::string suffix) {
     return;
   }
 
+  std::cout << "Prefix: " << prefix << "\n";
+  std::cout << "Suffix: " << suffix << "\n";
   std::cout << "cur_level: " << cur_level << "\n";
 }
 
