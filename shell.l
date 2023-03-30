@@ -37,7 +37,6 @@ void set_source() {
     yy_scan_buffer(tstr, sizeof(tstr)); // Scan it
     yyparse(); // Reparse to get input from the user
     yylex_destroy(); // Destroy the buffer
-    Shell::_currentCommand.clear();
   }
 }
 

@@ -137,7 +137,7 @@ void Command::execute() {
     fprintf(stderr, "%s\n", _errorFlag.c_str());
   } else {
     // Print contents of Command data structure
-    print(); // (Needed for grading)
+    // print(); // (Needed for grading)
 
     // Execute all the given simple commands
     int tmpin = dup(0);  // Temporary in file descriptor
