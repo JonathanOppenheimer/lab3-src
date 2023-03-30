@@ -73,7 +73,7 @@ arg_list:
     // std::cout << matching_args.front() << "\n";
 
     // Sort the vector of matching results
-    std::sort(matching_args.begin(), matching_args.end());
+    std::sort(matching_args.begin(), matching_args.end(), [](std::string * a, std::string * b) { return *a < *b; });
 
     // Add the entries as arguements if matches found, otherwise, just insert the original arg
     if(matching_args.size() > 0 ) {
