@@ -1830,6 +1830,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
 
   if(!need_to_expand) {
     getAllWildCards(prefix + cur_level, suffix);
+    return;
   }
 
   std::cout << "Prefix: " << prefix << "\n";
