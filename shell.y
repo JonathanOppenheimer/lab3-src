@@ -237,7 +237,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
 
   if(!need_to_expand) {
     prefix += cur_level;
-    getAllWildCards(prefix, suffix);
+    // getAllWildCards(prefix, suffix);
   }
 
   DIR *dir; // The directory
