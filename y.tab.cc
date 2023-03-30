@@ -1799,7 +1799,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
 
   // Expand the suffix to match possible directories
 
-  std::string sub_level = suffix.substr(0, suffix.find('/'));
+  std::string cur_level = suffix.substr(0, suffix.find('/'));
   bool need_to_expand = false;
 
   /* 
@@ -1808,16 +1808,16 @@ void getAllWildCards(std::string prefix, std::string suffix) {
    * Replace ? with .
    * Replace . with \\.
    */
-  for(int i=0; i < sub_level.length(); i++) {
-    if(sub_level[i] == '*') {
-      sub_level.replace(i, 1, ".*");
+  for(int i=0; i < cur_level.length(); i++) {
+    if(cur_level[i] == '*') {
+      cur_level.replace(i, 1, ".*");
       i++;
       need_to_expand = true;
-    } else if(sub_level[i] == '?' ) {
-      sub_level.replace(i, 1, ".");
+    } else if(cur_level[i] == '?' ) {
+      cur_level.replace(i, 1, ".");
       need_to_expand = true;
-    } else if(sub_level[i] == '.') {
-      sub_level.replace(i, 1, "\\.");
+    } else if(cur_level[i] == '.') {
+      cur_level.replace(i, 1, "\\.");
       i++;
     }
   }
@@ -1830,7 +1830,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
     return;
   }
 
-  std::cout << sub_level << "\n";
+  std::cout << "cur_level: " << cur_level << "\n";
 }
 
 void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> matching_args) {
