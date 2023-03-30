@@ -79,7 +79,7 @@ arg_list:
     // Add the entries as arguements if matches found, otherwise, just insert the original arg
     if(matching_args.size() > 0 ) {
       for (int i = 0; i < matching_args.size(); i++) {
-        Command::_currentSimpleCommand->insertArgument(new std::string(matching_args[i]));
+        Command::_currentSimpleCommand->insertArgument(matching_args[i]);
       }
     } else {
       Command::_currentSimpleCommand->insertArgument( $2 );
