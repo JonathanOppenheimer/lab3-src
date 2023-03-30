@@ -81,6 +81,8 @@ arg_list:
     } else {
       Command::_currentSimpleCommand->insertArgument( $2 );
     }
+    matching_args.clear(); // Clear memory used in vector
+    matching_args.shrink_to_fit();
   }
   | /* can be empty */
 ;
