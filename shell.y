@@ -258,8 +258,8 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
     cur_level = suffix.substr(0, suffix.length());
     suffix.erase(0, suffix.length());
   } else { // Make the cur level everything to next /
-    cur_level = suffix.substr(0, suffix.find('/') + 1);
-    suffix.erase(0, suffix.find('/') + 1);
+    cur_level = suffix.substr(0, suffix.find('/'));
+    suffix.erase(0, suffix.find('/'));
   }
 
   // First check if expansion is necessary - does the current level have wildcards?

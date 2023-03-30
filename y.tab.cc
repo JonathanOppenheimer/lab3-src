@@ -1841,7 +1841,7 @@ void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::st
   // Find what the current level regex will be -- start 
   std::string cur_level;
   if(std::count(suffix.begin(), suffix.end(), '/') == 0) { // No more /, add everything to current level 
-    cur_level = suffix.suffix.substr(0, suffix.length());
+    cur_level = suffix.substr(0, suffix.length());
     suffix.erase(0, suffix.length());
   } else { // Make the cur level everything to next /
     cur_level = suffix.substr(0, suffix.find('/') + 1);
