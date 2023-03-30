@@ -251,7 +251,7 @@ void expandWildCardsIfNecessary(std::string* arg, std::vector<std::string> match
   // Set up current directory and stream
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
-  dir = opendir(".");
+  dir = opendir("./");
   if (dir == NULL) {
     perror("opendir");
     return;
