@@ -49,11 +49,9 @@
 
 void yyerror(const char * s);
 void expandWildCardsIfNecessary(std::string*, std::vector<std::string>);
-void getAllWildCards(std::string, std::string);
+void getAllWildCards(std::string, std::string, std::vector<std::string *> matching_args);
 int isNotDirectory(const char *);
 int yylex();
-
-std::vector<std::string *> matching_args;
 
 %}
 
@@ -63,15 +61,17 @@ goal: command_list;
 arg_list:
   arg_list WORD {
     // Wild card expansion below
-
+    
     std::string prefix = "";
     std::string suffix = *($2);
     if(suffix[0] != '/') { // Need to prepend ./ as it's not an absolute path
      suffix.insert(0, "./");
     }
-
+    
     // Get all the wild cards given the prefix and the suffix and store them
-    getAllWildCards(prefix, suffix);
+    std::vector<std::string *> matching_args;
+    getAllWildCards(prefix, suffix, &matching_args);
+    std::cout << matching_args.front() << "\n";
 
     // Sort the vector of matching results
     std::sort(matching_args.begin(), matching_args.end());
@@ -209,18 +209,18 @@ void yyerror(const char* s) {
 }
 
 
-void getAllWildCards(std::string prefix, std::string suffix) {
+void getAllWildCards(std::string prefix, std::string suffix, std::vector<std::string *> matching_args) {
   
   if(suffix.length() == 0) { // Recursive expansion is done, we add both files and folder
     matching_args.push_back(new std::string(prefix));
-    // std::cout << "Prefix: " << prefix << "\n";
-    // std::cout << "Suffix: " << suffix << "\n";
+    std::cout << "Prefix: " << prefix << "\n";
+    std::cout << "Suffix: " << suffix << "\n";
     return;
   }
 
   if(suffix == "/") { // Recursive expansion is done, we only add folders
-    // std::cout << "Prefix: " << prefix << "\n";
-    // std::cout << "Suffix: " << suffix << "\n";
+    std::cout << "Prefix: " << prefix << "\n";
+    std::cout << "Suffix: " << suffix << "\n";
     matching_args.push_back(new std::string(prefix + suffix));
     return;
   }
@@ -233,7 +233,7 @@ void getAllWildCards(std::string prefix, std::string suffix) {
     int first_slash = suffix.find('/');
     prefix += suffix.substr(0, first_slash + 1);
     suffix.erase(0, first_slash + 1);
-    getAllWildCards(prefix, suffix);
+    getAllWildCards(prefix, suffix, matching_args);
     return; // Do initial setup so we have have a prefix to open
   }
 
@@ -266,13 +266,13 @@ void getAllWildCards(std::string prefix, std::string suffix) {
   std::regex built_regex(reg_cur_level);
 
   if(!need_to_expand) {
-    getAllWildCards(prefix + cur_level, suffix);
+    getAllWildCards(prefix + cur_level, suffix, matching_args);
     return;
   }
 
-  // std::cout << "Prefix: " << prefix << "\n";
-  // std::cout << "cur_level: " << cur_level << "\n";
-  // std::cout << "Suffix: " << suffix << "\n";
+  std::cout << "Prefix: " << prefix << "\n";
+  std::cout << "cur_level: " << cur_level << "\n";
+  std::cout << "Suffix: " << suffix << "\n";
 
   DIR *dir; // The directory
   struct dirent *dp; // The directory stream of the directory
@@ -289,10 +289,10 @@ void getAllWildCards(std::string prefix, std::string suffix) {
       // Then check if it starts with a .
       if (dp->d_name[0] == '.') { // If it does only add if the word started with a .
         if(cur_level[0] == '.') {
-          getAllWildCards(prefix + dp->d_name, suffix);
+          getAllWildCards(prefix + dp->d_name, suffix, matching_args);
         }
       } else {
-        getAllWildCards(prefix + dp->d_name, suffix);
+        getAllWildCards(prefix + dp->d_name, suffix, matching_args);
       }
     }
   }
