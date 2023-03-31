@@ -81,12 +81,11 @@ char *read_line() {
     } else if (in_char == 10) { // <Enter> - return line
       // Print newline
       write(1, &in_char, 1);
-
+      total_chars = 0;
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
       line_buffer[0] = 0;
-
       break;
     } else if (in_char == 127) { // <Backspace> - remove previous character read
       // Only delete if the line length is longer than 0
