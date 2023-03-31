@@ -72,7 +72,7 @@ char *read_line() {
         line_pos++;
         total_chars++;
       } else { // We're somewhere within the line
-        insertChar(line_pos, in_char);
+        // insertChar(line_pos, in_char);
         line_pos++;
         total_chars++;
         wipeLine(in_char);
