@@ -137,7 +137,7 @@ char *read_line() {
 
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
         // Wipe current line
-        wipeLine(in_char);
+        wipeLine(0, total_chars);
 
         // Copy line from history
         strcpy(line_buffer, history[history_index]);
