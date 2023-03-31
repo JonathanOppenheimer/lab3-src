@@ -83,10 +83,11 @@ char *read_line() {
       if (line_pos == MAX_BUFFER_LINE - 2)
         break;
     } else if (in_char == 10) { // <Enter> - return line
-      // Print newline
-      line_pos = total_chars;
+                                // Print newline
       write(1, &in_char, 1);
       total_chars = 0;
+      line_pos = total_chars;
+
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
