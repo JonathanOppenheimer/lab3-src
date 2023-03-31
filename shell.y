@@ -327,8 +327,8 @@ void expandWildcards(std::string prefix, std::string suffix, std::vector<std::st
       }
     }
   }
-  
-  regfree(&built_regex);
+
+  free(&built_regex);
 
   // Close the directory
   closedir(dir);
