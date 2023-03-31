@@ -196,7 +196,7 @@ void insertChar(char in_char) {
   }
 
   // Insert the character at the position
-  line_buffer[line_pos - 1] = in_char;
+  line_buffer[line_pos] = in_char;
 }
 
 void printBuffer() {
