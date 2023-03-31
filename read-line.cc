@@ -206,7 +206,7 @@ void insertChar(char in_char) {
 }
 
 void printBuffer() {
-  for (int i = 0; i < total_chars; i++) {
+  for (int i = 0; i <= total_chars; i++) {
     write(1, &line_buffer[i], 1);
   }
 }
