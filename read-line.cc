@@ -144,11 +144,12 @@ char *read_line() {
       } else if ((ch1 == 91) && (ch2 == 68)) { // Left arrow
       }
     }
-
-    // Add eol and null char at the end of string before returning
-    line_buffer[line_length] = 10;
-    line_length++;
-    line_buffer[line_length] = 0;
-
-    return line_buffer;
   }
+
+  // Add eol and null char at the end of string before returning
+  line_buffer[line_length] = 10;
+  line_length++;
+  line_buffer[line_length] = 0;
+
+  return line_buffer;
+}
