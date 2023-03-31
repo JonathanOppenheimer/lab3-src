@@ -51,7 +51,7 @@ char *read_line() {
     // Read one character in raw mode.
     char in_char;
     read(0, &in_char, 1);
-    printf("%d\n", in_char);
+    // printf("%d\n", in_char);
 
     if (in_char >= 32) {
       // It is a printable character.
@@ -78,11 +78,11 @@ char *read_line() {
       read_line_print_usage();
       line_buffer[0] = 0;
       break;
-    } else if (in_char == 8) {
+    } else if (in_char == 127) {
       // <backspace> was typed. Remove previous character read.
 
       // Go back one character
-      in_char = 8;
+      in_char = 127;
       write(1, &in_char, 1);
 
       // Write a space to erase the last character read
@@ -90,7 +90,7 @@ char *read_line() {
       write(1, &in_char, 1);
 
       // Go back one character
-      in_char = 8;
+      in_char = 127;
       write(1, &in_char, 1);
 
       // Remove one character from buffer
