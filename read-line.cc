@@ -66,7 +66,7 @@ char *read_line() {
       // Check whether we are writing at the end of the line, or within the line
       if (line_pos == total_chars) { // At the start of the line
         insertChar(in_char);
-        moveCursorRight(line_pos, total_chars);
+        moveCursorRight(line_pos, line_pos + 1);
 
       } else { // We're somewhere within the line so need to adjust the cursor
         insertChar(in_char);
