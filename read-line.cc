@@ -97,10 +97,13 @@ char *read_line() {
         // Go back one character
         in_char = 8;
         write(1, &in_char, 1);
-      }
 
-      // Remove one character from buffer
-      line_length--;
+        // Remove one character from buffer
+        // TODO
+
+        //
+        line_length--;
+      }
     } else if (in_char == 27) {
       // Escape sequence. Read two chars more
       //
