@@ -111,6 +111,8 @@ char *read_line() {
       char ch2;
       read(0, &ch1, 1);
       read(0, &ch2, 1);
+      printf("%d %d\n", ch1, ch2);
+
       if (ch1 == 91 && ch2 == 65) {
         // Up arrow. Print next line in history.
 
