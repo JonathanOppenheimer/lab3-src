@@ -15,6 +15,7 @@
 #define MAX_BUFFER_LINE 2048
 
 extern void tty_raw_mode(void);
+void wipeLine(char);
 
 // Buffer where line is stored
 int line_length;
@@ -118,10 +119,10 @@ char *read_line() {
 
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
         // Wipe current line
-        wipeLine(in_char)
+        wipeLine(in_char);
 
-            // Copy line from history
-            strcpy(line_buffer, history[history_index]);
+        // Copy line from history
+        strcpy(line_buffer, history[history_index]);
         line_length = strlen(line_buffer);
         history_index = (history_index + 1) % history_length;
 
