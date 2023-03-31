@@ -68,18 +68,11 @@ char *read_line() {
         insertChar(in_char);
         moveCursorRight(line_pos, total_chars);
 
-        // Increment forward in buffer
-        line_pos++;
-        total_chars++;
       } else { // We're somewhere within the line so need to adjust the cursor
         insertChar(in_char);
         wipeLine(line_pos, total_chars);
         moveCursorRight(line_pos, total_chars);
         moveCursorLeft(total_chars - line_pos);
-
-        // Increment forward in buffer
-        line_pos++;
-        total_chars++;
       }
 
       // If max number of character reached return.
@@ -177,6 +170,10 @@ void insertChar(char in_char) {
 
   // Insert the character at the position
   line_buffer[line_pos] = in_char;
+
+  // Increment forward in buffer
+  line_pos++;
+  total_chars++;
 }
 
 void moveCursorLeft(int count) {
