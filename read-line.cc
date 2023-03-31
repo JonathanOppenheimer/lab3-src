@@ -17,6 +17,7 @@
 
 extern void tty_raw_mode(void);
 void insertChar(char);
+void moveCursorLeft(int);
 void moveCursorRight(int, int);
 void wipeLine(int, int);
 
@@ -75,11 +76,7 @@ char *read_line() {
         insertChar(in_char);
         wipeLine(line_pos, total_chars);
         moveCursorRight(line_pos, total_chars);
-        for (int i = 0; i < total_chars - line_pos; i++) {
-          // Go back one character
-          in_char = 8;
-          write(1, &in_char, 1);
-        }
+        moveCursorLeft(total_chars - line_pos);
 
         line_pos++;
         total_chars++;
@@ -183,6 +180,14 @@ void insertChar(char in_char) {
 
   // Insert the character at the position
   line_buffer[line_pos] = in_char;
+}
+
+void moveCursorLeft(int count) {
+  char back_char = 8;
+  for (int i = 0; i < count; i++) {
+    // Go back one character
+    write(1, &back_char, 1);
+  }
 }
 
 void moveCursorRight(int start, int end) {
