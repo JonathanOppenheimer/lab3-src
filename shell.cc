@@ -15,7 +15,7 @@ int yyparse(void);
 
 char *shell_location;
 std::set<pid_t> background_pids;
-struct termios old_terminal_state;
+const struct termios *old_terminal_state;
 
 void Shell::prompt() {
   if (isatty(0) && !source) {
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
   shell_location = realpath(argv[0], NULL);
 
   // Store the state of the terminal
-  tcgetattr(0, &old_terminal_state);
+  tcgetattr(0, *old_terminal_state);
 
   /********* CTRL-C HANDLING **********/
   struct sigaction sigintSignalAction;
