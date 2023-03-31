@@ -119,6 +119,9 @@ int mygetc(FILE * f) {
   }
   YY_FLUSH_BUFFER;
 
+  // Restore terminal state
+  tcsetattr(0, old_terminal_state);
+
   // Exit parent
   exit(0);
 }
