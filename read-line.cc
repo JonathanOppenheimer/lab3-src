@@ -53,7 +53,7 @@ char *read_line() {
     // Read one character in raw mode.
     char in_char;
     read(0, &in_char, 1);
-    // printf("%d\n", in_char);
+    printf("%d\n", in_char);
 
     if ((in_char >= 32) && (in_char != 127)) {
       // It is a printable character that is not delete
@@ -99,9 +99,6 @@ char *read_line() {
         write(1, &in_char, 1);
 
         // Remove one character from buffer
-        // TODO
-
-        //
         line_length--;
       }
     } else if (in_char == 27) {
