@@ -65,19 +65,18 @@ char *read_line() {
 
       // Check whether we are writing at the end of the line, or within the line
       if (line_pos == total_chars) { // At the start of the line
+        insertChar(in_char);
 
-        // Write the character out
-        write(1, &in_char, 1);
-        // add char to buffer.
-        line_buffer[line_pos] = in_char;
+        // Increment forward in buffer
         line_pos++;
         total_chars++;
-      } else { // We're somewhere within the line
+      } else { // We're somewhere within the line so need to adjust the cursor
         insertChar(in_char);
         wipeLine(line_pos, total_chars);
         moveCursorRight(line_pos, total_chars);
         moveCursorLeft(total_chars - line_pos);
 
+        // Increment forward in buffer
         line_pos++;
         total_chars++;
       }
