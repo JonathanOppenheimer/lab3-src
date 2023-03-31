@@ -1,10 +1,11 @@
-
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 void tty_raw_mode(void);
 
-int main(int argc, char ** argv) 
-{
+int main(int argc, char **argv) {
   tty_raw_mode();
 
   while (1) {
@@ -13,4 +14,3 @@ int main(int argc, char ** argv)
     printf("%d\n", ch);
   }
 }
-
