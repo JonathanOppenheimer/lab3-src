@@ -199,7 +199,7 @@ void wipeLine(int start, int end) {
   char write_char;
 
   // Move to start by printing backspaces
-  write_char = 8;
+  // write_char = 8;
   for (int i = start; i < end; i++) {
     write(1, &write_char, 1);
   }
