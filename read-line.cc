@@ -141,7 +141,11 @@ char *read_line() {
         write(1, line_buffer, line_length);
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
+                                               //
       } else if ((ch1 == 91) && (ch2 == 68)) { // Left arrow
+        // Go back one character
+        in_char = 8;
+        write(1, &in_char, 1);
       }
     }
   }
