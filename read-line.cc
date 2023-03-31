@@ -91,10 +91,8 @@ char *read_line() {
 
       // Increment total_chars
     } else if (in_char == 10) { // <Enter> - return line
-      for (int i = line_pos; i < total_chars)
-
-        // Print newline
-        write(1, &in_char, 1);
+      // Print newline
+      write(1, &in_char, 1);
       total_chars = 0;
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
