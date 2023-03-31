@@ -16,6 +16,8 @@
 #define MAX_BUFFER_LINE 2048
 
 extern void tty_raw_mode(void);
+
+void delete_char(int);
 void insertChar(char);
 void moveCursorLeft(int);
 void moveCursorRight(int, int);
@@ -95,21 +97,11 @@ char *read_line() {
     } else if (in_char == 127) { // <Backspace> - remove previous character read
       // Only delete if the line length is longer than 0
       if (line_pos > 0) {
-        // Go back one character
-        in_char = 8;
-        write(1, &in_char, 1);
-
-        // Write a space to erase the last character read
-        in_char = ' ';
-        write(1, &in_char, 1);
-
-        // Go back one character
-        in_char = 8;
-        write(1, &in_char, 1);
-
-        // Remove one character from buffer
+        delete_char(line_pos);
         line_pos--;
-        total_chars--; // Decrement total_chars
+        total_chars--;
+        wipeLine(line_pos, total_chars);
+        moveCursorRight(line_pos, total_chars + 1);
       }
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
@@ -165,6 +157,12 @@ char *read_line() {
   line_buffer[line_pos] = 0;
 
   return line_buffer;
+}
+
+void delete_char(int pos) {
+  for (int i = pos; i < total_chars; i++) {
+    line_buffer[i] = line_buffer[i + 1];
+  }
 }
 
 void insertChar(char in_char) {
