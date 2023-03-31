@@ -122,6 +122,8 @@ int mygetc(FILE * f) {
 
   // Restore terminal state
   tcsetattr(0, TCSANOW, &old_terminal_state);
+  
+  yylex_destroy(); // Destroy the buffer
 
   // Exit parent
   exit(0);
