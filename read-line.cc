@@ -183,13 +183,13 @@ void wipeLine(char in_char) {
   }
 
   // Print spaces on top to erase old line
-  for (i = 0; i < line_pos; i++) {
+  for (i = 0; i < total_chars; i++) {
     in_char = ' ';
     write(1, &in_char, 1);
   }
 
   // Move to start of line by printing backspaces
-  for (i = 0; i < line_pos; i++) {
+  for (i = 0; i < total_chars; i++) {
     in_char = 8;
     write(1, &in_char, 1);
   }
