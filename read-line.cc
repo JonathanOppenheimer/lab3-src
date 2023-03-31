@@ -188,11 +188,11 @@ void wipeLine(char in_char) {
 void insertChar(int insert_position, char in_char) {
   // Shift everything starting at the position forward
   for (int i = insert_position; i < MAX_BUFFER_LINE; i++) {
-    line_buffer[i] = line_buffer[i - 1];
+    line_buffer[i + 1] = line_buffer[i];
   }
 
   // Insert the character at the position
-  line_buffer[insert_position - 1] = in_char;
+  line_buffer[insert_position] = in_char;
 }
 
 void printBuffer() {
