@@ -11,7 +11,7 @@ WARNFLAGS= -Wall -Wextra -pedantic
 LEX=lex -l
 YACC=yacc -y -d -t --debug
 
-EDIT_MODE_ON=
+EDIT_MODE_ON=yes
 
 ifdef EDIT_MODE_ON
 	EDIT_MODE_OBJECTS=tty-raw-mode.o read-line.o
@@ -39,11 +39,11 @@ shell.o: shell.cc shell.hh
 shell: y.tab.o lex.yy.o shell.o command.o simpleCommand.o $(EDIT_MODE_OBJECTS)
 		$(CC) $(CCFLAGS) $(WARNFLAGS) -o shell lex.yy.o y.tab.o shell.o command.o simpleCommand.o $(EDIT_MODE_OBJECTS)
 
-tty-raw-mode.o: tty-raw-mode.c
-	$(cc) $(ccFLAGS) $(WARNFLAGS) -c tty-raw-mode.c
+tty-raw-mode.o: tty-raw-mode.cc
+	$(cc) $(ccFLAGS) $(WARNFLAGS) -c tty-raw-mode.cc
 
-read-line.o: read-line.c
-	$(cc) $(ccFLAGS) $(WARNFLAGS) -c read-line.c
+read-line.o: read-line.cc
+	$(cc) $(ccFLAGS) $(WARNFLAGS) -c read-line.cc
 
 .PHONY: git-commit
 git-commit:
