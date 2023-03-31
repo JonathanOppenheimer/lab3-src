@@ -53,7 +53,7 @@ char *read_line() {
     // Read one character in raw mode.
     char in_char;
     read(0, &in_char, 1);
-    printf("%d\n", in_char);
+    // printf("%d\n", in_char);
 
     if ((in_char >= 32) && (in_char != 127)) {
       // It is a printable character that is not delete
@@ -81,7 +81,6 @@ char *read_line() {
       line_buffer[0] = 0;
       break;
     } else if (in_char == 127) {
-      std::cout << "TRIGGERED!\n";
       // <backspace> was typed. Remove previous character read.
 
       // Go back one character
