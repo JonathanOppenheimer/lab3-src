@@ -17,7 +17,7 @@
 
 extern void tty_raw_mode(void);
 void insertChar(char);
-void printBuffer(int, int);
+void moveCursorRight(int, int);
 void wipeLine(int, int);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
@@ -74,7 +74,7 @@ char *read_line() {
       } else { // We're somewhere within the line
         insertChar(in_char);
         wipeLine(line_pos, total_chars);
-        printBuffer(line_pos, total_chars);
+        moveCursorRight(line_pos, total_chars);
         for (int i = 0; i < total_chars - line_pos; i++) {
           // Go back one character
           in_char = 8;
@@ -174,6 +174,26 @@ char *read_line() {
   return line_buffer;
 }
 
+void insertChar(char in_char) {
+  // Shift everything starting at the position forward
+  for (int i = total_chars; i >= line_pos; i--) {
+    line_buffer[i] = line_buffer[i - 1];
+  }
+
+  // Insert the character at the position
+  line_buffer[line_pos] = in_char;
+}
+
+void moveCursorRight(int start, int end) {
+  for (int i = start; i <= end; i++) {
+    write(1, &line_buffer[i], 1);
+  }
+}
+
+/*
+ * Given a start and end position, wipe the line from the given start to
+ * the given end (inclusive on both ends)
+ */
 void wipeLine(int start, int end) {
   char write_char;
 
@@ -192,21 +212,5 @@ void wipeLine(int start, int end) {
   write_char = 8;
   for (int i = 0; i <= end - start; i++) {
     write(1, &write_char, 1);
-  }
-}
-
-void insertChar(char in_char) {
-  // Shift everything starting at the position forward
-  for (int i = total_chars; i >= line_pos; i--) {
-    line_buffer[i] = line_buffer[i - 1];
-  }
-
-  // Insert the character at the position
-  line_buffer[line_pos] = in_char;
-}
-
-void printBuffer(int start, int end) {
-  for (int i = start; i <= end; i++) {
-    write(1, &line_buffer[i], 1);
   }
 }
