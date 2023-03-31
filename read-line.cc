@@ -64,15 +64,14 @@ char *read_line() {
       // Printable character that is not delete
 
       // Check whether we are writing at the end of the line, or within the line
-      if (line_pos == total_chars) { // At the start of the line
-        insertChar(in_char);
-        moveCursorRight(line_pos, line_pos + 1);
-
+      if (line_pos == total_chars) {             // At the start of the line
+        insertChar(in_char);                     // Insert single character
+        moveCursorRight(line_pos, line_pos + 1); // Move cursor right once
       } else { // We're somewhere within the line so need to adjust the cursor
-        insertChar(in_char);
-        wipeLine(line_pos, total_chars);
-        moveCursorRight(line_pos, total_chars + 1);
-        moveCursorLeft(total_chars - line_pos);
+        insertChar(in_char);             // Insert single character
+        wipeLine(line_pos, total_chars); // Wipe all after current character
+        moveCursorRight(line_pos, total_chars + 1); // Rewrite partial new line
+        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
 
       // Increment forward in buffer
@@ -131,8 +130,8 @@ char *read_line() {
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
                                         // Wipe current line
         // Move to start of line by printing backspaces
-        moveCursorLeft(line_pos);
-        wipeLine(0, total_chars);
+        moveCursorLeft(line_pos); // Move cursor to start of line
+        wipeLine(0, total_chars); // Wipe the whole line
 
         // Copy line from history
         strcpy(line_buffer, history[history_index]);
