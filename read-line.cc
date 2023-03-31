@@ -81,7 +81,7 @@ char *read_line() {
           write(1, &in_char, 1);
         }
 
-        line_pos++;
+        // line_pos++;
         total_chars++;
       }
 
