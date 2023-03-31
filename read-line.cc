@@ -77,6 +77,11 @@ char *read_line() {
         total_chars++;
         wipeLine(in_char);
         printBuffer();
+        for (int i = 0; i < total_chars - line_pos; i++) {
+          // Go back one character
+          in_char = 8;
+          write(1, &in_char, 1);
+        }
       }
 
       // If max number of character reached return.
