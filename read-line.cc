@@ -187,7 +187,7 @@ void wipeLine(char in_char) {
 
 void insertChar(int insert_position, char in_char) {
   // Shift everything starting at the position forward
-  for (int i = MAX_BUFFER_LINE; i >= insert_position; i++) {
+  for (int i = total_chars; i >= insert_position; i++) {
     line_buffer[i] = line_buffer[i - 1];
   }
 
