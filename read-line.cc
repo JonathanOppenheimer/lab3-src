@@ -91,8 +91,10 @@ char *read_line() {
 
       // Increment total_chars
     } else if (in_char == 10) { // <Enter> - return line
-      // Print newline
-      write(1, &in_char, 1);
+      for (int i = line_pos; i < total_chars)
+
+        // Print newline
+        write(1, &in_char, 1);
       total_chars = 0;
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
@@ -183,13 +185,13 @@ void wipeLine(char in_char) {
   }
 
   // Print spaces on top to erase old line
-  for (i = 0; i < total_chars; i++) {
+  for (i = 0; i <= total_chars; i++) {
     in_char = ' ';
     write(1, &in_char, 1);
   }
 
   // Move to start of line by printing backspaces
-  for (i = 0; i < total_chars; i++) {
+  for (i = 0; i <= total_chars; i++) {
     in_char = 8;
     write(1, &in_char, 1);
   }
