@@ -91,7 +91,6 @@ void myunputc(int c) {
     close(opened_fds.back());
     opened_fds.pop_back();
   }
-  free(yylval.cpp_string);
   YY_FLUSH_BUFFER;
 
   // Exit parent

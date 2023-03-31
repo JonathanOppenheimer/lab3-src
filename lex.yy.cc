@@ -937,6 +937,8 @@ YY_RULE_SETUP
     close(opened_fds.back());
     opened_fds.pop_back();
   }
+  free(yylval.cpp_string);
+  YY_FLUSH_BUFFER;
 
   // Exit parent
   exit(0);
@@ -946,7 +948,7 @@ YY_RULE_SETUP
 
 case 7:
 YY_RULE_SETUP
-#line 102 "shell.l"
+#line 104 "shell.l"
 {
     /* eat the whitespace */
   }
@@ -954,7 +956,7 @@ YY_RULE_SETUP
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 106 "shell.l"
+#line 108 "shell.l"
 { /* Didn't provide an arguement */
     fprintf(stderr, "source: filename argument required\n");
     fprintf(stderr, "source: usage: source filename [arguments]\n");
@@ -964,7 +966,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 113 "shell.l"
+#line 115 "shell.l"
 { /* Get the source file name */
     FILE* sourced = fopen(yytext, "r");
     if (!sourced) {
@@ -985,7 +987,7 @@ YY_RULE_SETUP
 
 case 10:
 YY_RULE_SETUP
-#line 131 "shell.l"
+#line 133 "shell.l"
 {
   // Add the parsed text to our temporary buffer 
   raw_subshell.clear();
@@ -1067,14 +1069,14 @@ YY_RULE_SETUP
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 209 "shell.l"
+#line 211 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 213 "shell.l"
+#line 215 "shell.l"
 {
   /* Discard spaces and tabs */
 }
@@ -1082,7 +1084,7 @@ YY_RULE_SETUP
 /* Pipe */
 case 13:
 YY_RULE_SETUP
-#line 218 "shell.l"
+#line 220 "shell.l"
 {
   return PIPE;
 }
@@ -1090,7 +1092,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout: 1 ) */
 case 14:
 YY_RULE_SETUP
-#line 223 "shell.l"
+#line 225 "shell.l"
 {
   return GREAT;
 }
@@ -1098,7 +1100,7 @@ YY_RULE_SETUP
 /* Input redirection */
 case 15:
 YY_RULE_SETUP
-#line 228 "shell.l"
+#line 230 "shell.l"
 {
   return LESS;
 }
@@ -1106,7 +1108,7 @@ YY_RULE_SETUP
 /* Output redirection (stderr : 2) */
 case 16:
 YY_RULE_SETUP
-#line 233 "shell.l"
+#line 235 "shell.l"
 {
   return TWOGREAT;
 }
@@ -1114,7 +1116,7 @@ YY_RULE_SETUP
 /* Output redirection (stdout and stderr : 1 and 2) */
 case 17:
 YY_RULE_SETUP
-#line 238 "shell.l"
+#line 240 "shell.l"
 {
   return GREATAMPERSAND;
 }
@@ -1122,7 +1124,7 @@ YY_RULE_SETUP
 /* Append output (stdout : 1) */
 case 18:
 YY_RULE_SETUP
-#line 243 "shell.l"
+#line 245 "shell.l"
 {
   return GREATGREAT;
 }
@@ -1130,7 +1132,7 @@ YY_RULE_SETUP
 /* Append output (stdout and stderr : 1 and 2) */
 case 19:
 YY_RULE_SETUP
-#line 248 "shell.l"
+#line 250 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
@@ -1138,7 +1140,7 @@ YY_RULE_SETUP
 /* Run process in background */
 case 20:
 YY_RULE_SETUP
-#line 253 "shell.l"
+#line 255 "shell.l"
 {
   return AMPERSAND;
 }
@@ -1149,7 +1151,7 @@ YY_RULE_SETUP
 case 21:
 /* rule 21 can match eol */
 YY_RULE_SETUP
-#line 260 "shell.l"
+#line 262 "shell.l"
 {
     /* Set up the strings for use */
     buffer.clear();
@@ -1243,10 +1245,8 @@ YY_RULE_SETUP
     if(YY_START == INITIAL) {
       yylval.cpp_string = new std::string(buffer);
       return WORD;
-    } else {
-      YY_FLUSH_BUFFER;
     }
-  }
+}
 	YY_BREAK
 /* Terminates the scanner - should happen by default but just double checking */
 case YY_STATE_EOF(INITIAL):
