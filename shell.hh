@@ -23,7 +23,7 @@ extern std::set<pid_t>
     background_pids; // Used to put the vectors of background processes into
 extern std::vector<int>
     opened_fds; // Used to track open file descriptors to close on exit
-extern struct termios old_terminal_state;
+extern const struct termios old_terminal_state;
 
 /* ************************************************************ */
 
