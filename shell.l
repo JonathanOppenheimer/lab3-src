@@ -91,6 +91,8 @@ void myunputc(int c) {
     close(opened_fds.back());
     opened_fds.pop_back();
   }
+  free(yylval.cpp_string);
+  YY_FLUSH_BUFFER;
 
   // Exit parent
   exit(0);
@@ -349,10 +351,8 @@ void myunputc(int c) {
     if(YY_START == INITIAL) {
       yylval.cpp_string = new std::string(buffer);
       return WORD;
-    } else {
-      YY_FLUSH_BUFFER;
     }
-  }
+}
 
   /* Terminates the scanner - should happen by default but just double checking */
 <<EOF>> {

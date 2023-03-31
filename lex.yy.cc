@@ -1243,6 +1243,8 @@ YY_RULE_SETUP
     if(YY_START == INITIAL) {
       yylval.cpp_string = new std::string(buffer);
       return WORD;
+    } else {
+      YY_FLUSH_BUFFER;
     }
   }
 	YY_BREAK
@@ -1250,7 +1252,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(quotes):
 case YY_STATE_EOF(manual_source):
-#line 357 "shell.l"
+#line 359 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1261,10 +1263,10 @@ case YY_STATE_EOF(manual_source):
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 365 "shell.l"
+#line 367 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1268 "lex.yy.cc"
+#line 1270 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2325,4 +2327,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 365 "shell.l"
+#line 367 "shell.l"
