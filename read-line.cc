@@ -18,6 +18,7 @@ extern void tty_raw_mode(void);
 
 // Buffer where line is stored
 int line_length;
+int total_chars;
 char line_buffer[MAX_BUFFER_LINE];
 
 // Simple history array
@@ -58,6 +59,7 @@ char *read_line() {
     if ((in_char >= 32) && (in_char != 127)) {
       // Printable character that is not delete
 
+      // Write depending on where the cursor is
       // Write the character out
       write(1, &in_char, 1);
 
@@ -68,6 +70,7 @@ char *read_line() {
       // add char to buffer.
       line_buffer[line_length] = in_char;
       line_length++;
+      total_chars++;            // Increment total_chars
     } else if (in_char == 10) { // <Enter> - return line
       // Print newline
       write(1, &in_char, 1);
@@ -95,6 +98,7 @@ char *read_line() {
 
         // Remove one character from buffer
         line_length--;
+        total_chars--; // Decrement total_chars
       }
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
@@ -113,27 +117,11 @@ char *read_line() {
       read(0, &ch2, 1);
 
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
-        // Move to start of line by printing backspaces
-        int i = 0;
-        for (i = 0; i < line_length; i++) {
-          in_char = 8;
-          write(1, &in_char, 1);
-        }
+        // Wipe current line
+        wipeLine(in_char)
 
-        // Print spaces on top to erase old line
-        for (i = 0; i < line_length; i++) {
-          in_char = ' ';
-          write(1, &in_char, 1);
-        }
-
-        // Move to start of line by printing backspaces
-        for (i = 0; i < line_length; i++) {
-          in_char = 8;
-          write(1, &in_char, 1);
-        }
-
-        // Copy line from history
-        strcpy(line_buffer, history[history_index]);
+            // Copy line from history
+            strcpy(line_buffer, history[history_index]);
         line_length = strlen(line_buffer);
         history_index = (history_index + 1) % history_length;
 
@@ -160,4 +148,35 @@ char *read_line() {
   line_buffer[line_length] = 0;
 
   return line_buffer;
+}
+
+void wipeLine(char in_char) {
+  // Move to start of line by printing backspaces
+  int i = 0;
+  for (i = 0; i < line_length; i++) {
+    in_char = 8;
+    write(1, &in_char, 1);
+  }
+
+  // Print spaces on top to erase old line
+  for (i = 0; i < line_length; i++) {
+    in_char = ' ';
+    write(1, &in_char, 1);
+  }
+
+  // Move to start of line by printing backspaces
+  for (i = 0; i < line_length; i++) {
+    in_char = 8;
+    write(1, &in_char, 1);
+  }
+}
+
+void insertChar(int insert_position, char in_char) {
+  // Shift everything starting at the position forward
+  for (int i = insert_position; i < MAX_BUFFER_LINE; i++) {
+    line_buffer[i] = line_buffer[i - 1];
+  }
+
+  // Insert the character at the position
+  line_buffer[insert_position - 1] = in_char;
 }
