@@ -17,6 +17,7 @@
 
 extern void tty_raw_mode(void);
 void insertChar(int, char);
+void printBuffer();
 void wipeLine(char);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
@@ -71,6 +72,11 @@ char *read_line() {
         line_pos++;
         total_chars++;
       } else { // We're somewhere within the line
+        insertChar(line_pos, in_char);
+        line_pos++;
+        total_chars++;
+        wipeLine(in_char);
+        printBuffer();
       }
 
       // If max number of character reached return.
@@ -187,4 +193,10 @@ void insertChar(int insert_position, char in_char) {
 
   // Insert the character at the position
   line_buffer[insert_position - 1] = in_char;
+}
+
+void printBuffer() {
+  for (int i = 0; i < total_chars; i++) {
+    write(1, &line_buffer[i], 1);
+  }
 }
