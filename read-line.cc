@@ -53,12 +53,12 @@ char *read_line() {
     // Read one character in raw mode.
     char in_char;
     read(0, &in_char, 1);
-    printf("%d\n", in_char);
+    // printf("%d\n", in_char);
 
     if ((in_char >= 32) && (in_char != 127)) {
-      // It is a printable character that is not delete
+      // Printable character that is not delete
 
-      // Do echo
+      // Write the character out
       write(1, &in_char, 1);
 
       // If max number of character reached return.
@@ -68,24 +68,19 @@ char *read_line() {
       // add char to buffer.
       line_buffer[line_length] = in_char;
       line_length++;
-    } else if (in_char == 10) {
-      // <Enter> was typed. Return line
-
+    } else if (in_char == 10) { // <Enter> - return line
       // Print newline
       write(1, &in_char, 1);
 
       break;
-    } else if (in_char == 31) {
-      // ctrl-?
+    } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
       line_buffer[0] = 0;
-      break;
-    } else if (in_char == 127) {
-      // <backspace> was typed. Remove previous character read.
 
+      break;
+    } else if (in_char == 127) { // <Backspace> - remove previous character read
       // Only delete if the line length is longer than 0
       if (line_length > 0) {
-
         // Go back one character
         in_char = 8;
         write(1, &in_char, 1);
@@ -102,35 +97,36 @@ char *read_line() {
         line_length--;
       }
     } else if (in_char == 27) {
-      // Escape sequence. Read two chars more
-      //
-      // HINT: Use the program "keyboard-example" to
-      // see the ascii code for the different chars typed.
-      //
+      /* Escape sequence detected - read two chararacterss more to determine
+       * exactly what key was pressed.
+       *
+       * up: 91 65
+       * down: 91 66
+       * right: 91 67
+       * left: 91 68
+       *
+       */
+
       char ch1;
       char ch2;
       read(0, &ch1, 1);
       read(0, &ch2, 1);
-      printf("%d %d\n", ch1, ch2);
 
-      if (ch1 == 91 && ch2 == 65) {
-        // Up arrow. Print next line in history.
-
-        // Erase old line
-        // Print backspaces
+      if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
+        // Move to start of line by printing backspaces
         int i = 0;
         for (i = 0; i < line_length; i++) {
           in_char = 8;
           write(1, &in_char, 1);
         }
 
-        // Print spaces on top
+        // Print spaces on top to erase old line
         for (i = 0; i < line_length; i++) {
           in_char = ' ';
           write(1, &in_char, 1);
         }
 
-        // Print backspaces
+        // Move to start of line by printing backspaces
         for (i = 0; i < line_length; i++) {
           in_char = 8;
           write(1, &in_char, 1);
@@ -143,14 +139,16 @@ char *read_line() {
 
         // echo line
         write(1, line_buffer, line_length);
+      } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
+      } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
+      } else if ((ch1 == 91) && (ch2 == 68)) { // Left arrow
       }
     }
+
+    // Add eol and null char at the end of string before returning
+    line_buffer[line_length] = 10;
+    line_length++;
+    line_buffer[line_length] = 0;
+
+    return line_buffer;
   }
-
-  // Add eol and null char at the end of string
-  line_buffer[line_length] = 10;
-  line_length++;
-  line_buffer[line_length] = 0;
-
-  return line_buffer;
-}
