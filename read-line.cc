@@ -83,17 +83,21 @@ char *read_line() {
     } else if (in_char == 127) {
       // <backspace> was typed. Remove previous character read.
 
-      // Go back one character
-      in_char = 8;
-      write(1, &in_char, 1);
+      // Only delete if the line length is longer than 0
+      if (line_length > 0) {
 
-      // Write a space to erase the last character read
-      in_char = ' ';
-      write(1, &in_char, 1);
+        // Go back one character
+        in_char = 8;
+        write(1, &in_char, 1);
 
-      // Go back one character
-      in_char = 8;
-      write(1, &in_char, 1);
+        // Write a space to erase the last character read
+        in_char = ' ';
+        write(1, &in_char, 1);
+
+        // Go back one character
+        in_char = 8;
+        write(1, &in_char, 1);
+      }
 
       // Remove one character from buffer
       line_length--;
