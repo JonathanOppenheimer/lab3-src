@@ -16,7 +16,7 @@
 #define MAX_BUFFER_LINE 2048
 
 extern void tty_raw_mode(void);
-void insertChar(int, char);
+void insertChar(char);
 void printBuffer();
 void wipeLine(char);
 
@@ -72,7 +72,7 @@ char *read_line() {
         line_pos++;
         total_chars++;
       } else { // We're somewhere within the line
-        // insertChar(line_pos, in_char);
+        insertChar(in_char);
         line_pos++;
         total_chars++;
         wipeLine(in_char);
@@ -189,14 +189,14 @@ void wipeLine(char in_char) {
   }
 }
 
-void insertChar(int insert_position, char in_char) {
+void insertChar(char in_char) {
   // Shift everything starting at the position forward
-  for (int i = total_chars; i >= insert_position; i++) {
+  for (int i = total_chars; i >= line_pos; i++) {
     line_buffer[i] = line_buffer[i - 1];
   }
 
   // Insert the character at the position
-  line_buffer[insert_position - 1] = in_char;
+  line_buffer[line_pos - 1] = in_char;
 }
 
 void printBuffer() {
