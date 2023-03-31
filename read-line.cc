@@ -143,9 +143,11 @@ char *read_line() {
         write(1, line_buffer, line_pos);
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
-        // Write the character out
-        write(1, &line_buffer[line_pos], 1);
-        line_pos++;
+        if (line_pos < total_chars) {
+          // Write the character out
+          write(1, &line_buffer[line_pos], 1);
+          line_pos++;
+        }
       } else if ((ch1 == 91) && (ch2 == 68)) { // Left arrow
         // Only go back if the current line position is greater than 0
         if (line_pos > 0) {
