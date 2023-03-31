@@ -85,8 +85,6 @@ char *read_line() {
       // If max number of character reached return.
       if (line_pos == MAX_BUFFER_LINE - 2)
         break;
-
-      // Increment total_chars
     } else if (in_char == 10) { // <Enter> - return line
       // Print newline
       line_pos = total_chars;
@@ -148,8 +146,7 @@ char *read_line() {
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
         if (line_pos < total_chars) {
-          // Write the character out
-          write(1, &line_buffer[line_pos], 1);
+          moveCursorRight(line_pos, total_chars);
           line_pos++;
         }
       } else if ((ch1 == 91) && (ch2 == 68)) { // Left arrow
