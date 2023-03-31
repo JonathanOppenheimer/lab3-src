@@ -18,7 +18,7 @@
 extern void tty_raw_mode(void);
 void insertChar(char);
 void printBuffer();
-void wipeLine(char);
+void wipeLine(int, int);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
@@ -73,7 +73,7 @@ char *read_line() {
         total_chars++;
       } else { // We're somewhere within the line
         insertChar(in_char);
-        wipeLine(in_char);
+        wipeLine(line_pos, total_chars);
         printBuffer();
         for (int i = 0; i < total_chars - line_pos; i++) {
           // Go back one character
@@ -81,7 +81,7 @@ char *read_line() {
           write(1, &in_char, 1);
         }
 
-        // line_pos++;
+        line_pos++;
         total_chars++;
       }
 
@@ -174,24 +174,24 @@ char *read_line() {
   return line_buffer;
 }
 
-void wipeLine(char in_char) {
-  // Move to start of line by printing backspaces
-  int i = 0;
-  for (i = 0; i < line_pos; i++) {
-    in_char = 8;
-    write(1, &in_char, 1);
+void wipeLine(int start, int end) {
+  char write_char;
+
+  // Move to start by printing backspaces
+  for (int i = 0; i <= end - start; i++) {
+    write(1, &write_char, 1);
   }
 
   // Print spaces on top to erase old line
-  for (i = 0; i <= total_chars; i++) {
-    in_char = ' ';
-    write(1, &in_char, 1);
+  write_char = ' ';
+  for (int i = 0; i <= end - start; i++) {
+    write(1, &write_char, 1);
   }
 
   // Move to start of line by printing backspaces
-  for (i = 0; i <= total_chars; i++) {
-    in_char = 8;
-    write(1, &in_char, 1);
+  write_char = 8;
+  for (int i = 0; i <= end - start; i++) {
+    write(1, &write_char, 1);
   }
 }
 
