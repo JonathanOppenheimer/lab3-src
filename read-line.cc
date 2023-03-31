@@ -92,7 +92,7 @@ char *read_line() {
       // Increment total_chars
     } else if (in_char == 10) { // <Enter> - return line
       // Print newline
-      moveCursorRight(line_pos, total_chars);
+      line_pos = total_chars;
       write(1, &in_char, 1);
       total_chars = 0;
       break;
