@@ -143,17 +143,20 @@ char *read_line() {
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
                                                //
       } else if ((ch1 == 91) && (ch2 == 68)) { // Left arrow
-        // Go back one character
-        in_char = 8;
-        write(1, &in_char, 1);
+        // Only go back if the current line position is greater than 0
+        if (line_length > 0) {
+          // Go back one character
+          in_char = 8;
+          write(1, &in_char, 1);
+          line_length--;
+        }
       }
     }
+
+    // Add eol and null char at the end of string before returning
+    line_buffer[line_length] = 10;
+    line_length++;
+    line_buffer[line_length] = 0;
+
+    return line_buffer;
   }
-
-  // Add eol and null char at the end of string before returning
-  line_buffer[line_length] = 10;
-  line_length++;
-  line_buffer[line_length] = 0;
-
-  return line_buffer;
-}
