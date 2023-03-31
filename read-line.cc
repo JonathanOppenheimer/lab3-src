@@ -130,6 +130,7 @@ char *read_line() {
 
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
         // Wipe current line
+        moveCursorLeft(total_chars - line_pos);
         wipeLine(0, total_chars);
 
         // Copy line from history
@@ -196,12 +197,6 @@ void moveCursorRight(int start, int end) {
  */
 void wipeLine(int start, int end) {
   char write_char;
-
-  // Move to start by printing backspaces
-  // write_char = 8;
-  for (int i = start; i < end; i++) {
-    write(1, &write_char, 1);
-  }
 
   // Print spaces on top to erase old line
   write_char = ' ';
