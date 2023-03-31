@@ -86,6 +86,7 @@ char *read_line() {
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
       line_buffer[0] = 0;
+      total_chars = 0;
       break;
     } else if (in_char == 127) { // <Backspace> - remove previous character read
       // Only delete if the line length is longer than 0
@@ -129,6 +130,7 @@ char *read_line() {
         // Copy line from history
         strcpy(line_buffer, history[history_index]);
         line_pos = strlen(line_buffer);
+        total_chars = line_pos;
         history_index = (history_index + 1) % history_length;
 
         // echo line
