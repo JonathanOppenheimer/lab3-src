@@ -82,7 +82,7 @@ char *read_line() {
       // <backspace> was typed. Remove previous character read.
 
       // Go back one character
-      in_char = 127;
+      in_char = 8;
       write(1, &in_char, 1);
 
       // Write a space to erase the last character read
@@ -90,7 +90,7 @@ char *read_line() {
       write(1, &in_char, 1);
 
       // Go back one character
-      in_char = 127;
+      in_char = 8;
       write(1, &in_char, 1);
 
       // Remove one character from buffer
