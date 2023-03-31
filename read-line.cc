@@ -17,7 +17,7 @@
 
 extern void tty_raw_mode(void);
 void insertChar(char);
-void printBuffer();
+void printBuffer(int, int);
 void wipeLine(int, int);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
@@ -74,7 +74,7 @@ char *read_line() {
       } else { // We're somewhere within the line
         insertChar(in_char);
         wipeLine(line_pos, total_chars);
-        printBuffer();
+        printBuffer(line_pos, total_chars);
         for (int i = 0; i < total_chars - line_pos; i++) {
           // Go back one character
           in_char = 8;
@@ -205,8 +205,8 @@ void insertChar(char in_char) {
   line_buffer[line_pos] = in_char;
 }
 
-void printBuffer() {
-  for (int i = 0; i <= total_chars; i++) {
+void printBuffer(int start, int end) {
+  for (int i = start; i <= end; i++) {
     write(1, &line_buffer[i], 1);
   }
 }
