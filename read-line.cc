@@ -70,7 +70,7 @@ char *read_line() {
 
       } else { // We're somewhere within the line so need to adjust the cursor
         insertChar(in_char);
-        wipeLine(line_pos, total_chars);
+        wipeLine(line_pos + 1, total_chars);
         moveCursorRight(line_pos, total_chars + 1);
         moveCursorLeft(total_chars - line_pos);
       }
