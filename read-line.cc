@@ -129,9 +129,13 @@ char *read_line() {
       read(0, &ch2, 1);
 
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
-        // Wipe current line
-        line_pos = 0;
-        wipeLine(0, total_chars + 1);
+                                        // Wipe current line
+        // Move to start of line by printing backspaces
+        char write_char = 8;
+        for (int i = 0; i < total_chars; i++) {
+          write(1, &write_char, 1);
+        }
+        wipeLine(0, total_chars);
 
         // Copy line from history
         strcpy(line_buffer, history[history_index]);
