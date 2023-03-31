@@ -131,10 +131,7 @@ char *read_line() {
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
                                         // Wipe current line
         // Move to start of line by printing backspaces
-        char write_char = 8;
-        for (int i = 0; i < total_chars; i++) {
-          write(1, &write_char, 1);
-        }
+        moveCursorLeft(total_chars);
         wipeLine(0, total_chars);
 
         // Copy line from history
