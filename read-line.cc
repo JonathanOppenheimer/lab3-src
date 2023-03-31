@@ -152,11 +152,12 @@ char *read_line() {
         }
       }
     }
-
-    // Add eol and null char at the end of string before returning
-    line_buffer[line_length] = 10;
-    line_length++;
-    line_buffer[line_length] = 0;
-
-    return line_buffer;
   }
+
+  // Add eol and null char at the end of string before returning
+  line_buffer[line_length] = 10;
+  line_length++;
+  line_buffer[line_length] = 0;
+
+  return line_buffer;
+}
