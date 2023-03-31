@@ -146,7 +146,7 @@ char *read_line() {
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
         if (line_pos < total_chars) {
-          moveCursorRight(line_pos, total_chars);
+          moveCursorRight(line_pos, 1);
           line_pos++;
         }
       } else if ((ch1 == 91) && (ch2 == 68)) { // Left arrow
