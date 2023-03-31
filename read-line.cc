@@ -188,7 +188,7 @@ void moveCursorLeft(int count) {
 }
 
 void moveCursorRight(int start, int end) {
-  for (int i = start; i <= end; i++) {
+  for (int i = start; i < end; i++) {
     write(1, &line_buffer[i], 1);
   }
 }
