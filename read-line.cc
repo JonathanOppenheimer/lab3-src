@@ -49,52 +49,52 @@ char *read_line() {
   while (1) {
 
     // Read one character in raw mode.
-    char ch;
-    read(0, &ch, 1);
+    char in_char;
+    read(0, &in_char, 1);
 
-    if (ch >= 32) {
+    if (in_char >= 32) {
       // It is a printable character.
 
       // Do echo
-      write(1, &ch, 1);
+      write(1, &in_char, 1);
 
       // If max number of character reached return.
       if (line_length == MAX_BUFFER_LINE - 2)
         break;
 
       // add char to buffer.
-      line_buffer[line_length] = ch;
+      line_buffer[line_length] = in_char;
       line_length++;
-    } else if (ch == 10) {
+    } else if (in_char == 10) {
       // <Enter> was typed. Return line
 
       // Print newline
-      write(1, &ch, 1);
+      write(1, &in_char, 1);
 
       break;
-    } else if (ch == 31) {
+    } else if (in_char == 31) {
       // ctrl-?
       read_line_print_usage();
       line_buffer[0] = 0;
       break;
-    } else if (ch == 8) {
+    } else if (in_char == 8) {
       // <backspace> was typed. Remove previous character read.
 
       // Go back one character
-      ch = 8;
-      write(1, &ch, 1);
+      in_char = 8;
+      write(1, &in_char, 1);
 
       // Write a space to erase the last character read
-      ch = ' ';
-      write(1, &ch, 1);
+      in_char = ' ';
+      write(1, &in_char, 1);
 
       // Go back one character
-      ch = 8;
-      write(1, &ch, 1);
+      in_char = 8;
+      write(1, &in_char, 1);
 
       // Remove one character from buffer
       line_length--;
-    } else if (ch == 27) {
+    } else if (in_char == 27) {
       // Escape sequence. Read two chars more
       //
       // HINT: Use the program "keyboard-example" to
@@ -111,20 +111,20 @@ char *read_line() {
         // Print backspaces
         int i = 0;
         for (i = 0; i < line_length; i++) {
-          ch = 8;
-          write(1, &ch, 1);
+          in_char = 8;
+          write(1, &in_char, 1);
         }
 
         // Print spaces on top
         for (i = 0; i < line_length; i++) {
-          ch = ' ';
-          write(1, &ch, 1);
+          in_char = ' ';
+          write(1, &in_char, 1);
         }
 
         // Print backspaces
         for (i = 0; i < line_length; i++) {
-          ch = 8;
-          write(1, &ch, 1);
+          in_char = 8;
+          write(1, &in_char, 1);
         }
 
         // Copy line from history

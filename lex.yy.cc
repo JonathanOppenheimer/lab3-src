@@ -967,7 +967,7 @@ YY_RULE_SETUP
   YY_FLUSH_BUFFER;
 
   // Restore terminal state
-  tcsetattr(0, TCSANOW, old_terminal_state);
+  tcsetattr(0, TCSANOW, &old_terminal_state);
 
   // Exit parent
   exit(0);
