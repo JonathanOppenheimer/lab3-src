@@ -349,6 +349,8 @@ void myunputc(int c) {
     if(YY_START == INITIAL) {
       yylval.cpp_string = new std::string(buffer);
       return WORD;
+    } else {
+      YY_FLUSH_BUFFER;
     }
   }
 
