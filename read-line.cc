@@ -198,19 +198,19 @@ void wipeLine(int start, int end) {
   char write_char;
 
   // Move to start by printing backspaces
-  for (int i = 0; i < end - start; i++) {
+  for (int i = start; i < end; i++) {
     write(1, &write_char, 1);
   }
 
   // Print spaces on top to erase old line
   write_char = ' ';
-  for (int i = 0; i < end - start; i++) {
+  for (int i = start; i < end; i++) {
     write(1, &write_char, 1);
   }
 
   // Move to start of line by printing backspaces
   write_char = 8;
-  for (int i = 0; i < end - start; i++) {
+  for (int i = start; i < end; i++) {
     write(1, &write_char, 1);
   }
 }
