@@ -169,7 +169,7 @@ char *read_line() {
 
         // Copy line from history
         strcpy(line_buffer, history.at(history_index).c_str());
-        line_pos = strlen(line_buffer - 1);
+        line_pos = strlen(line_buffer);
         total_chars = line_pos;
         history_index = (history_index - 1) % history.size();
 
