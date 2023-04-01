@@ -240,7 +240,7 @@ int mygetc(FILE * f) {
 
   /* New line character */
 \n {
-  print(yyin);
+  print((std::ostream)yyin);
   return NEWLINE;
 }
 
