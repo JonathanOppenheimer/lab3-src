@@ -90,7 +90,8 @@ char *read_line() {
     } else if (in_char == 4) { // <ctrl-D> / delete key - delete character
 
     } else if (in_char == 5) { // <ctrl-E> / end key - move to line end
-
+      moveCursorRight(line_pos, total_chars);
+      line_pos = total_chars;
     } else if ((in_char == 8) || (in_char == 127)) { // <Backspace> / <ctrl-H>
       // Only delete if the line length is longer than 0
       if (line_pos > 0) {
