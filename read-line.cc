@@ -36,35 +36,36 @@ char *history[] = {"ls -al | grep x", "ps -e", "cat read-line-example.c",
 int history_length = sizeof(history) / sizeof(char *);
 
 void read_line_print_usage() {
-  char *usage = "\n"
-                " ctrl-?       Print usage\n"
-                " Backspace    Deletes last character\n"
-                " up arrow     See last command in the history\n";
-
-  write(1, usage, strlen(usage));
+  std::string usage =
+      "\n <ctrl-?>              Print usage information"
+      "\n left arrow            Move cursor to the left"
+      "\n right arrow           Move cursor to the right"
+      "\n up arrow              See previous command in the history"
+      "\n down arrow            See next command in the history"
+      "\n <ctrl-D> / Delete     Removes the character at the cursor"
+      "\n <ctrl-H> / Backspace  Removes the character at the position before "
+      "the cursor"
+      "\n <ctrl-A> / Home key   The cursor moves to the beginning of the line"
+      "\n <ctrl-E> / End key    The cursor moves to the end of the line";
+  write(1, &usage, usage.length());
 }
 
 /*
  * Input a line with some basic editing.
  */
 char *read_line() {
-
   // Set terminal in raw mode
   tty_raw_mode();
-
   line_pos = 0;
 
   // Read one line until enter is typed
   while (1) {
-
     // Read one character in raw mode.
     char in_char;
     read(0, &in_char, 1);
-    printf("%d\n", in_char);
+    // printf("%d\n", in_char);
 
-    if ((in_char >= 32) && (in_char != 127)) {
-      // Printable character that is not delete
-
+    if ((in_char >= 32) && (in_char != 127)) { // Any printable character
       // Check whether we are writing at the end of the line, or within the line
       if (line_pos == total_chars) {             // At the start of the line
         insertChar(in_char);                     // Insert single character
@@ -83,6 +84,24 @@ char *read_line() {
       // If max number of character reached return.
       if (line_pos == MAX_BUFFER_LINE - 2)
         break;
+    } else if (in_char == 1) { // <ctrl-A> / home key - move to line start
+
+    } else if (in_char == 4) { // <ctrl-D> / delete key - delete character
+
+    } else if (in_char == 5) { // <ctrl-E> / end key - move to line end
+
+    } else if ((in_char == 8) || (in_char == 127)) { // <Backspace> / <ctrl-H>
+      // Only delete if the line length is longer than 0
+      if (line_pos > 0) {
+        moveCursorLeft(1); // Move character back one
+        line_pos--;
+        delete_char(line_pos); // Delete the character
+        total_chars--;
+
+        wipeLine(line_pos, total_chars + 1); // Wipe all after current character
+        moveCursorRight(line_pos, total_chars + 2); // Rewrite partial new line
+        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
+      }
     } else if (in_char == 10) { // <Enter> - return line
       // Print newline
       line_pos = total_chars;
@@ -124,6 +143,7 @@ char *read_line() {
         // echo line
         write(1, line_buffer, line_pos);
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
+
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
         if (line_pos < total_chars) {
           moveCursorRight(line_pos, line_pos + 1);
@@ -135,18 +155,6 @@ char *read_line() {
           moveCursorLeft(1); // Go back one character
           line_pos--;
         }
-      }
-    } else if (in_char == 127) { // <Backspace> - remove previous character read
-      // Only delete if the line length is longer than 0
-      if (line_pos > 0) {
-        moveCursorLeft(1); // Move character back one
-        line_pos--;
-        delete_char(line_pos); // Delete the character
-        total_chars--;
-
-        wipeLine(line_pos, total_chars + 1); // Wipe all after current character
-        moveCursorRight(line_pos, total_chars + 2); // Rewrite partial new line
-        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
     }
   }
