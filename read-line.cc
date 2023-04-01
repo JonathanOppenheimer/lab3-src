@@ -27,13 +27,8 @@ char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
 int total_chars;                   // Total number of characters in the buffer
 
-// Simple history array
-// This history does not change.
-// Yours have to be updated.
-int history_index = 0;
-char *history[] = {"ls -al | grep x", "ps -e", "cat read-line-example.c",
-                   "vi hello.c",      "make",  "ls -al | grep xxx | grep yyy"};
-int history_length = sizeof(history) / sizeof(char *);
+std::vector<char *> history; // Keep previous commands here
+int history_index = 0;       // Where in the history array we are
 
 void read_line_print_usage() {
   std::string usage =
@@ -113,8 +108,11 @@ char *read_line() {
         moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
     } else if (in_char == 10) { // <Enter> - return line
-      // Print newline
       line_pos = total_chars;
+      // Add line to history vector
+      history.push_back(line_buffer);
+
+      // Print newline
       write(1, &in_char, 1);
       total_chars = 0;
       break;
@@ -148,7 +146,7 @@ char *read_line() {
         strcpy(line_buffer, history[history_index]);
         line_pos = strlen(line_buffer);
         total_chars = line_pos;
-        history_index = (history_index + 1) % history_length;
+        history_index = (history_index + 1) % history.size();
 
         // echo line
         write(1, line_buffer, line_pos);
