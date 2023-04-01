@@ -168,7 +168,6 @@ char *read_line() {
         }
       }
     }
-    ``
   }
 
   // Add eol and null char at the end of string before returning
