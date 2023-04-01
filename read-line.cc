@@ -5,7 +5,9 @@
  * using raw terminal.
  */
 
+#include <algorithm>
 #include <iostream>
+#include <string>
 #include <vector>
 
 #include <stdio.h>
@@ -27,13 +29,8 @@ char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
 int total_chars;                   // Total number of characters in the buffer
 
-// Simple history array
-// This history does not change.
-// Yours have to be updated.
-int history_index = 0;
-char *history[] = {"ls -al | grep x", "ps -e", "cat read-line-example.c",
-                   "vi hello.c",      "make",  "ls -al | grep xxx | grep yyy"};
-int history_length = sizeof(history) / sizeof(char *);
+std::vector<std::string> history; // Keep previous commands here
+int history_index = 0;            // Where in the history array we are
 
 void read_line_print_usage() {
   std::string usage =
@@ -57,6 +54,7 @@ char *read_line() {
   // Set terminal in raw mode
   tty_raw_mode();
   line_pos = 0;
+  total_chars = 0;
 
   // Read one line until enter is typed
   while (1) {
@@ -113,15 +111,20 @@ char *read_line() {
         moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
     } else if (in_char == 10) { // <Enter> - return line
-      // Print newline
       line_pos = total_chars;
+      // Add line to history vector
+      std::string history_item = std::string(line_buffer);
+      history_item.erase(
+          std::remove(history_item.begin(), history_item.end(), '\n'),
+          history_item.cend());
+      history.push_back(history_item);
+
+      // Print newline
       write(1, &in_char, 1);
-      total_chars = 0;
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
       line_buffer[0] = 0;
-      total_chars = 0;
       break;
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
@@ -140,20 +143,33 @@ char *read_line() {
       read(0, &ch2, 1);
 
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
+        if (history.size() > 0) {       // Only show history if it exists
+          // Move to start of line by printing backspaces
+          moveCursorLeft(line_pos); // Move cursor to start of line
+          wipeLine(0, total_chars); // Wipe the whole line
+
+          // Copy line from history
+          strcpy(line_buffer, history.at(history_index).c_str());
+          line_pos = strlen(line_buffer);
+          total_chars = line_pos;
+          history_index = (history_index + 1) % history.size();
+
+          // echo line
+          write(1, line_buffer, line_pos);
+        }
+      } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
         // Move to start of line by printing backspaces
         moveCursorLeft(line_pos); // Move cursor to start of line
         wipeLine(0, total_chars); // Wipe the whole line
 
         // Copy line from history
-        strcpy(line_buffer, history[history_index]);
+        strcpy(line_buffer, history.at(history_index).c_str());
         line_pos = strlen(line_buffer);
         total_chars = line_pos;
-        history_index = (history_index + 1) % history_length;
+        history_index = (history_index - 1) % history.size();
 
         // echo line
         write(1, line_buffer, line_pos);
-      } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
-
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
         if (line_pos < total_chars) {
           moveCursorRight(line_pos, line_pos + 1);
