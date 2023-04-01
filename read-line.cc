@@ -85,7 +85,8 @@ char *read_line() {
       if (line_pos == MAX_BUFFER_LINE - 2)
         break;
     } else if (in_char == 1) { // <ctrl-A> / home key - move to line start
-
+      moveCursorLeft(line_pos);
+      line_pos = 0;
     } else if (in_char == 4) { // <ctrl-D> / delete key - delete character
 
     } else if (in_char == 5) { // <ctrl-E> / end key - move to line end
@@ -167,12 +168,18 @@ char *read_line() {
   return line_buffer;
 }
 
+/*
+ * Delete the character at the given position
+ */
 void delete_char(int pos) {
   for (int i = pos; i < total_chars; i++) {
     line_buffer[i] = line_buffer[i + 1];
   }
 }
 
+/*
+ * Insert a character at the given position
+ */
 void insertChar(char in_char) {
   // Shift everything starting at the position forward
   for (int i = total_chars; i >= line_pos; i--) {
@@ -183,6 +190,9 @@ void insertChar(char in_char) {
   line_buffer[line_pos] = in_char;
 }
 
+/*
+ * Move the cursor left 'count' positions
+ */
 void moveCursorLeft(int count) {
   char back_char = 8;
   for (int i = 0; i < count; i++) {
@@ -191,6 +201,9 @@ void moveCursorLeft(int count) {
   }
 }
 
+/*
+ * Move the cursor to the right 'start - end' positions
+ */
 void moveCursorRight(int start, int end) {
   for (int i = start; i < end; i++) {
     write(1, &line_buffer[i], 1);
