@@ -89,8 +89,6 @@ char *read_line() {
       moveCursorLeft(line_pos);
       line_pos = 0;
     } else if (in_char == 4) { // <ctrl-D> / delete key - delete character
-      std::cout << "triggered"
-                << "\n";
 
       // Only delete if the line length is longer or equal to 0
       if ((line_pos >= 0) && (line_pos != total_chars)) { // Don't delete last
@@ -105,6 +103,9 @@ char *read_line() {
       moveCursorRight(line_pos, total_chars);
       line_pos = total_chars;
     } else if ((in_char == 8) || (in_char == 127)) { // <Backspace> / <ctrl-H>
+      std::cout << "triggered"
+                << "\n";
+
       // Only delete if the line length is longer than 0
       if (line_pos > 0) {
         moveCursorLeft(1); // Move character back one
