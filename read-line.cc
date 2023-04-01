@@ -60,7 +60,7 @@ char *read_line() {
     // Read one character in raw mode.
     char in_char;
     read(0, &in_char, 1);
-    // printf("%d\n", in_char);
+    printf("%d\n", in_char);
 
     if ((in_char >= 32) && (in_char != 127)) {
       // Printable character that is not delete
@@ -103,9 +103,8 @@ char *read_line() {
         total_chars--;
 
         wipeLine(line_pos, total_chars + 1); // Wipe all after current character
-        moveCursorRight(line_pos,
-                        total_chars + 2);       // Rewrite partial new line
-        moveCursorLeft(total_chars - line_pos); // Move cursor to prev pos
+        moveCursorRight(line_pos, total_chars + 2); // Rewrite partial new line
+        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
