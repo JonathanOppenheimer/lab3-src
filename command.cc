@@ -321,7 +321,9 @@ void Command::execute() {
       last_return_code = WEXITSTATUS(status); // Update global last return code
 
       // Print custom error prompt if program errored and env variable exists
-      // std::cout << last_return_code << "\n";
+      if ((last_return_code != 0) && getenv("ON_ERROR")) {
+        std::cout << getenv("ON_ERROR") << "\n";
+      }
     } else {
       background_pids.insert(
           ret); // Add background PID to global vector for zombie elimination
