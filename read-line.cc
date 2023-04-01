@@ -165,7 +165,7 @@ char *read_line() {
         wipeLine(0, total_chars); // Wipe the whole line
 
         // Copy line from history
-        strcpy(line_buffer, history.at(history_index).c_str());
+        strcpy(line_buffer, history.at(history_index - 1).c_str());
         line_pos = strlen(line_buffer);
         total_chars = line_pos;
         history_index = (history_index - 1) % history.size();
