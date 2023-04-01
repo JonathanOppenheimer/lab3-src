@@ -239,7 +239,7 @@ int mygetc(FILE * f) {
 
   /* New line character */
 \n {
-  std::print(yyin);
+  std::println(yyin);
   return NEWLINE;
 }
 
