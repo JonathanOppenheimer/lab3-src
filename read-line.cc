@@ -77,7 +77,7 @@ char *read_line() {
         insertChar(in_char);                 // Insert single character
         wipeLine(line_pos, total_chars + 1); // Wipe all after current character
         moveCursorRight(line_pos, total_chars + 1); // Rewrite partial new line
-        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
+        moveCursorLeft(total_chars - line_pos + 1); // Move cursor to prev pos
       }
 
       // Increment forward in buffer
