@@ -46,7 +46,7 @@ void read_line_print_usage() {
       "\n <ctrl-H> / Backspace  Removes the character at the position before "
       "the cursor"
       "\n <ctrl-A> / Home key   The cursor moves to the beginning of the line"
-      "\n <ctrl-E> / End key    The cursor moves to the end of the line";
+      "\n <ctrl-E> / End key    The cursor moves to the end of the line\n";
   write(1, usage.c_str(), usage.length());
 }
 
