@@ -112,18 +112,18 @@ char *read_line() {
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
       // Add line to history vector
-      std::string history_item = std::string(line_buffer);
-      history_item.erase(
-          std::remove(history_item.begin(), history_item.end(), '\n'),
-          history_item.cend());
-      history.push_back(history_item);
+      // std::string history_item = std::string(line_buffer);
+      // history_item.erase(
+      //   std::remove(history_item.begin(), history_item.end(), '\n'),
+      //   history_item.cend());
+      //  history.push_back(history_item);
 
       // Print newline
       write(1, &in_char, 1);
 
-      line_pos = 0;
+      // line_pos = 0;
       total_chars = 0;
-      line_buffer[0] = '\0';
+      // line_buffer[0] = '\0';
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
