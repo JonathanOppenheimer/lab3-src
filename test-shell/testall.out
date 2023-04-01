@@ -39,7 +39,7 @@ test_wildcards3 Passed 1/1
 test_wildcards4 Passed 1/1
 test_wildcards5 Passed 1/1
 test_wildcards6 Passed 1/1
-test_wildcards7 Failed 0/1
+test_wildcards7 Passed 1/1
 test_tilde Passed 2/2
-test_robustness Failed 0/10
-Total:                   59.0 of 70.0
+test_robustness Passed 10/10
+Total:                   70.0 of 70.0
