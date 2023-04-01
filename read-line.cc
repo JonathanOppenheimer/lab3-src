@@ -160,7 +160,18 @@ char *read_line() {
           write(1, line_buffer, line_pos);
         }
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
+        // Move to start of line by printing backspaces
+        moveCursorLeft(line_pos); // Move cursor to start of line
+        wipeLine(0, total_chars); // Wipe the whole line
 
+        // Copy line from history
+        strcpy(line_buffer, history.at(history_index).c_str());
+        line_pos = strlen(line_buffer);
+        total_chars = line_pos;
+        history_index = (history_index - 1) % history.size();
+
+        // echo line
+        write(1, line_buffer, line_pos);
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
         if (line_pos < total_chars) {
           moveCursorRight(line_pos, line_pos + 1);
