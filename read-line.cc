@@ -138,18 +138,20 @@ char *read_line() {
       read(0, &ch2, 1);
 
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
-        // Move to start of line by printing backspaces
-        moveCursorLeft(line_pos); // Move cursor to start of line
-        wipeLine(0, total_chars); // Wipe the whole line
+        if (history.size() > 0) {       // Only show history if it exists
+          // Move to start of line by printing backspaces
+          moveCursorLeft(line_pos); // Move cursor to start of line
+          wipeLine(0, total_chars); // Wipe the whole line
 
-        // Copy line from history
-        strcpy(line_buffer, history[history_index]);
-        line_pos = strlen(line_buffer);
-        total_chars = line_pos;
-        history_index = (history_index + 1) % history.size();
+          // Copy line from history
+          strcpy(line_buffer, history[history_index]);
+          line_pos = strlen(line_buffer);
+          total_chars = line_pos;
+          history_index = (history_index + 1) % history.size();
 
-        // echo line
-        write(1, line_buffer, line_pos);
+          // echo line
+          write(1, line_buffer, line_pos);
+        }
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
 
       } else if ((ch1 == 91) && (ch2 == 67)) { // Right arrow
