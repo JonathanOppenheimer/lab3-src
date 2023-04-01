@@ -27,8 +27,13 @@ char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
 int total_chars;                   // Total number of characters in the buffer
 
-std::vecotr<std::string> history;
+// Simple history array
+// This history does not change.
+// Yours have to be updated.
 int history_index = 0;
+char *history[] = {"ls -al | grep x", "ps -e", "cat read-line-example.c",
+                   "vi hello.c",      "make",  "ls -al | grep xxx | grep yyy"};
+int history_length = sizeof(history) / sizeof(char *);
 
 void read_line_print_usage() {
   std::string usage =
@@ -52,7 +57,6 @@ char *read_line() {
   // Set terminal in raw mode
   tty_raw_mode();
   line_pos = 0;
-  total_chars = 0;
 
   // Read one line until enter is typed
   while (1) {
@@ -112,10 +116,12 @@ char *read_line() {
       // Print newline
       line_pos = total_chars;
       write(1, &in_char, 1);
+      total_chars = 0;
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
       line_buffer[0] = 0;
+      total_chars = 0;
       break;
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
@@ -139,10 +145,10 @@ char *read_line() {
         wipeLine(0, total_chars); // Wipe the whole line
 
         // Copy line from history
-        strcpy(line_buffer, history[history_index].c_str());
+        strcpy(line_buffer, history[history_index]);
         line_pos = strlen(line_buffer);
         total_chars = line_pos;
-        history_index = (history_index + 1) % history.size();
+        history_index = (history_index + 1) % history_length;
 
         // echo line
         write(1, line_buffer, line_pos);
