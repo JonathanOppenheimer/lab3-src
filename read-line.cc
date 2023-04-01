@@ -57,6 +57,7 @@ char *read_line() {
   // Set terminal in raw mode
   tty_raw_mode();
   line_pos = 0;
+  total_chars = 0;
 
   // Read one line until enter is typed
   while (1) {
@@ -116,12 +117,10 @@ char *read_line() {
       // Print newline
       line_pos = total_chars;
       write(1, &in_char, 1);
-      total_chars = 0;
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
       line_buffer[0] = 0;
-      total_chars = 0;
       break;
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
