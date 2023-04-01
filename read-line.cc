@@ -108,7 +108,7 @@ char *read_line() {
         moveCursorLeft(line_pos);
         wipeLine(0, total_chars + 1);        // Wipe all after current character
         moveCursorRight(0, total_chars + 1); // Rewrite partial new line
-        moveCursorLeft(total_chars + 1);     // Move cursor to prev pos
+        moveCursorLeft(total_chars - line_pos); // Move cursor to prev pos
       }
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
