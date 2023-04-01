@@ -54,6 +54,7 @@ char *read_line() {
   // Set terminal in raw mode
   tty_raw_mode();
   line_pos = 0;
+  total_chars = 0;
 
   // Read one line until enter is typed
   while (1) {
@@ -68,8 +69,8 @@ char *read_line() {
         insertChar(in_char);                     // Insert single character
         moveCursorRight(line_pos, line_pos + 1); // Move cursor right once
       } else { // We're somewhere within the line so need to adjust the cursor
-        insertChar(in_char);             // Insert single character
-        wipeLine(line_pos, total_chars); // Wipe all after current character
+        insertChar(in_char);                 // Insert single character
+        wipeLine(line_pos, total_chars + 1); // Wipe all after current character
         moveCursorRight(line_pos, total_chars + 1); // Rewrite partial new line
         moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
@@ -115,20 +116,15 @@ char *read_line() {
       std::string history_item = std::string(line_buffer);
       history_item.erase(
           std::remove(history_item.begin(), history_item.end(), '\n'),
-          history_item.cend());
+          history_item.end());
       history.push_back(history_item);
 
       // Print newline
       write(1, &in_char, 1);
-
-      line_pos = 0;
-      total_chars = 0;
-      line_buffer[0] = '\0';
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
       line_buffer[0] = 0;
-      total_chars = 0;
       break;
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
@@ -163,8 +159,8 @@ char *read_line() {
         }
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
         // Move to start of line by printing backspaces
-        moveCursorLeft(line_pos); // Move cursor to start of line
-        wipeLine(0, total_chars); // Wipe the whole line
+        moveCursorLeft(line_pos);     // Move cursor to start of line
+        wipeLine(0, total_chars + 1); // Wipe the whole line
 
         // Copy line from history
         strcpy(line_buffer, history.at(history_index).c_str());
