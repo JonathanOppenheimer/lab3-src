@@ -240,7 +240,7 @@ int mygetc(FILE * f) {
 
   /* New line character */
 \n {
-  std::cout << ((FILE*)YY_CURRENT_BUFFER)->rdbuf();
+  std::cout << ((FILE*)YY_CURRENT_BUFFER).rdbuf();
   return NEWLINE;
 }
 

@@ -1103,7 +1103,7 @@ case 11:
 YY_RULE_SETUP
 #line 243 "shell.l"
 {
-  std::cout << YY_CURRENT_BUFFER->rdbuf();
+  std::cout << ((FILE*)YY_CURRENT_BUFFER)->rdbuf();
   return NEWLINE;
 }
 	YY_BREAK
