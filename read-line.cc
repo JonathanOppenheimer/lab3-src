@@ -69,8 +69,8 @@ char *read_line() {
         insertChar(in_char);                     // Insert single character
         moveCursorRight(line_pos, line_pos + 1); // Move cursor right once
       } else { // We're somewhere within the line so need to adjust the cursor
-        insertChar(in_char);             // Insert single character
-        wipeLine(line_pos, total_chars); // Wipe all after current character
+        insertChar(in_char);                 // Insert single character
+        wipeLine(line_pos, total_chars + 1); // Wipe all after current character
         moveCursorRight(line_pos, total_chars + 1); // Rewrite partial new line
         moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
@@ -146,7 +146,7 @@ char *read_line() {
         if (history.size() > 0) {       // Only show history if it exists
           // Move to start of line by printing backspaces
           moveCursorLeft(line_pos);     // Move cursor to start of line
-          wipeLine(0, total_chars + 2); // Wipe the whole line
+          wipeLine(0, total_chars + 1); // Wipe the whole line
 
           // Copy line from history
           strcpy(line_buffer, history.at(history_index).c_str());
@@ -160,7 +160,7 @@ char *read_line() {
       } else if ((ch1 == 91) && (ch2 == 66)) { // Down arrow
         // Move to start of line by printing backspaces
         moveCursorLeft(line_pos);     // Move cursor to start of line
-        wipeLine(0, total_chars + 2); // Wipe the whole line
+        wipeLine(0, total_chars + 1); // Wipe the whole line
 
         // Copy line from history
         strcpy(line_buffer, history.at(history_index).c_str());
