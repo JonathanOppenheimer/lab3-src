@@ -105,10 +105,9 @@ char *read_line() {
         delete_char(line_pos); // Delete the character
         total_chars--;
 
-        moveCursorLeft(line_pos);
-        wipeLine(0, total_chars + 1);        // Wipe all after current character
-        moveCursorRight(0, total_chars + 1); // Rewrite partial new line
-        moveCursorLeft(total_chars - line_pos); // Move cursor to prev pos
+        wipeLine(line_pos, total_chars + 1); // Wipe all after current character
+        moveCursorRight(line_pos, total_chars + 2); // Rewrite partial new line
+        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
