@@ -110,10 +110,11 @@ char *read_line() {
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
       // Add line to history vector
-      history.push_back(line_buffer);
 
       // Print newline
       write(1, &in_char, 1);
+      history.push_back(line_buffer);
+
       total_chars = 0;
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
