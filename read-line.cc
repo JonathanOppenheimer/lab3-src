@@ -97,6 +97,7 @@ char *read_line() {
     } else if (in_char == 127) { // <Backspace> - remove previous character read
       // Only delete if the line length is longer than 0
       if (line_pos > 0) {
+        moveCursorLeft(1);
         delete_char(line_pos);
         line_pos--;
         total_chars--;
@@ -121,7 +122,6 @@ char *read_line() {
       read(0, &ch2, 1);
 
       if ((ch1 == 91) && (ch2 == 65)) { // Up arrow - print next line in history
-                                        // Wipe current line
         // Move to start of line by printing backspaces
         moveCursorLeft(line_pos); // Move cursor to start of line
         wipeLine(0, total_chars); // Wipe the whole line
