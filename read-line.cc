@@ -88,6 +88,15 @@ char *read_line() {
       moveCursorLeft(line_pos);
       line_pos = 0;
     } else if (in_char == 4) { // <ctrl-D> / delete key - delete character
+      // Only delete if the line length is longer or equal to 0
+      if (line_pos > 0) {
+        delete_char(line_pos); // Delete the character
+        total_chars--;
+
+        wipeLine(line_pos, total_chars + 1); // Wipe all after current character
+        moveCursorRight(line_pos, total_chars + 2); // Rewrite partial new line
+        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
+      }
 
     } else if (in_char == 5) { // <ctrl-E> / end key - move to line end
       moveCursorRight(line_pos, total_chars);
