@@ -150,9 +150,7 @@ char *read_line() {
       } else if ((ch1 == 91) && (ch2 == 68)) { // Left arrow
         // Only go back if the current line position is greater than 0
         if (line_pos > 0) {
-          // Go back one character
-          in_char = 8;
-          write(1, &in_char, 1);
+          moveCursorLeft(1); // Go back one character
           line_pos--;
         }
       }
