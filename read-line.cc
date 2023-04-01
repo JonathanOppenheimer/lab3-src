@@ -121,6 +121,7 @@ char *read_line() {
       history.push_back(history_item);
 
       // Print newline
+      memset(line_buffer, 0, 255);
       write(1, &in_char, 1);
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
