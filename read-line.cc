@@ -103,8 +103,9 @@ char *read_line() {
         total_chars--;
 
         wipeLine(line_pos, total_chars + 1); // Wipe all after current character
-        moveCursorRight(line_pos, total_chars + 2); // Rewrite partial new line
-        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
+        moveCursorRight(line_pos,
+                        total_chars + 1 + 1);   // Rewrite partial new line
+        moveCursorLeft(total_chars - line_pos); // Move cursor to prev pos
 
         // moveCursorLeft(line_pos);     // Move character to the start of the
         // line wipeLine(0, total_chars + 1); // Wipe the whole line
