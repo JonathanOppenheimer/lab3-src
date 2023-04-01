@@ -102,9 +102,11 @@ char *read_line() {
         delete_char(line_pos); // Delete the character
         total_chars--;
 
+        moveCursorLeft(1);
         wipeLine(line_pos, total_chars); // Wipe all after current character
         moveCursorRight(line_pos, total_chars + 1); // Rewrite partial new line
         moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
+        moveCursorRight(line_pos, line_pos + 1);
       }
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
