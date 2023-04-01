@@ -121,6 +121,7 @@ char *read_line() {
       // Print newline
       write(1, &in_char, 1);
 
+      line_pos = 0;
       total_chars = 0;
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
