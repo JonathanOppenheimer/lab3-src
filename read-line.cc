@@ -94,18 +94,6 @@ char *read_line() {
       line_buffer[0] = 0;
       total_chars = 0;
       break;
-    } else if (in_char == 127) { // <Backspace> - remove previous character read
-      // Only delete if the line length is longer than 0
-      if (line_pos > 0) {
-        moveCursorLeft(1); // Move character back one
-        line_pos--;
-        delete_char(line_pos); // Delete the character
-        total_chars--;
-
-        wipeLine(line_pos, total_chars + 1); // Wipe all after current character
-        moveCursorRight(line_pos, total_chars + 2); // Rewrite partial new line
-        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
-      }
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
        * exactly what key was pressed.
@@ -147,6 +135,18 @@ char *read_line() {
           moveCursorLeft(1); // Go back one character
           line_pos--;
         }
+      }
+    } else if (in_char == 127) { // <Backspace> - remove previous character read
+      // Only delete if the line length is longer than 0
+      if (line_pos > 0) {
+        moveCursorLeft(1); // Move character back one
+        line_pos--;
+        delete_char(line_pos); // Delete the character
+        total_chars--;
+
+        wipeLine(line_pos, total_chars + 1); // Wipe all after current character
+        moveCursorRight(line_pos, total_chars + 2); // Rewrite partial new line
+        moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
     }
   }
