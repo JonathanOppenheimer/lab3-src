@@ -47,7 +47,7 @@ void read_line_print_usage() {
       "the cursor"
       "\n <ctrl-A> / Home key   The cursor moves to the beginning of the line"
       "\n <ctrl-E> / End key    The cursor moves to the end of the line";
-  write(1, &usage, usage.length());
+  write(1, usage.c_str(), usage.length());
 }
 
 /*
