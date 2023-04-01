@@ -99,11 +99,9 @@ char *read_line() {
       if (line_pos > 0) {
         moveCursorLeft(1);
         delete_char(line_pos);
-        line_pos--;
-        total_chars--;
-        wipeLine(line_pos, total_chars);
-        moveCursorRight(line_pos, total_chars + 1);
-        moveCursorLeft(total_chars - line_pos);
+        // wipeLine(line_pos, total_chars);
+        // moveCursorRight(line_pos, total_chars + 1);
+        // moveCursorLeft(total_chars - line_pos);
       }
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
