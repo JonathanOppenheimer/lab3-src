@@ -105,7 +105,7 @@ char *read_line() {
         moveCursorLeft(1);
         wipeLine(line_pos - 1, total_chars + 2);
         moveCursorRight(line_pos - 1, total_chars + 2);
-        moveCursorLeft(total_chars - line_pos - 1);
+        moveCursorLeft(total_chars - line_pos - 2);
         // moveCursorLeft(line_pos);
         // wipeLine(0, total_chars + 1);    // Wipe all after current character
         // moveCursorRight(0, total_chars); // Rewrite partial new line
