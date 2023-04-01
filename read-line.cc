@@ -145,11 +145,12 @@ char *read_line() {
           wipeLine(0, total_chars); // Wipe the whole line
 
           // Copy line from history
-          strcpy(line_buffer, history.at(history_index));
+          strncpy(line_buffer, history.at(history_index),
+                  strnlen(history.at(history_index) - 2, MAX_BUFFER_LINE));
           line_pos = strlen(line_buffer);
           total_chars = line_pos;
-          // history_index = (history_index + 1) % history.size();
-          history_index++;
+          history_index = (history_index + 1) % history.size();
+
           // echo line
           write(1, line_buffer, line_pos);
         }
