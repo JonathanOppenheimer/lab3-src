@@ -102,7 +102,7 @@ char *read_line() {
         delete_char(line_pos); // Delete the character
         total_chars--;
 
-        moveCursorLeft(1);            // Move character to the start of the line
+        moveCursorLeft(line_pos);     // Move character to the start of the line
         wipeLine(0, total_chars + 1); // Wipe the whole line
         moveCursorRight(0, total_chars);        // Rewrite new line
         moveCursorLeft(total_chars - line_pos); // Move cursor to og position
