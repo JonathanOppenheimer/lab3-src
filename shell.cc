@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -36,11 +37,17 @@ extern "C" void sigIntHandler(int sig) {
 
 extern "C" void sigChildHandler(int sig) {
   // Need to empty out all the background processes
-  pid_t pid; // pid to check
-  while ((pid = waitpid(-1, NULL, WNOHANG)) > 0) {
+  int status; // Status of returned variable
+  pid_t pid;  // pid to check
+  while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
     if (background_pids.count(pid) == 1) {
       std::cout << std::to_string(pid) + " exited.\n";
       background_pids.erase(pid);
+    }
+
+    // Print custom error prompt if program errored and env variable exists
+    if ((WEXITSTATUS(status) != 0) && (getenv("ON_ERROR"))) {
+      std::cout << getenv("ON_ERROR") << "\n";
     }
   }
 }
