@@ -546,7 +546,7 @@ char *yytext_ptr;
 #include <algorithm>
 #include <cstring>
 #include <iostream>
-#include <ostream>
+#include <fstream>
 #include <string>
 #include <regex>
 
@@ -1103,7 +1103,7 @@ case 11:
 YY_RULE_SETUP
 #line 243 "shell.l"
 {
-  print((std::ostream)yyin);
+  std::cout << YY_CURRENT_BUFFER.rdbuf();
   return NEWLINE;
 }
 	YY_BREAK
