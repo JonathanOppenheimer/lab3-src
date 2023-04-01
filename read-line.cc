@@ -150,7 +150,6 @@ char *read_line() {
           line_pos = strlen(line_buffer);
           total_chars = line_pos;
           history_index = (history_index + 1) % history.size();
-          std::cout << history_index << "\n";
 
           // echo line
           write(1, line_buffer, line_pos);
