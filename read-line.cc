@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <string>
 #include <vector>
 
 #include <stdio.h>
@@ -27,8 +28,8 @@ char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
 int total_chars;                   // Total number of characters in the buffer
 
-std::vector<char *> history; // Keep previous commands here
-int history_index = 0;       // Where in the history array we are
+std::vector<std::string> history; // Keep previous commands here
+int history_index = 0;            // Where in the history array we are
 
 void read_line_print_usage() {
   std::string usage =
@@ -110,7 +111,7 @@ char *read_line() {
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
       // Add line to history vector
-      history.push_back(line_buffer);
+      history.push_back(std::string(line_buffer));
 
       // Print newline
       write(1, &in_char, 1);
@@ -145,7 +146,7 @@ char *read_line() {
           wipeLine(0, total_chars); // Wipe the whole line
 
           // Copy line from history
-          strcpy(line_buffer, history.at(history_index));
+          strcpy(line_buffer, history.at(history_index).c_str());
           line_pos = strlen(line_buffer);
           total_chars = line_pos;
           history_index = (history_index + 1) % history.size();
