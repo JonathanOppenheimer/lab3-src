@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <cstring>
 #include <iostream>
-#include <ostream>
+#include <fstream>
 #include <string>
 #include <regex>
 
@@ -240,7 +240,7 @@ int mygetc(FILE * f) {
 
   /* New line character */
 \n {
-  print((std::ostream)yyin);
+  std::cout << YY_CURRENT_BUFFER.rdbuf();
   return NEWLINE;
 }
 
