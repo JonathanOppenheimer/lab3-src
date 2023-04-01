@@ -97,9 +97,11 @@ char *read_line() {
     } else if (in_char == 127) { // <Backspace> - remove previous character read
       // Only delete if the line length is longer than 0
       if (line_pos > 0) {
-        moveCursorLeft(1);
+        moveCursorLeft(1); // Move character back one
         line_pos--;
-        delete_char(line_pos);
+        delete_char(line_pos); // Delete the character
+        total_chars--;
+
         // wipeLine(line_pos, total_chars);
         // moveCursorRight(line_pos, total_chars + 1);
         // moveCursorLeft(total_chars - line_pos);
