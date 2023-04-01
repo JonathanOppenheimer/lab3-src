@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <cstring>
 #include <iostream>
+#include <ostream>
 #include <string>
 #include <regex>
 
