@@ -319,7 +319,9 @@ void Command::execute() {
     if (!_background) {
       waitpid(ret, &status, 0);               // Wait for last command
       last_return_code = WEXITSTATUS(status); // Update global last return code
-      std::cout << last_return_code << "\n";
+
+      // Print custom error prompt if program errored and env variable exists
+      // std::cout << last_return_code << "\n";
     } else {
       background_pids.insert(
           ret); // Add background PID to global vector for zombie elimination
