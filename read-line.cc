@@ -55,7 +55,7 @@ char *read_line() {
   tty_raw_mode();
   line_pos = 0;
   total_chars = 0;
-  std::cout << line_buffer << "\n";
+  // std::cout << line_buffer << "\n";
 
   // Read one line until enter is typed
   while (1) {
