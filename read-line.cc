@@ -123,6 +123,7 @@ char *read_line() {
       // Print newline
       write(1, &in_char, 1);
       memset(line_buffer, 0, total_chars);
+      line_buffer[0] = '\0';
       break;
     } else if (in_char == 31) { // <ctrl-?> - print help message
       read_line_print_usage();
