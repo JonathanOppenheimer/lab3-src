@@ -98,6 +98,7 @@ char *read_line() {
       // Only delete if the line length is longer than 0
       if (line_pos > 0) {
         moveCursorLeft(1);
+        line_pos--;
         delete_char(line_pos);
         // wipeLine(line_pos, total_chars);
         // moveCursorRight(line_pos, total_chars + 1);
