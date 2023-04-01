@@ -168,7 +168,6 @@ char *read_line() {
 void delete_char(int pos) {
   for (int i = pos; i < total_chars; i++) {
     line_buffer[i] = line_buffer[i + 1];
-    std::cout << "\n" << line_buffer << "\n";
   }
 }
 
