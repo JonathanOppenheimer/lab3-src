@@ -5,6 +5,7 @@
  * using raw terminal.
  */
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -111,7 +112,11 @@ char *read_line() {
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
       // Add line to history vector
-      history.push_back(std::string(line_buffer));
+      std::string history_item = std::string(line_buffer);
+      history_item.erase(
+          std::remove(history_item.begin(), history_item.end(), '\n'),
+          history_item.cend());
+      history.push_back(history_item);
 
       // Print newline
       write(1, &in_char, 1);
