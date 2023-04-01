@@ -27,7 +27,7 @@ char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
 int total_chars;                   // Total number of characters in the buffer
 
-std::vector<std::string> history;
+std::vecotr<std::string> history;
 int history_index = 0;
 
 void read_line_print_usage() {
