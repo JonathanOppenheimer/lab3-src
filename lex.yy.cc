@@ -1102,7 +1102,7 @@ case 11:
 YY_RULE_SETUP
 #line 242 "shell.l"
 {
-  std::cout << yyin << "\n";
+  std::cout << *yyin << "\n";
   return NEWLINE;
 }
 	YY_BREAK
