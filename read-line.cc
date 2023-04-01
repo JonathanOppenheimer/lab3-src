@@ -54,8 +54,10 @@ char *read_line() {
   // Set terminal in raw mode
   tty_raw_mode();
   line_pos = 0;
+
+  // Reset the line buffer
+  memset(line_buffer, 0, total_chars);
   total_chars = 0;
-  memset(line_buffer, 0, 255);
 
   // std::cout << line_buffer << "\n";
 
