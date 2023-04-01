@@ -83,6 +83,7 @@ arg_list:
     }
     matching_args.clear(); // Clear memory used in vector
     matching_args.shrink_to_fit();
+    delete $2;
   }
   | /* can be empty */
 ;
