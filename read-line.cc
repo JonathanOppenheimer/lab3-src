@@ -103,8 +103,8 @@ char *read_line() {
         total_chars--;
 
         moveCursorLeft(line_pos);
-        wipeLine(0, total_chars + 1); // Wipe all after current character
-        // moveCursorRight(0, total_chars); // Rewrite partial new line
+        wipeLine(0, total_chars + 1);    // Wipe all after current character
+        moveCursorRight(0, total_chars); // Rewrite partial new line
         // moveCursorRight(0, line_pos);
       }
     } else if (in_char == 27) {
