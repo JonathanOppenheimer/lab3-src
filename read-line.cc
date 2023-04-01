@@ -103,9 +103,9 @@ char *read_line() {
         total_chars--;
 
         moveCursorLeft(line_pos);
-        wipeLine(0, total_chars);        // Wipe all after current character
-        moveCursorRight(0, total_chars); // Rewrite partial new line
-        moveCursorRight(0, line_pos);
+        // wipeLine(0, total_chars);        // Wipe all after current character
+        // moveCursorRight(0, total_chars); // Rewrite partial new line
+        // moveCursorRight(0, line_pos);
       }
     } else if (in_char == 27) {
       /* Escape sequence detected - read two chararacterss more to determine
