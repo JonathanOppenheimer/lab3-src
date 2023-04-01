@@ -116,7 +116,7 @@ char *read_line() {
       std::string history_item = std::string(line_buffer);
       history_item.erase(
           std::remove(history_item.begin(), history_item.end(), '\n'),
-          history_item.cend());
+          history_item.end());
       history.push_back(history_item);
 
       // Print newline
