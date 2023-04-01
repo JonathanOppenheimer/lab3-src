@@ -78,12 +78,12 @@ arg_list:
       for (int i = 0; i < matching_args.size(); i++) {
         Command::_currentSimpleCommand->insertArgument(matching_args[i]);
       }
+      delete $2;
     } else {
       Command::_currentSimpleCommand->insertArgument( $2 );
     }
     matching_args.clear(); // Clear memory used in vector
     matching_args.shrink_to_fit();
-    delete $2;
   }
   | /* can be empty */
 ;
