@@ -157,7 +157,8 @@ char *read_line() {
           strcpy(line_buffer, history.at(history_index).c_str());
           line_pos = strlen(line_buffer);
           total_chars = line_pos;
-          history_index = (history_index + 1) % history.size();
+          history_index =
+              ((history_index - 1) + history.size()) % history.size();
 
           // echo line
           write(1, line_buffer, line_pos);
