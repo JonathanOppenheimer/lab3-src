@@ -86,14 +86,15 @@ char *read_line() {
       total_chars++;
 
       // If max number of character reached return.
-      if (line_pos == MAX_BUFFER_LINE - 2)
+      if (line_pos == MAX_BUFFER_LINE - 2) {
         break;
+      }
     } else if (in_char == 1) { // <ctrl-A> / home key - move to line start
       moveCursorLeft(line_pos);
       line_pos = 0;
     } else if (in_char == 4) { // <ctrl-D> / delete key - delete character
       // Only delete if the line length is longer or equal to 0
-      if ((line_pos >= 0) && (line_pos != total_chars)) { // Don't delete last
+      if ((line_pos >= 0)) {   // Don't delete last
         delete_char(line_pos); // Delete the character
         total_chars--;
 
