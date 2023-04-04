@@ -106,7 +106,6 @@ char *read_line() {
       moveCursorRight(line_pos, total_chars);
       line_pos = total_chars;
     } else if ((in_char == 8) || (in_char == 127)) { // <Backspace> / <ctrl-H>
-      std::cout << total_chars << " " << line_pos << "\n";
       // Only delete if the line length is longer than 0
       if (line_pos > 0) {
         moveCursorLeft(1); // Move character back one
