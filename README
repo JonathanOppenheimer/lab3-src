@@ -13,3 +13,33 @@
  * PURDUE UNIVERSITY
  */
 
+Features in the handout that work:
+
+- All Part 1
+- All Part 2 except process substitution
+- All Part 3 except path completion
+
+Features specified in the handout that do not work:
+- Process substitution
+- Path completion
+
+Extra features:
+
+2.4 Quotes:
+  - More rich quotation, multiple quotes, prompts the user if they don't close quotes (use start conditions)
+2.6 Builtin Functions:
+  - Source: Handles no provided file, and a non-existent file
+  - cd/setenv/unsetenv: Handles too many and too few arguments
+2.7 Default source file:
+  - Implemented default source file .shellrc
+3.1 Environment variable expansion:
+  - Handles bad substitution
+  - Generally more robust
+3.3 Wildcarding
+  - Support wildcards such as a*b**/
+3.4 Edit Mode:
+  - More descriptive help message
+3.7: Variable prompt:
+  - Added PROMPT variable
+  - Added ON_ERROR variable
+

@@ -146,7 +146,9 @@ int mygetc(FILE * f) {
   [^ \t\n]+ { /* Get the source file name */
     FILE* sourced = fopen(yytext, "r");
     if (!sourced) {
-      std::cout << std::string(yytext) + ": No such file or directory\n";
+      if(yytext != ".shellrc") { // Don't error if the file is .shellrc
+        std::cout << std::string(yytext) + ": No such file or directory\n";
+      }
       YY_FLUSH_BUFFER; // Flush yyin because we modified it
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
       return NEWLINE;
