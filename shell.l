@@ -146,6 +146,7 @@ int mygetc(FILE * f) {
   [^ \t\n]+ { /* Get the source file name */
     FILE* sourced = fopen(yytext, "r");
     if (!sourced) {
+      std::cout << yytext;
       if(yytext != ".shellrc") { // Don't error if the file is .shellrc
         std::cout << std::string(yytext) + ": No such file or directory\n";
       }
