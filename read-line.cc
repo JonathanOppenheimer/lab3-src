@@ -15,7 +15,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "y.tab.hh"
+#include "y.tab.cc"
 
 #define MAX_BUFFER_LINE 2048
 
