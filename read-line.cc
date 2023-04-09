@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstdio>
 
+#include <iomanip>
 #include <iostream>
 #include <regex>
 #include <string>
@@ -186,7 +187,15 @@ char *read_line() {
             line_pos++;
             total_chars++;
           }
-        } else { // We do not - need to print possibilities
+        } else {                  // We do not - need to print possibilities
+          size_t field_width = 0; // length of longest text
+          for (int i = 0; i < matching_args.size(); i++) {
+            field_width = std::max(matching_args.at(i)->length(), field_width);
+          }
+          for (int i = 0; i < matching_args.size(); i++) { // Print out matches
+            std::cout << std::setw(field_width) << *matching_args.at(i);
+          }
+          std::cout << std::endl;
         }
       }
 
