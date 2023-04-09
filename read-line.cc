@@ -16,6 +16,9 @@
 #include <unistd.h>
 
 #include <cstdio>
+#include <sys/stat.h>
+#include <sys/types.h>
+
 #include <dirent.h>
 #include <regex>
 
