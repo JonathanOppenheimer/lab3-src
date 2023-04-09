@@ -37,8 +37,8 @@ void moveCursorRight(int, int);
 void restorePreviousLine();
 void wipeLine(int, int);
 
-void getMatchingFiles(std::string, std::vector<std::string *> &matching_args);
-std::string longestCommonPrefix(std::vector<std::string *> &strings);
+void getMatchingFiles(std::string, std::vector<std::string> &matching_args);
+std::string longestCommonPrefix(std::vector<std::string> &strings);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
@@ -163,7 +163,7 @@ char *read_line() {
       // Make the wildcard expansion call
       std::string wild_last_word = last_word;
       wild_last_word.append("*");
-      std::vector<std::string *> matching_args;
+      std::vector<std::string> matching_args;
       getMatchingFiles(wild_last_word, matching_args);
 
       // Sort the vector with the matching results
@@ -172,7 +172,7 @@ char *read_line() {
 
       // Check to see how many matches there were
       if (matching_args.size() == 1) { // Exact match
-        std::string match = *matching_args.at(0);
+        std::string match = matching_args.at(0);
         // Print the remainder of the match
         for (int i = (total_chars - first_char); i < match.size(); i++) {
           insertChar(match[i]);                    // Insert single character
@@ -196,7 +196,7 @@ char *read_line() {
         } else {                  // We do not - need to print possibilities
           size_t field_width = 0; // length of longest text
           for (int i = 0; i < matching_args.size(); i++) {
-            field_width = std::max(matching_args.at(i)->length(), field_width);
+            field_width = std::max(matching_args.at(i).length(), field_width);
           }
 
           // Get information about the terminal to format output nicely
@@ -206,14 +206,14 @@ char *read_line() {
           std::cout << "\n";
           for (int i = 0; i < matching_args.size(); i++) { // Print out matches
             if (chars_printed + (field_width + 2) +
-                    matching_args.at(i)->length() >
+                    matching_args.at(i).length() >
                 w.ws_col) { // Enter new line if we'd go over alloted width
               std::cout << std::endl;
               chars_printed = 0;
             }
             std::cout << std::left << std::setw(field_width + 2)
-                      << *matching_args.at(i);
-            chars_printed += (field_width + 2) + matching_args.at(i)->length();
+                      << matching_args.at(i);
+            chars_printed += (field_width + 2) + matching_args.at(i).length();
           }
           std::cout << std::endl;
           restorePreviousLine();
@@ -385,7 +385,7 @@ void wipeLine(int start, int end) {
 }
 
 void getMatchingFiles(std::string wild_last_word,
-                      std::vector<std::string *> &matching_args) {
+                      std::vector<std::string> &matching_args) {
   if (wild_last_word[0] != '/') { // In current directory
     wild_last_word.insert(0, "./");
   }
@@ -441,9 +441,9 @@ void getMatchingFiles(std::string wild_last_word,
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
       if (directory_path[0] == '.') { // Don't append directory for local
-        matching_args.push_back(new std::string(dp->d_name));
+        matching_args.push_back(std::string(dp->d_name));
       } else {
-        matching_args.push_back(new std::string(directory_path + dp->d_name));
+        matching_args.push_back(std::string(directory_path + dp->d_name));
       }
     }
   }
@@ -452,10 +452,10 @@ void getMatchingFiles(std::string wild_last_word,
   closedir(dir);
 }
 
-std::string longestCommonPrefix(std::vector<std::string *> &strings) {
+std::string longestCommonPrefix(std::vector<std::string> &strings) {
   std::string prefix = "";
-  std::string a = *(strings[0]);
-  std::string b = *(strings[strings.size() - 1]);
+  std::string a = strings[0];
+  std::string b = strings[strings.size() - 1];
 
   for (int i = 0; i < a.size(); i++) {
     if (a[i] == b[i]) {
