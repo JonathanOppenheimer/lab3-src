@@ -1007,7 +1007,7 @@ YY_RULE_SETUP
       }
       YY_FLUSH_BUFFER; // Flush yyin because we modified it
       BEGIN(INITIAL); // Finished reading file, go back to initial state */
-      // return NEWLINE;
+      return NEWLINE;
     } else {
       yypush_buffer_state(yy_create_buffer(sourced, YY_BUF_SIZE));
       BEGIN(INITIAL); // Finished reading file, go back to initial state */

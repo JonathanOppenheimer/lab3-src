@@ -66,7 +66,7 @@ char *read_line() {
     // Read one character in raw mode.
     char in_char;
     read(0, &in_char, 1);
-    // printf("%d\n", in_char);
+    printf("%d\n", in_char);
 
     if ((in_char >= 32) && (in_char != 127)) { // Any printable character
       // Check whether we are writing at the end of the line, or within the line
