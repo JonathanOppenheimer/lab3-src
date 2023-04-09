@@ -157,6 +157,15 @@ char *read_line() {
       std::vector<std::string *> matching_args;
       getMatchingFiles(wild_last_word, matching_args);
 
+      // Check to see how many matches there were
+      if (matching_args.size() == 1) {
+
+      } else if (matching_args.size() > 1) {
+        for (int i = 0; i < matching_args.size(); i++) {
+          std::cout << matching_args.at(i) << "\n";
+        }
+      }
+
       matching_args.clear(); // Clear memory used in vector
       matching_args.shrink_to_fit();
     } else if (in_char == 10) { // <Enter> - return line
