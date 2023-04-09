@@ -13,6 +13,8 @@
  * PURDUE UNIVERSITY
  */
 
+-----
+
 Features in the handout that work:
 
 - All Part 1
@@ -44,4 +46,30 @@ Extra features:
 3.7: Variable prompt:
   - Added PROMPT variable
   - Added ON_ERROR variable
+
+-----
+
+Points I believe I earned total:
+
+Standard credit
+---------------------------------------------
+Testall Total:                   70.0 of 70.0
+Part 1 In-Lab Checkpoint:        10.0 of 10.0
+Part 2 In-Lab Checkpoint:        10.0 of 10.0
+Manual Testing Ctrl+C:            2.0 of  2.0
+Manual Testing of Line Editor:    8.0 of  8.0
+
+Extra credit:
+---------------------------------------------
+Early turn in                     5.0 of  5.0
+Default source                    1.0 of  1.0
+Path completion                   5.0 of  5.0
+Environment variable PROMPT       0.5 of  0.5
+Environment variable ON_ERROR     0.5 of  0.5
+Additional robustness features    ?.? of  ?.?
+
+---------------------------------------------
+Total points                   112.0 of 100.0
+
+-----
 
