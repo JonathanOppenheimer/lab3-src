@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <regex>
 #include <string>
 #include <vector>
@@ -192,20 +193,27 @@ char *read_line() {
             line_pos++;
             total_chars++;
           }
-        } else { // We do not - need to print possibilities
-
-          struct winsize w;
-          ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-          printf("columns %d\n", w.ws_col);
-
+        } else {                  // We do not - need to print possibilities
           size_t field_width = 0; // length of longest text
           for (int i = 0; i < matching_args.size(); i++) {
             field_width = std::max(matching_args.at(i)->length(), field_width);
           }
+
+          // Get information about the terminal to format output nicely
+          struct winsize w;
+          ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+          int chars_printed = 0;
           std::cout << "\n";
           for (int i = 0; i < matching_args.size(); i++) { // Print out matches
+            if (chars_printed + (field_width + 2) +
+                    matching_args.at(i)->length() >
+                w.ws_col) { // Enter new line if we'd go over alloted width
+              std::cout << std::endl;
+              chars_printed = 0;
+            }
             std::cout << std::left << std::setw(field_width + 2)
                       << *matching_args.at(i);
+            chars_printed += (field_width + 2) + matching_args.at(i)->length();
           }
           std::cout << std::endl;
           restorePreviousLine();
