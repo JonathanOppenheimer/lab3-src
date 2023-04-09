@@ -167,19 +167,17 @@ char *read_line() {
         int last_matching_index = 0;
         for (int i = last_space + 1; i < total_chars; i++) {
           last_matching_index = i - last_space;
-          std::cout << match[i - last_space + 1] << "  " << line_buffer[i]
-                    << "\n";
-          fflush(0);
           if (match[i - last_space + 1] != line_buffer[i]) {
             break;
           }
         }
 
-        std::cout << last_matching_index;
         // Print the remainder of the match
-        for (int i = last_matching_index; i < match.length(); i++) {
-          write(0, &match[i], 1);
+        for (int i = last_matching_index + 1; i < match.length(); i++) {
+          insertChar(match[i]);                    // Insert single character
+          moveCursorRight(line_pos, line_pos + 1); // Move cursor right once
           line_pos++;
+          total_chars++;
         }
 
       } else if (matching_args.size() > 1) {
