@@ -136,6 +136,8 @@ char *read_line() {
         }
       }
 
+      std::cout << last_space << "\n";
+
       // Build last word string
       std::string last_word = "";
       for (int i = last_space; i < total_chars; i++) {
