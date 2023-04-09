@@ -193,6 +193,7 @@ char *read_line() {
           for (int i = 0; i < matching_args.size(); i++) {
             field_width = std::max(matching_args.at(i)->length(), field_width);
           }
+          std::cout << "\n";
           for (int i = 0; i < matching_args.size(); i++) { // Print out matches
             std::cout << std::setw(field_width) << *matching_args.at(i);
           }
