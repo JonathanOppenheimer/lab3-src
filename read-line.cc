@@ -142,7 +142,7 @@ char *read_line() {
       // Get the last word in the buffer
       int first_char = 0;
       for (int i = total_chars - 1; i >= 0; i--) {
-        if (line_buffer[i] == ' ') {
+        if ((line_buffer[i] == ' ') && (i != total_chars - 1)) {
           first_char = i + 1;
           break;
         }
