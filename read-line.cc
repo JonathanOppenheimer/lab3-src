@@ -19,8 +19,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "shell.hh"
-
 #define MAX_BUFFER_LINE 2048
 
 extern void tty_raw_mode(void);
