@@ -140,17 +140,17 @@ char *read_line() {
        */
 
       // Get the last word in the buffer
-      int last_space = 0;
+      int first_char = 0;
       for (int i = total_chars - 1; i >= 0; i--) {
         if (line_buffer[i] == ' ') {
-          last_space = i;
+          first_char = i + 1;
           break;
         }
       }
 
       // Build last word string
       std::string last_word = "";
-      for (int i = last_space + 1; i < total_chars; i++) {
+      for (int i = first_char; i < total_chars; i++) {
         last_word += line_buffer[i];
       }
 
@@ -165,8 +165,8 @@ char *read_line() {
         std::string match = *matching_args.at(0);
         std::cout << "\n" << match << " " << last_word << "\n";
         // Print the remainder of the match
-        for (int i = match.length() - (total_chars - last_space + 1);
-             i < match.length(); i++) {
+
+        for (int i = (total_chars - first_char); i < match.size(); i++) {
           insertChar(match[i]);                    // Insert single character
           moveCursorRight(line_pos, line_pos + 1); // Move cursor right once
           line_pos++;
