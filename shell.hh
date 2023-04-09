@@ -9,6 +9,8 @@
 #include <vector>
 
 extern void set_source();
+extern void expandWildcards(std::string, std::string,
+                            std::vector<std::string *> &matching_args);
 
 /* Extra global variables for program to share information with */
 

@@ -48,7 +48,6 @@
 #include "shell.hh"
 
 void yyerror(const char * s);
-void expandWildcards(std::string, std::string, std::vector<std::string *>& matching_args);
 int isDirectory(const char *);
 int yylex();
 
