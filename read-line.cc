@@ -166,6 +166,9 @@ char *read_line() {
         std::string match = *matching_args.at(0);
         int last_matching_index = 0;
         for (int i = last_space + 1; i < total_chars; i++) {
+          std::cout << match[u - last_space + 1] << "  " << line_buffer[i]
+                    << "\n";
+
           last_matching_index = i - last_space;
           if (match[i - last_space + 1] != line_buffer[i]) {
             break;
