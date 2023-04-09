@@ -15,6 +15,10 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <cstdio>
+#include <dirent.h>
+#include <regex>
+
 #define MAX_BUFFER_LINE 2048
 
 extern void tty_raw_mode(void);
