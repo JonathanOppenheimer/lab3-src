@@ -7,20 +7,14 @@
 
 #include <algorithm>
 #include <iostream>
-#include <regex>
 #include <string>
 #include <vector>
 
-#include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 #include "y.tab.cc"
-#include "y.tab.hh"
 
 #define MAX_BUFFER_LINE 2048
 
