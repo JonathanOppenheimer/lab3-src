@@ -32,6 +32,7 @@ void moveCursorRight(int, int);
 void wipeLine(int, int);
 void expandWildcards(std::string, std::string,
                      std::vector<std::string *> &matching_args);
+int isDirectory(const char *);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
@@ -438,4 +439,13 @@ void expandWildcards(std::string prefix, std::string suffix,
 
   // Close the directory
   closedir(dir);
+}
+
+int isDirectory(const char *path) {
+  struct stat statbuf;
+  if (stat(path, &statbuf) != 0) {
+    return 0;
+  } else {
+    return S_ISDIR(statbuf.st_mode);
+  }
 }
