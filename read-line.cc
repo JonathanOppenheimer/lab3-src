@@ -146,9 +146,9 @@ char *read_line() {
 
       // Make the wildcard expansion call
       std::string prefix = "";
-      std::string *suffix = new std::string(last_word);
+      std::string suffix = last_word;
       std::vector<std::string *> matching_args;
-      expandWildcards("", *suffix, matching_args);
+      expandWildcards(prefix, suffix, matching_args);
 
       matching_args.clear(); // Clear memory used in vector
       matching_args.shrink_to_fit();
