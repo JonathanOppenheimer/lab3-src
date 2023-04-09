@@ -167,7 +167,8 @@ char *read_line() {
         int last_matching_index = 0;
         for (int i = last_matching_index; i < total_chars; i++) {
           last_matching_index = i - last_matching_index;
-          std::cout << match[i - last_matching_index] << "  " << line_buffer[i];
+          std::cout << match[i - last_matching_index] << "  " << line_buffer[i]
+                    << "\n";
           fflush(0);
           if (match[i - last_matching_index] != line_buffer[i]) {
             break;
