@@ -32,7 +32,7 @@ void moveCursorLeft(int);
 void moveCursorRight(int, int);
 void wipeLine(int, int);
 
-void getMatchingFiles(std::string, std::vector<std::string *> &matching_args);
+void getMatchingFiles(std::string, std::vector<std::string *> matching_args);
 int isDirectory(const char *);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
