@@ -126,7 +126,10 @@ char *read_line() {
         moveCursorRight(line_pos, total_chars + 1); // Rewrite partial new line
         moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
-    } else if (in_char == 9) { // <tab> - autocomplete
+    } else if (in_char == 9) {                // <tab> - autocomplete
+      moveCursorRight(line_pos, total_chars); // Move to end of the line
+      line_pos = total_chars;
+
       /* Can use the current 'word' (right most string when strings are
        * seperated by spaces), as a regex for expandWildcards. Once the regex
        * returns the matches, we can parse them to see how to update the
@@ -157,7 +160,23 @@ char *read_line() {
       getMatchingFiles(wild_last_word, matching_args);
 
       // Check to see how many matches there were
-      if (matching_args.size() == 1) {
+      if (matching_args.size() == 1) { // Exact match
+
+        // Find how much of the match is already printed
+        std::string match = *matching_args.at(0);
+        int last_matching_index = 0;
+        for (int i = 0; i < total_chars; i++) {
+          last_matching_index = i;
+          if (match[i] != line_buffer[i + last_space]) {
+            break;
+          }
+        }
+
+        // Print the remainder of the match
+        for (int i = last_matching_index; i < match.length(); i++) {
+          write(0, &match[i], 1);
+          line_pos++;
+        }
 
       } else if (matching_args.size() > 1) {
         for (int i = 0; i < matching_args.size(); i++) {
@@ -348,7 +367,6 @@ void getMatchingFiles(std::string wild_last_word,
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
       matching_args.push_back(new std::string(dp->d_name));
-      std::cout << dp->d_name;
     }
   }
 
