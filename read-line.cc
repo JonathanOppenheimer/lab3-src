@@ -386,6 +386,28 @@ void wipeLine(int start, int end) {
 
 void getMatchingFiles(std::string wild_last_word,
                       std::vector<std::string *> &matching_args) {
+  if (wild_last_word[0] != '/') { // In current directory
+    wild_last_word.insert(0, "./");
+  }
+
+  // Find where we should expanding
+  std::string directory_path = "";
+  while (wild_last_word.find('/') != std::string::npos) {
+    if (directory_path.length() == 0) {
+      directory_path += wild_last_word.substr(0, wild_last_word.find('/') + 1);
+      wild_last_word.erase(0, wild_last_word.find('/') + 1);
+    } else {
+
+      if (wild_last_word[0] ==
+          '/') { // Shift the / over one and try again - non-terminal /
+        directory_path += wild_last_word.substr(0, 1);
+        wild_last_word.erase(0, 1);
+      } else { // Make the current level everything to next /
+        directory_path += wild_last_word.substr(0, wild_last_word.find('/'));
+        wild_last_word.erase(0, wild_last_word.find('/'));
+      }
+    }
+  }
 
   std::string regex = wild_last_word;
 
@@ -410,10 +432,9 @@ void getMatchingFiles(std::string wild_last_word,
 
   DIR *dir;          // The directory
   struct dirent *dp; // The directory stream of the directory
-  dir = opendir("./");
+  dir = opendir(directory_path.c_str());
   if (dir == NULL) {
-    perror("opendir");
-    return;
+    return; // Fake directory, return
   }
 
   // Recursively call wildcard expansion, depending on conditions
