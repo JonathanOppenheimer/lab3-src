@@ -153,11 +153,8 @@ char *read_line() {
 
       // Make the wildcard expansion call
       std::string wild_last_word = last_word.append("*");
-      std::cout << wild_last_word;
       std::vector<std::string *> matching_args;
       getMatchingFiles(wild_last_word, matching_args);
-
-      std::cout << matching_args.size();
 
       // Check to see how many matches there were
       if (matching_args.size() == 1) {
@@ -318,7 +315,7 @@ void wipeLine(int start, int end) {
 void getMatchingFiles(std::string wild_last_word,
                       std::vector<std::string *> &matching_args) {
 
-  std::string regex;
+  std::string regex = wild_last_word;
 
   /*
    * Build regex expression:
@@ -339,9 +336,6 @@ void getMatchingFiles(std::string wild_last_word,
   }
   std::regex built_regex(regex);
 
-  std::cout << regex;
-  fflush(0);
-
   DIR *dir;          // The directory
   struct dirent *dp; // The directory stream of the directory
   dir = opendir("./");
@@ -357,7 +351,7 @@ void getMatchingFiles(std::string wild_last_word,
       std::cout << dp->d_name;
     }
   }
-  std::cout << matching_args.size();
+
   // Close the directory
   closedir(dir);
 }
