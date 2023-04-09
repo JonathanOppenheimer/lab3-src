@@ -32,8 +32,7 @@ void moveCursorLeft(int);
 void moveCursorRight(int, int);
 void wipeLine(int, int);
 
-void getMatchingFiles(std::string, std::string,
-                      std::vector<std::string *> &matching_args);
+void getMatchingFiles(std::string, std::vector<std::string *> &matching_args);
 int isDirectory(const char *);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
@@ -154,10 +153,9 @@ char *read_line() {
       }
 
       // Make the wildcard expansion call
-      std::string prefix = "";
-      std::string suffix = prefix.append("*");
+      std::string wild_last_word = prefix.append("*");
       std::vector<std::string *> matching_args;
-      getMatchingFiles(prefix, suffix, matching_args);
+      getMatchingFiles(wild_last_word, matching_args);
 
       matching_args.clear(); // Clear memory used in vector
       matching_args.shrink_to_fit();
@@ -332,7 +330,7 @@ void getMatchingFiles(std::string start_word,
 
   DIR *dir;          // The directory
   struct dirent *dp; // The directory stream of the directory
-  dir = opendir(.);
+  dir = opendir(".");
   if (dir == NULL) {
     perror("opendir");
     return;
@@ -341,7 +339,7 @@ void getMatchingFiles(std::string start_word,
   // Recursively call wildcard expansion, depending on conditions
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
-      matching_args.push_back(dp->d_name)
+      matching_args.push_back(dp->d_name);
     }
   }
 
