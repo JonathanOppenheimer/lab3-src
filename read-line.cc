@@ -162,7 +162,7 @@ char *read_line() {
       // Check to see how many matches there were
       if (matching_args.size() == 1) { // Exact match
         std::string match = *matching_args.at(0);
-
+        std::cout << "\n" << match << " " << last_word << "\n";
         // Print the remainder of the match
         for (int i = match.length() - (total_chars - last_space + 1);
              i < match.length(); i++) {
