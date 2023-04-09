@@ -338,9 +338,12 @@ void getMatchingFiles(std::string wild_last_word,
   }
   std::regex built_regex(regex);
 
+  std::cout << regex;
+  fflush(0);
+
   DIR *dir;          // The directory
   struct dirent *dp; // The directory stream of the directory
-  dir = opendir(".");
+  dir = opendir("./");
   if (dir == NULL) {
     perror("opendir");
     return;
