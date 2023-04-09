@@ -168,7 +168,7 @@ char *read_line() {
 
       // Sort the vector with the matching results
       std::sort(matching_args.begin(), matching_args.end(),
-                [](std::string *a, std::string *b) { return *a < *b; });
+                [](std::string a, std::string b) { return a < b; });
 
       // Check to see how many matches there were
       if (matching_args.size() == 1) { // Exact match
