@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -191,7 +192,12 @@ char *read_line() {
             line_pos++;
             total_chars++;
           }
-        } else {                  // We do not - need to print possibilities
+        } else { // We do not - need to print possibilities
+
+          struct winsize w;
+          ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+          printf("columns %d\n", w.ws_col);
+
           size_t field_width = 0; // length of longest text
           for (int i = 0; i < matching_args.size(); i++) {
             field_width = std::max(matching_args.at(i)->length(), field_width);
