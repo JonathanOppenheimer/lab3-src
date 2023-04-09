@@ -6,21 +6,20 @@
  */
 
 #include <algorithm>
+#include <cstdio>
+
 #include <iostream>
+#include <regex>
 #include <string>
 #include <vector>
 
+#include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-
-#include <cstdio>
 #include <sys/stat.h>
 #include <sys/types.h>
-
-#include <dirent.h>
-#include <regex>
+#include <unistd.h>
 
 #define MAX_BUFFER_LINE 2048
 
@@ -351,9 +350,10 @@ void getMatchingFiles(std::string wild_last_word,
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
       matching_args.push_back(new std::string(dp->d_name));
+      std::cout << dp->d_name;
     }
   }
-
+  std::cout << matching_args.size();
   // Close the directory
   closedir(dir);
 }
