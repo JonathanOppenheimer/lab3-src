@@ -145,7 +145,7 @@ char *read_line() {
       }
 
       std::vector<std::string *> matching_args;
-      // expandWildcards("", last_word, matching_args);
+      expandWildcards("", last_word, matching_args);
 
       matching_args.clear(); // Clear memory used in vector
       matching_args.shrink_to_fit();
