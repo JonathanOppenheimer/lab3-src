@@ -157,6 +157,8 @@ char *read_line() {
       std::vector<std::string *> matching_args;
       getMatchingFiles(wild_last_word, matching_args);
 
+      std::cout << matching_args.size();
+
       // Check to see how many matches there were
       if (matching_args.size() == 1) {
 
