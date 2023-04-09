@@ -117,6 +117,36 @@ char *read_line() {
         moveCursorRight(line_pos, total_chars + 1); // Rewrite partial new line
         moveCursorLeft(total_chars - line_pos);     // Move cursor to prev pos
       }
+    } else if (in_char == 9) { // <tab> - autocomplete
+      /* Can use the current 'word' (right most string when strings are
+       * seperated by spaces), as a regex for expandWildcards. Once the regex
+       * returns the matches, we can parse them to see how to update the
+       * terminal. If the matches is of size 1, we can autocomplete. If not,
+       * find the largest common prefix among the matches and print that. If
+       * the greatest common prefix is already in the terminal, print possible
+       * matches to the terminal
+       */
+
+      // Get the last word in the buffer
+      int last_space = 0;
+      for (int i = total_chars - 1; i >= 0; i--) {
+        if (line_buffer[i] == ' ') {
+          last_space = i;
+          break;
+        }
+      }
+
+      // Build last word string
+      std::string last_word = "";
+      for (int i = last_space; i < total_chars; i++) {
+        last_word += line_buffer[i];
+      }
+
+      std::cout << last_word << "\n";
+
+      // std::vector<std::string *> matching_args;
+      // expandWildcards(prefix, suffix, matching_args);
+
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
       // Add line to history vector
