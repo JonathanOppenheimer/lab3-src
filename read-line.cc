@@ -144,6 +144,9 @@ char *read_line() {
         last_word += line_buffer[i];
       }
 
+      // Make the wildcard expansion call
+      std::string prefix = "";
+      std::string suffix = last_word;
       std::vector<std::string *> matching_args;
       expandWildcards("", last_word, matching_args);
 
