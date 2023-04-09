@@ -161,21 +161,11 @@ char *read_line() {
 
       // Check to see how many matches there were
       if (matching_args.size() == 1) { // Exact match
-
-        // Find how much of the match is already printed
         std::string match = *matching_args.at(0);
-        int last_matching_index = 0;
-        for (int i = last_space + 1; i < total_chars; i++) {
-          std::cout << "\n" << line_buffer[i] << "\n";
-
-          last_matching_index = i - last_space;
-          if (match[i - last_space + 1] != line_buffer[i]) {
-            // break;
-          }
-        }
 
         // Print the remainder of the match
-        for (int i = last_matching_index + 1; i < match.length(); i++) {
+        for (int i = match.length() - (total_chars - last_space + 1);
+             i < match.length(); i++) {
           insertChar(match[i]);                    // Insert single character
           moveCursorRight(line_pos, line_pos + 1); // Move cursor right once
           line_pos++;
