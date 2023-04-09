@@ -155,7 +155,7 @@ char *read_line() {
 
       // Make the wildcard expansion call
       std::string prefix = "";
-      std::string suffix = last_word;
+      std::string suffix = prefix.append("*");
       std::vector<std::string *> matching_args;
       getMatchingFiles(prefix, suffix, matching_args);
 
@@ -306,83 +306,10 @@ void wipeLine(int start, int end) {
   }
 }
 
-void getMatchingFiles(std::string prefix, std::string suffix,
+void getMatchingFiles(std::string start_word,
                       std::vector<std::string *> &matching_args) {
-  /***************** Two end conditions *****************/
 
-  // The first is that the suffix is empty - we were searching for files and
-  // folder
-  if (suffix.length() == 0) {
-    // Don't include the fake prefix if we we added if it
-    if (prefix.substr(0, 2) == "./") {
-      matching_args.push_back(new std::string(prefix.erase(0, 2)));
-    } else {
-      matching_args.push_back(new std::string(prefix));
-    }
-    return;
-  }
-
-  // The second is that the suffix is a single '/' - we were just searching for
-  // folders
-  if (suffix == "/") {
-    // Don't include the fake prefix if we we added if it
-    if (prefix.substr(0, 2) == "./") {
-      matching_args.push_back(new std::string(prefix.erase(0, 2) + "/"));
-    } else {
-      matching_args.push_back(new std::string(prefix + "/"));
-    }
-    return;
-  }
-
-  /*******************************************************/
-
-  // See if we're starting in . or / - can't search an empty directory
-  if (prefix.length() == 0) {
-    prefix += suffix.substr(0, suffix.find('/') + 1);
-    suffix.erase(0, suffix.find('/') + 1);
-    getMatchingFiles(prefix, suffix, matching_args);
-    return; // Do initial setup so we have have a prefix to open
-  }
-
-  // Expand the suffix to match possible directories
-
-  // Find what the current level regex will be - essentially the regex for one
-  // folder level
-
-  // The level we're searching e.g. homes/jop*nhe/*
-  std::string cur_level; //         PREFIX C_LVL  SUFFIX
-  if (std::count(suffix.begin(), suffix.end(), '/') ==
-      0) { // No more / in suffix, add everything to current level
-    cur_level = suffix.substr(0, suffix.length());
-    suffix.erase(0, suffix.length());
-  } else {
-    if (suffix[0] ==
-        '/') { // Shift the / over one and try again - non-terminal /
-      prefix += suffix.substr(0, 1);
-      suffix.erase(0, 1);
-      getMatchingFiles(prefix, suffix, matching_args);
-      return;
-    } else { // Make the current level everything to next /
-      cur_level = suffix.substr(0, suffix.find('/'));
-      suffix.erase(0, suffix.find('/'));
-    }
-  }
-
-  // Now check if expansion is necessary - does the current level have
-  // wildcards?
-  std::string::difference_type num_star =
-      std::count(cur_level.begin(), cur_level.end(), '*');
-  std::string::difference_type num_q =
-      std::count(cur_level.begin(), cur_level.end(), '?');
-
-  // Expansion is not necessary
-  if (num_star + num_q == 0) {
-    getMatchingFiles(prefix + cur_level, suffix, matching_args);
-    return;
-  }
-
-  // Expansion is necessary
-  std::string reg_cur_level = cur_level;
+  std::string regex;
 
   /*
    * Build regex expression:
@@ -390,22 +317,22 @@ void getMatchingFiles(std::string prefix, std::string suffix,
    * Replace ? with .
    * Replace . with \\.
    */
-  for (int i = 0; i < reg_cur_level.length(); i++) {
-    if (reg_cur_level[i] == '*') {
-      reg_cur_level.replace(i, 1, ".*");
+  for (int i = 0; i < regex.length(); i++) {
+    if (regex[i] == '*') {
+      regex.replace(i, 1, ".*");
       i++;
-    } else if (reg_cur_level[i] == '?') {
-      reg_cur_level.replace(i, 1, ".");
-    } else if (reg_cur_level[i] == '.') {
-      reg_cur_level.replace(i, 1, "\\.");
+    } else if (regex[i] == '?') {
+      regex.replace(i, 1, ".");
+    } else if (regex[i] == '.') {
+      regex.replace(i, 1, "\\.");
       i++;
     }
   }
-  std::regex built_regex(reg_cur_level);
+  std::regex built_regex(regex);
 
   DIR *dir;          // The directory
   struct dirent *dp; // The directory stream of the directory
-  dir = opendir(prefix.c_str());
+  dir = opendir(.);
   if (dir == NULL) {
     perror("opendir");
     return;
@@ -414,7 +341,7 @@ void getMatchingFiles(std::string prefix, std::string suffix,
   // Recursively call wildcard expansion, depending on conditions
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
-      getMatchingFiles(prefix + dp->d_name, suffix, matching_args);
+      matching_args.push_back(dp->d_name)
     }
   }
 
