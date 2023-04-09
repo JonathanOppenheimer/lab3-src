@@ -149,7 +149,7 @@ char *read_line() {
 
       // Build last word string
       std::string last_word = "";
-      for (int i = last_space; i < total_chars; i++) {
+      for (int i = last_space + 1; i < total_chars; i++) {
         last_word += line_buffer[i];
       }
 
