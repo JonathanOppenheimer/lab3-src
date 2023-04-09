@@ -175,9 +175,18 @@ char *read_line() {
           total_chars++;
         }
       } else if (matching_args.size() > 1) {
-        for (int i = 0; i < matching_args.size(); i++) {
-          std::cout << matching_args.at(i) << "\n";
-          std::cout << longestCommonPrefix(matching_args) << "\n";
+        // Get the longest common prefix to autocomplete
+        std::string lcp = longestCommonPrefix(matching_args);
+
+        if (lcp != "") { // We have some of an LCP to print
+          // Print the remainder of the LCP
+          for (int i = (total_chars - first_char); i < lcp.size(); i++) {
+            insertChar(lcp[i]);                      // Insert single character
+            moveCursorRight(line_pos, line_pos + 1); // Move cursor right once
+            line_pos++;
+            total_chars++;
+          }
+        } else { // We do not - need to print possibilities
         }
       }
 
