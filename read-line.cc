@@ -155,7 +155,8 @@ char *read_line() {
       }
 
       // Make the wildcard expansion call
-      std::string wild_last_word = last_word.append("*");
+      std::string wild_last_word = last_word;
+      wild_last_word.append("*");
       std::vector<std::string *> matching_args;
       getMatchingFiles(wild_last_word, matching_args);
 
