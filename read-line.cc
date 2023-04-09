@@ -144,13 +144,11 @@ char *read_line() {
         last_word += line_buffer[i];
       }
 
-      std::cout << last_word << "\n";
-
       std::vector<std::string *> matching_args;
-      expandWildcards("", last_word, matching_args);
+      // expandWildcards("", last_word, matching_args);
 
-      // matching_args.clear(); // Clear memory used in vector
-      // matching_args.shrink_to_fit();
+      matching_args.clear(); // Clear memory used in vector
+      matching_args.shrink_to_fit();
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
       // Add line to history vector
