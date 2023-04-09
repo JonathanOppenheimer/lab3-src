@@ -172,6 +172,7 @@ char *read_line() {
           }
         }
 
+        std::cout << last_matching_index;
         // Print the remainder of the match
         for (int i = last_matching_index; i < match.length(); i++) {
           write(0, &match[i], 1);
