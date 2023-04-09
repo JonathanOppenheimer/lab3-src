@@ -179,9 +179,8 @@ char *read_line() {
         // Get the longest common prefix to autocomplete
         std::string lcp = longestCommonPrefix(matching_args);
 
-        std::cout << lcp << "\n";
-
-        if (lcp != "") { // We have some of an LCP to print
+        if (total_chars - first_char <
+            lcp.size()) { // We have some of an LCP to print
           // Print the remainder of the LCP
           for (int i = (total_chars - first_char); i < lcp.size(); i++) {
             insertChar(lcp[i]);                      // Insert single character
