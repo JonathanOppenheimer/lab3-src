@@ -6,8 +6,10 @@
  */
 
 #include <algorithm>
+#include <cstddef>
 #include <cstdio>
 
+#include <cstdlib>
 #include <iomanip>
 #include <iostream>
 #include <regex>
@@ -30,6 +32,7 @@ void delete_char(int);
 void insertChar(char);
 void moveCursorLeft(int);
 void moveCursorRight(int, int);
+void restorePreviousLine();
 void wipeLine(int, int);
 
 void getMatchingFiles(std::string, std::vector<std::string *> &matching_args);
@@ -199,6 +202,7 @@ char *read_line() {
                       << *matching_args.at(i);
           }
           std::cout << std::endl;
+          restorePreviousLine();
         }
       }
 
@@ -327,6 +331,23 @@ void moveCursorRight(int start, int end) {
   for (int i = start; i < end; i++) {
     write(1, &line_buffer[i], 1);
   }
+}
+
+/*
+ * Restores the line the user was on - myshell>line contents
+ */
+void restorePreviousLine() {
+  // Check if a custom prompt exists
+  char *custom_prompt = getenv("PROMPT");
+  if (custom_prompt != NULL) { // Print the custom one
+    write(1, custom_prompt, strlen(custom_prompt));
+  } else { // Print myshell>
+    char default_prompt[] = {'m', 'y', 's', 'h', 'e', 'l', 'l', '>'};
+    write(1, default_prompt, 8);
+  }
+
+  // Restore what was in the buffer
+  write(1, line_buffer, total_chars);
 }
 
 /*
