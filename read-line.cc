@@ -138,8 +138,6 @@ char *read_line() {
         }
       }
 
-      std::cout << last_space << "\n";
-
       // Build last word string
       std::string last_word = "";
       for (int i = last_space; i < total_chars; i++) {
@@ -151,8 +149,8 @@ char *read_line() {
       std::vector<std::string *> matching_args;
       expandWildcards("", last_word, matching_args);
 
-      matching_args.clear(); // Clear memory used in vector
-      matching_args.shrink_to_fit();
+      // matching_args.clear(); // Clear memory used in vector
+      // matching_args.shrink_to_fit();
     } else if (in_char == 10) { // <Enter> - return line
       line_pos = total_chars;
       // Add line to history vector
