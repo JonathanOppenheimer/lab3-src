@@ -19,6 +19,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "y.tab.cc"
 #include "y.tab.hh"
 
 #define MAX_BUFFER_LINE 2048
