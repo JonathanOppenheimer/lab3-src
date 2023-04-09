@@ -32,8 +32,8 @@ void moveCursorLeft(int);
 void moveCursorRight(int, int);
 void wipeLine(int, int);
 
-void expandWildcards(std::string, std::string,
-                     std::vector<std::string *> &matching_args);
+void getMatchingFiles(std::string, std::string,
+                      std::vector<std::string *> &matching_args);
 int isDirectory(const char *);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
@@ -306,8 +306,8 @@ void wipeLine(int start, int end) {
   }
 }
 
-void expandWildcards(std::string prefix, std::string suffix,
-                     std::vector<std::string *> &matching_args) {
+void getMatchingFiles(std::string prefix, std::string suffix,
+                      std::vector<std::string *> &matching_args) {
   /***************** Two end conditions *****************/
 
   // The first is that the suffix is empty - we were searching for files and
@@ -340,7 +340,7 @@ void expandWildcards(std::string prefix, std::string suffix,
   if (prefix.length() == 0) {
     prefix += suffix.substr(0, suffix.find('/') + 1);
     suffix.erase(0, suffix.find('/') + 1);
-    expandWildcards(prefix, suffix, matching_args);
+    getMatchingFiles(prefix, suffix, matching_args);
     return; // Do initial setup so we have have a prefix to open
   }
 
@@ -360,7 +360,7 @@ void expandWildcards(std::string prefix, std::string suffix,
         '/') { // Shift the / over one and try again - non-terminal /
       prefix += suffix.substr(0, 1);
       suffix.erase(0, 1);
-      expandWildcards(prefix, suffix, matching_args);
+      getMatchingFiles(prefix, suffix, matching_args);
       return;
     } else { // Make the current level everything to next /
       cur_level = suffix.substr(0, suffix.find('/'));
@@ -377,7 +377,7 @@ void expandWildcards(std::string prefix, std::string suffix,
 
   // Expansion is not necessary
   if (num_star + num_q == 0) {
-    expandWildcards(prefix + cur_level, suffix, matching_args);
+    getMatchingFiles(prefix + cur_level, suffix, matching_args);
     return;
   }
 
@@ -414,40 +414,10 @@ void expandWildcards(std::string prefix, std::string suffix,
   // Recursively call wildcard expansion, depending on conditions
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
-      bool include_start_period =
-          cur_level[0] == '.'; // Whether we include files that start with a .
-      bool start_period =
-          dp->d_name[0] == '.'; // Whether the file starst with a .
-      bool include_files =
-          suffix.length() == 0; // Whether we include files that are directories
-      bool is_directory = isDirectory(
-          (prefix + dp->d_name).c_str()); // Whether the file is a directory
-
-      if (include_start_period && start_period) {
-        if (!include_files && is_directory) {
-          expandWildcards(prefix + dp->d_name, suffix, matching_args);
-        } else if (include_files) {
-          expandWildcards(prefix + dp->d_name, suffix, matching_args);
-        }
-      } else {
-        if (!include_files && is_directory && !start_period) {
-          expandWildcards(prefix + dp->d_name, suffix, matching_args);
-        } else if (include_files && !start_period) {
-          expandWildcards(prefix + dp->d_name, suffix, matching_args);
-        }
-      }
+      getMatchingFiles(prefix + dp->d_name, suffix, matching_args);
     }
   }
 
   // Close the directory
   closedir(dir);
-}
-
-int isDirectory(const char *path) {
-  struct stat statbuf;
-  if (stat(path, &statbuf) != 0) {
-    return 0;
-  } else {
-    return S_ISDIR(statbuf.st_mode);
-  }
 }
