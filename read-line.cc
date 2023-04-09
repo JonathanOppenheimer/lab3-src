@@ -32,7 +32,7 @@ void moveCursorRight(int, int);
 void wipeLine(int, int);
 
 void getMatchingFiles(std::string, std::vector<std::string *> &matching_args);
-int isDirectory(const char *);
+std::string longestCommonPrefix(std::vector<std::string *> &strings);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
@@ -142,7 +142,7 @@ char *read_line() {
       // Get the last word in the buffer
       int first_char = 0;
       for (int i = total_chars - 1; i >= 0; i--) {
-        if ((line_buffer[i] == ' ') && (i != total_chars - 1)) {
+        if (line_buffer[i] == ' ') {
           first_char = i + 1;
           break;
         }
@@ -160,6 +160,10 @@ char *read_line() {
       std::vector<std::string *> matching_args;
       getMatchingFiles(wild_last_word, matching_args);
 
+      // Sort the vector with the matching results
+      std::sort(matching_args.begin(), matching_args.end(),
+                [](std::string *a, std::string *b) { return *a < *b; });
+
       // Check to see how many matches there were
       if (matching_args.size() == 1) { // Exact match
         std::string match = *matching_args.at(0);
@@ -170,10 +174,10 @@ char *read_line() {
           line_pos++;
           total_chars++;
         }
-
       } else if (matching_args.size() > 1) {
         for (int i = 0; i < matching_args.size(); i++) {
           std::cout << matching_args.at(i) << "\n";
+          std::cout << longestCommonPrefix(matching_args) << "\n";
         }
       }
 
@@ -365,4 +369,20 @@ void getMatchingFiles(std::string wild_last_word,
 
   // Close the directory
   closedir(dir);
+}
+
+std::string longestCommonPrefix(std::vector<std::string *> &strings) {
+  std::string prefix = "";
+  std::string a = *(strings[0]);
+  std::string b = *(strings[strings.size() - 1]);
+
+  for (int i = 0; i < a.size(); i++) {
+    if (a[i] == b[i]) {
+      prefix = prefix + a[i];
+    } else {
+      break;
+    }
+  }
+
+  return prefix;
 }
