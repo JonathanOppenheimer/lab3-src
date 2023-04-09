@@ -17,11 +17,9 @@ Features in the handout that work:
 
 - All Part 1
 - All Part 2 except process substitution
-- All Part 3 except path completion
 
 Features specified in the handout that do not work:
 - Process substitution
-- Path completion
 
 Extra features:
 
@@ -39,6 +37,10 @@ Extra features:
   - Support wildcards such as a*b**/
 3.4 Edit Mode:
   - More descriptive help message
+3.6 Path completion:
+  - All path completion implemented as per handout
+  - Handles expansion across directories
+  - Neatly formats output when printing; mimics normal bash with new input line and column printing
 3.7: Variable prompt:
   - Added PROMPT variable
   - Added ON_ERROR variable
