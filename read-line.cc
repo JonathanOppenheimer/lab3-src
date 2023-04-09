@@ -165,12 +165,11 @@ char *read_line() {
         // Find how much of the match is already printed
         std::string match = *matching_args.at(0);
         int last_matching_index = 0;
-        for (int i = last_matching_index; i < total_chars; i++) {
-          last_matching_index = i - last_matching_index;
-          std::cout << match[i - last_matching_index] << "  " << line_buffer[i]
-                    << "\n";
+        for (int i = last_space; i < total_chars; i++) {
+          last_matching_index = i - last_space;
+          std::cout << match[i - last_space] << "  " << line_buffer[i] << "\n";
           fflush(0);
-          if (match[i - last_matching_index] != line_buffer[i]) {
+          if (match[i - last_space] != line_buffer[i]) {
             break;
           }
         }
