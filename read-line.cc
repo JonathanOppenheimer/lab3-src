@@ -440,10 +440,10 @@ void getMatchingFiles(std::string wild_last_word,
   // Recursively call wildcard expansion, depending on conditions
   while ((dp = readdir(dir)) != NULL) {
     if (std::regex_match(dp->d_name, built_regex)) {
-      if (directory_path.length() > 2) {
-        matching_args.push_back(new std::string(directory_path + dp->d_name));
-      } else {
+      if (directory_path[0] == '.') { // Don't append directory for local
         matching_args.push_back(new std::string(dp->d_name));
+      } else {
+        matching_args.push_back(new std::string(directory_path + dp->d_name));
       }
     }
   }
