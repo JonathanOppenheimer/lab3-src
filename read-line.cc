@@ -195,7 +195,8 @@ char *read_line() {
           }
           std::cout << "\n";
           for (int i = 0; i < matching_args.size(); i++) { // Print out matches
-            std::cout << std::setw(field_width) << *matching_args.at(i);
+            std::cout << std::left << std::setw(field_width + 2)
+                      << *matching_args.at(i);
           }
           std::cout << std::endl;
         }
