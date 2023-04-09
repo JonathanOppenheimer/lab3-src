@@ -32,7 +32,6 @@ void moveCursorRight(int, int);
 void wipeLine(int, int);
 void expandWildcards(std::string, std::string,
                      std::vector<std::string *> &matching_args);
-int isDirectory(const char *);
 
 char line_buffer[MAX_BUFFER_LINE]; // Buffer where line is stored
 int line_pos;                      // Where in the buffer we are
