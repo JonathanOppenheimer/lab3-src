@@ -163,9 +163,7 @@ char *read_line() {
       // Check to see how many matches there were
       if (matching_args.size() == 1) { // Exact match
         std::string match = *matching_args.at(0);
-        std::cout << "\n" << match << " " << last_word << "\n";
         // Print the remainder of the match
-
         for (int i = (total_chars - first_char); i < match.size(); i++) {
           insertChar(match[i]);                    // Insert single character
           moveCursorRight(line_pos, line_pos + 1); // Move cursor right once
