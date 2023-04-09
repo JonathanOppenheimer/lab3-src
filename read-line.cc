@@ -159,8 +159,7 @@ char *read_line() {
       for (int i = first_char; i < total_chars; i++) {
         last_word += line_buffer[i];
       }
-      last_word.erase(0, last_word.find_last_of('/'));
-      std::cout << last_word << std::endl;
+      last_word.erase(0, last_word.find_last_of('/') + 1);
 
       // Make the wildcard expansion call
       std::string wild_last_word = last_word;
