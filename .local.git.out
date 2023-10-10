@@ -33229,3 +33229,25 @@ Your branch is up to date with 'origin/master'.
 M	.local.git.out
 D	shell
 Your branch is up to date with 'origin/master'.
+[master 33e77fc] \Total:                   70.0 of 70.0\
+ 2 files changed, 5 insertions(+)
+ delete mode 100644 shell
+M	.local.git.out
+D	command.o
+D	lex.yy.cc
+D	lex.yy.o
+D	read-line.o
+D	shell.o
+D	simpleCommand.o
+D	test-shell/err1
+D	test-shell/out
+D	test-shell/out2
+D	test-shell/sh-in
+D	test-shell/sh-out
+D	test-shell/shell-in
+D	test-shell/shell-out
+D	tty-raw-mode.o
+D	y.tab.cc
+D	y.tab.hh
+D	y.tab.o
+Your branch is up to date with 'origin/master'.
