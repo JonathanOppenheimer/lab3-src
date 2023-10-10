@@ -33224,3 +33224,8 @@ After doing this, you may fix the identity used for this commit with:
  delete mode 100644 y.tab.cc
  delete mode 100644 y.tab.hh
 Your branch is up to date with 'origin/master'.
+[master 792e3f9] \Total:                   70.0 of 70.0\
+ 1 file changed, 1 insertion(+)
+M	.local.git.out
+D	shell
+Your branch is up to date with 'origin/master'.
